@@ -13,8 +13,19 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            
+        // Password for both seeded accounts is "password".
+        User::factory()->create([
+            'first_name' => 'Admin',
+            'last_name' => 'User',
+            'user_type' => 'admin',
+            'email' => 'admin@example.com',
+        ]);
+
+        User::factory()->create([
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'user_type' => 'user',
+            'email' => 'test@example.com',
         ]);
     }
 }
