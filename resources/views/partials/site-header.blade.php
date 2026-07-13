@@ -22,14 +22,15 @@
             ? 'bg-wodi-cream/70 backdrop-blur-xl backdrop-saturate-150'
             : 'bg-transparent'">
 
-    <div class="mx-auto flex h-20 max-w-[1400px] items-center gap-8 px-5 lg:px-8">
+    {{-- h-14 (56px) matches Figma; h-20 was pushing every page's content down 24px --}}
+    <div class="mx-auto flex h-14 max-w-[1400px] items-center gap-8 px-5 lg:px-8">
         {{-- Logo --}}
         <a href="{{ route('home') }}" class="shrink-0">
-            <img src="/images/brand/logo.png" alt="{{ config('app.name') }}" class="h-11 w-auto">
+            <img src="/images/brand/logo.png" alt="{{ config('app.name') }}" class="h-9 w-auto">
         </a>
 
         {{-- Desktop nav --}}
-        <nav class="hidden flex-1 items-center gap-7 xl:flex">
+        <nav class="hidden flex-1 items-center gap-7 lg:flex">
             @foreach ($navItems as $item)
                 @php $isActive = isset($item['route']) && request()->routeIs($item['route']); @endphp
 
@@ -49,7 +50,7 @@
         </nav>
 
         {{-- Desktop CTAs --}}
-        <div class="ml-auto hidden shrink-0 items-center gap-3 xl:flex">
+        <div class="ml-auto hidden shrink-0 items-center gap-3 lg:flex">
             <a href="#admissions"
                class="rounded-full bg-wodi-pink px-4 py-2 text-[11px] font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                 Enroll Your Child Today
@@ -64,7 +65,7 @@
         {{-- Mobile toggle --}}
         <button type="button"
                 @click="open = !open"
-                class="ml-auto inline-flex items-center justify-center rounded-lg p-2 text-wodi-ink xl:hidden"
+                class="ml-auto inline-flex items-center justify-center rounded-lg p-2 text-wodi-ink lg:hidden"
                 aria-label="Toggle navigation">
             <x-lucide-menu x-show="!open" class="size-6" />
             <x-lucide-x x-show="open" x-cloak class="size-6" />
@@ -72,7 +73,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div x-show="open" x-cloak x-transition.opacity class="xl:hidden">
+    <div x-show="open" x-cloak x-transition.opacity class="lg:hidden">
         <nav class="mx-auto flex max-w-[1400px] flex-col gap-1 px-5 pb-5">
             @foreach ($navItems as $item)
                 <a href="{{ $item['url'] }}"

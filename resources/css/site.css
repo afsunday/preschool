@@ -6,11 +6,10 @@
 @import 'tailwindcss' source(none);
 
 /* Only scan the public Blade views (not the React admin). */
-@source '../views/home.blade.php';
-@source '../views/about.blade.php';
-@source '../views/admissions.blade.php';
-@source '../views/layouts';
-@source '../views/partials';
+/* Scan the whole Blade tree, not individual files — new pages are then picked
+   up automatically. (Naming files one-by-one meant a newly created page was
+   invisible to the dev server's watcher until it was restarted.) */
+@source '../views';
 
 @theme {
     /* Type */
@@ -24,7 +23,7 @@
     --color-wodi-cream: #fdf1f6;
     --color-wodi-blush: #fff4f8;
     --color-wodi-petal: #ffeaef;
-    --color-wodi-yellow: #ffc400;
+    --color-wodi-yellow: #ffcc00;
     --color-wodi-ink: #1a1a1a;
     --color-wodi-muted: #6b6b6b;
 
