@@ -1,0 +1,51 @@
+/* ---------------------------------------------------------------
+ | PUBLIC SITE stylesheet (WODI — Blade).
+ | Completely independent of the admin build (resources/css/app.css):
+ | its own tokens, its own content sources. Nothing is shared.
+ ---------------------------------------------------------------- */
+@import 'tailwindcss' source(none);
+
+/* Only scan the public Blade views (not the React admin). */
+@source '../views/home.blade.php';
+@source '../views/about.blade.php';
+@source '../views/layouts';
+@source '../views/partials';
+
+@theme {
+    /* Type */
+    --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+    /* WODI brand palette */
+    --color-wodi-pink: #ec1e79;
+    --color-wodi-pink-dark: #d1195f;
+    --color-wodi-maroon: #a10d45;
+    --color-wodi-rose: #c9134f;
+    --color-wodi-cream: #fdf1f6;
+    --color-wodi-blush: #fff4f8;
+    --color-wodi-petal: #ffeaef;
+    --color-wodi-yellow: #ffc400;
+    --color-wodi-ink: #1a1a1a;
+    --color-wodi-muted: #6b6b6b;
+
+    /* Resource card accents */
+    --color-wodi-teal: #16c79a;
+    --color-wodi-orange: #ff8a3d;
+    --color-wodi-purple: #6c5ce7;
+    --color-wodi-green: #22c55e;
+    --color-wodi-blue: #0d99ff;
+}
+
+/* Alpine: prevent flash of un-initialised elements */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Hide scrollbars on horizontal scroll rails */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}

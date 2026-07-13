@@ -9,11 +9,21 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
+            input: [
+                // Admin (Inertia + React)
+                'resources/css/app.css',
+                'resources/js/app.tsx',
+                // Public site (Blade + Alpine) — separate build
+                'resources/css/site.css',
+                'resources/js/site.js',
+            ],
             refresh: true,
             fonts: [
                 bunny('Instrument Sans', {
                     weights: [400, 500, 600],
+                }),
+                bunny('Poppins', {
+                    weights: [400, 500, 600, 700, 800],
                 }),
             ],
         }),

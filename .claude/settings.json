@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan *)",
+      "Bash(curl -s http://127.0.0.1:8131/)",
+      "Bash(pkill -f \"artisan serve --port=8131\")"
+    ]
+  }
+}
