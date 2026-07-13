@@ -26,7 +26,7 @@
 
                     {{-- Left --}}
                     <div class="max-w-[19rem]">
-                        <h1 class="text-3xl leading-tight font-extrabold text-wodi-ink lg:text-[34px]">
+                        <h1 class="font-heading text-3xl leading-tight font-extrabold text-wodi-ink lg:text-[34px]">
                             Ready to get Started? Enrolment is easy.
                         </h1>
 

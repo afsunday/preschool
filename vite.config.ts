@@ -25,6 +25,9 @@ export default defineConfig({
                 bunny('Poppins', {
                     weights: [400, 500, 600, 700, 800],
                 }),
+                bunny('Nunito', {
+                    weights: [400, 600, 700, 800, 900],
+                }),
             ],
         }),
         inertia(),

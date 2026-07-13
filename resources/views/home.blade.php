@@ -55,7 +55,7 @@
 
                 <div class="order-1 text-center lg:order-2"
                      :style="`transform: translate3d(0, ${shift(0.06)}px, 0)`">
-                    <h1 class="text-4xl leading-tight font-extrabold text-wodi-pink sm:text-5xl lg:text-[52px]">
+                    <h1 class="font-heading text-4xl leading-tight font-extrabold text-wodi-pink sm:text-5xl lg:text-[52px]">
                         Where little minds come alive
                     </h1>
 

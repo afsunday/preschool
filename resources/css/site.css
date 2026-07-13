@@ -12,8 +12,9 @@
 @source '../views';
 
 @theme {
-    /* Type */
+    /* Type — body is Poppins; hero titles are Nunito */
     --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Nunito', ui-sans-serif, system-ui, sans-serif;
 
     /* WODI brand palette */
     --color-wodi-pink: #ec1e79;
