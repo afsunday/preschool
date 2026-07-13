@@ -8,6 +8,7 @@
 /* Only scan the public Blade views (not the React admin). */
 @source '../views/home.blade.php';
 @source '../views/about.blade.php';
+@source '../views/admissions.blade.php';
 @source '../views/layouts';
 @source '../views/partials';
 

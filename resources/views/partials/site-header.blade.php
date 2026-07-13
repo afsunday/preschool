@@ -2,7 +2,7 @@
     $navItems = [
         ['label' => 'Home', 'url' => route('home'), 'route' => 'home'],
         ['label' => 'About us', 'url' => route('about'), 'route' => 'about'],
-        ['label' => 'Admissions', 'url' => route('home') . '#admissions'],
+        ['label' => 'Admissions', 'url' => route('admissions'), 'route' => 'admissions'],
         ['label' => 'Parents & Kids Resource', 'url' => route('home') . '#resources'],
         ['label' => 'Forms & Policies', 'url' => '#'],
         ['label' => 'Gallery', 'url' => route('about') . '#gallery'],

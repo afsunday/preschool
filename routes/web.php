@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Public site — Blade (server-rendered).
 Route::view('/', 'home')->name('home');
 Route::view('/about', 'about')->name('about');
+Route::view('/admissions', 'admissions')->name('admissions');
 
 // Admin — Inertia/React.
 
