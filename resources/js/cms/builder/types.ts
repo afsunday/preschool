@@ -56,6 +56,8 @@ export interface PageDoc {
         description?: string | null;
         ogMediaId?: number | null;
     };
+    headerScripts?: string | null;
+    footerScripts?: string | null;
     sections: SectionInstance[];
 }
 

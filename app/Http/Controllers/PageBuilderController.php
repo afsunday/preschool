@@ -303,6 +303,8 @@ class PageBuilderController extends Controller
                 'description' => $page->meta_description,
                 'ogMediaId' => $page->og_media_id,
             ],
+            'headerScripts' => $page->header_scripts,
+            'footerScripts' => $page->footer_scripts,
             'sections' => $this->sectionTree($all, null),
         ];
     }

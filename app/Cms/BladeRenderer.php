@@ -25,9 +25,10 @@ class BladeRenderer
         }
 
         // Blade::render caches compiled output by content hash, so repeated
-        // renders of the same block template are cheap.
+        // renders of the same block template are cheap. `$block` is the block's
+        // data (a SectionData over its stored settings).
         return Blade::render($section->template, [
-            's' => new SectionData($settings),
+            'block' => new SectionData($settings),
             'settings' => $settings,
         ]);
     }

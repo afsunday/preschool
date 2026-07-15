@@ -27,9 +27,9 @@
 ])
 
 @php
-    $left = $s->mediaUrl('left_image') ?? '/images/home/hero-girl.png';
-    $right = $s->mediaUrl('right_image') ?? '/images/home/hero-boy.png';
-    $stats = $s->get('stats', []);
+    $left = $block->mediaUrl('left_image') ?? '/images/home/hero-girl.png';
+    $right = $block->mediaUrl('right_image') ?? '/images/home/hero-boy.png';
+    $stats = $block->get('stats', []);
 @endphp
 
 <section
@@ -59,31 +59,31 @@
 
             <div class="order-1 text-center lg:order-2" :style="`transform: translate3d(0, ${shift(0.06)}px, 0)`">
                 <h1 class="font-heading text-4xl leading-tight font-extrabold text-wodi-pink sm:text-5xl lg:text-[52px]">
-                    {{ $s->get('title') }}
+                    {{ $block->get('title') }}
                 </h1>
 
-                @if ($s->get('subtitle'))
-                    <p class="mt-4 text-[15px] text-wodi-muted">{{ $s->get('subtitle') }}</p>
+                @if ($block->get('subtitle'))
+                    <p class="mt-4 text-[15px] text-wodi-muted">{{ $block->get('subtitle') }}</p>
                 @endif
 
                 <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-                    @if ($s->get('primary_label'))
-                        <a href="{{ $s->get('primary_url', '#') }}"
+                    @if ($block->get('primary_label'))
+                        <a href="{{ $block->get('primary_url', '#') }}"
                            class="rounded-full bg-wodi-pink px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-wodi-pink-dark">
-                            {{ $s->get('primary_label') }}
+                            {{ $block->get('primary_label') }}
                         </a>
                     @endif
-                    @if ($s->get('secondary_label'))
-                        <a href="{{ $s->get('secondary_url', '#') }}"
+                    @if ($block->get('secondary_label'))
+                        <a href="{{ $block->get('secondary_url', '#') }}"
                            class="rounded-full border border-wodi-pink px-7 py-3.5 text-sm font-medium text-wodi-pink transition-colors hover:bg-wodi-pink hover:text-white">
-                            {{ $s->get('secondary_label') }}
+                            {{ $block->get('secondary_label') }}
                         </a>
                     @endif
                 </div>
 
-                @if ($s->get('lead'))
+                @if ($block->get('lead'))
                     <p class="mx-auto mt-8 max-w-md text-[15px] leading-relaxed font-medium text-wodi-pink">
-                        {{ $s->get('lead') }}
+                        {{ $block->get('lead') }}
                     </p>
                 @endif
 
@@ -133,7 +133,7 @@
 ])
 
 @php
-    $features = $s->get('features', []);
+    $features = $block->get('features', []);
     $icon = fn ($k) => match ($k) {
         'boxes' => 'lucide-boxes', 'users' => 'lucide-users', 'megaphone' => 'lucide-megaphone',
         'shield' => 'lucide-shield', 'sparkles' => 'lucide-sparkles', 'heart' => 'lucide-heart',
@@ -144,8 +144,8 @@
 <section class="relative mx-auto max-w-[1400px] px-5 lg:px-8">
     <div class="grid gap-8 rounded-[28px] bg-wodi-maroon px-8 py-10 text-white lg:grid-cols-4 lg:items-center lg:gap-4 lg:px-12">
         <div class="lg:pr-8">
-            <h2 class="text-3xl font-extrabold lg:text-[32px]">{{ $s->get('lead_title') }}</h2>
-            <p class="mt-3 text-sm leading-relaxed text-white/80">{{ $s->get('lead_body') }}</p>
+            <h2 class="text-3xl font-extrabold lg:text-[32px]">{{ $block->get('lead_title') }}</h2>
+            <p class="mt-3 text-sm leading-relaxed text-white/80">{{ $block->get('lead_body') }}</p>
         </div>
 
         @foreach ($features as $i => $feature)
@@ -179,18 +179,18 @@
 ])
 
 @php
-    $image = $s->mediaUrl('image') ?? '/images/home/kids.png';
+    $image = $block->mediaUrl('image') ?? '/images/home/kids.png';
 @endphp
 
 <section class="mx-auto max-w-[1400px] px-5 py-16 lg:px-8 lg:py-20">
-    @if ($s->get('eyebrow'))
+    @if ($block->get('eyebrow'))
         <span class="inline-block rounded-full border border-wodi-pink/40 px-4 py-1 text-xs font-medium text-wodi-pink">
-            {{ $s->get('eyebrow') }}
+            {{ $block->get('eyebrow') }}
         </span>
     @endif
 
     <div class="prose mt-6 max-w-5xl text-2xl leading-relaxed font-medium lg:text-[30px] lg:leading-[1.45]">
-        {!! $s->get('body') !!}
+        {!! $block->get('body') !!}
     </div>
 
     <div class="mt-8 inline-flex items-center gap-3 rounded-full bg-white py-2 pr-5 pl-2 shadow-sm">
@@ -208,7 +208,7 @@
                 <x-lucide-plus class="size-4" />
             </span>
         </div>
-        <p class="text-xs leading-tight font-bold text-wodi-purple">{!! nl2br(e($s->get('trusted_label', "Trusted by\nthousands of users"))) !!}</p>
+        <p class="text-xs leading-tight font-bold text-wodi-purple">{!! nl2br(e($block->get('trusted_label', "Trusted by\nthousands of users"))) !!}</p>
     </div>
 
     <img src="{{ $image }}" alt="" class="mt-8 h-[220px] w-full rounded-3xl object-cover sm:h-[300px] lg:h-[380px]">
@@ -232,7 +232,7 @@
 ])
 
 @php
-    $cards = $s->get('cards', []);
+    $cards = $block->get('cards', []);
     $accent = fn ($k) => match ($k) {
         'teal' => 'bg-wodi-teal', 'yellow' => 'bg-wodi-yellow', 'orange' => 'bg-wodi-orange',
         'purple' => 'bg-wodi-purple', 'green' => 'bg-wodi-green', 'blue' => 'bg-wodi-blue',
@@ -243,8 +243,8 @@
 <section class="mx-auto max-w-[1400px] px-5 pb-20 lg:px-8">
     <div class="flex items-end justify-between gap-6">
         <div>
-            <h2 class="text-2xl font-bold lg:text-[28px]">{{ $s->get('heading') }}</h2>
-            <p class="mt-1 text-sm text-wodi-muted">{{ $s->get('subheading') }}</p>
+            <h2 class="text-2xl font-bold lg:text-[28px]">{{ $block->get('heading') }}</h2>
+            <p class="mt-1 text-sm text-wodi-muted">{{ $block->get('subheading') }}</p>
         </div>
         <div class="flex shrink-0 gap-2">
             <button type="button" aria-label="Previous" class="grid size-9 place-items-center rounded-full bg-wodi-pink text-white hover:bg-wodi-pink-dark">
@@ -288,8 +288,8 @@
 ])
 
 @php
-    $image = $s->mediaUrl('image') ?? '/images/home/kid-with-book.png';
-    $points = $s->get('points', []);
+    $image = $block->mediaUrl('image') ?? '/images/home/kid-with-book.png';
+    $points = $block->get('points', []);
 @endphp
 
 <section class="relative overflow-hidden bg-white py-16 lg:py-20">
@@ -300,7 +300,7 @@
 
     <div class="relative mx-auto grid max-w-[1100px] items-center gap-10 px-5 lg:grid-cols-2 lg:px-8">
         <div>
-            <h2 class="max-w-md text-3xl leading-snug font-extrabold lg:text-[34px]">{{ $s->get('heading') }}</h2>
+            <h2 class="max-w-md text-3xl leading-snug font-extrabold lg:text-[34px]">{{ $block->get('heading') }}</h2>
             <ul class="mt-8 space-y-5">
                 @foreach ($points as $point)
                     <li class="flex items-center gap-3">
@@ -341,7 +341,7 @@
 ])
 
 @php
-    $steps = $s->get('steps', []);
+    $steps = $block->get('steps', []);
     $icon = fn ($k) => match ($k) {
         'user' => 'lucide-user-round', 'edit' => 'lucide-square-pen', 'id' => 'lucide-id-card',
         'check' => 'lucide-check', 'star' => 'lucide-star', 'calendar' => 'lucide-calendar-days',
@@ -352,8 +352,8 @@
 
 <section class="bg-white py-16 lg:py-20">
     <div class="mx-auto max-w-[1400px] px-5 lg:px-8">
-        <h2 class="text-3xl font-bold lg:text-[38px]">{{ $s->get('heading') }}</h2>
-        <p class="mt-2 text-[15px] text-wodi-muted">{{ $s->get('subheading') }}</p>
+        <h2 class="text-3xl font-bold lg:text-[38px]">{{ $block->get('heading') }}</h2>
+        <p class="mt-2 text-[15px] text-wodi-muted">{{ $block->get('subheading') }}</p>
 
         <div class="mt-14 grid gap-12 lg:grid-cols-3 lg:gap-6">
             @foreach ($steps as $index => $step)
@@ -389,7 +389,7 @@
 ])
 
 @php
-    $image = $s->mediaUrl('image') ?? '/images/home/kids-smile.png';
+    $image = $block->mediaUrl('image') ?? '/images/home/kids-smile.png';
 @endphp
 
 <section class="py-16 lg:py-20">
@@ -397,8 +397,8 @@
         <div class="grid overflow-hidden rounded-[32px] md:grid-cols-2">
             <img src="{{ $image }}" alt="" class="h-64 w-full object-cover md:h-full">
             <div class="flex flex-col justify-center bg-wodi-pink px-8 py-10 text-white lg:px-12">
-                <h2 class="text-2xl leading-snug font-extrabold lg:text-[32px]">{{ $s->get('heading') }}</h2>
-                <p class="mt-5 text-sm leading-relaxed text-white/90">{{ $s->get('body') }}</p>
+                <h2 class="text-2xl leading-snug font-extrabold lg:text-[32px]">{{ $block->get('heading') }}</h2>
+                <p class="mt-5 text-sm leading-relaxed text-white/90">{{ $block->get('body') }}</p>
             </div>
         </div>
     </div>
@@ -421,15 +421,15 @@
 ])
 
 @php
-    $image = $s->mediaUrl('image') ?? '/images/home/testimonial-photo.png';
-    $avatar = $s->mediaUrl('avatar');
+    $image = $block->mediaUrl('image') ?? '/images/home/testimonial-photo.png';
+    $avatar = $block->mediaUrl('avatar');
 @endphp
 
 <section class="relative overflow-hidden bg-white py-16 lg:py-20">
     <img src="/images/patterns/grid.png" alt="" class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-50">
 
     <div class="relative mx-auto max-w-[1200px] px-5 lg:px-8">
-        <h2 class="text-center text-3xl font-bold lg:text-[34px]">{!! $s->get('heading') !!}</h2>
+        <h2 class="text-center text-3xl font-bold lg:text-[34px]">{!! $block->get('heading') !!}</h2>
 
         <div class="mt-12 flex items-center gap-6">
             <button type="button" aria-label="Previous testimonial" class="hidden size-10 shrink-0 place-items-center rounded-full border border-wodi-pink text-wodi-pink hover:bg-wodi-pink hover:text-white lg:grid">
@@ -439,7 +439,7 @@
             <figure class="grid flex-1 items-center gap-8 md:grid-cols-2">
                 <img src="{{ $image }}" alt="" class="h-[280px] w-full rounded-3xl object-cover">
                 <div>
-                    <blockquote class="text-lg leading-relaxed text-wodi-ink lg:text-xl">{{ $s->get('quote') }}</blockquote>
+                    <blockquote class="text-lg leading-relaxed text-wodi-ink lg:text-xl">{{ $block->get('quote') }}</blockquote>
                     <figcaption class="mt-7 flex items-center gap-3">
                         @if ($avatar)
                             <img src="{{ $avatar }}" alt="" class="size-11 rounded-full object-cover">
@@ -449,8 +449,8 @@
                             </span>
                         @endif
                         <div>
-                            <p class="font-bold">{{ $s->get('name') }}</p>
-                            <p class="text-sm text-wodi-muted">{{ $s->get('role') }}</p>
+                            <p class="font-bold">{{ $block->get('name') }}</p>
+                            <p class="text-sm text-wodi-muted">{{ $block->get('role') }}</p>
                         </div>
                     </figcaption>
                 </div>
@@ -493,11 +493,11 @@
 
 {{--
  | Hero section template. Presentational values (radius, spacing) live here, not
- | in the DB. `$s` is a SectionData: $s->get('field'), $s->mediaUrl('image').
+ | in the DB. `$block` is a SectionData: $block->get('field'), $block->mediaUrl('image').
  | The align choice maps through match() so Tailwind sees literal classes.
 --}}
 @php
-    $align = match ($s->get('align', 'center')) {
+    $align = match ($block->get('align', 'center')) {
         'left' => 'text-left items-start',
         default => 'text-center items-center',
     };
@@ -505,24 +505,24 @@
 
 <section class="bg-wodi-blush px-4 py-16 lg:py-24">
     <div class="mx-auto flex max-w-3xl flex-col gap-5 {{ $align }}">
-        @if ($s->get('eyebrow'))
+        @if ($block->get('eyebrow'))
             <p class="text-sm font-semibold tracking-wide text-wodi-pink uppercase">
-                {{ $s->get('eyebrow') }}
+                {{ $block->get('eyebrow') }}
             </p>
         @endif
 
         <h1 class="font-heading text-3xl font-extrabold text-wodi-ink lg:text-5xl">
-            {{ $s->get('title') }}
+            {{ $block->get('title') }}
         </h1>
 
-        @if ($s->get('body'))
+        @if ($block->get('body'))
             <div class="prose max-w-none text-wodi-muted">
-                {!! $s->get('body') !!}
+                {!! $block->get('body') !!}
             </div>
         @endif
 
-        @if ($s->mediaUrl('image'))
-            <img src="{{ $s->mediaUrl('image') }}" alt="{{ $s->mediaAlt('image') }}"
+        @if ($block->mediaUrl('image'))
+            <img src="{{ $block->mediaUrl('image') }}" alt="{{ $block->mediaAlt('image') }}"
                  class="mt-4 w-full rounded-[4px] object-cover">
         @endif
     </div>

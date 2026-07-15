@@ -1,11 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { Loader2 } from 'lucide-react';
+import { Layers, Loader2, Search } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { cn } from '../lib/cn';
 import { EditorTopbar } from './editor-topbar';
 import { FieldPanel } from './field-panel';
 import { Device, PreviewFrame, PreviewMessage } from './preview-frame';
 import { SectionTree } from './section-tree';
+import { SeoPanel } from './seo-panel';
 import { BuilderApi, PageDoc, SectionInstance } from './types';
+
+type Tab = 'design' | 'seo';
 
 let tempId = -1; // client ids for unsaved sections (server assigns real ones)
 
@@ -37,6 +41,7 @@ export function PageBuilder({
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [device, setDevice] = useState<Device>('desktop');
     const [frameReady, setFrameReady] = useState(false);
+    const [tab, setTab] = useState<Tab>('design');
 
     useEffect(() => {
         if (pageQuery.data) setDoc(pageQuery.data);
@@ -208,25 +213,59 @@ export function PageBuilder({
 
             <div className="flex min-h-0 flex-1">
                 <aside className="flex w-[320px] shrink-0 flex-col border-r border-black/10 bg-white">
-                    {selectedSection && selectedSchema ? (
-                        <FieldPanel
-                            section={selectedSection}
-                            schema={selectedSchema}
-                            onChange={changeField}
-                            onBack={deselect}
-                        />
-                    ) : (
-                        <SectionTree
-                            sections={doc.sections}
-                            schemas={schemaQuery.data ?? []}
-                            selectedId={selectedId}
-                            onSelect={selectSection}
-                            onAdd={addSection}
-                            onRemove={removeSection}
-                            onToggleVisible={toggleVisible}
-                            onReorder={reorder}
-                        />
-                    )}
+                    {/* Tabs */}
+                    <div className="flex shrink-0 border-b border-black/10">
+                        {(
+                            [
+                                ['design', 'Design', Layers],
+                                ['seo', 'SEO', Search],
+                            ] as [Tab, string, typeof Layers][]
+                        ).map(([id, label, Icon]) => (
+                            <button
+                                key={id}
+                                type="button"
+                                onClick={() => setTab(id)}
+                                className={cn(
+                                    'flex flex-1 items-center justify-center gap-1.5 border-b-2 py-2.5 text-sm font-medium transition',
+                                    tab === id
+                                        ? 'border-neutral-900 text-neutral-900'
+                                        : 'border-transparent text-neutral-400 hover:text-neutral-700',
+                                )}
+                            >
+                                <Icon className="size-4" />
+                                {label}
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="min-h-0 flex-1">
+                        {tab === 'seo' ? (
+                            <SeoPanel
+                                doc={doc}
+                                onChange={(patch) =>
+                                    setDoc({ ...doc, ...patch })
+                                }
+                            />
+                        ) : selectedSection && selectedSchema ? (
+                            <FieldPanel
+                                section={selectedSection}
+                                schema={selectedSchema}
+                                onChange={changeField}
+                                onBack={deselect}
+                            />
+                        ) : (
+                            <SectionTree
+                                sections={doc.sections}
+                                schemas={schemaQuery.data ?? []}
+                                selectedId={selectedId}
+                                onSelect={selectSection}
+                                onAdd={addSection}
+                                onRemove={removeSection}
+                                onToggleVisible={toggleVisible}
+                                onReorder={reorder}
+                            />
+                        )}
+                    </div>
                 </aside>
 
                 <PreviewFrame

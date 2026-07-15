@@ -17,8 +17,8 @@
 </head>
 <body @class(['cms-editing' => $editor])>
     <div id="cms-sections">
-        @foreach ($sections as $s)
-            <div data-section-id="{{ $s['id'] }}">{!! $s['html'] !!}</div>
+        @foreach ($sections as $section)
+            <div data-section-id="{{ $section['id'] }}">{!! $section['html'] !!}</div>
         @endforeach
     </div>
 
