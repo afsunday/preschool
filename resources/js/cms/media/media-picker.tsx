@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
-import { ImageOff, X } from 'lucide-react';
+import { ImageOff, Loader2, X } from 'lucide-react';
 import { cn } from '../lib/cn';
 import { MediaLibrary } from './media-library';
 import { MediaApi, MediaItem, MediaKind } from './types';
@@ -9,6 +9,11 @@ export interface MediaPickerProps {
     api: MediaApi;
     /** Currently selected item (controlled). */
     value?: MediaItem | null;
+    /** True when an id is set but the item is still resolving/unresolved — keeps
+     * the picker "filled" so the selection never looks removed. */
+    hasValue?: boolean;
+    /** Resolving the current item. */
+    loading?: boolean;
     /** Restrict the picker to a single kind (e.g. only images). */
     kind?: MediaKind;
     onChange: (item: MediaItem | null) => void;
@@ -24,12 +29,15 @@ export interface MediaPickerProps {
 export function MediaPicker({
     api,
     value = null,
+    hasValue = false,
+    loading = false,
     kind,
     onChange,
     onError,
     className,
 }: MediaPickerProps) {
     const [open, setOpen] = useState(false);
+    const filled = Boolean(value) || hasValue;
 
     return (
         <>

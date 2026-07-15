@@ -2,17 +2,11 @@
 
 namespace App\Cms;
 
-use RuntimeException;
-
 /**
- * Discovers block types by scanning the page views for inline definitions:
- *
- *   @block([ 'key' => 'hero', 'fields' => [...] ])
- *       <section> ... {{ $s->get('title') }} ... </section>
- *   @endblock
- *
- * Schema and template live together, in the page file itself — no sections
- * folder. A block defined in any scanned view is available everywhere.
+ * Discovers block types from the page JSON files. Each page file may declare a
+ * `blocks` map (the page's own block definitions: schema + view). The registry
+ * aggregates them into one lookup — so a block defined on any page is available
+ * to the editor and renderer. Pure JSON, no eval, no Blade parsing.
  */
 class SectionRegistry
 {
@@ -20,13 +14,11 @@ class SectionRegistry
     protected ?array $sections = null;
 
     /**
-     * Page views scanned for @block definitions.
-     *
      * @return array<int, string>
      */
     protected function files(): array
     {
-        return glob(resource_path('views').'/*.blade.php') ?: [];
+        return glob(resource_path('cms/pages').'/*.json') ?: [];
     }
 
     /**
@@ -41,25 +33,26 @@ class SectionRegistry
         $this->sections = [];
 
         foreach ($this->files() as $file) {
-            $content = (string) file_get_contents($file);
+            $doc = json_decode((string) file_get_contents($file), true);
+            $blocks = $doc['blocks'] ?? null;
 
-            if (! str_contains($content, '@block')) {
+            if (! is_array($blocks)) {
                 continue;
             }
 
-            foreach ($this->parse($content) as [$spec, $template]) {
-                if (empty($spec['key'])) {
-                    continue;
+            foreach ($blocks as $key => $def) {
+                if (isset($this->sections[$key]) || ! is_array($def)) {
+                    continue; // first definition wins
                 }
 
-                $this->sections[$spec['key']] = new SectionDefinition(
-                    key: $spec['key'],
-                    name: $spec['name'] ?? $spec['key'],
-                    group: $spec['group'] ?? 'Content',
-                    version: (int) ($spec['version'] ?? 1),
-                    acceptsChildren: (bool) ($spec['acceptsChildren'] ?? false),
-                    template: trim($template),
-                    fieldSpecs: $spec['fields'] ?? [],
+                $this->sections[$key] = new SectionDefinition(
+                    key: $key,
+                    name: $def['name'] ?? $key,
+                    group: $def['group'] ?? 'Content',
+                    version: (int) ($def['version'] ?? 1),
+                    acceptsChildren: (bool) ($def['acceptsChildren'] ?? false),
+                    view: $def['view'] ?? 'blocks.'.str_replace('_', '-', $key),
+                    fieldSpecs: $def['fields'] ?? [],
                 );
             }
         }
@@ -81,93 +74,5 @@ class SectionRegistry
             fn (SectionDefinition $s) => $s->schema(),
             $this->all(),
         ));
-    }
-
-    /**
-     * Extract every @block([...]) ... @endblock pair as [schema array, body].
-     *
-     * @return array<int, array{0: array<string, mixed>, 1: string}>
-     */
-    protected function parse(string $content): array
-    {
-        $blocks = [];
-        $offset = 0;
-
-        while (($at = strpos($content, '@block', $offset)) !== false) {
-            $open = strpos($content, '(', $at);
-            if ($open === false) {
-                break;
-            }
-
-            $close = $this->matchParen($content, $open);
-            if ($close === null) {
-                break;
-            }
-
-            $end = strpos($content, '@endblock', $close);
-            if ($end === false) {
-                break;
-            }
-
-            $spec = $this->evalArray(substr($content, $open + 1, $close - $open - 1));
-            $body = substr($content, $close + 1, $end - $close - 1);
-
-            if (is_array($spec)) {
-                $blocks[] = [$spec, $body];
-            }
-
-            $offset = $end + strlen('@endblock');
-        }
-
-        return $blocks;
-    }
-
-    /**
-     * Index of the paren matching the one at $open (ignoring quoted parens).
-     */
-    protected function matchParen(string $content, int $open): ?int
-    {
-        $depth = 0;
-        $len = strlen($content);
-        $quote = null;
-
-        for ($i = $open; $i < $len; $i++) {
-            $ch = $content[$i];
-
-            if ($quote !== null) {
-                if ($ch === $quote && $content[$i - 1] !== '\\') {
-                    $quote = null;
-                }
-
-                continue;
-            }
-
-            if ($ch === '"' || $ch === "'") {
-                $quote = $ch;
-            } elseif ($ch === '(') {
-                $depth++;
-            } elseif ($ch === ')') {
-                if (--$depth === 0) {
-                    return $i;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @return array<string, mixed>|null
-     */
-    protected function evalArray(string $expr): ?array
-    {
-        try {
-            /** @var mixed $result */
-            $result = eval("return {$expr};");
-        } catch (\Throwable $e) {
-            throw new RuntimeException('Bad @block schema: '.$e->getMessage());
-        }
-
-        return is_array($result) ? $result : null;
     }
 }

@@ -4,7 +4,15 @@ import { createHttpBuilderApi, PageBuilder } from '@/cms/builder';
 
 const builderApi = createHttpBuilderApi('/admin/builder');
 
-export default function PageEditor({ pageId }: { pageId: number }) {
+type PageRef = { id: number; title: string; slug: string };
+
+export default function PageEditor({
+    pageId,
+    pages,
+}: {
+    pageId: number;
+    pages: PageRef[];
+}) {
     return (
         <>
             <Head title="Edit page" />
@@ -12,7 +20,7 @@ export default function PageEditor({ pageId }: { pageId: number }) {
                 <PageBuilder
                     api={builderApi}
                     pageId={pageId}
-                    previewUrl={`/admin/builder/pages/${pageId}/preview?editor=1`}
+                    pages={pages}
                     onError={(m) => toast.error(m)}
                 />
             </div>

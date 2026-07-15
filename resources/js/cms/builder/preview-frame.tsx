@@ -1,3 +1,4 @@
+import { Loader2 } from 'lucide-react';
 import { RefObject, useEffect, useRef, useState } from 'react';
 
 export type Device = 'desktop' | 'tablet' | 'mobile';
@@ -17,13 +18,15 @@ export interface PreviewMessage {
 }
 
 export function PreviewFrame({
-    src,
+    html,
     device,
+    loading,
     iframeRef,
     onMessage,
 }: {
-    src: string;
+    html: string | null;
     device: Device;
+    loading: boolean;
     iframeRef: RefObject<HTMLIFrameElement | null>;
     onMessage: (msg: PreviewMessage) => void;
 }) {
@@ -49,28 +52,34 @@ export function PreviewFrame({
     }, [onMessage]);
 
     const deviceW = DEVICE_WIDTH[device];
-    const pad = device === 'desktop' ? 24 : 48;
-    const scale = Math.min(1, (stage.w - pad) / deviceW);
-    const frameH = scale > 0 ? (stage.h - pad) / scale : stage.h;
+    // No wrapper padding — the iframe fills top to bottom.
+    const scale = Math.min(1, stage.w / deviceW);
+    const frameH = scale > 0 ? stage.h / scale : stage.h;
 
     return (
         <div
             ref={stageRef}
-            className="flex flex-1 justify-center overflow-hidden bg-neutral-200/60 p-3"
+            className="relative flex flex-1 justify-center overflow-hidden bg-neutral-200/60"
             style={{
                 backgroundImage:
                     'radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px)',
                 backgroundSize: '16px 16px',
             }}
         >
-            {stage.w > 0 && (
+            {loading && (
+                <div className="pointer-events-none absolute top-3 right-3 z-10 flex items-center gap-1.5 rounded-full bg-white/90 px-2.5 py-1 text-xs text-neutral-500 shadow-sm">
+                    <Loader2 className="size-3.5 animate-spin" /> rendering
+                </div>
+            )}
+
+            {stage.w > 0 && html !== null && (
                 <div
-                    style={{ width: deviceW * scale, height: stage.h - pad }}
-                    className="shrink-0"
+                    style={{ width: deviceW * scale, height: stage.h }}
+                    className="shrink-0 bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.06)]"
                 >
                     <iframe
                         ref={iframeRef}
-                        src={src}
+                        srcDoc={html}
                         title="Page preview"
                         style={{
                             width: deviceW,
@@ -78,7 +87,7 @@ export function PreviewFrame({
                             transform: `scale(${scale})`,
                             transformOrigin: 'top left',
                         }}
-                        className="rounded-[6px] border-0 bg-white shadow-lg ring-1 ring-black/10"
+                        className="border-0 bg-white"
                     />
                 </div>
             )}

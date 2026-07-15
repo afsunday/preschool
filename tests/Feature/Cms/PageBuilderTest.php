@@ -88,13 +88,16 @@ test('re-saving replaces the section tree', function () {
     expect(PageSection::where('page_id', $page->id)->first()->settings['title'])->toBe('B');
 });
 
-test('render-section returns html for the preview', function () {
+test('renderPage returns the full page html from the current doc', function () {
+    $page = Page::factory()->create(['slug' => 'home']);
+
     $this->actingAs($this->admin)
-        ->postJson(route('builder.render'), [
-            'type' => 'hero',
-            'settings' => ['title' => 'Hello there', 'align' => 'center'],
+        ->postJson(route('builder.render', $page), [
+            'title' => 'Home',
+            'sections' => [
+                ['type' => 'home_hero', 'settings' => ['title' => 'Hello there']],
+            ],
         ])
         ->assertOk()
-        ->assertJsonFragment([])
         ->assertSee('Hello there', escape: false);
 });

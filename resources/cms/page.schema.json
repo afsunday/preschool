@@ -24,6 +24,22 @@
         "sections": {
             "type": "array",
             "items": { "$ref": "#/definitions/block" }
+        },
+        "blocks": {
+            "type": "object",
+            "description": "This page's own block definitions (schema + view), keyed by block type.",
+            "additionalProperties": {
+                "type": "object",
+                "required": ["fields"],
+                "properties": {
+                    "name": { "type": "string" },
+                    "group": { "type": "string" },
+                    "version": { "type": "integer" },
+                    "view": { "type": "string" },
+                    "acceptsChildren": { "type": "boolean" },
+                    "fields": { "type": "array" }
+                }
+            }
         }
     },
     "definitions": {

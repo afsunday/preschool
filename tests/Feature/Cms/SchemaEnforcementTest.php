@@ -1,6 +1,5 @@
 <?php
 
-use App\Cms\PageRenderer;
 use App\Cms\SectionRegistry;
 use App\Models\Page;
 use App\Models\PageSection;
@@ -37,40 +36,15 @@ test('saving enforces the schema: unknown keys dropped, values coerced', functio
         ->toBe(app(SectionRegistry::class)->find('hero')->version); // version stamped
 });
 
-test('the rendered collection is addressable by handle and type', function () {
+test('cms:sections:check reports blocks behind their schema version', function () {
     $page = Page::factory()->create();
-    $page->allSections()->create([
-        'type' => 'hero',
-        'name' => 'top',
-        'position' => 0,
-        'is_visible' => true,
-        'settings' => ['title' => 'Addressable'],
-        'schema_version' => 1,
-    ]);
-
-    $sections = app(PageRenderer::class)->render($page);
-
-    expect($sections)->toHaveCount(1);
-    expect($sections->section('top'))->not->toBeNull();     // by name
-    expect($sections->section('hero'))->not->toBeNull();    // by type
-    expect($sections->section('top')->html)->toContain('Addressable');
-    expect($sections->section('nope'))->toBeNull();
-});
-
-test('an out-of-date block is migrated at render time', function () {
-    $page = Page::factory()->create();
-    // Stored under a future-behind version; migrate() runs since current is >= 1.
     $page->allSections()->create([
         'type' => 'hero',
         'position' => 0,
         'is_visible' => true,
         'settings' => ['title' => 'Old'],
-        'schema_version' => 0,
+        'schema_version' => 0, // behind current (1)
     ]);
-
-    // Renders without error and reports as drift.
-    expect(app(PageRenderer::class)->render($page)->section('hero')->html)
-        ->toContain('Old');
 
     $this->artisan('cms:sections:check')
         ->expectsOutputToContain('behind their current schema')

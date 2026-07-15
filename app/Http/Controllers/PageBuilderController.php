@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Cms\BladeRenderer;
+use App\Cms\Block;
 use App\Cms\Fields\Media as MediaField;
 use App\Cms\SectionRegistry;
 use App\Models\Page;
 use App\Models\PageSection;
+use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -18,7 +19,6 @@ class PageBuilderController extends Controller
 {
     public function __construct(
         protected SectionRegistry $registry,
-        protected BladeRenderer $renderer,
     ) {}
 
     /**
@@ -95,7 +95,16 @@ class PageBuilderController extends Controller
      */
     public function edit(Page $page): Response
     {
-        return Inertia::render('cms/page-editor', ['pageId' => $page->id]);
+        return Inertia::render('cms/page-editor', [
+            'pageId' => $page->id,
+            'pages' => Page::orderBy('title')
+                ->get(['id', 'title', 'slug'])
+                ->map(fn (Page $p) => [
+                    'id' => $p->id,
+                    'title' => $p->title,
+                    'slug' => $p->slug,
+                ]),
+        ]);
     }
 
     protected function uniqueSlug(string $title): string
@@ -173,41 +182,52 @@ class PageBuilderController extends Controller
     }
 
     /**
-     * The page rendered with site.css, loaded into the editor's iframe. In
-     * editor mode each section is wrapped for selection and a postMessage bridge
-     * lets the editor swap/insert/remove/reorder nodes without a reload.
+     * The saved page, rendered through its own Blade view in editor mode (blocks
+     * wrapped for selection + a bridge script). Loaded into the editor iframe.
      */
-    public function preview(Request $request, Page $page): \Illuminate\Contracts\View\View
+    public function preview(Page $page): ViewContract
     {
-        $sections = $page->allSections()->get()
+        $blocks = $page->allSections()->get()
             ->whereNull('parent_id')
             ->sortBy('position')
-            ->map(fn (PageSection $s) => [
-                'id' => $s->id,
-                'html' => $this->renderer->render($s->type, $s->settings ?? []),
-            ])
+            ->map(fn (PageSection $s) => new Block($s->id, $s->type, $s->name, $s->settings ?? []))
             ->values();
 
-        return view('cms.preview', [
-            'page' => $page,
-            'sections' => $sections,
-            'editor' => $request->boolean('editor'),
-        ]);
+        return view($page->slug, ['page' => $page, 'blocks' => $blocks, 'editor' => true]);
     }
 
     /**
-     * Render one section to HTML for the live preview.
+     * Render the whole page from the editor's current (unsaved) doc → HTML for
+     * the live preview. Whole-page render; no per-block swapping.
      */
-    public function renderSection(Request $request): JsonResponse
+    public function renderPage(Request $request, Page $page): JsonResponse
     {
-        $data = $request->validate([
-            'type' => ['required', 'string'],
-            'settings' => ['array'],
+        // Reflect unsaved page-level fields for fidelity (in memory, not saved).
+        $page->fill([
+            'title' => $request->input('title', $page->title),
+            'meta_title' => $request->input('meta.title'),
+            'meta_description' => $request->input('meta.description'),
+            'header_scripts' => $request->input('headerScripts'),
+            'footer_scripts' => $request->input('footerScripts'),
         ]);
 
-        return response()->json([
-            'html' => $this->renderer->render($data['type'], $data['settings'] ?? []),
-        ]);
+        $blocks = Collection::make($request->input('sections', []))
+            ->map(function (array $s): ?Block {
+                $type = $s['type'] ?? '';
+                $def = $this->registry->find($type);
+                if ($def === null) {
+                    return null;
+                }
+                $settings = $def->validate((array) ($s['settings'] ?? []));
+
+                return new Block((int) ($s['id'] ?? 0), $type, $s['name'] ?? null, $settings);
+            })
+            ->filter()
+            ->values();
+
+        $html = view($page->slug, ['page' => $page, 'blocks' => $blocks, 'editor' => true])->render();
+
+        return response()->json(['html' => $html]);
     }
 
     /**

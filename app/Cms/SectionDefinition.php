@@ -22,7 +22,7 @@ class SectionDefinition
         public readonly string $group,
         public readonly int $version,
         public readonly bool $acceptsChildren,
-        public readonly string $template,
+        public readonly string $view,
         protected array $fieldSpecs,
     ) {}
 

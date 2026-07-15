@@ -37,11 +37,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Page builder JSON API (consumed by the React editor).
         Route::prefix('admin/builder')->name('builder.')->group(function () {
             Route::get('schema', [PageBuilderController::class, 'schema'])->name('schema');
-            Route::post('render-section', [PageBuilderController::class, 'renderSection'])->name('render');
             Route::get('options/{source}', [PageBuilderController::class, 'options'])->name('options');
             Route::get('pages/{page}', [PageBuilderController::class, 'show'])->name('show');
             Route::put('pages/{page}', [PageBuilderController::class, 'save'])->name('save');
             Route::get('pages/{page}/preview', [PageBuilderController::class, 'preview'])->name('preview');
+            Route::post('pages/{page}/render', [PageBuilderController::class, 'renderPage'])->name('render');
         });
 
         // Pages list + editor (Inertia).

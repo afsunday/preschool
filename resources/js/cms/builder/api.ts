@@ -47,15 +47,19 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
             return (await json(r)).data;
         },
 
-        async renderSection(
-            type: string,
-            settings: Record<string, unknown>,
-        ): Promise<string> {
-            const r = await fetch(`${base}/render-section`, {
+        async renderPage(id: number, doc: PageDoc): Promise<string> {
+            const r = await fetch(`${base}/pages/${id}/render`, {
                 method: 'POST',
                 headers: jsonHeaders(),
                 credentials: 'same-origin',
-                body: JSON.stringify({ type, settings }),
+                body: JSON.stringify({
+                    title: doc.title,
+                    status: doc.status,
+                    meta: doc.meta,
+                    headerScripts: doc.headerScripts,
+                    footerScripts: doc.footerScripts,
+                    sections: doc.sections,
+                }),
             });
             return (await json(r)).html;
         },

@@ -5,15 +5,21 @@ namespace App\Cms;
 use App\Models\Media;
 
 /**
- * Read-only view over a section's stored settings, handed to the Blade view.
- * Resolves media ids to URLs so templates never touch the DB directly.
+ * One block on a page, handed to the page view. Carries its identity (id, type,
+ * name) plus read helpers over its stored settings. The page view loops these
+ * and renders each block's markup inline (@switch on ->type).
  */
-class SectionData
+class Block
 {
     /**
      * @param  array<string, mixed>  $settings
      */
-    public function __construct(public readonly array $settings) {}
+    public function __construct(
+        public readonly int $id,
+        public readonly string $type,
+        public readonly ?string $name,
+        public readonly array $settings,
+    ) {}
 
     public function get(string $key, mixed $default = null): mixed
     {

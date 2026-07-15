@@ -19,8 +19,14 @@
                 "secondary_label": "Discover Our Programs",
                 "secondary_url": "#resources",
                 "stats": [
-                    { "value": "7.5K+", "label": "Total active students taking gifted courses" },
-                    { "value": "50+", "label": "Available field programs and increasing" }
+                    {
+                        "value": "7.5K+",
+                        "label": "Total active students taking gifted courses"
+                    },
+                    {
+                        "value": "50+",
+                        "label": "Available field programs and increasing"
+                    }
                 ]
             }
         },
@@ -31,9 +37,21 @@
                 "lead_title": "Safe & Regulated",
                 "lead_body": "Fully compliant with all government standards for early childhood care",
                 "features": [
-                    { "icon": "boxes", "title": "Built to Develop", "body": "Play-based curriculum aligned to developmental milestones" },
-                    { "icon": "users", "title": "Partner to Parents", "body": "Regular updates and real involvement in your child's journey" },
-                    { "icon": "megaphone", "title": "Government Approved", "body": "Recognised and licensed by the relevant authorities" }
+                    {
+                        "icon": "boxes",
+                        "title": "Built to Develop",
+                        "body": "Play-based curriculum aligned to developmental milestones"
+                    },
+                    {
+                        "icon": "users",
+                        "title": "Partner to Parents",
+                        "body": "Regular updates and real involvement in your child's journey"
+                    },
+                    {
+                        "icon": "megaphone",
+                        "title": "Government Approved",
+                        "body": "Recognised and licensed by the relevant authorities"
+                    }
                 ]
             }
         },
@@ -53,11 +71,26 @@
                 "heading": "Our resources",
                 "subheading": "We develop their confidence to make them sharper",
                 "cards": [
-                    { "accent": "teal", "label": "download" },
-                    { "accent": "yellow", "label": "download" },
-                    { "accent": "orange", "label": "download" },
-                    { "accent": "purple", "label": "download" },
-                    { "accent": "green", "label": "download" }
+                    {
+                        "accent": "teal",
+                        "label": "download"
+                    },
+                    {
+                        "accent": "yellow",
+                        "label": "download"
+                    },
+                    {
+                        "accent": "orange",
+                        "label": "download"
+                    },
+                    {
+                        "accent": "purple",
+                        "label": "download"
+                    },
+                    {
+                        "accent": "green",
+                        "label": "download"
+                    }
                 ]
             }
         },
@@ -67,9 +100,15 @@
             "settings": {
                 "heading": "Traditional in-person classroom encouraging students",
                 "points": [
-                    { "text": "Focus for longer periods of time" },
-                    { "text": "Engage with their peers" },
-                    { "text": "Understanding of complicated concepts" }
+                    {
+                        "text": "Focus for longer periods of time"
+                    },
+                    {
+                        "text": "Engage with their peers"
+                    },
+                    {
+                        "text": "Understanding of complicated concepts"
+                    }
                 ]
             }
         },
@@ -80,9 +119,21 @@
                 "heading": "Admissions & Enrolment",
                 "subheading": "Reduce drop-off at the redirect. Prepare the user before they leave the site.",
                 "steps": [
-                    { "icon": "user", "title": "Register on One List", "body": "Potter ipsum wand elf parchment wingardium. Years mcgonagall bonnet locomotor blood basilisk wheels floating." },
-                    { "icon": "edit", "title": "Select WODI Daycare", "body": "Potter ipsum wand elf parchment wingardium. Fire-whisky ginny back stairs crimson. Elder for mr harry suck fairy." },
-                    { "icon": "id", "title": "Get a Spot", "body": "Potter ipsum wand elf parchment wingardium. Knew crimson his map dress crush owl find. His cannot treats phials got nick." }
+                    {
+                        "icon": "user",
+                        "title": "Register on One List",
+                        "body": "Potter ipsum wand elf parchment wingardium. Years mcgonagall bonnet locomotor blood basilisk wheels floating."
+                    },
+                    {
+                        "icon": "edit",
+                        "title": "Select WODI Daycare",
+                        "body": "Potter ipsum wand elf parchment wingardium. Fire-whisky ginny back stairs crimson. Elder for mr harry suck fairy."
+                    },
+                    {
+                        "icon": "id",
+                        "title": "Get a Spot",
+                        "body": "Potter ipsum wand elf parchment wingardium. Knew crimson his map dress crush owl find. His cannot treats phials got nick."
+                    }
                 ]
             }
         },
@@ -109,5 +160,466 @@
             "name": "newsletter",
             "settings": {}
         }
-    ]
+    ],
+    "blocks": {
+        "home_hero": {
+            "name": "Home Hero",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.home-hero",
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "subtitle",
+                    "type": "text",
+                    "label": "Subtitle"
+                },
+                {
+                    "id": "lead",
+                    "type": "textarea",
+                    "label": "Lead"
+                },
+                {
+                    "id": "primary_label",
+                    "type": "text",
+                    "label": "Primary Label"
+                },
+                {
+                    "id": "primary_url",
+                    "type": "url",
+                    "label": "Primary Url"
+                },
+                {
+                    "id": "secondary_label",
+                    "type": "text",
+                    "label": "Secondary Label"
+                },
+                {
+                    "id": "secondary_url",
+                    "type": "url",
+                    "label": "Secondary Url"
+                },
+                {
+                    "id": "left_image",
+                    "type": "media",
+                    "label": "Left Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "right_image",
+                    "type": "media",
+                    "label": "Right Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "stats",
+                    "type": "repeater",
+                    "label": "Stats",
+                    "fields": [
+                        {
+                            "id": "value",
+                            "type": "text",
+                            "label": "Value"
+                        },
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        }
+                    ]
+                }
+            ]
+        },
+        "feature_bar": {
+            "name": "Feature Bar",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.feature-bar",
+            "fields": [
+                {
+                    "id": "lead_title",
+                    "type": "text",
+                    "label": "Lead Title"
+                },
+                {
+                    "id": "lead_body",
+                    "type": "textarea",
+                    "label": "Lead Body"
+                },
+                {
+                    "id": "features",
+                    "type": "repeater",
+                    "label": "Features",
+                    "fields": [
+                        {
+                            "id": "icon",
+                            "type": "select",
+                            "label": "Icon",
+                            "options": [
+                                {
+                                    "value": "boxes",
+                                    "label": "Boxes"
+                                },
+                                {
+                                    "value": "users",
+                                    "label": "Users"
+                                },
+                                {
+                                    "value": "megaphone",
+                                    "label": "Megaphone"
+                                },
+                                {
+                                    "value": "shield",
+                                    "label": "Shield"
+                                },
+                                {
+                                    "value": "sparkles",
+                                    "label": "Sparkles"
+                                },
+                                {
+                                    "value": "heart",
+                                    "label": "Heart"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        }
+                    ]
+                }
+            ]
+        },
+        "about_intro": {
+            "name": "About Intro",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.about-intro",
+            "fields": [
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "body",
+                    "type": "richtext",
+                    "label": "Body"
+                },
+                {
+                    "id": "trusted_label",
+                    "type": "text",
+                    "label": "Trusted Label"
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                }
+            ]
+        },
+        "resource_cards": {
+            "name": "Resource Cards",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.resource-cards",
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "subheading",
+                    "type": "text",
+                    "label": "Subheading"
+                },
+                {
+                    "id": "cards",
+                    "type": "repeater",
+                    "label": "Cards",
+                    "fields": [
+                        {
+                            "id": "accent",
+                            "type": "select",
+                            "label": "Accent",
+                            "options": [
+                                {
+                                    "value": "teal",
+                                    "label": "Teal"
+                                },
+                                {
+                                    "value": "yellow",
+                                    "label": "Yellow"
+                                },
+                                {
+                                    "value": "orange",
+                                    "label": "Orange"
+                                },
+                                {
+                                    "value": "purple",
+                                    "label": "Purple"
+                                },
+                                {
+                                    "value": "green",
+                                    "label": "Green"
+                                },
+                                {
+                                    "value": "blue",
+                                    "label": "Blue"
+                                },
+                                {
+                                    "value": "pink",
+                                    "label": "Pink"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        }
+                    ]
+                }
+            ]
+        },
+        "classroom_split": {
+            "name": "Classroom Split",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.classroom-split",
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "points",
+                    "type": "repeater",
+                    "label": "Points",
+                    "fields": [
+                        {
+                            "id": "text",
+                            "type": "text",
+                            "label": "Text"
+                        }
+                    ]
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                }
+            ]
+        },
+        "steps": {
+            "name": "Steps / Process",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.steps",
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "subheading",
+                    "type": "text",
+                    "label": "Subheading"
+                },
+                {
+                    "id": "steps",
+                    "type": "repeater",
+                    "label": "Steps",
+                    "fields": [
+                        {
+                            "id": "icon",
+                            "type": "select",
+                            "label": "Icon",
+                            "options": [
+                                {
+                                    "value": "user",
+                                    "label": "User"
+                                },
+                                {
+                                    "value": "edit",
+                                    "label": "Edit"
+                                },
+                                {
+                                    "value": "id",
+                                    "label": "ID card"
+                                },
+                                {
+                                    "value": "check",
+                                    "label": "Check"
+                                },
+                                {
+                                    "value": "star",
+                                    "label": "Star"
+                                },
+                                {
+                                    "value": "calendar",
+                                    "label": "Calendar"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        }
+                    ]
+                }
+            ]
+        },
+        "banner_split": {
+            "name": "Banner Split",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.banner-split",
+            "fields": [
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "body",
+                    "type": "textarea",
+                    "label": "Body"
+                }
+            ]
+        },
+        "testimonials": {
+            "name": "Testimonials",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.testimonials",
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "quote",
+                    "type": "textarea",
+                    "label": "Quote"
+                },
+                {
+                    "id": "avatar",
+                    "type": "media",
+                    "label": "Avatar",
+                    "kind": "image"
+                },
+                {
+                    "id": "name",
+                    "type": "text",
+                    "label": "Name"
+                },
+                {
+                    "id": "role",
+                    "type": "text",
+                    "label": "Role"
+                }
+            ]
+        },
+        "newsletter": {
+            "name": "Newsletter",
+            "group": "Home",
+            "version": 1,
+            "view": "blocks.newsletter",
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                }
+            ]
+        },
+        "hero": {
+            "name": "Hero",
+            "group": "Headers",
+            "version": 1,
+            "view": "blocks.hero",
+            "fields": [
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "body",
+                    "type": "richtext",
+                    "label": "Body"
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "align",
+                    "type": "select",
+                    "label": "Align",
+                    "default": "center",
+                    "options": [
+                        {
+                            "value": "left",
+                            "label": "Left"
+                        },
+                        {
+                            "value": "center",
+                            "label": "Center"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 }

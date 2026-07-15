@@ -65,9 +65,7 @@ export interface BuilderApi {
     schema(): Promise<SectionSchema[]>;
     getPage(id: number): Promise<PageDoc>;
     savePage(id: number, doc: PageDoc): Promise<PageDoc>;
-    renderSection(
-        type: string,
-        settings: Record<string, unknown>,
-    ): Promise<string>;
+    /** Render the whole page from the current (unsaved) doc → full HTML. */
+    renderPage(id: number, doc: PageDoc): Promise<string>;
     options(source: string): Promise<{ value: string; label: string }[]>;
 }

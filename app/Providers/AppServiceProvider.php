@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\User;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -28,13 +27,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->configureDefaults();
         $this->configureAuthorization();
-
-        // Block definitions live inline in page views:
-        //   @block([...schema...]) <template> @endblock
-        // The registry parses these from the raw file; if a definition file is
-        // ever rendered directly, the bodies are skipped.
-        Blade::directive('block', fn () => '<?php if (false): ?>');
-        Blade::directive('endblock', fn () => '<?php endif; ?>');
     }
 
     /**

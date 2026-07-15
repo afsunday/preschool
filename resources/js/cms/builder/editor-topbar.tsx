@@ -1,142 +1,155 @@
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
-    ArrowLeft,
-    ExternalLink,
-    Loader2,
-    LogOut,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+    Popover,
+    PopoverButton,
+    PopoverPanel,
+} from '@headlessui/react';
+import {
+    ChevronDown,
+    Eye,
+    FileText,
+    Grip,
     Monitor,
-    MoreHorizontal,
     Smartphone,
     Tablet,
 } from 'lucide-react';
 import { cn } from '../lib/cn';
 import { Device } from './preview-frame';
 
-const DEVICES: [Device, typeof Monitor][] = [
-    ['desktop', Monitor],
-    ['tablet', Tablet],
-    ['mobile', Smartphone],
+type PageRef = { id: number; title: string; slug: string };
+
+const DEVICES: [Device, typeof Monitor, string][] = [
+    ['desktop', Monitor, 'Desktop'],
+    ['tablet', Tablet, 'Tablet'],
+    ['mobile', Smartphone, 'Mobile'],
 ];
 
+/**
+ * The editor's black header — top of the sidebar. Navigation + viewport only;
+ * Save/status live in the footer.
+ */
 export function EditorTopbar({
     title,
     onTitle,
-    status,
-    onToggleStatus,
+    pages,
+    currentId,
     device,
     onDevice,
-    onSave,
-    saving,
     previewHref,
     pagesHref,
 }: {
     title: string;
     onTitle: (v: string) => void;
-    status: 'draft' | 'published';
-    onToggleStatus: () => void;
+    pages: PageRef[];
+    currentId: number;
     device: Device;
     onDevice: (d: Device) => void;
-    onSave: () => void;
-    saving: boolean;
     previewHref: string;
     pagesHref: string;
 }) {
+    const CurrentDevice =
+        DEVICES.find(([d]) => d === device)?.[1] ?? Monitor;
+
     return (
-        <div className="flex h-12 items-center gap-3 bg-[#23262b] px-3 text-neutral-200">
-            {/* Left: back + title */}
+        <div className="flex items-center gap-1 bg-[#1e1e1e] px-2 py-2 text-neutral-300">
             <a
                 href={pagesHref}
-                className="grid size-8 shrink-0 place-items-center rounded-[6px] text-neutral-400 transition hover:bg-white/10 hover:text-white"
-                title="Back to pages"
+                title="All pages"
+                className="grid size-8 shrink-0 place-items-center rounded-[4px] text-neutral-400 transition hover:bg-white/10 hover:text-white"
             >
-                <ArrowLeft className="size-4" />
+                <Grip className="size-[18px]" />
             </a>
-            <input
-                value={title}
-                onChange={(e) => onTitle(e.target.value)}
-                className="min-w-0 max-w-[220px] flex-1 truncate rounded-[6px] border border-transparent bg-transparent px-2 py-1 text-sm font-semibold text-white outline-none transition hover:border-white/15 focus:border-white/30"
-            />
-            <span
-                className={cn(
-                    'shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium',
-                    status === 'published'
-                        ? 'bg-green-500/15 text-green-400'
-                        : 'bg-white/10 text-neutral-400',
-                )}
-            >
-                {status}
-            </span>
 
-            {/* Center: device control */}
-            <div className="mx-auto flex items-center gap-0.5 rounded-[8px] bg-white/5 p-0.5">
-                {DEVICES.map(([d, Icon]) => (
-                    <button
-                        key={d}
-                        type="button"
-                        onClick={() => onDevice(d)}
-                        className={cn(
-                            'rounded-[6px] p-1.5 transition',
-                            device === d
-                                ? 'bg-white/15 text-white'
-                                : 'text-neutral-500 hover:text-neutral-200',
-                        )}
+            <Popover className="relative w-36 shrink-0">
+                    <PopoverButton className="flex w-full items-center gap-1.5 rounded-[4px] bg-white/10 px-2 py-1.5 text-sm font-medium text-white transition outline-none hover:bg-white/20">
+                        <span className="min-w-0 flex-1 truncate text-left">
+                            {title || 'Untitled'}
+                        </span>
+                        <ChevronDown className="size-4 shrink-0 text-neutral-400" />
+                    </PopoverButton>
+                    <PopoverPanel
+                        anchor="bottom start"
+                        className="z-50 mt-1 w-64 rounded-[4px] border border-black/10 bg-white p-2 text-neutral-800 shadow-xl focus:outline-none"
                     >
-                        <Icon className="size-4" />
-                    </button>
-                ))}
-            </div>
+                        <label className="block px-1 text-[11px] font-medium text-neutral-500">
+                            Page title
+                        </label>
+                        <input
+                            value={title}
+                            onChange={(e) => onTitle(e.target.value)}
+                            className="mt-1 w-full rounded-[4px] border border-black/10 px-2 py-1.5 text-sm outline-none focus:border-neutral-400"
+                        />
+                        <div className="my-2 h-px bg-black/10" />
+                        <p className="px-1 pb-1 text-[11px] font-medium text-neutral-500">
+                            Switch page
+                        </p>
+                        <div className="max-h-56 overflow-y-auto">
+                            {pages.map((p) => (
+                                <a
+                                    key={p.id}
+                                    href={`/admin/pages/${p.id}/edit`}
+                                    className={cn(
+                                        'flex items-center gap-2 rounded-[4px] px-2 py-1.5 text-sm transition hover:bg-neutral-100',
+                                        p.id === currentId &&
+                                            'font-semibold text-neutral-900',
+                                    )}
+                                >
+                                    <FileText className="size-3.5 text-neutral-400" />
+                                    <span className="flex-1 truncate">
+                                        {p.title}
+                                    </span>
+                                    <span className="text-xs text-neutral-400">
+                                        /{p.slug}
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </PopoverPanel>
+                </Popover>
 
-            {/* Right: save + overflow */}
-            <button
-                type="button"
-                onClick={onSave}
-                disabled={saving}
-                className="inline-flex shrink-0 items-center gap-2 rounded-[6px] bg-white px-4 py-1.5 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-                {saving && <Loader2 className="size-4 animate-spin" />}
-                Save
-            </button>
-
-            <Menu as="div" className="relative shrink-0">
-                <MenuButton className="grid size-8 place-items-center rounded-[6px] text-neutral-400 transition hover:bg-white/10 hover:text-white">
-                    <MoreHorizontal className="size-4" />
+            {/* Device — single icon, dropdown to switch */}
+            <Menu as="div" className="relative ml-auto shrink-0">
+                <MenuButton
+                    title="Device"
+                    className="grid size-8 place-items-center rounded-[4px] bg-white/10 text-white transition outline-none hover:bg-white/20"
+                >
+                    <CurrentDevice className="size-[18px]" strokeWidth={1.75} />
                 </MenuButton>
                 <MenuItems
                     anchor="bottom end"
-                    className="z-50 mt-1 w-52 rounded-[6px] border border-black/10 bg-white py-1 text-sm text-neutral-800 shadow-lg focus:outline-none"
+                    className="z-50 mt-1 w-36 rounded-[4px] border border-black/10 bg-white py-1 text-sm text-neutral-800 shadow-lg focus:outline-none"
                 >
-                    <MenuItem>
-                        <button
-                            type="button"
-                            onClick={onToggleStatus}
-                            className="block w-full px-3 py-1.5 text-left data-focus:bg-neutral-100"
-                        >
-                            {status === 'published'
-                                ? 'Switch to draft'
-                                : 'Publish'}
-                        </button>
-                    </MenuItem>
-                    <MenuItem>
-                        <a
-                            href={previewHref}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-2 px-3 py-1.5 data-focus:bg-neutral-100"
-                        >
-                            <ExternalLink className="size-4" /> View page
-                        </a>
-                    </MenuItem>
-                    <div className="my-1 h-px bg-black/10" />
-                    <MenuItem>
-                        <a
-                            href={pagesHref}
-                            className="flex items-center gap-2 px-3 py-1.5 data-focus:bg-neutral-100"
-                        >
-                            <LogOut className="size-4" /> Exit to pages
-                        </a>
-                    </MenuItem>
+                    {DEVICES.map(([d, Icon, label]) => (
+                        <MenuItem key={d}>
+                            <button
+                                type="button"
+                                onClick={() => onDevice(d)}
+                                className={cn(
+                                    'flex w-full items-center gap-2 px-3 py-1.5 text-left data-focus:bg-neutral-100',
+                                    device === d &&
+                                        'font-semibold text-neutral-900',
+                                )}
+                            >
+                                <Icon className="size-4 text-neutral-500" />
+                                {label}
+                            </button>
+                        </MenuItem>
+                    ))}
                 </MenuItems>
             </Menu>
+
+            <a
+                href={previewHref}
+                target="_blank"
+                rel="noreferrer"
+                title="View live page"
+                className="grid size-8 shrink-0 place-items-center rounded-[4px] bg-white/10 text-white transition hover:bg-white/20"
+            >
+                <Eye className="size-[18px]" strokeWidth={1.75} />
+            </a>
         </div>
     );
 }

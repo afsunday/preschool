@@ -25,16 +25,26 @@ test('login page renders for guests', function () {
         ->assertInertia(fn (Assert $page) => $page->component('auth/login'));
 });
 
-test('the page editor screen and preview render', function () {
+test('the page editor screen renders', function () {
     $page = \App\Models\Page::factory()->create();
 
     $this->actingAs($this->admin)
         ->get("/admin/pages/{$page->id}/edit")
         ->assertOk()
         ->assertInertia(fn (Assert $p) => $p->component('cms/page-editor')->where('pageId', $page->id));
+});
+
+test('the editor preview renders the page view with selection wrappers', function () {
+    // The preview renders view(slug); "home" has resources/views/home.blade.php.
+    $home = \App\Models\Page::factory()->create(['slug' => 'home']);
+    $home->allSections()->create([
+        'type' => 'home_hero', 'position' => 0, 'is_visible' => true,
+        'settings' => ['title' => 'Peek preview'], 'schema_version' => 1,
+    ]);
 
     $this->actingAs($this->admin)
-        ->get(route('builder.preview', $page))
+        ->get(route('builder.preview', $home))
         ->assertOk()
-        ->assertSee('cms-sections', escape: false);
+        ->assertSee('data-cms-block', escape: false)
+        ->assertSee('Peek preview', escape: false);
 });

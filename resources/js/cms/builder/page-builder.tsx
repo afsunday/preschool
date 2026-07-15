@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Layers, Loader2, Search } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../lib/cn';
+import { EditorFooter } from './editor-footer';
 import { EditorTopbar } from './editor-topbar';
 import { FieldPanel } from './field-panel';
 import { Device, PreviewFrame, PreviewMessage } from './preview-frame';
@@ -11,17 +12,17 @@ import { BuilderApi, PageDoc, SectionInstance } from './types';
 
 type Tab = 'design' | 'seo';
 
-let tempId = -1; // client ids for unsaved sections (server assigns real ones)
+let tempId = -1; // client ids for unsaved blocks (server assigns real ones)
 
 export function PageBuilder({
     api,
     pageId,
-    previewUrl,
+    pages = [],
     onError,
 }: {
     api: BuilderApi;
     pageId: number;
-    previewUrl: string;
+    pages?: { id: number; title: string; slug: string }[];
     onError?: (message: string) => void;
 }) {
     const qc = useQueryClient();
@@ -40,38 +41,36 @@ export function PageBuilder({
     const [doc, setDoc] = useState<PageDoc | null>(null);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [device, setDevice] = useState<Device>('desktop');
-    const [frameReady, setFrameReady] = useState(false);
     const [tab, setTab] = useState<Tab>('design');
+    const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+    const [rendering, setRendering] = useState(false);
 
     useEffect(() => {
         if (pageQuery.data) setDoc(pageQuery.data);
     }, [pageQuery.data]);
 
-    const post = useCallback((msg: Record<string, unknown>) => {
+    // Whole-page live preview: debounce-render the current doc → iframe srcdoc.
+    useEffect(() => {
+        if (!doc) return;
+        setRendering(true);
+        const t = setTimeout(async () => {
+            try {
+                setPreviewHtml(await api.renderPage(pageId, doc));
+            } catch (e) {
+                onError?.(e instanceof Error ? e.message : 'Preview failed');
+            } finally {
+                setRendering(false);
+            }
+        }, 400);
+        return () => clearTimeout(t);
+    }, [doc, api, pageId, onError]);
+
+    const postToFrame = useCallback((msg: Record<string, unknown>) => {
         iframeRef.current?.contentWindow?.postMessage(
             { source: 'cms-editor', ...msg },
             '*',
         );
     }, []);
-
-    const renderTimers = useRef<Record<number, ReturnType<typeof setTimeout>>>({});
-    const liveRender = useCallback(
-        (section: SectionInstance) => {
-            clearTimeout(renderTimers.current[section.id]);
-            renderTimers.current[section.id] = setTimeout(async () => {
-                try {
-                    const html = await api.renderSection(
-                        section.type,
-                        section.settings,
-                    );
-                    post({ type: 'update', id: section.id, html });
-                } catch (e) {
-                    onError?.(e instanceof Error ? e.message : 'Render failed');
-                }
-            }, 300);
-        },
-        [api, post, onError],
-    );
 
     const saveMutation = useMutation({
         mutationFn: (d: PageDoc) => api.savePage(pageId, d),
@@ -79,37 +78,34 @@ export function PageBuilder({
             setDoc(fresh);
             setSelectedId(null);
             qc.setQueryData(['cms-page', pageId], fresh);
-            if (iframeRef.current) iframeRef.current.src = previewUrl;
         },
         onError: (e) =>
             onError?.(e instanceof Error ? e.message : 'Save failed'),
     });
 
+    // ---- block operations: mutate the doc; the debounced render redraws ----
     const selectSection = (id: number) => {
         setSelectedId(id);
-        post({ type: 'select', id });
+        postToFrame({ type: 'select', id });
     };
     const deselect = () => {
         setSelectedId(null);
-        post({ type: 'select', id: 0 });
+        postToFrame({ type: 'select', id: 0 });
     };
 
     const changeField = (key: string, value: unknown) => {
         if (!doc || selectedId == null) return;
-        const next = {
+        setDoc({
             ...doc,
             sections: doc.sections.map((s) =>
                 s.id === selectedId
                     ? { ...s, settings: { ...s.settings, [key]: value } }
                     : s,
             ),
-        };
-        setDoc(next);
-        const section = next.sections.find((s) => s.id === selectedId);
-        if (section) liveRender(section);
+        });
     };
 
-    const addSection = async (type: string) => {
+    const addSection = (type: string) => {
         if (!doc) return;
         const schema = schemaQuery.data?.find((s) => s.key === type);
         const settings: Record<string, unknown> = {};
@@ -122,23 +118,15 @@ export function PageBuilder({
             position: doc.sections.length,
             isVisible: true,
             settings,
-            children: [],
         };
         setDoc({ ...doc, sections: [...doc.sections, section] });
         setSelectedId(section.id);
-        try {
-            const html = await api.renderSection(type, settings);
-            post({ type: 'insert', id: section.id, html });
-        } catch (e) {
-            onError?.(e instanceof Error ? e.message : 'Render failed');
-        }
     };
 
     const removeSection = (id: number) => {
         if (!doc) return;
         setDoc({ ...doc, sections: doc.sections.filter((s) => s.id !== id) });
         if (selectedId === id) setSelectedId(null);
-        post({ type: 'remove', id });
     };
 
     const toggleVisible = (id: number) => {
@@ -157,7 +145,6 @@ export function PageBuilder({
         const [moved] = sections.splice(from, 1);
         sections.splice(to, 0, moved);
         setDoc({ ...doc, sections });
-        post({ type: 'reorder', order: sections.map((s) => s.id) });
     };
 
     const save = () => {
@@ -166,10 +153,16 @@ export function PageBuilder({
         saveMutation.mutate({ ...doc, sections });
     };
 
-    const onPreviewMessage = useCallback((msg: PreviewMessage) => {
-        if (msg.type === 'ready') setFrameReady(true);
-        if (msg.type === 'select' && msg.id != null) setSelectedId(msg.id);
-    }, []);
+    const onPreviewMessage = useCallback(
+        (msg: PreviewMessage) => {
+            if (msg.type === 'select' && msg.id != null) setSelectedId(msg.id);
+            // Re-assert the current selection each time the frame reloads.
+            if (msg.type === 'ready' && selectedId != null) {
+                postToFrame({ type: 'select', id: selectedId });
+            }
+        },
+        [selectedId, postToFrame],
+    );
 
     const selectedSection = useMemo(
         () => doc?.sections.find((s) => s.id === selectedId) ?? null,
@@ -190,31 +183,27 @@ export function PageBuilder({
         );
     }
 
-    return (
-        <div className="flex h-full flex-col bg-neutral-50">
-            <EditorTopbar
-                title={doc.title}
-                onTitle={(v) => setDoc({ ...doc, title: v })}
-                status={doc.status}
-                onToggleStatus={() =>
-                    setDoc({
-                        ...doc,
-                        status:
-                            doc.status === 'published' ? 'draft' : 'published',
-                    })
-                }
-                device={device}
-                onDevice={setDevice}
-                onSave={save}
-                saving={saveMutation.isPending || !frameReady}
-                previewHref={previewUrl.replace(/\?editor=1$/, '')}
-                pagesHref="/admin/pages"
-            />
+    const toggleStatus = () =>
+        setDoc({
+            ...doc,
+            status: doc.status === 'published' ? 'draft' : 'published',
+        });
 
-            <div className="flex min-h-0 flex-1">
-                <aside className="flex w-[320px] shrink-0 flex-col border-r border-black/10 bg-white">
-                    {/* Tabs */}
-                    <div className="flex shrink-0 border-b border-black/10">
+    return (
+        <div className="flex h-full bg-neutral-50">
+            <aside className="flex w-[320px] shrink-0 flex-col border-r border-black/10 bg-white">
+                <EditorTopbar
+                    title={doc.title}
+                    onTitle={(v) => setDoc({ ...doc, title: v })}
+                    pages={pages}
+                    currentId={pageId}
+                    device={device}
+                    onDevice={setDevice}
+                    previewHref={`/${doc.slug}`}
+                    pagesHref="/admin/pages"
+                />
+
+                <div className="flex shrink-0 border-b border-black/10">
                         {(
                             [
                                 ['design', 'Design', Layers],
@@ -266,15 +255,23 @@ export function PageBuilder({
                             />
                         )}
                     </div>
+
+                    <EditorFooter
+                        status={doc.status}
+                        onToggleStatus={toggleStatus}
+                        onSave={save}
+                        saving={saveMutation.isPending}
+                        pagesHref="/admin/pages"
+                    />
                 </aside>
 
                 <PreviewFrame
-                    src={previewUrl}
+                    html={previewHtml}
                     device={device}
+                    loading={rendering}
                     iframeRef={iframeRef}
                     onMessage={onPreviewMessage}
                 />
-            </div>
         </div>
     );
 }
