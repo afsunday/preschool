@@ -1,5 +1,13 @@
 import type { Auth } from '@/types/auth';
 
+declare global {
+    interface Window {
+        // Legacy dropdown toggle helper used by some ported medplus components.
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        logicDropToggle?: (e: any) => void;
+    }
+}
+
 declare module 'react' {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     interface InputHTMLAttributes<T> {

@@ -1,11 +1,11 @@
 import { Form, Head, Link, usePage } from '@inertiajs/react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
-import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
-import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
 import type { Auth } from '@/types';
+import DeleteUser from './partials/delete-user';
+import SettingsLayout from './partials/settings-layout';
 
 type PageProps = {
     auth: Auth;
@@ -21,7 +21,7 @@ export default function Profile({
     const { auth } = usePage<PageProps>().props;
 
     return (
-        <>
+        <SettingsLayout>
             <Head title="Profile settings" />
 
             <h1 className="sr-only">Profile settings</h1>
@@ -156,15 +156,6 @@ export default function Profile({
             </div>
 
             <DeleteUser />
-        </>
+        </SettingsLayout>
     );
 }
-
-Profile.layout = {
-    breadcrumbs: [
-        {
-            title: 'Profile settings',
-            href: edit(),
-        },
-    ],
-};

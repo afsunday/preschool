@@ -4,7 +4,7 @@ import SecurityController from '@/actions/App/Http/Controllers/Settings/Security
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
-import { edit } from '@/routes/security';
+import SettingsLayout from './partials/settings-layout';
 
 type Props = {
     passwordRules?: string;
@@ -15,7 +15,7 @@ export default function Security({ passwordRules }: Props) {
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <>
+        <SettingsLayout>
             <Head title="Security settings" />
 
             <h1 className="sr-only">Security settings</h1>
@@ -128,15 +128,6 @@ export default function Security({ passwordRules }: Props) {
                     )}
                 </Form>
             </div>
-        </>
+        </SettingsLayout>
     );
 }
-
-Security.layout = {
-    breadcrumbs: [
-        {
-            title: 'Security settings',
-            href: edit(),
-        },
-    ],
-};
