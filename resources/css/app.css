@@ -113,11 +113,11 @@
     }
 
     .form-control {
-        @apply block w-full rounded-[4px] border border-black/10 bg-white p-2.5 text-sm text-gray-900 outline-none hover:border-neutral-400 focus:border-neutral-500;
+        @apply block w-full rounded-[4px] border border-black/20 bg-white p-2.5 text-sm text-gray-900 outline-none hover:border-neutral-400 focus:border-neutral-500;
     }
 
     .form-select {
-        @apply block w-full rounded-[4px] border border-black/10 bg-white p-2.5 text-sm text-gray-900 outline-none focus:border-neutral-500;
+        @apply block w-full rounded-[4px] border border-black/20 bg-white p-2.5 text-sm text-gray-900 outline-none focus:border-neutral-500;
     }
 
     .dropdown-line {

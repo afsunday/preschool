@@ -24,9 +24,6 @@ export function FieldPanel({
                     <ArrowLeft className="size-4" />
                 </button>
                 <h2 className="text-sm font-semibold">{schema.name}</h2>
-                <span className="ml-auto rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] text-neutral-500">
-                    Editing
-                </span>
             </div>
             <div className="flex-1 space-y-4 overflow-y-auto p-3">
                 {schema.fields.map((field) => (

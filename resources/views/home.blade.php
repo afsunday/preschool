@@ -432,6 +432,8 @@
             }
 
             [data-cms-block].cms-selected {
+                outline-width: 3px;
+                outline-offset: -3px;
                 outline-color: #ec1e79;
             }
         </style>

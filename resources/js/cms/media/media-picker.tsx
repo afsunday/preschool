@@ -47,23 +47,24 @@ export function MediaPicker({
                     className,
                 )}
             >
-                {value ? (
-                    value.kind === 'image' ? (
-                        <img
-                            src={value.url}
-                            alt={value.alt ?? value.originalName}
-                            className="absolute inset-0 h-full w-full object-contain p-1"
-                        />
-                    ) : (
-                        <span className="px-2 text-center text-xs text-neutral-500">
-                            {value.originalName}
-                        </span>
-                    )
+                {value && value.kind === 'image' && value.url ? (
+                    <img
+                        src={value.url}
+                        alt={value.alt ?? value.originalName}
+                        className="absolute inset-0 h-full w-full object-contain p-1"
+                    />
+                ) : value ? (
+                    <span className="px-2 text-center text-xs text-neutral-500">
+                        {value.originalName}
+                    </span>
+                ) : loading ? (
+                    <Loader2 className="size-5 animate-spin text-neutral-300" />
                 ) : (
                     <ImageOff className="size-6 text-neutral-300" />
                 )}
 
-                {value && (
+                {/* Only the X removes the selection. */}
+                {filled && (
                     <button
                         type="button"
                         onClick={() => onChange(null)}
@@ -79,7 +80,7 @@ export function MediaPicker({
                     onClick={() => setOpen(true)}
                     className="absolute inset-x-0 bottom-0 bg-neutral-900/80 py-1 text-center text-[11px] font-medium text-white hover:bg-neutral-900"
                 >
-                    {value ? 'Change' : 'Select'}
+                    {filled ? 'Change' : 'Select'}
                 </button>
             </div>
 

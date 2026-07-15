@@ -81,7 +81,7 @@ function Control({
             return (
                 <input
                     type="color"
-                    className="h-9 w-16 rounded-[4px] border border-black/10"
+                    className="h-9 w-16 rounded-[4px] border border-black/20"
                     value={(value as string) ?? '#000000'}
                     onChange={(e) => onChange(e.target.value)}
                 />
@@ -153,20 +153,27 @@ function MediaField({
     onChange: (id: number | null) => void;
 }) {
     const [item, setItem] = useState<MediaItem | null>(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         let active = true;
         if (value == null) {
             setItem(null);
+            setLoading(false);
             return;
         }
+        setLoading(true);
         fetch(`/admin/media/items/${value}`, {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',
         })
             .then((r) => (r.ok ? r.json() : null))
-            .then((j) => active && setItem(j?.data ?? null))
-            .catch(() => {});
+            .then((j) => {
+                if (!active) return;
+                setItem(j?.data ?? null);
+                setLoading(false);
+            })
+            .catch(() => active && setLoading(false));
         return () => {
             active = false;
         };
@@ -176,6 +183,8 @@ function MediaField({
         <MediaPicker
             api={mediaApi}
             value={item}
+            hasValue={value != null}
+            loading={loading && !item}
             kind={kind as MediaItem['kind'] | undefined}
             onChange={(picked) => onChange(picked?.id ?? null)}
         />
@@ -203,7 +212,7 @@ function RepeaterField({
             {value.map((row, i) => (
                 <div
                     key={i}
-                    className="space-y-2 rounded-[4px] border border-black/10 p-3"
+                    className="space-y-2 rounded-[4px] border border-black/20 p-3"
                 >
                     <div className="flex justify-end">
                         <button
