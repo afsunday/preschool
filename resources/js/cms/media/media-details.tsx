@@ -6,7 +6,7 @@ import {
 } from '@headlessui/react';
 import { Loader2, Trash2, X } from 'lucide-react';
 import { cn } from '../lib/cn';
-import { MediaApi, MediaInUseError, MediaItem, MediaUsage } from './types';
+import { MediaInUseError, MediaItem, MediaPatch, MediaUsage } from './types';
 
 function formatBytes(bytes: number): string {
     if (bytes < 1024) return `${bytes} B`;
@@ -22,17 +22,15 @@ function formatBytes(bytes: number): string {
 
 export function MediaDetails({
     item,
-    api,
     onClose,
-    onUpdated,
-    onDeleted,
+    onSave,
+    onDelete,
     onError,
 }: {
     item: MediaItem;
-    api: MediaApi;
     onClose: () => void;
-    onUpdated: (item: MediaItem) => void;
-    onDeleted: (id: number) => void;
+    onSave: (id: number, patch: MediaPatch) => Promise<void>;
+    onDelete: (id: number) => Promise<void>;
     onError?: (message: string) => void;
 }) {
     const [title, setTitle] = useState(item.title ?? '');
@@ -58,12 +56,11 @@ export function MediaDetails({
     const save = async () => {
         setSaving(true);
         try {
-            const updated = await api.update(item.id, {
+            await onSave(item.id, {
                 title: title || null,
                 alt: alt || null,
                 description: description || null,
             });
-            onUpdated(updated);
         } catch (e) {
             onError?.(e instanceof Error ? e.message : 'Could not save');
         } finally {
@@ -75,8 +72,7 @@ export function MediaDetails({
         setDeleting(true);
         setUsages(null);
         try {
-            await api.destroy(item.id);
-            onDeleted(item.id);
+            await onDelete(item.id);
             onClose();
         } catch (e) {
             if (e instanceof MediaInUseError) {

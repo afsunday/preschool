@@ -1,68 +1,106 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { MediaApi, MediaItem, MediaKind } from './types';
+import {
+    InfiniteData,
+    useInfiniteQuery,
+    useMutation,
+    useQueryClient,
+} from '@tanstack/react-query';
+import { useEffect, useMemo, useState } from 'react';
+import {
+    MediaApi,
+    MediaItem,
+    MediaKind,
+    MediaListResult,
+    MediaPatch,
+} from './types';
+
+type Pages = InfiniteData<MediaListResult, string | null>;
 
 /**
- * Self-contained list/search/upload state for the library. No react-query, no
- * external store — keeps the folder dependency-free and portable.
+ * Media list/search/upload state, backed by TanStack Query.
+ * Reads use useInfiniteQuery (cursor pagination); writes use useMutation and
+ * patch the query cache on success. The MediaApi adapter is the transport.
  */
 export function useMediaList(api: MediaApi) {
-    const [items, setItems] = useState<MediaItem[]>([]);
+    const qc = useQueryClient();
+
     const [q, setQ] = useState('');
     const [kind, setKind] = useState<MediaKind | 'all'>('all');
-    const [loading, setLoading] = useState(false);
-    const [nextCursor, setNextCursor] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const [term, setTerm] = useState('');
 
-    // Guards against out-of-order responses when the query changes rapidly.
-    const requestId = useRef(0);
+    // Debounce the search term before it hits the query key.
+    useEffect(() => {
+        const t = setTimeout(() => setTerm(q), q ? 250 : 0);
+        return () => clearTimeout(t);
+    }, [q]);
 
-    const load = useCallback(
-        async (cursor: string | null = null) => {
-            const id = ++requestId.current;
-            setLoading(true);
-            setError(null);
-            try {
-                const res = await api.list({ q, kind, cursor });
-                if (id !== requestId.current) return; // stale
-                setItems((prev) =>
-                    cursor ? [...prev, ...res.data] : res.data,
-                );
-                setNextCursor(res.nextCursor);
-            } catch (e) {
-                if (id === requestId.current) {
-                    setError(e instanceof Error ? e.message : 'Failed to load');
-                }
-            } finally {
-                if (id === requestId.current) setLoading(false);
-            }
-        },
-        [api, q, kind],
+    const queryKey = ['cms-media', term, kind] as const;
+
+    const query = useInfiniteQuery({
+        queryKey,
+        queryFn: ({ pageParam }) =>
+            api.list({ q: term, kind, cursor: pageParam }),
+        initialPageParam: null as string | null,
+        getNextPageParam: (last: MediaListResult) => last.nextCursor,
+    });
+
+    const items = useMemo(
+        () => query.data?.pages.flatMap((p) => p.data) ?? [],
+        [query.data],
     );
 
-    // Debounced reload whenever the search term or kind filter changes.
-    useEffect(() => {
-        const t = setTimeout(() => load(null), q ? 250 : 0);
-        return () => clearTimeout(t);
-    }, [load, q]);
-
-    const loadMore = useCallback(() => {
-        if (nextCursor && !loading) load(nextCursor);
-    }, [nextCursor, loading, load]);
-
-    /** Prepend freshly uploaded items so they appear immediately. */
-    const prepend = useCallback((fresh: MediaItem[]) => {
-        setItems((prev) => [...fresh, ...prev]);
-    }, []);
-
-    const replace = useCallback((updated: MediaItem) => {
-        setItems((prev) =>
-            prev.map((m) => (m.id === updated.id ? updated : m)),
+    // --- cache patch helpers (keep the visible list in sync after writes) ---
+    const patchPages = (fn: (data: MediaItem[]) => MediaItem[]) =>
+        qc.setQueryData<Pages>(queryKey, (old) =>
+            old
+                ? {
+                      ...old,
+                      pages: old.pages.map((p) => ({
+                          ...p,
+                          data: fn(p.data),
+                      })),
+                  }
+                : old,
         );
-    }, []);
 
-    const remove = useCallback((id: number) => {
-        setItems((prev) => prev.filter((m) => m.id !== id));
-    }, []);
+    const prepend = (fresh: MediaItem[]) =>
+        qc.setQueryData<Pages>(queryKey, (old) =>
+            old
+                ? {
+                      ...old,
+                      pages: old.pages.map((p, i) =>
+                          i === 0 ? { ...p, data: [...fresh, ...p.data] } : p,
+                      ),
+                  }
+                : old,
+        );
+
+    const replace = (updated: MediaItem) =>
+        patchPages((data) =>
+            data.map((m) => (m.id === updated.id ? updated : m)),
+        );
+
+    const remove = (id: number) =>
+        patchPages((data) => data.filter((m) => m.id !== id));
+
+    // --- mutations ---
+    const uploadMutation = useMutation({
+        mutationFn: (vars: {
+            files: File[];
+            onProgress?: (p: number) => void;
+        }) => api.upload(vars.files, { onProgress: vars.onProgress }),
+        onSuccess: (created) => prepend(created),
+    });
+
+    const updateMutation = useMutation({
+        mutationFn: (vars: { id: number; patch: MediaPatch }) =>
+            api.update(vars.id, vars.patch),
+        onSuccess: (updated) => replace(updated),
+    });
+
+    const destroyMutation = useMutation({
+        mutationFn: (id: number) => api.destroy(id),
+        onSuccess: (_data, id) => remove(id),
+    });
 
     return {
         items,
@@ -70,12 +108,17 @@ export function useMediaList(api: MediaApi) {
         setQ,
         kind,
         setKind,
-        loading,
-        error,
-        hasMore: nextCursor !== null,
-        loadMore,
-        prepend,
-        replace,
-        remove,
+        loading: query.isPending,
+        error: query.error ? (query.error as Error).message : null,
+        hasMore: Boolean(query.hasNextPage),
+        loadMore: () => query.fetchNextPage(),
+        isFetchingNextPage: query.isFetchingNextPage,
+
+        // write actions (mutateAsync so callers can await + catch)
+        uploadFiles: (files: File[], onProgress?: (p: number) => void) =>
+            uploadMutation.mutateAsync({ files, onProgress }),
+        updateItem: (id: number, patch: MediaPatch) =>
+            updateMutation.mutateAsync({ id, patch }),
+        deleteItem: (id: number) => destroyMutation.mutateAsync(id),
     };
 }

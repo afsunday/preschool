@@ -46,6 +46,14 @@ class MediaController extends Controller
     }
 
     /**
+     * A single media item (used by the builder to resolve a stored id).
+     */
+    public function show(Media $medium): MediaResource
+    {
+        return new MediaResource($medium);
+    }
+
+    /**
      * Update the editable, searchable metadata.
      */
     public function update(UpdateMediaRequest $request, Media $medium): MediaResource

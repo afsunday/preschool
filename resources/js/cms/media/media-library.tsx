@@ -53,9 +53,9 @@ export function MediaLibrary({
         error,
         hasMore,
         loadMore,
-        prepend,
-        replace,
-        remove,
+        uploadFiles,
+        updateItem,
+        deleteItem,
     } = useMediaList(api);
 
     const [dragging, setDragging] = useState(false);
@@ -83,10 +83,7 @@ export function MediaLibrary({
             if (list.length === 0) return;
             setProgress(0);
             try {
-                const created = await api.upload(list, {
-                    onProgress: setProgress,
-                });
-                prepend(created);
+                await uploadFiles(list, setProgress);
             } catch (e) {
                 onError?.(
                     e instanceof Error ? e.message : 'Upload failed',
@@ -95,7 +92,7 @@ export function MediaLibrary({
                 setProgress(null);
             }
         },
-        [api, prepend, onError],
+        [uploadFiles, onError],
     );
 
     const onDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -235,13 +232,12 @@ export function MediaLibrary({
             {detailsItem && mode === 'manage' && (
                 <MediaDetails
                     item={detailsItem}
-                    api={api}
                     onClose={() => setDetailsItem(null)}
-                    onUpdated={(updated) => {
-                        replace(updated);
+                    onSave={async (id, patch) => {
+                        const updated = await updateItem(id, patch);
                         setDetailsItem(updated);
                     }}
-                    onDeleted={(id) => remove(id)}
+                    onDelete={(id) => deleteItem(id)}
                     onError={onError}
                 />
             )}

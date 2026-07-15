@@ -41,6 +41,12 @@
     display: none !important;
 }
 
+/* Kill the elastic overscroll / rubber-band bounce. */
+html,
+body {
+    overscroll-behavior: none;
+}
+
 /* Hide scrollbars on horizontal scroll rails */
 .no-scrollbar {
     -ms-overflow-style: none;

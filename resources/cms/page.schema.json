@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://wodi.cms/page.schema.json",
+    "title": "CMS Page Blueprint",
+    "description": "The global, acceptable shape of a page definition file under resources/cms/pages. Blueprints seed the DB; the editor takes over from there.",
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["slug", "title", "sections"],
+    "properties": {
+        "slug": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["draft", "published"] },
+        "meta": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": { "type": ["string", "null"] },
+                "description": { "type": ["string", "null"] }
+            }
+        },
+        "sections": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/block" }
+        }
+    },
+    "definitions": {
+        "block": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["type"],
+            "properties": {
+                "type": { "type": "string", "minLength": 1 },
+                "name": { "type": ["string", "null"] },
+                "isVisible": { "type": "boolean" },
+                "settings": { "type": "object" },
+                "children": {
+                    "type": "array",
+                    "items": { "$ref": "#/definitions/block" }
+                }
+            }
+        }
+    }
+}

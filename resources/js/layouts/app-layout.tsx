@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Link, router, usePage } from '@inertiajs/react';
-import { Image, LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { FileText, Image, LayoutDashboard, LogOut, Settings } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Avatar } from '@/components/avatar';
 import { UserInfo } from '@/components/user-info';
@@ -13,6 +13,7 @@ import type { NavItem } from '@/types';
 
 const navItems: NavItem[] = [
     { title: 'Dashboard', href: dashboard(), icon: LayoutDashboard },
+    { title: 'Pages', href: '/admin/pages', icon: FileText },
     { title: 'Media', href: '/admin/media', icon: Image },
 ];
 

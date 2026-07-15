@@ -16,7 +16,8 @@
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
-        "mallardduck/blade-lucide-icons": "*"
+        "mallardduck/blade-lucide-icons": "*",
+        "opis/json-schema": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
