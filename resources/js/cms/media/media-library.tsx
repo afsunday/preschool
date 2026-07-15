@@ -2,12 +2,14 @@ import {
     ChangeEvent,
     DragEvent,
     useCallback,
+    useEffect,
     useRef,
     useState,
 } from 'react';
 import { Loader2, Search, Upload, X } from 'lucide-react';
 import { cn } from '../lib/cn';
 import { MediaCard } from './media-card';
+import { MediaDetails } from './media-details';
 import { MediaApi, MediaItem, MediaKind } from './types';
 import { useMediaList } from './use-media-list';
 
@@ -28,6 +30,8 @@ export interface MediaLibraryProps {
     /** Fired in `select` mode when a card is clicked. */
     onSelect?: (item: MediaItem) => void;
     selectedId?: number | null;
+    /** Lock the library to a single kind and hide the filter chips. */
+    fixedKind?: MediaKind;
     onError?: (message: string) => void;
 }
 
@@ -36,6 +40,7 @@ export function MediaLibrary({
     mode = 'manage',
     onSelect,
     selectedId = null,
+    fixedKind,
     onError,
 }: MediaLibraryProps) {
     const {
@@ -49,11 +54,28 @@ export function MediaLibrary({
         hasMore,
         loadMore,
         prepend,
+        replace,
+        remove,
     } = useMediaList(api);
 
     const [dragging, setDragging] = useState(false);
     const [progress, setProgress] = useState<number | null>(null);
+    const [detailsItem, setDetailsItem] = useState<MediaItem | null>(null);
     const fileInput = useRef<HTMLInputElement>(null);
+
+    // When locked to one kind, force the filter and hide the chips.
+    useEffect(() => {
+        if (fixedKind) setKind(fixedKind);
+    }, [fixedKind, setKind]);
+
+    // Clicking a card: pick it (select mode) or open its details (manage mode).
+    const onCardClick = (item: MediaItem) => {
+        if (mode === 'select') {
+            onSelect?.(item);
+        } else {
+            setDetailsItem(item);
+        }
+    };
 
     const upload = useCallback(
         async (files: FileList | File[] | null) => {
@@ -100,7 +122,7 @@ export function MediaLibrary({
                         value={q}
                         onChange={(e) => setQ(e.target.value)}
                         placeholder="Search by name, alt or description…"
-                        className="w-full rounded-lg border border-black/10 bg-white py-2 pr-8 pl-9 text-sm outline-none focus:border-pink-400 dark:border-white/10 dark:bg-neutral-900"
+                        className="w-full rounded-[4px] border border-black/10 bg-white py-2 pr-8 pl-9 text-sm outline-none focus:border-neutral-400"
                     />
                     {q && (
                         <button
@@ -117,7 +139,7 @@ export function MediaLibrary({
                     type="button"
                     onClick={() => fileInput.current?.click()}
                     disabled={uploading}
-                    className="inline-flex items-center gap-2 rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-pink-700 disabled:opacity-60"
+                    className="inline-flex items-center gap-2 rounded-[4px] bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:opacity-60"
                 >
                     {uploading ? (
                         <Loader2 className="size-4 animate-spin" />
@@ -135,7 +157,8 @@ export function MediaLibrary({
                 />
             </div>
 
-            {/* Kind filter chips */}
+            {/* Kind filter chips (hidden when locked to a single kind) */}
+            {!fixedKind && (
             <div className="flex flex-wrap gap-1.5">
                 {KIND_CHIPS.map((chip) => (
                     <button
@@ -143,16 +166,17 @@ export function MediaLibrary({
                         type="button"
                         onClick={() => setKind(chip.value)}
                         className={cn(
-                            'rounded-full px-3 py-1 text-xs font-medium transition',
+                            'rounded-[4px] px-3 py-1 text-xs font-medium transition',
                             kind === chip.value
-                                ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900'
-                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300',
+                                ? 'bg-neutral-900 text-white'
+                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200',
                         )}
                     >
                         {chip.label}
                     </button>
                 ))}
             </div>
+            )}
 
             {/* Drop area + grid. @container so cards reflow off THIS box's
                 width, not the viewport — same layout on the page or in a modal. */}
@@ -166,38 +190,24 @@ export function MediaLibrary({
                     setDragging(false);
                 }}
                 onDrop={onDrop}
-                className={cn(
-                    '@container relative flex-1 overflow-y-auto rounded-xl border border-dashed p-3 transition',
-                    dragging
-                        ? 'border-pink-400 bg-pink-50/60 dark:bg-pink-950/20'
-                        : 'border-black/10 dark:border-white/10',
-                )}
+                className="@container relative flex-1 overflow-y-auto"
             >
                 {dragging && (
-                    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl bg-white/70 text-sm font-medium text-pink-700 backdrop-blur-[1px] dark:bg-neutral-900/70">
+                    <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-[4px] bg-white/70 text-sm font-medium text-neutral-800 ring-2 ring-neutral-900 backdrop-blur-[1px]">
                         Drop files to upload
                     </div>
                 )}
 
-                {items.length === 0 && !loading ? (
-                    <div className="flex h-full min-h-40 flex-col items-center justify-center gap-2 text-center text-sm text-neutral-400">
-                        <Upload className="size-7" strokeWidth={1.5} />
-                        <p>Drag files here, or use the Upload button.</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 gap-3 @xs:grid-cols-3 @sm:grid-cols-4 @lg:grid-cols-5 @2xl:grid-cols-6">
-                        {items.map((item) => (
-                            <MediaCard
-                                key={item.id}
-                                item={item}
-                                selected={selectedId === item.id}
-                                onClick={
-                                    mode === 'select' ? onSelect : undefined
-                                }
-                            />
-                        ))}
-                    </div>
-                )}
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-3">
+                    {items.map((item) => (
+                        <MediaCard
+                            key={item.id}
+                            item={item}
+                            selected={selectedId === item.id}
+                            onClick={onCardClick}
+                        />
+                    ))}
+                </div>
 
                 {error && (
                     <p className="mt-3 text-center text-sm text-red-500">
@@ -211,7 +221,7 @@ export function MediaLibrary({
                             type="button"
                             onClick={loadMore}
                             disabled={loading}
-                            className="inline-flex items-center gap-2 rounded-lg border border-black/10 px-4 py-2 text-sm font-medium transition hover:bg-neutral-50 disabled:opacity-60 dark:border-white/10 dark:hover:bg-neutral-800"
+                            className="inline-flex items-center gap-2 rounded-[4px] border border-black/10 px-4 py-2.5 text-sm font-medium transition hover:bg-neutral-50 disabled:opacity-60"
                         >
                             {loading && (
                                 <Loader2 className="size-4 animate-spin" />
@@ -221,6 +231,20 @@ export function MediaLibrary({
                     </div>
                 )}
             </div>
+
+            {detailsItem && mode === 'manage' && (
+                <MediaDetails
+                    item={detailsItem}
+                    api={api}
+                    onClose={() => setDetailsItem(null)}
+                    onUpdated={(updated) => {
+                        replace(updated);
+                        setDetailsItem(updated);
+                    }}
+                    onDeleted={(id) => remove(id)}
+                    onError={onError}
+                />
+            )}
         </div>
     );
 }

@@ -1,22 +1,15 @@
 import { Link } from '@inertiajs/react';
+import { Image, LayoutDashboard } from 'lucide-react';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-// Supporting (secondary) navigation. Replace the placeholder hrefs ('#') with
-// real routes as those sections are built out.
+// Primary admin navigation — GitHub-style underline tabs. Add sections here as
+// they're built out.
 const defaultItems: NavItem[] = [
-    { title: 'All', href: dashboard() },
-    { title: 'Parent Tips', href: '#' },
-    { title: 'Learning Activities', href: '#' },
-    { title: 'Educational Videos', href: '#' },
-    { title: 'Health & Wellness', href: '#' },
-    { title: 'Arts & Craft', href: '#' },
-    { title: 'School Readiness', href: '#' },
-    { title: 'Nutrition', href: '#' },
-    { title: 'Safety', href: '#' },
-    { title: 'Development', href: '#' },
+    { title: 'Dashboard', href: dashboard(), icon: LayoutDashboard },
+    { title: 'Media', href: '/admin/media', icon: Image },
 ];
 
 export function AppSupportingNav({
@@ -27,25 +20,51 @@ export function AppSupportingNav({
     const { isCurrentUrl } = useCurrentUrl();
 
     return (
-        <div className="border-b border-sidebar-border/70">
+        <div className="border-b border-border/70">
             <div className="mx-auto w-full px-4 md:max-w-7xl">
                 <nav
-                    aria-label="Supporting navigation"
-                    className="flex items-center gap-1 overflow-x-auto py-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    aria-label="Primary navigation"
+                    className="-mb-px flex items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 >
-                    {items.map((item) => (
-                        <Link
-                            key={item.title}
-                            href={item.href}
-                            className={cn(
-                                'shrink-0 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground',
-                                isCurrentUrl(item.href) &&
-                                    'bg-neutral-900 text-white hover:bg-neutral-900 hover:text-white dark:bg-white dark:text-neutral-900 dark:hover:bg-white dark:hover:text-neutral-900',
-                            )}
-                        >
-                            {item.title}
-                        </Link>
-                    ))}
+                    {items.map((item) => {
+                        const Icon = item.icon;
+                        const active = isCurrentUrl(item.href);
+
+                        return (
+                            <Link
+                                key={item.title}
+                                href={item.href}
+                                aria-current={active ? 'page' : undefined}
+                                className={cn(
+                                    'group flex shrink-0 items-center border-b-2 px-1 pt-1 pb-2',
+                                    active
+                                        ? 'border-[#fd8c73]'
+                                        : 'border-transparent',
+                                )}
+                            >
+                                <span
+                                    className={cn(
+                                        'flex items-center gap-2 rounded-md px-2 py-1 text-sm whitespace-nowrap transition-colors group-hover:bg-accent',
+                                        active
+                                            ? 'font-semibold text-foreground'
+                                            : 'text-muted-foreground group-hover:text-foreground',
+                                    )}
+                                >
+                                    {Icon && (
+                                        <Icon
+                                            className={cn(
+                                                'size-4',
+                                                active
+                                                    ? 'text-foreground'
+                                                    : 'text-muted-foreground',
+                                            )}
+                                        />
+                                    )}
+                                    {item.title}
+                                </span>
+                            </Link>
+                        );
+                    })}
                 </nav>
             </div>
         </div>

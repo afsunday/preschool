@@ -27,6 +27,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('admin/media/items')->name('media.items.')->group(function () {
             Route::get('/', [MediaController::class, 'index'])->name('index');
             Route::post('/', [MediaController::class, 'store'])->name('store');
+            Route::patch('/{medium}', [MediaController::class, 'update'])->name('update');
+            Route::delete('/{medium}', [MediaController::class, 'destroy'])->name('destroy');
         });
     });
 });

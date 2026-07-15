@@ -70,10 +70,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::registerView(fn () => Inertia::render('auth/register', [
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
         ]));
-
-        Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/two-factor-challenge'));
-
-        Fortify::confirmPasswordView(fn () => Inertia::render('auth/confirm-password'));
     }
 
     /**
@@ -81,20 +77,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function configureRateLimiting(): void
     {
-        RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
-        });
-
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 
             return Limit::perMinute(5)->by($throttleKey);
-        });
-
-        RateLimiter::for('passkeys', function (Request $request) {
-            return Limit::perMinute(10)->by(
-                ($request->input('credential.id') ?: $request->session()->getId()).'|'.$request->ip(),
-            );
         });
     }
 }

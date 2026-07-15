@@ -38,31 +38,33 @@ export function MediaCard({
             onClick={() => onClick?.(item)}
             title={item.originalName}
             className={cn(
-                'group flex flex-col overflow-hidden rounded-lg border border-black/10 bg-white text-left transition dark:border-white/10 dark:bg-neutral-900',
-                'hover:border-black/25 hover:shadow-sm dark:hover:border-white/25',
-                selected && 'ring-2 ring-pink-500 ring-offset-1',
+                'group flex flex-col overflow-hidden rounded-[4px] border border-black/10 bg-white text-left transition',
+                'hover:border-black/25 hover:shadow-sm',
+                selected && 'ring-2 ring-neutral-900 ring-offset-1',
             )}
         >
-            <div className="flex aspect-square items-center justify-center bg-neutral-50 dark:bg-neutral-800">
+            <div className="relative aspect-square bg-neutral-50">
                 {item.kind === 'image' ? (
                     <img
                         src={item.url}
                         alt={item.alt ?? item.originalName}
                         loading="lazy"
-                        className="h-full w-full object-cover"
+                        className="absolute inset-0 h-full w-full object-contain p-2"
                     />
                 ) : (
                     Icon && (
-                        <Icon
-                            className="size-8 text-neutral-400"
-                            strokeWidth={1.5}
-                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <Icon
+                                className="size-8 text-neutral-400"
+                                strokeWidth={1.5}
+                            />
+                        </div>
                     )
                 )}
             </div>
 
             <div className="min-w-0 px-2 py-1.5">
-                <p className="truncate text-xs font-medium text-neutral-800 dark:text-neutral-200">
+                <p className="truncate text-xs font-medium text-neutral-800">
                     {item.title || item.originalName}
                 </p>
                 <p className="truncate text-[11px] text-neutral-400 uppercase">
