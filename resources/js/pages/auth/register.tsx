@@ -2,10 +2,6 @@ import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Spinner } from '@/components/ui/spinner';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
 
@@ -23,12 +19,17 @@ export default function Register({ passwordRules }: Props) {
                 disableWhileProcessing
                 className="flex flex-col gap-6"
             >
-                {({ processing, errors }) => (
+                {({ errors }) => (
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="first_name">First name</Label>
-                                <Input
+                                <label
+                                    htmlFor="first_name"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    First name
+                                </label>
+                                <input
                                     id="first_name"
                                     type="text"
                                     required
@@ -37,6 +38,7 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="given-name"
                                     name="first_name"
                                     placeholder="First name"
+                                    className="form-control"
                                 />
                                 <InputError
                                     message={errors.first_name}
@@ -45,8 +47,13 @@ export default function Register({ passwordRules }: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="last_name">Last name</Label>
-                                <Input
+                                <label
+                                    htmlFor="last_name"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    Last name
+                                </label>
+                                <input
                                     id="last_name"
                                     type="text"
                                     required
@@ -54,6 +61,7 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="family-name"
                                     name="last_name"
                                     placeholder="Last name"
+                                    className="form-control"
                                 />
                                 <InputError
                                     message={errors.last_name}
@@ -62,8 +70,13 @@ export default function Register({ passwordRules }: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-                                <Input
+                                <label
+                                    htmlFor="email"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    Email address
+                                </label>
+                                <input
                                     id="email"
                                     type="email"
                                     required
@@ -71,12 +84,18 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="email"
                                     name="email"
                                     placeholder="email@example.com"
+                                    className="form-control"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                                <label
+                                    htmlFor="password"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    Password
+                                </label>
                                 <PasswordInput
                                     id="password"
                                     required
@@ -90,9 +109,12 @@ export default function Register({ passwordRules }: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
+                                <label
+                                    htmlFor="password_confirmation"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
                                     Confirm password
-                                </Label>
+                                </label>
                                 <PasswordInput
                                     id="password_confirmation"
                                     required
@@ -107,15 +129,14 @@ export default function Register({ passwordRules }: Props) {
                                 />
                             </div>
 
-                            <Button
+                            <button
                                 type="submit"
-                                className="mt-2 w-full"
+                                className="btn-black mt-2 w-full"
                                 tabIndex={6}
                                 data-test="register-user-button"
                             >
-                                {processing && <Spinner />}
                                 Create account
-                            </Button>
+                            </button>
                         </div>
 
                         <div className="text-center text-sm text-muted-foreground">

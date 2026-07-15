@@ -1,12 +1,8 @@
-import { Form, Head, usePage } from '@inertiajs/react';
-import { Link } from '@inertiajs/react';
+import { Form, Head, Link, usePage } from '@inertiajs/react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/profile';
 import { send } from '@/routes/verification';
 import type { Auth } from '@/types';
@@ -47,11 +43,16 @@ export default function Profile({
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="first_name">First name</Label>
+                                <label
+                                    htmlFor="first_name"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    First name
+                                </label>
 
-                                <Input
+                                <input
                                     id="first_name"
-                                    className="mt-1 block w-full"
+                                    className="form-control mt-1 block w-full"
                                     defaultValue={auth.user.first_name}
                                     name="first_name"
                                     required
@@ -66,11 +67,16 @@ export default function Profile({
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="last_name">Last name</Label>
+                                <label
+                                    htmlFor="last_name"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    Last name
+                                </label>
 
-                                <Input
+                                <input
                                     id="last_name"
-                                    className="mt-1 block w-full"
+                                    className="form-control mt-1 block w-full"
                                     defaultValue={auth.user.last_name}
                                     name="last_name"
                                     required
@@ -85,12 +91,17 @@ export default function Profile({
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <label
+                                    htmlFor="email"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    Email address
+                                </label>
 
-                                <Input
+                                <input
                                     id="email"
                                     type="email"
-                                    className="mt-1 block w-full"
+                                    className="form-control mt-1 block w-full"
                                     defaultValue={auth.user.email}
                                     name="email"
                                     required
@@ -130,12 +141,14 @@ export default function Profile({
                                 )}
 
                             <div className="flex items-center gap-4">
-                                <Button
+                                <button
+                                    type="submit"
+                                    className="btn-black"
                                     disabled={processing}
                                     data-test="update-profile-button"
                                 >
                                     Save
-                                </Button>
+                                </button>
                             </div>
                         </>
                     )}

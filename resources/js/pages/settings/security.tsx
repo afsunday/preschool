@@ -3,21 +3,14 @@ import { useRef } from 'react';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
-import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
-import ManagePasskeys from '@/components/manage-passkeys';
-import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
-import ManageTwoFactor from '@/components/manage-two-factor';
 import PasswordInput from '@/components/password-input';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import { edit } from '@/routes/security';
 
 type Props = {
-    passwordRules: string;
-} & ManagePasskeysProps &
-    ManageTwoFactorProps;
+    passwordRules?: string;
+};
 
-export default function Security(props: Props) {
+export default function Security({ passwordRules }: Props) {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
 
@@ -59,9 +52,12 @@ export default function Security(props: Props) {
                     {({ errors, processing }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="current_password">
+                                <label
+                                    htmlFor="current_password"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
                                     Current password
-                                </Label>
+                                </label>
 
                                 <PasswordInput
                                     id="current_password"
@@ -76,7 +72,12 @@ export default function Security(props: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">New password</Label>
+                                <label
+                                    htmlFor="password"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
+                                    New password
+                                </label>
 
                                 <PasswordInput
                                     id="password"
@@ -85,16 +86,19 @@ export default function Security(props: Props) {
                                     className="mt-1 block w-full"
                                     autoComplete="new-password"
                                     placeholder="New password"
-                                    passwordrules={props.passwordRules}
+                                    passwordrules={passwordRules}
                                 />
 
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
+                                <label
+                                    htmlFor="password_confirmation"
+                                    className="text-sm font-medium text-neutral-800"
+                                >
                                     Confirm password
-                                </Label>
+                                </label>
 
                                 <PasswordInput
                                     id="password_confirmation"
@@ -102,7 +106,7 @@ export default function Security(props: Props) {
                                     className="mt-1 block w-full"
                                     autoComplete="new-password"
                                     placeholder="Confirm password"
-                                    passwordrules={props.passwordRules}
+                                    passwordrules={passwordRules}
                                 />
 
                                 <InputError
@@ -111,28 +115,19 @@ export default function Security(props: Props) {
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <Button
+                                <button
+                                    type="submit"
+                                    className="btn-black"
                                     disabled={processing}
                                     data-test="update-password-button"
                                 >
                                     Save
-                                </Button>
+                                </button>
                             </div>
                         </>
                     )}
                 </Form>
             </div>
-
-            <ManageTwoFactor
-                canManageTwoFactor={props.canManageTwoFactor}
-                requiresConfirmation={props.requiresConfirmation}
-                twoFactorEnabled={props.twoFactorEnabled}
-            />
-
-            <ManagePasskeys
-                canManagePasskeys={props.canManagePasskeys}
-                passkeys={props.passkeys}
-            />
         </>
     );
 }

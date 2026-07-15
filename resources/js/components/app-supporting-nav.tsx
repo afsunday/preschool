@@ -5,8 +5,6 @@ import { cn } from '@/lib/utils';
 import { dashboard } from '@/routes';
 import type { NavItem } from '@/types';
 
-// Primary admin navigation — GitHub-style underline tabs. Add sections here as
-// they're built out.
 const defaultItems: NavItem[] = [
     { title: 'Dashboard', href: dashboard(), icon: LayoutDashboard },
     { title: 'Media', href: '/admin/media', icon: Image },
