@@ -1,0 +1,248 @@
+{
+    "slug": "resources",
+    "title": "Parents & Kids Resource",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "Helping families continue learning at home through activities, videos, reading materials and helpful links."
+    },
+    "sections": [
+        {
+            "type": "resources_hero",
+            "name": "hero",
+            "settings": {
+                "title": "Everything You Need, All in One Place.",
+                "subtitle": "Helping families continue learning at home through activities, videos, reading materials and helpful lin",
+                "cards": [
+                    {
+                        "variant": "cheer",
+                        "src": "/images/resources/hero-kids-cheer.png",
+                        "alt": "Two children cheering"
+                    },
+                    {
+                        "variant": "thumbs",
+                        "src": "/images/resources/hero-boy-thumbs.png",
+                        "alt": "Boy giving a thumbs up"
+                    },
+                    {
+                        "variant": "wave",
+                        "src": "/images/resources/hero-girl-wave.png",
+                        "alt": "Girl waving"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "resources_programs",
+            "name": "programs",
+            "settings": {
+                "heading": "Our Amazing Programs",
+                "subheading": "Our caring approach and thoughtful designed programs set us apart, with small class sizes that ensure personal attention for every child",
+                "search_placeholder": "Search resources... titles, descriptions, tags",
+                "search_label": "Search",
+                "filters": [
+                    { "label": "All" },
+                    { "label": "Parent Tips" },
+                    { "label": "Learning Activities" },
+                    { "label": "Educational Videos" },
+                    { "label": "Health & Wellness" },
+                    { "label": "Arts & Craft" },
+                    { "label": "School Readiness" }
+                ],
+                "cards": [
+                    {
+                        "src": "/images/about/program-art.jpg",
+                        "action": "download",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/program-drawing.jpg",
+                        "action": "video",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/program-classroom.jpg",
+                        "action": "download",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/gallery-8.jpg",
+                        "action": "read",
+                        "text": "The rise of artificial intelligence in the educational sector",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/gallery-3.jpg",
+                        "action": "read",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/gallery-4.jpg",
+                        "action": "read",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/testimonial.jpg",
+                        "action": "read",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/gallery-2.jpg",
+                        "action": "read",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    },
+                    {
+                        "src": "/images/about/gallery-6.jpg",
+                        "action": "read",
+                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "url": "#"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "resources_hero": {
+            "name": "Resources Hero",
+            "group": "Resources",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "subtitle",
+                    "type": "textarea",
+                    "label": "Subtitle"
+                },
+                {
+                    "id": "cards",
+                    "type": "repeater",
+                    "label": "Cards",
+                    "fields": [
+                        {
+                            "id": "variant",
+                            "type": "select",
+                            "label": "Cutout",
+                            "default": "cheer",
+                            "options": [
+                                { "value": "cheer", "label": "Kids cheering (red)" },
+                                { "value": "thumbs", "label": "Boy thumbs up (green)" },
+                                { "value": "wave", "label": "Girl waving (yellow)" }
+                            ]
+                        },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
+                        {
+                            "id": "alt",
+                            "type": "text",
+                            "label": "Alt"
+                        }
+                    ]
+                }
+            ]
+        },
+        "resources_programs": {
+            "name": "Resource Programs",
+            "group": "Resources",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "subheading",
+                    "type": "textarea",
+                    "label": "Subheading"
+                },
+                {
+                    "id": "search_placeholder",
+                    "type": "text",
+                    "label": "Search Placeholder"
+                },
+                {
+                    "id": "search_label",
+                    "type": "text",
+                    "label": "Search Button Label"
+                },
+                {
+                    "id": "filters",
+                    "type": "repeater",
+                    "label": "Filters",
+                    "fields": [
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        }
+                    ]
+                },
+                {
+                    "id": "cards",
+                    "type": "repeater",
+                    "label": "Cards",
+                    "fields": [
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
+                        {
+                            "id": "action",
+                            "type": "select",
+                            "label": "Action",
+                            "default": "read",
+                            "options": [
+                                { "value": "download", "label": "Download File" },
+                                { "value": "video", "label": "Watch Video" },
+                                { "value": "read", "label": "Read" }
+                            ]
+                        },
+                        {
+                            "id": "text",
+                            "type": "textarea",
+                            "label": "Text"
+                        },
+                        {
+                            "id": "url",
+                            "type": "url",
+                            "label": "Url"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

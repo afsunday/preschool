@@ -66,10 +66,22 @@ export default function SearchableSelect({
     LineRender,
 }: SearchableSelectProps) {
     const [query, setQuery] = useState('');
-    const [loading, setLoading] = useState(false);
     const [remoteOptions, setRemoteOptions] = useState<
         SearchableSelectOption[]
     >([]);
+
+    // Identifies the request the preload effect below will make. The effect must
+    // not flip `loading` synchronously, so the flag is armed here instead: on
+    // mount via the initial value, and on every later change of the key.
+    const preloadKey = preloadApi && route !== null ? route : null;
+    const [loading, setLoading] = useState(preloadKey !== null);
+    const [armedPreloadKey, setArmedPreloadKey] = useState(preloadKey);
+
+    if (armedPreloadKey !== preloadKey) {
+        setArmedPreloadKey(preloadKey);
+        setLoading(preloadKey !== null);
+    }
+
     // Remembers the last picked option so the button keeps its label even after
     // remoteOptions is cleared (e.g. when the choice came from an AJAX result).
     const [selectedCache, setSelectedCache] =
@@ -92,11 +104,12 @@ export default function SearchableSelect({
     const filteredOptions =
         localFiltered.length > 0 ? localFiltered : remoteOptions;
 
+    // Pure fetch helper — each caller owns the `loading` flag around it, so that
+    // calling this from an effect body never sets state synchronously.
     const callApi = async (
         keyword: string,
     ): Promise<SearchableSelectOption[]> => {
         try {
-            setLoading(true);
             const url = appendQueryParam(route as string, 'search', keyword);
             const response = await fetch(url, {
                 headers: { 'Content-Type': 'application/json' },
@@ -115,8 +128,6 @@ export default function SearchableSelect({
             }));
         } catch {
             return [];
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -128,7 +139,14 @@ export default function SearchableSelect({
         }
 
         let active = true;
-        callApi('').then((results) => active && setRemoteOptions(results));
+        callApi('').then((results) => {
+            if (!active) {
+                return;
+            }
+
+            setRemoteOptions(results);
+            setLoading(false);
+        });
 
         return () => {
             active = false;
@@ -166,6 +184,7 @@ export default function SearchableSelect({
                 async () => {
                     const results = await callApi(keyword);
                     setRemoteOptions(results);
+                    setLoading(false);
                     throttleRef.current = null;
                 },
                 keyword === '' ? 0 : 700,
@@ -196,7 +215,11 @@ export default function SearchableSelect({
         // When preloading, re-seed the default list so it isn't empty next time
         // the dropdown is opened; otherwise drop the transient search results.
         if (preloadApi && route !== null) {
-            callApi('').then(setRemoteOptions);
+            setLoading(true);
+            callApi('').then((results) => {
+                setRemoteOptions(results);
+                setLoading(false);
+            });
         } else {
             setRemoteOptions([]);
         }

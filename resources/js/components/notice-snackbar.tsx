@@ -11,7 +11,9 @@ type Flash = {
 };
 
 export const NoticeSnackbar = () => {
-    const { flash = {} } = usePage().props as { flash?: Flash };
+    // No `= {}` default: it would mint a new object every render, and the
+    // prevFlash identity compare below would never settle.
+    const { flash } = usePage().props as { flash?: Flash };
     const { toasts, remove } = useNotifications();
     const [flashTime, setFlashTime] = useLocalStorage<string | number | null>(
         'notice-flash',
@@ -25,13 +27,24 @@ export const NoticeSnackbar = () => {
         error: flash?.error || null,
     });
 
-    useEffect(() => {
-        if (flash.success) {
-            setVisibleFlash((prev) => ({
-                ...prev,
-                success: flash.success ?? null,
-            }));
+    // Latch each new flash during render rather than in an effect. A channel
+    // only takes the new message when it is non-empty, so a message still
+    // counting down survives a navigation that carries the other channel.
+    const [prevFlash, setPrevFlash] = useState(flash);
 
+    if (prevFlash !== flash) {
+        setPrevFlash(flash);
+
+        if (flash?.success || flash?.error) {
+            setVisibleFlash((prev) => ({
+                success: flash?.success || prev.success,
+                error: flash?.error || prev.error,
+            }));
+        }
+    }
+
+    useEffect(() => {
+        if (flash?.success) {
             setTimeout(() => {
                 setVisibleFlash((prev) => ({ ...prev, success: null }));
 
@@ -39,12 +52,7 @@ export const NoticeSnackbar = () => {
             }, 5000);
         }
 
-        if (flash.error) {
-            setVisibleFlash((prev) => ({
-                ...prev,
-                error: flash.error ?? null,
-            }));
-
+        if (flash?.error) {
             setTimeout(() => {
                 setVisibleFlash((prev) => ({ ...prev, error: null }));
 
@@ -60,7 +68,7 @@ export const NoticeSnackbar = () => {
                 as={Fragment}
                 show={
                     visibleFlash?.success !== null &&
-                    flashTime !== flash.timestamp
+                    flashTime !== flash?.timestamp
                 }
                 enter="transform transition ease-out duration-300"
                 enterFrom="opacity-0 translate-y-4"
@@ -102,7 +110,7 @@ export const NoticeSnackbar = () => {
                 as={Fragment}
                 show={
                     visibleFlash?.error !== null &&
-                    flashTime !== flash.timestamp
+                    flashTime !== flash?.timestamp
                 }
                 enter="transform transition ease-out duration-300"
                 enterFrom="opacity-0 translate-y-4"

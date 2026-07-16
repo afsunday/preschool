@@ -1,0 +1,283 @@
+{
+    "slug": "admissions",
+    "title": "Admissions",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "All enrolments are processed through One List, the government's centralised early childhood registration portal."
+    },
+    "sections": [
+        {
+            "type": "admissions_hero",
+            "name": "hero",
+            "settings": {
+                "title": "Ready to get Started? Enrolment is easy.",
+                "note_title": "Hello There!",
+                "note_body": "Have questions about the process? <a href=\"#\">Contact us</a> — we're happy to help you navigate enrolment.",
+                "lead": "Securing your child's spot at WODI Daycare begins with the government's official placement system — OneList Waterloo Region.",
+                "cta_label": "Get Started",
+                "cta_url": "#enrol",
+                "image_src": "/images/admissions/hero-girl-books.png",
+                "image_alt": "Pupil leaning on a stack of books",
+                "pill_value": "3k+",
+                "pill_label": "Users",
+                "avatars": [
+                    { "src": "/images/admissions/class-1.jpg" },
+                    { "src": "/images/admissions/class-2.jpg" },
+                    { "src": "/images/admissions/class-3.jpg" },
+                    { "src": "/images/admissions/class-4.jpg" }
+                ]
+            }
+        },
+        {
+            "type": "admissions_enrol",
+            "name": "enrol",
+            "settings": {
+                "lead_strong": "All enrolments are processed through One list, the government's centralised early childhood registration portal.",
+                "lead_muted": "Click below to begin your child's enrolment journey. Our team is here to guide you every step of the way.",
+                "trusted_label": "Trusted by\nParents and ward alike",
+                "cta_label": "Enroll Now",
+                "cta_url": "#",
+                "image_src": "/images/admissions/kids-row.png",
+                "image_alt": "Smiling children",
+                "avatars": [
+                    { "src": "/images/admissions/class-1.jpg" },
+                    { "src": "/images/admissions/class-2.jpg" },
+                    { "src": "/images/admissions/class-3.jpg" },
+                    { "src": "/images/admissions/class-4.jpg" }
+                ]
+            }
+        },
+        {
+            "type": "admissions_classes",
+            "name": "classes",
+            "settings": {
+                "eyebrow": "Programs and Classes",
+                "heading": "Age-appropriate classes designed for every stage",
+                "body": "Our programs are carefully structured to support children's growth, learning ability, and confidence based on their developmental stage.",
+                "cta_label": "Enroll Your Child Today",
+                "cta_url": "#enrol",
+                "classes": [
+                    { "name": "Sunshine Tots", "time": "9:00AM", "seats": "30", "age": "3-4years", "src": "/images/admissions/class-1.jpg", "cta_label": "Enrol Class" },
+                    { "name": "Little Explorers", "time": "9:00AM", "seats": "10", "age": "3-4years", "src": "/images/admissions/class-2.jpg", "cta_label": "Enrol Class" },
+                    { "name": "Bright Beginners", "time": "9:00AM", "seats": "09", "age": "3-4years", "src": "/images/admissions/class-3.jpg", "cta_label": "Enrol Class" },
+                    { "name": "Baby Pampers", "time": "9:00AM", "seats": "25", "age": "3-4years", "src": "/images/admissions/class-4.jpg", "cta_label": "Enrol Class" },
+                    { "name": "PreSchool", "time": "9:00AM", "seats": "18", "age": "3-4years", "src": "/images/admissions/class-5.jpg", "cta_label": "Enrol Class" }
+                ]
+            }
+        },
+        {
+            "type": "admissions_programs",
+            "name": "programs",
+            "settings": {
+                "heading": "Our amazing programs",
+                "subheading": "Our caring approach and thoughtful designed programs set us apart, with small class sizes that ensure personal attention for every child",
+                "activities_title": "Key Activities Include:",
+                "cta_label": "Get Started",
+                "cta_url": "#enrol",
+                "programs": [
+                    {
+                        "tab": "Toddlers Specials",
+                        "title": "Toddlers",
+                        "age": "18months - 3years",
+                        "body": "Our infant program is all about providing cozy care and fun experiences for your little one right from the start. We use gentle play to help babies safely explore their world while building trust, curiosity, and confidence.",
+                        "tone": "pink",
+                        "src": "/images/admissions/program-1.jpg"
+                    },
+                    {
+                        "tab": "Toddlers Specials",
+                        "title": "Little Explorers",
+                        "age": "3 - 4years",
+                        "body": "Our infant program is all about providing cozy care and fun experiences for your little one right from the start. We use gentle play to help babies safely explore their world while building trust, curiosity, and confidence.",
+                        "tone": "orange",
+                        "src": "/images/admissions/program-2.jpg"
+                    },
+                    {
+                        "tab": "Toddlers Specials",
+                        "title": "PreSchool",
+                        "age": "4 - 5years",
+                        "body": "Our infant program is all about providing cozy care and fun experiences for your little one right from the start. We use gentle play to help babies safely explore their world while building trust, curiosity, and confidence.",
+                        "tone": "yellow",
+                        "src": "/images/admissions/program-3.jpg"
+                    }
+                ],
+                "activities": [
+                    { "label": "Curious Play", "dot": "yellow" },
+                    { "label": "Creative learning", "dot": "teal" },
+                    { "label": "Nurture", "dot": "teal" },
+                    { "label": "Kids Growth", "dot": "pink" },
+                    { "label": "Creative Play", "dot": "green" }
+                ]
+            }
+        },
+        {
+            "type": "admissions_cta_row",
+            "name": "cta",
+            "settings": {
+                "left_src": "/images/admissions/classroom-girl.jpg",
+                "left_alt": "Pupil in a classroom",
+                "heading": "Ready to give your child the best start?",
+                "cta_label": "Enrol Now!",
+                "cta_url": "#enrol",
+                "right_src": "/images/admissions/kids-tablets.jpg",
+                "right_alt": "Pupils giving a thumbs up"
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "admissions_hero": {
+            "name": "Admissions Hero",
+            "group": "Admissions",
+            "version": 1,
+            "fields": [
+                { "id": "title", "type": "text", "label": "Title", "required": true },
+                { "id": "note_title", "type": "text", "label": "Note Title" },
+                { "id": "note_body", "type": "richtext", "label": "Note Body" },
+                { "id": "lead", "type": "textarea", "label": "Lead" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                { "id": "image", "type": "media", "label": "Cutout", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Cutout Fallback Path" },
+                { "id": "image_alt", "type": "text", "label": "Cutout Alt" },
+                { "id": "pill_value", "type": "text", "label": "Pill Value" },
+                { "id": "pill_label", "type": "text", "label": "Pill Label" },
+                {
+                    "id": "avatars",
+                    "type": "repeater",
+                    "label": "Avatars",
+                    "fields": [
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                    ]
+                }
+            ]
+        },
+        "admissions_enrol": {
+            "name": "One List / Enrol",
+            "group": "Admissions",
+            "version": 1,
+            "fields": [
+                { "id": "lead_strong", "type": "textarea", "label": "Lead (emphasis)" },
+                { "id": "lead_muted", "type": "textarea", "label": "Lead (muted)" },
+                { "id": "trusted_label", "type": "text", "label": "Trusted Label" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                { "id": "image", "type": "media", "label": "Kids Row", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Kids Row Fallback Path" },
+                { "id": "image_alt", "type": "text", "label": "Kids Row Alt" },
+                {
+                    "id": "avatars",
+                    "type": "repeater",
+                    "label": "Avatars",
+                    "fields": [
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                    ]
+                }
+            ]
+        },
+        "admissions_classes": {
+            "name": "Age-appropriate Classes",
+            "group": "Admissions",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                { "id": "body", "type": "textarea", "label": "Body" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "classes",
+                    "type": "repeater",
+                    "label": "Classes",
+                    "fields": [
+                        { "id": "name", "type": "text", "label": "Name" },
+                        { "id": "time", "type": "text", "label": "Time" },
+                        { "id": "seats", "type": "text", "label": "Seats" },
+                        { "id": "age", "type": "text", "label": "Age" },
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        { "id": "cta_label", "type": "text", "label": "CTA Label" }
+                    ]
+                }
+            ]
+        },
+        "admissions_programs": {
+            "name": "Our Amazing Programs",
+            "group": "Admissions",
+            "version": 1,
+            "fields": [
+                { "id": "heading", "type": "text", "label": "Heading" },
+                { "id": "subheading", "type": "textarea", "label": "Subheading" },
+                { "id": "activities_title", "type": "text", "label": "Activities Title" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "programs",
+                    "type": "repeater",
+                    "label": "Programs",
+                    "fields": [
+                        { "id": "tab", "type": "text", "label": "Tab" },
+                        { "id": "title", "type": "text", "label": "Title" },
+                        { "id": "age", "type": "text", "label": "Age" },
+                        { "id": "body", "type": "textarea", "label": "Body" },
+                        {
+                            "id": "tone",
+                            "type": "select",
+                            "label": "Tone",
+                            "default": "pink",
+                            "options": [
+                                { "value": "pink", "label": "Pink" },
+                                { "value": "orange", "label": "Orange" },
+                                { "value": "yellow", "label": "Yellow" }
+                            ]
+                        },
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                    ]
+                },
+                {
+                    "id": "activities",
+                    "type": "repeater",
+                    "label": "Key Activities",
+                    "fields": [
+                        { "id": "label", "type": "text", "label": "Label" },
+                        {
+                            "id": "dot",
+                            "type": "select",
+                            "label": "Dot",
+                            "default": "pink",
+                            "options": [
+                                { "value": "yellow", "label": "Yellow" },
+                                { "value": "teal", "label": "Teal" },
+                                { "value": "pink", "label": "Pink" },
+                                { "value": "green", "label": "Green" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "admissions_cta_row": {
+            "name": "3-up CTA Row",
+            "group": "Admissions",
+            "version": 1,
+            "fields": [
+                { "id": "left", "type": "media", "label": "Left Image", "kind": "image" },
+                { "id": "left_src", "type": "url", "label": "Left Fallback Path" },
+                { "id": "left_alt", "type": "text", "label": "Left Alt" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                { "id": "right", "type": "media", "label": "Right Image", "kind": "image" },
+                { "id": "right_src", "type": "url", "label": "Right Fallback Path" },
+                { "id": "right_alt", "type": "text", "label": "Right Alt" }
+            ]
+        }
+    }
+}

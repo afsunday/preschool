@@ -1,0 +1,347 @@
+{
+    "slug": "about",
+    "title": "About us",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "We are not a holding space. We are an active development environment for children aged 0-5."
+    },
+    "sections": [
+        {
+            "type": "about_hero",
+            "name": "hero",
+            "settings": {
+                "title": "Build credibility and emotional confidence fast.",
+                "subtitle": "We are not a holding space. We are an active development environment for children aged 0-5.",
+                "image_src": "/images/about/hero-collage.jpg",
+                "image_alt": "Teacher playing with children"
+            }
+        },
+        {
+            "type": "about_founder",
+            "name": "founder",
+            "settings": {
+                "image_src": "/images/about/founder.jpg",
+                "name": "Dr. Mery Osayi, OMN",
+                "role": "Founder & Director, WODI",
+                "quote": "When I started WODI, I had one vision: to create the kind of early childhood centre I wished had existed for my own children. A place that sees every child <span>fully</span> — not just what they can do, but who they are becoming. Today, I'm incredibly proud of the team we've built and the families who trust us with their most precious people. WODI isn't just a centre. It's a family."
+            }
+        },
+        {
+            "type": "about_programs",
+            "name": "programs",
+            "settings": {
+                "eyebrow": "Programs and Classes",
+                "heading": "Playful programs for growing minds",
+                "cta_label": "Enroll Your Child Today",
+                "cta_url": "/#admissions",
+                "programs": [
+                    {
+                        "src": "/images/about/program-art.jpg",
+                        "alt": "Children's crayon artwork",
+                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                    },
+                    {
+                        "src": "/images/about/program-drawing.jpg",
+                        "alt": "Child drawing on a wall",
+                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                    },
+                    {
+                        "src": "/images/about/program-classroom.jpg",
+                        "alt": "Children working at classroom tables",
+                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "about_nurture",
+            "name": "nurture",
+            "settings": {
+                "eyebrow": "Lorem ipsum section",
+                "heading": "Nurturing young hearts dreams",
+                "image_src": "/images/about/nurturing.jpg",
+                "image_alt": "Children drawing at a desk",
+                "items": [
+                    {
+                        "accent": "pink",
+                        "title": "Potter ipsum wand elf parchment",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "accent": "yellow",
+                        "title": "Potter ipsum wand elf parchment",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "accent": "cyan",
+                        "title": "Potter ipsum wand elf parchment",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "accent": "green",
+                        "title": "Potter ipsum wand elf parchment",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "about_activities",
+            "name": "activities",
+            "settings": {
+                "eyebrow": "Learning activities",
+                "heading": "Fun activities that inspire young minds",
+                "activities": [
+                    {
+                        "number": "01",
+                        "title": "Art & Craft",
+                        "src": "/images/about/activity-1.jpg",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "number": "02",
+                        "title": "Storytelling & Reading",
+                        "src": "/images/about/activity-2.jpg",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "number": "03",
+                        "title": "Music & Movement",
+                        "src": "/images/about/activity-3.jpg",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    },
+                    {
+                        "number": "04",
+                        "title": "Big games and puzzle",
+                        "src": "/images/about/activity-4.jpg",
+                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "about_team",
+            "name": "team",
+            "settings": {
+                "eyebrow": "Lorem ipsum section",
+                "heading": "Caring hearts behind every happy child",
+                "members": [
+                    { "name": "Jodi McDermott", "role": "Grade Teacher", "accent": "pink", "src": "/images/about/teacher-1.png" },
+                    { "name": "Lillian Satterfield", "role": "Grade Teacher", "accent": "blue", "src": "/images/about/teacher-2.png" },
+                    { "name": "Samuel Becker-Harvey", "role": "Grade Teacher", "accent": "amber", "src": "/images/about/teacher-3.png" },
+                    { "name": "Sean Prosacco", "role": "Grade Teacher", "accent": "orange", "src": "/images/about/teacher-4.png" }
+                ]
+            }
+        },
+        {
+            "type": "about_testimonial",
+            "name": "testimonial",
+            "settings": {
+                "image_src": "/images/about/testimonial.jpg",
+                "image_alt": "Children in a classroom",
+                "quote": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded.",
+                "name": "Sarah Finlay"
+            }
+        },
+        {
+            "type": "about_gallery",
+            "name": "gallery",
+            "settings": {
+                "eyebrow": "Lorem ipsum section",
+                "heading": "Caring hearts behind every happy child",
+                "photos": [
+                    { "src": "/images/about/gallery-1.jpg", "ratio": "4x5" },
+                    { "src": "/images/about/gallery-2.jpg", "ratio": "4x3" },
+                    { "src": "/images/about/gallery-3.jpg", "ratio": "1x1" },
+                    { "src": "/images/about/gallery-4.jpg", "ratio": "3x4" },
+                    { "src": "/images/about/gallery-5.jpg", "ratio": "4x3" },
+                    { "src": "/images/about/gallery-6.jpg", "ratio": "1x1" },
+                    { "src": "/images/about/gallery-7.jpg", "ratio": "3x4" },
+                    { "src": "/images/about/gallery-8.jpg", "ratio": "4x3" }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "about_hero": {
+            "name": "About Hero",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "title", "type": "text", "label": "Title", "required": true },
+                { "id": "subtitle", "type": "textarea", "label": "Subtitle" },
+                { "id": "image", "type": "media", "label": "Collage Image", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Collage Fallback Path" },
+                { "id": "image_alt", "type": "text", "label": "Collage Alt" }
+            ]
+        },
+        "about_founder": {
+            "name": "Founder Quote",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "image", "type": "media", "label": "Portrait", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Portrait Fallback Path" },
+                { "id": "name", "type": "text", "label": "Name" },
+                { "id": "role", "type": "text", "label": "Role" },
+                { "id": "quote", "type": "richtext", "label": "Quote" }
+            ]
+        },
+        "about_programs": {
+            "name": "Programs and Classes",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                { "id": "cta_label", "type": "text", "label": "CTA Label" },
+                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "programs",
+                    "type": "repeater",
+                    "label": "Programs",
+                    "fields": [
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        { "id": "alt", "type": "text", "label": "Alt" },
+                        { "id": "body", "type": "textarea", "label": "Body" }
+                    ]
+                }
+            ]
+        },
+        "about_nurture": {
+            "name": "Nurturing Young Hearts",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Image Fallback Path" },
+                { "id": "image_alt", "type": "text", "label": "Image Alt" },
+                {
+                    "id": "items",
+                    "type": "repeater",
+                    "label": "Rows",
+                    "fields": [
+                        {
+                            "id": "accent",
+                            "type": "select",
+                            "label": "Accent",
+                            "default": "pink",
+                            "options": [
+                                { "value": "pink", "label": "Pink" },
+                                { "value": "yellow", "label": "Yellow" },
+                                { "value": "cyan", "label": "Cyan" },
+                                { "value": "green", "label": "Green" }
+                            ]
+                        },
+                        { "id": "title", "type": "text", "label": "Title" },
+                        { "id": "body", "type": "textarea", "label": "Body" }
+                    ]
+                }
+            ]
+        },
+        "about_activities": {
+            "name": "Fun Activities",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "activities",
+                    "type": "repeater",
+                    "label": "Activities",
+                    "fields": [
+                        { "id": "number", "type": "text", "label": "Number" },
+                        { "id": "title", "type": "text", "label": "Title" },
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        { "id": "body", "type": "textarea", "label": "Body" }
+                    ]
+                }
+            ]
+        },
+        "about_team": {
+            "name": "Team",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "members",
+                    "type": "repeater",
+                    "label": "Members",
+                    "fields": [
+                        { "id": "name", "type": "text", "label": "Name" },
+                        { "id": "role", "type": "text", "label": "Role" },
+                        {
+                            "id": "accent",
+                            "type": "select",
+                            "label": "Accent",
+                            "default": "pink",
+                            "options": [
+                                { "value": "pink", "label": "Pink" },
+                                { "value": "blue", "label": "Blue" },
+                                { "value": "amber", "label": "Amber" },
+                                { "value": "orange", "label": "Orange" }
+                            ]
+                        },
+                        { "id": "image", "type": "media", "label": "Photo", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Photo Fallback Path" }
+                    ]
+                }
+            ]
+        },
+        "about_testimonial": {
+            "name": "About Testimonial",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                { "id": "image_src", "type": "url", "label": "Image Fallback Path" },
+                { "id": "image_alt", "type": "text", "label": "Image Alt" },
+                { "id": "quote", "type": "textarea", "label": "Quote" },
+                { "id": "name", "type": "text", "label": "Name" }
+            ]
+        },
+        "about_gallery": {
+            "name": "About Gallery",
+            "group": "About",
+            "version": 1,
+            "fields": [
+                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
+                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "photos",
+                    "type": "repeater",
+                    "label": "Photos",
+                    "fields": [
+                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        {
+                            "id": "ratio",
+                            "type": "select",
+                            "label": "Ratio",
+                            "default": "1x1",
+                            "options": [
+                                { "value": "4x5", "label": "Tall (4:5)" },
+                                { "value": "3x4", "label": "Taller (3:4)" },
+                                { "value": "4x3", "label": "Wide (4:3)" },
+                                { "value": "1x1", "label": "Square" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

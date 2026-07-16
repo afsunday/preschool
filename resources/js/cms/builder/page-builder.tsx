@@ -40,17 +40,20 @@ export function PageBuilder({
     });
 
     const [doc, setDoc] = useState<PageDoc | null>(null);
+    const [adopted, setAdopted] = useState<PageDoc | null>(null);
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [device, setDevice] = useState<Device>('desktop');
     const [tab, setTab] = useState<Tab>('design');
     const [previewHtml, setPreviewHtml] = useState<string | null>(null);
-    const [rendering, setRendering] = useState(false);
+    const [renderedDoc, setRenderedDoc] = useState<PageDoc | null>(null);
 
-    useEffect(() => {
-        if (pageQuery.data) {
-            setDoc(pageQuery.data);
-        }
-    }, [pageQuery.data]);
+    // Each freshly fetched page becomes the editable copy. Adjusted during
+    // render (not in an effect) so no frame is ever committed with the previous
+    // page's doc: https://react.dev/reference/react/useState#storing-information-from-previous-renders
+    if (pageQuery.data && pageQuery.data !== adopted) {
+        setAdopted(pageQuery.data);
+        setDoc(pageQuery.data);
+    }
 
     // Whole-page live preview: debounce-render the current doc → iframe srcdoc.
     useEffect(() => {
@@ -58,19 +61,42 @@ export function PageBuilder({
             return;
         }
 
-        setRendering(true);
+        // The debounce cannot cancel a request already in flight, and two
+        // renders can resolve out of order. Ignore a superseded one entirely:
+        // letting it through would paint a stale preview, and — because
+        // `rendering` is derived from renderedDoc — would strand the spinner on
+        // forever, since no further effect runs while the doc sits unchanged.
+        let superseded = false;
+
         const t = setTimeout(async () => {
             try {
-                setPreviewHtml(await api.renderPage(pageId, doc));
+                const html = await api.renderPage(pageId, doc);
+
+                if (!superseded) {
+                    setPreviewHtml(html);
+                }
             } catch (e) {
-                onError?.(e instanceof Error ? e.message : 'Preview failed');
+                if (!superseded) {
+                    onError?.(e instanceof Error ? e.message : 'Preview failed');
+                }
             } finally {
-                setRendering(false);
+                // Marks this doc as settled whether or not it rendered, so a
+                // failed preview stops the spinner exactly as a success does.
+                if (!superseded) {
+                    setRenderedDoc(doc);
+                }
             }
         }, 400);
 
-        return () => clearTimeout(t);
+        return () => {
+            superseded = true;
+            clearTimeout(t);
+        };
     }, [doc, api, pageId, onError]);
+
+    // Derived, not stored: a render is outstanding whenever the preview lags
+    // the doc being edited.
+    const rendering = doc !== null && renderedDoc !== doc;
 
     const postToFrame = useCallback((msg: Record<string, unknown>) => {
         iframeRef.current?.contentWindow?.postMessage(

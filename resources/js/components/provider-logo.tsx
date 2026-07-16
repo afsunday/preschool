@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 /** Brand fallbacks when a provider's logo file isn't present. */
 const BRAND: Record<string, { bg: string; label: string }> = {
@@ -18,14 +18,15 @@ export default function ProviderLogo({
     provider: string;
     className?: string;
 }) {
-    const [failed, setFailed] = useState(false);
+    const [failedProvider, setFailedProvider] = useState<string | null>(null);
     const brand = BRAND[provider] ?? {
         bg: '#3f3f46',
         label: provider.charAt(0).toUpperCase(),
     };
 
-    // Reset the error state if the provider changes.
-    useEffect(() => setFailed(false), [provider]);
+    // Track which provider failed rather than a bare flag, so the fallback is
+    // scoped to that provider and a new one starts clean without an effect.
+    const failed = failedProvider === provider;
 
     if (failed) {
         return (
@@ -42,7 +43,7 @@ export default function ProviderLogo({
         <img
             src={`/icons/${provider}.png`}
             alt={provider}
-            onError={() => setFailed(true)}
+            onError={() => setFailedProvider(provider)}
             className={`flex-shrink-0 rounded-lg object-contain ${className}`}
         />
     );

@@ -156,6 +156,12 @@ function OgImageField({
         <MediaPicker
             api={mediaApi}
             value={resolved}
+            // An id that hasn't resolved yet still means "there is an image", so
+            // the picker stays filled and shows a spinner. Without these, a set
+            // image flashes the empty state on load and reads as removed — only
+            // the X should ever clear it.
+            hasValue={value != null}
+            loading={value != null && resolved === null}
             kind="image"
             onChange={(picked) => onChange(picked?.id ?? null)}
         />
