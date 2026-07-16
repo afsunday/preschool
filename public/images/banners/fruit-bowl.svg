@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Fruit bowl with a banana, orange slice and grapes">
+  <rect width="1200" height="400" fill="#E8455A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- bowl shadow and inner rim -->
+  <ellipse cx="880" cy="256" rx="132" ry="30" fill="#000" opacity="0.12"/>
+  <path d="M748 256 a132 96 0 0 0 264 0 z" fill="#000" opacity="0.12"/>
+  <ellipse cx="880" cy="250" rx="132" ry="30" fill="#FFF6F9"/>
+
+  <!-- banana -->
+  <g transform="translate(918 186) rotate(-14)">
+    <path d="M0 6 a105 105 0 0 0 170 72 a200 200 0 0 1 -170 -72 z" fill="#000" opacity="0.12"/>
+    <path d="M0 0 a105 105 0 0 0 170 72 a200 200 0 0 1 -170 -72 z" fill="#FFC94A"/>
+    <path d="M0 0 a130 130 0 0 0 170 72 a200 200 0 0 1 -170 -72 z" fill="#E0A413"/>
+    <circle cx="167" cy="70" r="7" fill="#6B4A2A"/>
+  </g>
+
+  <!-- grapes -->
+  <g>
+    <g fill="#000" opacity="0.12">
+      <circle cx="776" cy="210" r="19"/><circle cx="814" cy="210" r="19"/><circle cx="852" cy="210" r="19"/>
+      <circle cx="795" cy="242" r="19"/><circle cx="833" cy="242" r="19"/><circle cx="814" cy="274" r="19"/>
+    </g>
+    <rect x="810" y="174" width="8" height="26" rx="4" fill="#6B4A2A"/>
+    <path d="M818 182q26-16 38 2-24 12-38-2z" fill="#31C48D"/>
+    <g fill="#7C5CFF">
+      <circle cx="776" cy="204" r="19"/><circle cx="814" cy="204" r="19"/><circle cx="852" cy="204" r="19"/>
+      <circle cx="795" cy="236" r="19"/><circle cx="833" cy="236" r="19"/><circle cx="814" cy="268" r="19"/>
+    </g>
+  </g>
+
+  <!-- orange slice -->
+  <g>
+    <circle cx="900" cy="214" r="52" fill="#000" opacity="0.12"/>
+    <circle cx="900" cy="208" r="52" fill="#E0A413"/>
+    <circle cx="900" cy="208" r="42" fill="#FFC94A"/>
+    <path d="M858 208h84M900 166v84M870 178l60 60M870 238l60-60" stroke="#E0A413" stroke-width="5"/>
+  </g>
+
+  <!-- bowl front -->
+  <path d="M748 250 a132 96 0 0 0 264 0 z" fill="#FFFFFF"/>
+  <path d="M756 264 q124 28 248 0" fill="none" stroke="#5B6BD6" stroke-width="11" stroke-linecap="round"/>
+</svg>

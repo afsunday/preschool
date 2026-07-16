@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Sandpit moulds, a rake and a sieve">
+ <rect width="1200" height="400" fill="#C9911A"/>
+ <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+ <defs>
+  <path id="st" d="M0-48 12-16 46-15 19 6 28 39 0 20-28 39-19 6-46-15-12-16z"/>
+  <rect id="sq" x="-40" y="-40" width="80" height="80" rx="10"/>
+  <g id="fm"><circle cx="26" r="20"/><circle cx="13" cy="23" r="20"/><circle cx="-13" cy="23" r="20"/><circle cx="-26" r="20"/><circle cx="-13" cy="-23" r="20"/><circle cx="13" cy="-23" r="20"/><circle r="22"/></g>
+  <path id="rk" d="M898 160h-42l-18 8 18 8h42zM898 188h-42l-18 8 18 8h42zM898 216h-42l-18 8 18 8h42zM898 244h-42l-18 8 18 8h42z"/>
+ </defs>
+ <!-- sieve -->
+ <g transform="translate(16 -10)">
+  <g fill="#000" opacity=".12" transform="translate(0 6)">
+   <rect x="648" y="204" width="52" height="32" rx="10"/><circle cx="760" cy="220" r="78"/>
+  </g>
+  <rect x="648" y="204" width="52" height="32" rx="10" fill="#5B6BD6"/>
+  <circle cx="760" cy="220" r="78" fill="#5B6BD6"/>
+  <circle cx="760" cy="220" r="62" fill="#FFF6F9"/>
+  <path d="M702 220h116M707 196h106M707 244h106M727 172h66M727 268h66M760 162v116M736 167v106M784 167v106M712 187v66M808 187v66" fill="none" stroke="#5B6BD6" stroke-width="5" stroke-linecap="round"/>
+ </g>
+ <!-- rake -->
+ <g fill="#000" opacity=".12" transform="translate(0 6)rotate(-24 980 210)">
+  <use href="#rk"/><rect x="896" y="150" width="26" height="120" rx="6"/>
+  <rect x="920" y="197" width="22" height="26" rx="3"/><rect x="938" y="197" width="152" height="26" rx="13"/>
+ </g>
+ <g transform="rotate(-24 980 210)">
+  <use href="#rk" fill="#1E8A62"/>
+  <rect x="896" y="150" width="26" height="120" rx="6" fill="#31C48D"/>
+  <rect x="920" y="197" width="22" height="26" rx="3" fill="#3A3A48"/>
+  <rect x="938" y="197" width="152" height="26" rx="13" fill="#7C5CFF"/>
+  <rect x="1064" y="197" width="26" height="26" rx="13" fill="#E8455A"/>
+  <rect x="954" y="203" width="76" height="6" rx="3" fill="#FFF" opacity=".35"/>
+ </g>
+ <!-- star mould -->
+ <use href="#st" transform="translate(862 310)rotate(-12)" fill="#000" opacity=".12"/>
+ <g transform="translate(862 304)rotate(-12)">
+  <use href="#st" fill="#E8455A"/>
+  <use href="#st" transform="scale(.6)" fill="#000" opacity=".15"/>
+ </g>
+ <!-- flower mould -->
+ <use href="#fm" transform="translate(950 310)rotate(14)" fill="#000" opacity=".12"/>
+ <g transform="translate(950 304)rotate(14)">
+  <use href="#fm" fill="#FFF6F9"/>
+  <use href="#fm" transform="scale(.62)" fill="#000" opacity=".15"/>
+ </g>
+ <!-- square mould -->
+ <use href="#sq" transform="translate(1040 306)rotate(18)" fill="#000" opacity=".12"/>
+ <g transform="translate(1040 300)rotate(18)">
+  <use href="#sq" fill="#7C5CFF"/>
+  <use href="#sq" transform="scale(.65)" fill="#000" opacity=".15"/>
+ </g>
+</svg>

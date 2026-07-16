@@ -17,9 +17,8 @@ use Illuminate\Support\Collection;
 /**
  * A class/room — "Mr James · Grade 1 · 2026/2027".
  *
- * The cover is a real image from the media library (Google Classroom style),
- * attached through the `mediables` pivot rather than a column — so it needs no
- * schema of its own and "where is this image used?" keeps working.
+ * The cover is a key into the generated banner library (see ClassroomBanner),
+ * never a colour or a CSS class — Tailwind cannot scan the database.
  *
  * @property int $id
  * @property string $name
@@ -27,19 +26,17 @@ use Illuminate\Support\Collection;
  * @property string $year
  * @property int|null $teacher_id
  * @property string|null $color
+ * @property string $banner
  * @property bool $is_archived
  * @property-read string $label
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['name', 'grade', 'year', 'teacher_id', 'color', 'is_archived'])]
+#[Fillable(['name', 'grade', 'year', 'teacher_id', 'color', 'banner', 'is_archived'])]
 class Classroom extends Model
 {
     /** @use HasFactory<ClassroomFactory> */
     use HasFactory, HasMedia;
-
-    /** The media collection holding the class cover. */
-    public const BANNER = 'banner';
 
     protected function casts(): array
     {
@@ -47,24 +44,6 @@ class Classroom extends Model
     }
 
     protected $appends = ['label'];
-
-    /** The class cover, if one has been chosen. */
-    public function banner(): ?Media
-    {
-        return $this->getMedia(self::BANNER)->first();
-    }
-
-    /**
-     * Replace the cover — a class has exactly one, so the old one detaches.
-     */
-    public function setBanner(?int $mediaId): void
-    {
-        $this->media()->wherePivot('collection', self::BANNER)->detach();
-
-        if ($mediaId !== null) {
-            $this->attachMedia($mediaId, self::BANNER);
-        }
-    }
 
     /**
      * "Mr James · Grade 1 · 2026/2027" — how the class reads in the switcher.

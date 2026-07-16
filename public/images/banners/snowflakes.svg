@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Geometric snowflakes with a woolly hat and a mitten">
+  <rect width="1200" height="400" fill="#3A7BB5"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- woolly bobble hat -->
+  <g transform="rotate(-6 748 260)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <circle cx="748" cy="210" r="19" fill="#000"/>
+      <path d="M692 278a56 54 0 0 1 112 0z" fill="#000"/>
+      <rect x="682" y="272" width="132" height="34" rx="17" fill="#000"/>
+    </g>
+    <circle cx="748" cy="210" r="19" fill="#FFF6F9"/>
+    <path d="M692 278a56 54 0 0 1 112 0z" fill="#E8618C"/>
+    <rect x="702" y="248" width="92" height="14" fill="#7C5CFF"/>
+    <rect x="682" y="272" width="132" height="34" rx="17" fill="#FFF6F9"/>
+  </g>
+
+  <!-- large snowflake -->
+  <g transform="translate(868 172) rotate(10)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <g fill="none" stroke="#000" stroke-width="7" stroke-linecap="round">
+        <path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/>
+        <g transform="rotate(60)"><path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/></g>
+        <g transform="rotate(120)"><path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/></g>
+      </g>
+      <circle r="9" fill="#000"/>
+    </g>
+    <g fill="none" stroke="#FFF6F9" stroke-width="7" stroke-linecap="round">
+      <path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/>
+      <g transform="rotate(60)"><path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/></g>
+      <g transform="rotate(120)"><path d="M0-58V58M0-42l-14-14M0-42l14-14M0 42l-14 14M0 42l14 14"/></g>
+    </g>
+    <circle r="9" fill="#FFF6F9"/>
+  </g>
+
+  <!-- mitten -->
+  <g transform="rotate(-12 956 264)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M916 262q-24-6-26 16q-2 22 26 18z" fill="#000"/>
+      <path d="M916 256q0-52 40-52q40 0 40 52v40h-80z" fill="#000"/>
+      <rect x="912" y="294" width="88" height="28" rx="10" fill="#000"/>
+    </g>
+    <path d="M916 262q-24-6-26 16q-2 22 26 18z" fill="#31C48D"/>
+    <path d="M916 256q0-52 40-52q40 0 40 52v40h-80z" fill="#31C48D"/>
+    <rect x="918" y="252" width="76" height="8" fill="#1E8A62"/>
+    <rect x="918" y="268" width="76" height="8" fill="#1E8A62"/>
+    <rect x="912" y="294" width="88" height="28" rx="10" fill="#FFF6F9"/>
+  </g>
+
+  <!-- small snowflake -->
+  <g transform="translate(1030 300) rotate(-14)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <g fill="none" stroke="#000" stroke-width="6" stroke-linecap="round">
+        <path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/>
+        <g transform="rotate(60)"><path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/></g>
+        <g transform="rotate(120)"><path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/></g>
+      </g>
+      <circle r="7" fill="#000"/>
+    </g>
+    <g fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round">
+      <path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/>
+      <g transform="rotate(60)"><path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/></g>
+      <g transform="rotate(120)"><path d="M0-44V44M0-30l-11-11M0-30l11-11M0 30l-11 11M0 30l11 11"/></g>
+    </g>
+    <circle r="7" fill="#FFFFFF"/>
+  </g>
+</svg>

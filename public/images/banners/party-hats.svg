@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Party hats with pompoms and paper streamers">
+  <!-- Google-Classroom-style flat lay: solid field on the left for the class
+       title, objects clustered right on a soft disc. -->
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- streamer -->
+  <g>
+    <path d="M652 332q34-32 68 0t68 0t68 0" fill="none" stroke="#000" opacity="0.12" stroke-width="11" stroke-linecap="round" transform="translate(0 6)"/>
+    <path d="M652 332q34-32 68 0t68 0t68 0" fill="none" stroke="#FFF6F9" stroke-width="11" stroke-linecap="round"/>
+  </g>
+
+  <!-- cone hat -->
+  <g transform="rotate(-14 700 240)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M700 150l56 156a56 18 0 0 1-112 0z"/>
+      <circle cx="700" cy="144" r="16"/>
+    </g>
+    <path d="M700 150l56 156a56 18 0 0 1-112 0z" fill="#7C5CFF"/>
+    <path d="M677 230l23-12 23 12M662 272l38-12 38 12" fill="none" stroke="#FFC94A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="700" cy="144" r="16" fill="#FFF6F9"/>
+  </g>
+
+  <!-- cone hat -->
+  <g transform="rotate(6 850 230)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M850 132l58 168a58 18 0 0 1-116 0z"/>
+      <circle cx="850" cy="126" r="16"/>
+    </g>
+    <path d="M850 132l58 168a58 18 0 0 1-116 0z" fill="#31C48D"/>
+    <path d="M824 226l26-12 26 12M809 268l41-12 41 12" fill="none" stroke="#FFF6F9" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="850" cy="126" r="16" fill="#FFF6F9"/>
+  </g>
+
+  <!-- cone hat -->
+  <g transform="rotate(18 1040 250)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M1040 158l54 154a54 18 0 0 1-108 0z"/>
+      <circle cx="1040" cy="152" r="16"/>
+    </g>
+    <path d="M1040 158l54 154a54 18 0 0 1-108 0z" fill="#5B6BD6"/>
+    <path d="M1019 236l21-12 21 12M1004 278l36-12 36 12" fill="none" stroke="#FFC94A" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="1040" cy="152" r="16" fill="#FFF6F9"/>
+  </g>
+
+  <!-- streamer -->
+  <g>
+    <path d="M1058 128q18 22 36 0t36 0" fill="none" stroke="#000" opacity="0.12" stroke-width="9" stroke-linecap="round" transform="translate(0 6)"/>
+    <path d="M1058 128q18 22 36 0t36 0" fill="none" stroke="#7C5CFF" stroke-width="9" stroke-linecap="round"/>
+  </g>
+</svg>

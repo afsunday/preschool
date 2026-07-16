@@ -90,7 +90,7 @@ function ChildReport({
         );
 
     return (
-        <div className="rounded-[6px] border border-portal-line bg-white p-4">
+        <div className="rounded-[4px] border border-portal-line bg-white p-4">
             <div className="flex items-center gap-3">
                 {child.photo ? (
                     <img
@@ -124,7 +124,7 @@ function ChildReport({
                                 { preserveScroll: true },
                             )
                         }
-                        className="inline-flex items-center gap-1.5 rounded-full bg-portal-accent px-3 py-1.5 text-[11px] font-bold tracking-wide text-white uppercase transition hover:brightness-95"
+                        className="inline-flex items-center gap-1.5 rounded-[4px] bg-portal-accent px-3 py-1.5 text-[11px] font-bold tracking-wide text-white uppercase transition hover:brightness-95"
                     >
                         <Send className="size-3" />
                         Send to parent
@@ -169,21 +169,21 @@ function ChildReport({
                     <button
                         type="button"
                         onClick={() => addEntry('nap')}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
+                        className="inline-flex items-center gap-1.5 rounded-[4px] border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
                     >
                         <Moon className="size-3.5" /> Nap
                     </button>
                     <button
                         type="button"
                         onClick={() => addEntry('meal', 'Ate all')}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
+                        className="inline-flex items-center gap-1.5 rounded-[4px] border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
                     >
                         <Utensils className="size-3.5" /> Meal
                     </button>
                     <button
                         type="button"
                         onClick={() => addEntry('nappy', 'Wet')}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
+                        className="inline-flex items-center gap-1.5 rounded-[4px] border border-portal-line px-2.5 py-1 text-xs text-neutral-600 transition hover:bg-neutral-50"
                     >
                         <Baby className="size-3.5" /> Nappy
                     </button>
@@ -197,7 +197,7 @@ function ChildReport({
                                 { preserveScroll: true },
                             )
                         }
-                        className="ml-auto rounded-full border border-portal-line px-2.5 py-1 text-xs text-neutral-600 outline-none"
+                        className="ml-auto rounded-[4px] border border-portal-line px-2.5 py-1 text-xs text-neutral-600 outline-none"
                     >
                         <option value="">Mood…</option>
                         {MOODS.map((m) => (
@@ -249,7 +249,7 @@ export default function ClassToday({
                 </div>
 
                 {children.length === 0 ? (
-                    <div className="grid place-items-center rounded-[6px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
+                    <div className="grid place-items-center rounded-[4px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
                         <ClipboardList className="size-8 text-neutral-300" />
                         <p className="mt-3 text-sm font-medium text-portal-ink">
                             Nothing to show

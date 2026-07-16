@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Sand bucket with a spade and star and flower sand moulds">
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- flower sand mould -->
+  <g transform="translate(1064 168) rotate(18)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <circle cx="26" r="20"/><circle cx="13" cy="22.5" r="20"/><circle cx="-13" cy="22.5" r="20"/>
+      <circle cx="-26" r="20"/><circle cx="-13" cy="-22.5" r="20"/><circle cx="13" cy="-22.5" r="20"/>
+      <circle r="24"/>
+    </g>
+    <g fill="#31C48D">
+      <circle cx="26" r="20"/><circle cx="13" cy="22.5" r="20"/><circle cx="-13" cy="22.5" r="20"/>
+      <circle cx="-26" r="20"/><circle cx="-13" cy="-22.5" r="20"/><circle cx="13" cy="-22.5" r="20"/>
+    </g>
+    <circle r="24" fill="#1E8A62"/>
+  </g>
+
+  <!-- star sand mould -->
+  <g transform="translate(1064 292) rotate(-14)">
+    <path d="M0-38L11.2-9.4L41.9-7.6L18.1 11.9L25.9 41.6L0 25L-25.9 41.6L-18.1 11.9L-41.9-7.6L-11.2-9.4Z" fill="#000" opacity="0.12"/>
+    <path d="M0-44L11.2-15.4L41.9-13.6L18.1 5.9L25.9 35.6L0 19L-25.9 35.6L-18.1 5.9L-41.9-13.6L-11.2-15.4Z" fill="#FFC94A"/>
+    <path d="M0-24.2L6.2-8.5L23-7.5L10 3.2L14.2 19.6L0 10.5L-14.2 19.6L-10 3.2L-23-7.5L-6.2-8.5Z" fill="#E0A413"/>
+  </g>
+
+  <!-- spade -->
+  <g transform="translate(730 160) rotate(-28)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="-30" y="0" width="60" height="20" rx="10"/>
+      <rect x="-9" y="18" width="18" height="104" rx="6"/>
+      <path d="M-34 122h68l-8 44q-26 22-52 0z"/>
+    </g>
+    <rect x="-9" y="18" width="18" height="104" rx="6" fill="#FFC94A"/>
+    <path d="M-34 122h68l-8 44q-26 22-52 0z" fill="#E0A413"/>
+    <rect x="-30" y="0" width="60" height="20" rx="10" fill="#E8455A"/>
+  </g>
+
+  <!-- bucket -->
+  <g transform="rotate(4 908 260)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M822 192q86-94 172 0" fill="none" stroke="#000" stroke-width="10" stroke-linecap="round"/>
+      <path d="M818 202h180l-24 118a14 14 0 0 1-14 12H856a14 14 0 0 1-14-12z"/>
+      <rect x="810" y="190" width="196" height="22" rx="11"/>
+    </g>
+    <path d="M822 192q86-94 172 0" fill="none" stroke="#B9BCC4" stroke-width="10" stroke-linecap="round"/>
+    <path d="M818 202h180l-24 118a14 14 0 0 1-14 12H856a14 14 0 0 1-14-12z" fill="#7C5CFF"/>
+    <path d="M827 244H989L985 266H831Z" fill="#FFC94A"/>
+    <rect x="810" y="190" width="196" height="22" rx="11" fill="#5B3AC4"/>
+  </g>
+</svg>

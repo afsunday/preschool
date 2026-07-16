@@ -24,7 +24,7 @@ type TabDef = { title: string; path: string; icon: LucideIcon };
 // nothing in a daycare is addressed to a child directly.
 const classTabs: TabDef[] = [
     { title: 'Feed', path: '', icon: Newspaper },
-    { title: 'Children', path: '/children', icon: Users },
+    { title: 'Students', path: '/students', icon: Users },
     { title: 'Today', path: '/today', icon: ClipboardList },
     { title: 'Chats', path: '/chats', icon: MessageSquare },
 ];
@@ -33,7 +33,7 @@ function Brand() {
     return (
         <Link
             href="/portal"
-            className="inline-flex items-center rounded-[8px] bg-portal-brand px-2.5 py-1 text-lg font-extrabold tracking-tight text-white"
+            className="inline-flex items-center rounded-[4px] bg-portal-brand px-2.5 py-1 text-lg font-extrabold tracking-tight text-white"
         >
             WODI
         </Link>
@@ -54,7 +54,7 @@ function ClassSwitcher({
 
     return (
         <Menu as="div" className="relative">
-            <MenuButton className="flex max-w-[18rem] items-center gap-2 rounded-full bg-portal-soft px-4 py-2.5 text-[15px] font-bold text-portal-accent transition outline-none hover:brightness-97">
+            <MenuButton className="flex max-w-[18rem] items-center gap-2 rounded-[4px] bg-portal-soft px-4 py-2.5 text-[15px] font-bold text-portal-accent transition outline-none hover:brightness-97">
                 <GraduationCap className="size-4.5 shrink-0" />
                 <span className="min-w-0 flex-1 truncate text-left">
                     {current?.label ?? 'Select a class'}
@@ -63,7 +63,7 @@ function ClassSwitcher({
             </MenuButton>
             <MenuItems
                 anchor="bottom start"
-                className="z-50 mt-1 w-72 rounded-[12px] border border-portal-line bg-white py-1.5 shadow-s3 focus:outline-none"
+                className="z-50 mt-1 w-72 rounded-[4px] border border-portal-line bg-white py-1.5 shadow-s3 focus:outline-none"
             >
                 {classes.map((c) => (
                     <MenuItem key={c.id}>
@@ -110,7 +110,7 @@ function IconButton({
             href={href}
             title={label}
             aria-label={label}
-            className="relative grid size-10 place-items-center rounded-[6px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200"
+            className="relative grid size-10 place-items-center rounded-[4px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200"
         >
             <Icon className="size-5" strokeWidth={1.75} />
             {dot && (
@@ -156,7 +156,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                     <div className="ml-auto flex items-center gap-2">
                         <Link
                             href="/dashboard"
-                            className="mr-1 hidden items-center gap-1.5 rounded-[6px] px-3 py-2 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
+                            className="mr-1 hidden items-center gap-1.5 rounded-[4px] px-3 py-2 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
                         >
                             <ArrowLeftRight className="size-3.5" />
                             Switch to admin
@@ -181,7 +181,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                         <Link
                             href="/portal"
                             className={cn(
-                                'my-2 flex items-center gap-2 rounded-full px-4 py-2 text-[15px] font-bold transition',
+                                'my-2 flex items-center gap-2 rounded-[4px] px-4 py-2 text-[15px] font-bold transition',
                                 atHome
                                     ? 'bg-portal-soft text-portal-accent'
                                     : 'text-neutral-500 hover:bg-neutral-50 hover:text-portal-ink',

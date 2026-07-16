@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Beads threaded on a lace with loose beads and a lacing string">
+  <rect width="1200" height="400" fill="#5B6BD6"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- loose lacing string -->
+  <g>
+    <path d="M676 332C730 364 810 298 888 334S1030 362 1100 324" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round" opacity="0.12"/>
+    <path d="M676 326C730 358 810 292 888 328S1030 356 1100 318" fill="none" stroke="#FFF6F9" stroke-width="7" stroke-linecap="round"/>
+    <rect x="1092" y="308" width="24" height="12" rx="4" fill="#B9BCC4" transform="rotate(-28 1104 314)"/>
+  </g>
+
+  <!-- threaded strand -->
+  <g transform="rotate(-9 878 206)">
+    <path d="M672 212h358" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round" opacity="0.12"/>
+    <path d="M672 206h358" fill="none" stroke="#F2E3C4" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="676" cy="212" r="10" fill="#000" opacity="0.12"/>
+    <circle cx="676" cy="206" r="10" fill="#F2E3C4"/>
+    <g fill="#000" opacity="0.12">
+      <circle cx="712" cy="212" r="24"/><circle cx="764" cy="212" r="24"/><circle cx="816" cy="212" r="24"/>
+      <rect x="844" y="188" width="48" height="48" rx="8"/>
+      <circle cx="920" cy="212" r="24"/><circle cx="972" cy="212" r="24"/>
+    </g>
+    <circle cx="712" cy="206" r="24" fill="#E8618C"/>
+    <circle cx="764" cy="206" r="24" fill="#FFC94A"/>
+    <circle cx="816" cy="206" r="24" fill="#31C48D"/>
+    <rect x="844" y="182" width="48" height="48" rx="8" fill="#F2E3C4"/>
+    <circle cx="920" cy="206" r="24" fill="#E8455A"/>
+    <circle cx="972" cy="206" r="24" fill="#7C5CFF"/>
+  </g>
+
+  <!-- loose beads -->
+  <g>
+    <circle cx="1044" cy="252" r="23" fill="#000" opacity="0.12"/>
+    <circle cx="1044" cy="246" r="23" fill="#31C48D"/>
+    <circle cx="1044" cy="246" r="7" fill="#3A3A48"/>
+    <circle cx="1096" cy="288" r="23" fill="#000" opacity="0.12"/>
+    <circle cx="1096" cy="282" r="23" fill="#E8618C"/>
+    <circle cx="1096" cy="282" r="7" fill="#3A3A48"/>
+    <circle cx="1004" cy="300" r="23" fill="#000" opacity="0.12"/>
+    <circle cx="1004" cy="294" r="23" fill="#FFC94A"/>
+    <circle cx="1004" cy="294" r="7" fill="#3A3A48"/>
+    <circle cx="762" cy="306" r="23" fill="#000" opacity="0.12"/>
+    <circle cx="762" cy="300" r="23" fill="#7C5CFF"/>
+    <circle cx="762" cy="300" r="7" fill="#3A3A48"/>
+  </g>
+</svg>

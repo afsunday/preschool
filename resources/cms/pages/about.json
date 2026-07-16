@@ -127,10 +127,30 @@
                 "eyebrow": "Lorem ipsum section",
                 "heading": "Caring hearts behind every happy child",
                 "members": [
-                    { "name": "Jodi McDermott", "role": "Grade Teacher", "accent": "pink", "src": "/images/about/teacher-1.png" },
-                    { "name": "Lillian Satterfield", "role": "Grade Teacher", "accent": "blue", "src": "/images/about/teacher-2.png" },
-                    { "name": "Samuel Becker-Harvey", "role": "Grade Teacher", "accent": "amber", "src": "/images/about/teacher-3.png" },
-                    { "name": "Sean Prosacco", "role": "Grade Teacher", "accent": "orange", "src": "/images/about/teacher-4.png" }
+                    {
+                        "name": "Jodi McDermott",
+                        "role": "Grade Teacher",
+                        "accent": "pink",
+                        "src": "/images/about/teacher-1.png"
+                    },
+                    {
+                        "name": "Lillian Satterfield",
+                        "role": "Grade Teacher",
+                        "accent": "blue",
+                        "src": "/images/about/teacher-2.png"
+                    },
+                    {
+                        "name": "Samuel Becker-Harvey",
+                        "role": "Grade Teacher",
+                        "accent": "amber",
+                        "src": "/images/about/teacher-3.png"
+                    },
+                    {
+                        "name": "Sean Prosacco",
+                        "role": "Grade Teacher",
+                        "accent": "orange",
+                        "src": "/images/about/teacher-4.png"
+                    }
                 ]
             }
         },
@@ -174,10 +194,24 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "title", "type": "text", "label": "Title", "required": true },
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
                 { "id": "subtitle", "type": "textarea", "label": "Subtitle" },
-                { "id": "image", "type": "media", "label": "Collage Image", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Collage Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Collage Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Collage Fallback Path"
+                },
                 { "id": "image_alt", "type": "text", "label": "Collage Alt" }
             ]
         },
@@ -186,8 +220,17 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "image", "type": "media", "label": "Portrait", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Portrait Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Portrait",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Portrait Fallback Path"
+                },
                 { "id": "name", "type": "text", "label": "Name" },
                 { "id": "role", "type": "text", "label": "Role" },
                 { "id": "quote", "type": "richtext", "label": "Quote" }
@@ -207,8 +250,17 @@
                     "type": "repeater",
                     "label": "Programs",
                     "fields": [
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
                         { "id": "alt", "type": "text", "label": "Alt" },
                         { "id": "body", "type": "textarea", "label": "Body" }
                     ]
@@ -222,8 +274,17 @@
             "fields": [
                 { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
                 { "id": "heading", "type": "text", "label": "Heading" },
-                { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Image Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Image Fallback Path"
+                },
                 { "id": "image_alt", "type": "text", "label": "Image Alt" },
                 {
                     "id": "items",
@@ -262,8 +323,17 @@
                     "fields": [
                         { "id": "number", "type": "text", "label": "Number" },
                         { "id": "title", "type": "text", "label": "Title" },
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
                         { "id": "body", "type": "textarea", "label": "Body" }
                     ]
                 }
@@ -295,8 +365,17 @@
                                 { "value": "orange", "label": "Orange" }
                             ]
                         },
-                        { "id": "image", "type": "media", "label": "Photo", "kind": "image" },
-                        { "id": "src", "type": "url", "label": "Photo Fallback Path" }
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Photo",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Photo Fallback Path"
+                        }
                     ]
                 }
             ]
@@ -306,8 +385,17 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Image Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Image Fallback Path"
+                },
                 { "id": "image_alt", "type": "text", "label": "Image Alt" },
                 { "id": "quote", "type": "textarea", "label": "Quote" },
                 { "id": "name", "type": "text", "label": "Name" }
@@ -325,8 +413,17 @@
                     "type": "repeater",
                     "label": "Photos",
                     "fields": [
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                        { "id": "src", "type": "url", "label": "Fallback Path" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
                         {
                             "id": "ratio",
                             "type": "select",

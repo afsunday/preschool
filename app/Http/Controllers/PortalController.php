@@ -37,7 +37,7 @@ class PortalController extends Controller
                     ->values()
                 : null,
             'isStaff' => $user->isStaff(),
-            'canCreate' => $user->can('create', Classroom::class),
+            'canManage' => $user->can('create', Classroom::class),
             // Only an admin ever opens the create-class form.
             'teachers' => $user->isAdmin()
                 ? User::query()
@@ -74,7 +74,7 @@ class PortalController extends Controller
     }
 
     /** The roster. Guardians are shown so staff know who to talk to. */
-    public function children(Request $request, Classroom $classroom): Response
+    public function students(Request $request, Classroom $classroom): Response
     {
         $this->authorize('view', $classroom);
 
@@ -89,7 +89,7 @@ class PortalController extends Controller
             // invite code — never another family's.
             ->map(fn (Child $c) => $this->childSummary($c, $user, $canSeeAll));
 
-        return Inertia::render('portal/class/children', [
+        return Inertia::render('portal/class/students', [
             ...$this->classProps($request, $classroom),
             'children' => $children,
             'canManage' => $user->isAdmin(),
@@ -229,8 +229,9 @@ class PortalController extends Controller
                 'grade' => $classroom->grade,
                 'year' => $classroom->year,
                 'color' => $classroom->color,
-                'banner' => $classroom->banner()?->url(),
+                'banner' => $classroom->banner,
                 'teacher' => $classroom->teacher?->name,
+                'teacherId' => $classroom->teacher_id,
                 'childCount' => $classroom->children()->count(),
             ],
             'canPost' => $user->can('staff', $classroom),
@@ -256,8 +257,9 @@ class PortalController extends Controller
                 'grade' => $c->grade,
                 'year' => $c->year,
                 'color' => $c->color,
-                'banner' => $c->banner()?->url(),
+                'banner' => $c->banner,
                 'teacher' => $c->teacher?->name,
+                'teacherId' => $c->teacher_id,
                 'childCount' => $c->children_count,
             ]);
     }

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Scattered jigsaw puzzle pieces with two interlocked">
+  <rect width="1200" height="400" fill="#E07A2F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- scattered piece -->
+  <g transform="translate(690 212) rotate(34)">
+    <path d="M0 6h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#000" opacity="0.12"/>
+    <path d="M0 0h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#1E8A62"/>
+  </g>
+
+  <!-- scattered piece -->
+  <g transform="translate(880 226) rotate(16)">
+    <path d="M0 6h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#000" opacity="0.12"/>
+    <path d="M0 0h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#E8618C"/>
+  </g>
+
+  <!-- two interlocked pieces -->
+  <g transform="rotate(-8 758 198)">
+    <g fill="#000" opacity="0.12">
+      <path d="M658 154h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z"/>
+      <path d="M758 154h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c14-4 14-22 0-26z"/>
+    </g>
+    <path d="M658 148h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#7C5CFF"/>
+    <path d="M758 148h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c14-4 14-22 0-26z" fill="#31C48D"/>
+  </g>
+
+  <!-- scattered piece -->
+  <g transform="translate(1000 150) rotate(-24)">
+    <path d="M0 6h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#000" opacity="0.12"/>
+    <path d="M0 0h38c4-14 22-14 26 0h36v38c14 4 14 22 0 26v36h-36c-4 14-22 14-26 0h-38v-36c-14-4-14-22 0-26z" fill="#FFF6F9"/>
+  </g>
+</svg>

@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Sun with rays and chunky clouds">
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- sun -->
+  <g transform="rotate(14 890 216)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M890 100l10 34h-20z"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(45 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(90 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(135 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(180 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(225 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(270 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(315 890 216)"/>
+      <circle cx="890" cy="216" r="74"/>
+    </g>
+    <g fill="#FFC94A">
+      <path d="M890 100l10 34h-20z"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(45 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(90 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(135 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(180 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(225 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(270 890 216)"/>
+      <path d="M890 100l10 34h-20z" transform="rotate(315 890 216)"/>
+    </g>
+    <circle cx="890" cy="216" r="74" fill="#FFC94A"/>
+    <circle cx="890" cy="216" r="52" fill="#FFF" opacity="0.22"/>
+  </g>
+
+  <!-- big cloud, lower left of the cluster -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="650" y="272" width="176" height="38" rx="19"/>
+      <circle cx="692" cy="272" r="34"/>
+      <circle cx="744" cy="258" r="44"/>
+      <circle cx="796" cy="276" r="30"/>
+    </g>
+    <g fill="#FFFFFF">
+      <rect x="650" y="272" width="176" height="38" rx="19"/>
+      <circle cx="692" cy="272" r="34"/>
+      <circle cx="744" cy="258" r="44"/>
+      <circle cx="796" cy="276" r="30"/>
+    </g>
+  </g>
+
+  <!-- small cloud, upper right -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="1000" y="152" width="130" height="30" rx="15"/>
+      <circle cx="1032" cy="152" r="26"/>
+      <circle cx="1072" cy="142" r="34"/>
+      <circle cx="1108" cy="155" r="22"/>
+    </g>
+    <g fill="#FFF6F9">
+      <rect x="1000" y="152" width="130" height="30" rx="15"/>
+      <circle cx="1032" cy="152" r="26"/>
+      <circle cx="1072" cy="142" r="34"/>
+      <circle cx="1108" cy="155" r="22"/>
+    </g>
+  </g>
+
+  <!-- cloud tucked under the sun, lower right -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="966" y="318" width="170" height="36" rx="18"/>
+      <circle cx="1004" cy="318" r="32"/>
+      <circle cx="1054" cy="304" r="42"/>
+      <circle cx="1104" cy="320" r="28"/>
+    </g>
+    <g fill="#FFFFFF">
+      <rect x="966" y="318" width="170" height="36" rx="18"/>
+      <circle cx="1004" cy="318" r="32"/>
+      <circle cx="1054" cy="304" r="42"/>
+      <circle cx="1104" cy="320" r="28"/>
+    </g>
+  </g>
+</svg>

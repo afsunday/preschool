@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Kite flying with wind swirls and a pinwheel">
+  <rect width="1200" height="400" fill="#2F8F8F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- wind swirl, behind the kite -->
+  <g fill="none" stroke-linecap="round" stroke-width="10">
+    <path d="M644 158q88-32 164-4q48 18 66-16" stroke="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M644 158q88-32 164-4q48 18 66-16" stroke="#FFF6F9"/>
+  </g>
+
+  <!-- kite -->
+  <g transform="rotate(-14 858 186)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M858 282q28 26-2 46q-26 16 4 22" fill="none" stroke="#000" stroke-width="6" stroke-linecap="round"/>
+      <path d="M858 100L934 182L858 282L782 182Z" fill="#000"/>
+      <path d="M871 306l-18-11v22zM871 306l18-11v22zM844 341l-18-11v22zM844 341l18-11v22z" fill="#000"/>
+    </g>
+    <path d="M858 282q28 26-2 46q-26 16 4 22" fill="none" stroke="#FFF6F9" stroke-width="6" stroke-linecap="round"/>
+    <path d="M858 182L858 100L782 182Z" fill="#E8618C"/>
+    <path d="M858 182L858 100L934 182Z" fill="#FFC94A"/>
+    <path d="M858 182L782 182L858 282Z" fill="#FFC94A"/>
+    <path d="M858 182L934 182L858 282Z" fill="#E8618C"/>
+    <path d="M858 100V282M782 182H934" fill="none" stroke="#FFF6F9" stroke-width="6"/>
+    <path d="M871 306l-18-11v22zM871 306l18-11v22zM844 341l-18-11v22zM844 341l18-11v22z" fill="#FFF6F9"/>
+  </g>
+
+  <!-- wind swirl, curling out to the pinwheel -->
+  <g fill="none" stroke-linecap="round" stroke-width="10">
+    <path d="M632 326q106-40 206-10q60 20 122 2" stroke="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M632 326q106-40 206-10q60 20 122 2" stroke="#FFF6F9"/>
+  </g>
+
+  <!-- pinwheel -->
+  <g transform="translate(996 258)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M0 0V78" fill="none" stroke="#000" stroke-width="11" stroke-linecap="round"/>
+      <g fill="#000">
+        <path d="M0 0L-62-23q-7-39 28-46Z"/>
+        <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(90)"/>
+        <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(180)"/>
+        <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(270)"/>
+      </g>
+    </g>
+    <path d="M0 0V78" fill="none" stroke="#F2E3C4" stroke-width="11" stroke-linecap="round"/>
+    <path d="M0 0L-62-23q-7-39 28-46Z" fill="#7C5CFF"/>
+    <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(90)" fill="#FFC94A"/>
+    <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(180)" fill="#7C5CFF"/>
+    <path d="M0 0L-62-23q-7-39 28-46Z" transform="rotate(270)" fill="#FFC94A"/>
+    <circle r="12" fill="#FFF6F9"/>
+  </g>
+</svg>

@@ -112,12 +112,12 @@ test('the invite code is only exposed to admins', function () {
     $this->child->guardians()->attach($parent->id, ['relationship' => 'mum']);
 
     $this->actingAs($parent)
-        ->get(route('portal.classes.children', $this->classroom))
+        ->get(route('portal.classes.students', $this->classroom))
         ->assertOk()
         ->assertInertia(fn ($p) => $p->where('children.0.inviteCode', null));
 
     $this->actingAs(User::factory()->admin()->create())
-        ->get(route('portal.classes.children', $this->classroom))
+        ->get(route('portal.classes.students', $this->classroom))
         ->assertOk()
         ->assertInertia(fn ($p) => $p->where('children.0.inviteCode', 'TUNDE001'));
 });

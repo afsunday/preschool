@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Rainbow arcs between two clouds with droplets">
+  <rect width="1200" height="400" fill="#5B6BD6"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- rainbow: one shadow arc spanning the whole band stack, then the bands -->
+  <g fill="none">
+    <path d="M741 336a139 139 0 0 1 278 0" stroke="#000" stroke-width="104" opacity="0.12"/>
+    <path d="M702 330a178 178 0 0 1 356 0" stroke="#E8455A" stroke-width="26"/>
+    <path d="M728 330a152 152 0 0 1 304 0" stroke="#FFC94A" stroke-width="26"/>
+    <path d="M754 330a126 126 0 0 1 252 0" stroke="#31C48D" stroke-width="26"/>
+    <path d="M780 330a100 100 0 0 1 200 0" stroke="#7C5CFF" stroke-width="26"/>
+  </g>
+
+  <!-- cloud at the left foot -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="636" y="316" width="146" height="36" rx="18"/>
+      <circle cx="672" cy="316" r="30"/>
+      <circle cx="716" cy="304" r="38"/>
+      <circle cx="758" cy="318" r="26"/>
+    </g>
+    <g fill="#FFFFFF">
+      <rect x="636" y="316" width="146" height="36" rx="18"/>
+      <circle cx="672" cy="316" r="30"/>
+      <circle cx="716" cy="304" r="38"/>
+      <circle cx="758" cy="318" r="26"/>
+    </g>
+  </g>
+
+  <!-- cloud at the right foot -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="986" y="316" width="144" height="36" rx="18"/>
+      <circle cx="1022" cy="316" r="28"/>
+      <circle cx="1064" cy="302" r="40"/>
+      <circle cx="1106" cy="318" r="24"/>
+    </g>
+    <g fill="#FFF6F9">
+      <rect x="986" y="316" width="144" height="36" rx="18"/>
+      <circle cx="1022" cy="316" r="28"/>
+      <circle cx="1064" cy="302" r="40"/>
+      <circle cx="1106" cy="318" r="24"/>
+    </g>
+  </g>
+
+  <!-- droplets -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M884 240c-14 18-22 28-22 38a22 22 0 0 0 44 0c0-10-8-20-22-38z"/>
+      <path d="M652 186c-11 15-18 23-18 31a18 18 0 0 0 36 0c0-8-7-16-18-31z"/>
+      <path d="M1108 176c-12 16-20 25-20 34a20 20 0 0 0 40 0c0-9-8-18-20-34z"/>
+    </g>
+    <path d="M884 240c-14 18-22 28-22 38a22 22 0 0 0 44 0c0-10-8-20-22-38z" fill="#FFF6F9"/>
+    <path d="M652 186c-11 15-18 23-18 31a18 18 0 0 0 36 0c0-8-7-16-18-31z" fill="#FFF6F9"/>
+    <path d="M1108 176c-12 16-20 25-20 34a20 20 0 0 0 40 0c0-9-8-18-20-34z" fill="#FFF6F9"/>
+  </g>
+</svg>

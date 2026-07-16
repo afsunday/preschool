@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Teaching clock dial with number cards">
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- number cards -->
+  <g transform="rotate(-13 723 297)">
+    <rect x="676" y="256" width="94" height="94" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="676" y="250" width="94" height="94" rx="10" fill="#FFF6F9"/>
+    <text x="723" y="316" font-family="Verdana,DejaVu Sans,sans-serif" font-size="52" font-weight="bold" fill="#E8618C" text-anchor="middle">2</text>
+  </g>
+  <g transform="rotate(11 1046 174)">
+    <rect x="999" y="133" width="94" height="94" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="999" y="127" width="94" height="94" rx="10" fill="#7C5CFF"/>
+    <text x="1046" y="193" font-family="Verdana,DejaVu Sans,sans-serif" font-size="52" font-weight="bold" fill="#FFF6F9" text-anchor="middle">9</text>
+  </g>
+  <g transform="rotate(-7 1030 299)">
+    <rect x="983" y="258" width="94" height="94" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="983" y="252" width="94" height="94" rx="10" fill="#31C48D"/>
+    <text x="1030" y="318" font-family="Verdana,DejaVu Sans,sans-serif" font-size="52" font-weight="bold" fill="#FFF6F9" text-anchor="middle">6</text>
+  </g>
+
+  <!-- clock dial -->
+  <g>
+    <circle cx="880" cy="234" r="124" fill="#000" opacity="0.12"/>
+    <circle cx="880" cy="228" r="124" fill="#5B6BD6"/>
+    <circle cx="880" cy="228" r="106" fill="#FFF6F9"/>
+    <g fill="#3A3A48">
+      <circle cx="928" cy="145" r="4"/><circle cx="963" cy="180" r="4"/>
+      <circle cx="963" cy="276" r="4"/><circle cx="928" cy="311" r="4"/>
+      <circle cx="832" cy="311" r="4"/><circle cx="797" cy="276" r="4"/>
+      <circle cx="797" cy="180" r="4"/><circle cx="832" cy="145" r="4"/>
+    </g>
+    <g font-family="Verdana,DejaVu Sans,sans-serif" font-size="24" font-weight="bold" fill="#3A3A48" text-anchor="middle">
+      <text x="880" y="170">12</text><text x="965" y="237">3</text><text x="880" y="305">6</text><text x="795" y="237">9</text>
+    </g>
+    <path d="M880 228L951 187" fill="none" stroke="#3A3A48" stroke-width="8" stroke-linecap="round"/>
+    <path d="M880 228L832 200" fill="none" stroke="#3A3A48" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="880" cy="228" r="10" fill="#FFC94A"/>
+  </g>
+</svg>

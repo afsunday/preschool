@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Toy xylophone with coloured bars and two beaters">
+  <rect width="1200" height="400" fill="#6B4A9E"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- xylophone: tapered frame, wooden bed, graded bars -->
+  <g transform="rotate(-6 871 228)">
+    <path d="M700 130L1042 170v128L700 338z" fill="#000" opacity="0.12"/>
+    <path d="M700 124L1042 164v128L700 332z" fill="#6B4A2A"/>
+    <path d="M714 140L1028 176v104L714 316z" fill="#F2E3C4"/>
+    <g fill="#000" opacity="0.12">
+      <rect x="726" y="158" width="30" height="152" rx="8"/>
+      <rect x="769" y="163" width="30" height="142" rx="8"/>
+      <rect x="812" y="168" width="30" height="132" rx="8"/>
+      <rect x="855" y="173" width="30" height="122" rx="8"/>
+      <rect x="898" y="178" width="30" height="112" rx="8"/>
+      <rect x="941" y="183" width="30" height="102" rx="8"/>
+      <rect x="984" y="188" width="30" height="92" rx="8"/>
+    </g>
+    <rect x="726" y="152" width="30" height="152" rx="8" fill="#E8455A"/>
+    <rect x="769" y="157" width="30" height="142" rx="8" fill="#E0A413"/>
+    <rect x="812" y="162" width="30" height="132" rx="8" fill="#FFC94A"/>
+    <rect x="855" y="167" width="30" height="122" rx="8" fill="#31C48D"/>
+    <rect x="898" y="172" width="30" height="112" rx="8" fill="#5B6BD6"/>
+    <rect x="941" y="177" width="30" height="102" rx="8" fill="#7C5CFF"/>
+    <rect x="984" y="182" width="30" height="92" rx="8" fill="#E8618C"/>
+    <g fill="#FFF6F9">
+      <circle cx="741" cy="165" r="4"/><circle cx="741" cy="291" r="4"/>
+      <circle cx="784" cy="170" r="4"/><circle cx="784" cy="286" r="4"/>
+      <circle cx="827" cy="175" r="4"/><circle cx="827" cy="281" r="4"/>
+      <circle cx="870" cy="180" r="4"/><circle cx="870" cy="276" r="4"/>
+      <circle cx="913" cy="185" r="4"/><circle cx="913" cy="271" r="4"/>
+      <circle cx="956" cy="190" r="4"/><circle cx="956" cy="266" r="4"/>
+      <circle cx="999" cy="195" r="4"/><circle cx="999" cy="261" r="4"/>
+    </g>
+  </g>
+
+  <!-- beaters -->
+  <g transform="rotate(-27 950 259)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <rect x="852" y="252" width="196" height="14" rx="7"/>
+      <circle cx="852" cy="259" r="21"/>
+    </g>
+    <rect x="852" y="252" width="196" height="14" rx="7" fill="#F2E3C4"/>
+    <circle cx="852" cy="259" r="21" fill="#E8455A"/>
+  </g>
+  <g transform="rotate(-14 985 293)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <rect x="900" y="286" width="170" height="14" rx="7"/>
+      <circle cx="900" cy="293" r="20"/>
+    </g>
+    <rect x="900" y="286" width="170" height="14" rx="7" fill="#F2E3C4"/>
+    <circle cx="900" cy="293" r="20" fill="#FFC94A"/>
+  </g>
+</svg>

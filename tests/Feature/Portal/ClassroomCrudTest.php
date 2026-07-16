@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Classroom;
-use App\Models\Media;
+use App\Models\ClassroomBanner;
 use App\Models\User;
 
 beforeEach(function () {
@@ -23,63 +23,46 @@ test('an admin creates a class and lands in it', function () {
         ->and($classroom->label)->toBe('Mr James · Grade 1 · 2026/2027');
 });
 
-test('a class banner is attached through the mediables pivot', function () {
-    $image = Media::factory()->create();
-
+test('a class stores a banner key from the library', function () {
     $this->actingAs($this->admin)->post(route('portal.classes.store'), [
         'name' => 'Mr James',
         'year' => '2026/2027',
-        'banner_media_id' => $image->id,
+        'banner' => 'xylophone',
     ]);
 
-    $classroom = Classroom::firstWhere('name', 'Mr James');
-
-    expect($classroom->banner()?->id)->toBe($image->id);
+    expect(Classroom::firstWhere('name', 'Mr James')->banner)->toBe('xylophone');
 });
 
-test('changing the banner replaces it rather than stacking', function () {
-    $first = Media::factory()->create();
-    $second = Media::factory()->create();
-
-    $classroom = Classroom::factory()->create();
-    $classroom->setBanner($first->id);
-    $classroom->setBanner($second->id);
-
-    expect($classroom->banner()?->id)->toBe($second->id)
-        ->and($classroom->getMedia(Classroom::BANNER))->toHaveCount(1);
-});
-
-test('a class can have no banner', function () {
-    $classroom = Classroom::factory()->create();
-    $classroom->setBanner(Media::factory()->create()->id);
-    $classroom->setBanner(null);
-
-    expect($classroom->banner())->toBeNull();
-});
-
-test('a renaming update leaves the banner alone', function () {
-    $image = Media::factory()->create();
-    $classroom = Classroom::factory()->create();
-    $classroom->setBanner($image->id);
-
-    $this->actingAs($this->admin)->patch(route('portal.classes.update', $classroom), [
-        'name' => 'Renamed',
-        'year' => '2026/2027',
-    ]);
-
-    expect($classroom->fresh()->banner()?->id)->toBe($image->id);
-});
-
-test('an unknown banner id is rejected', function () {
-    $this->actingAs($this->admin)
-        ->post(route('portal.classes.store'), [
-            'name' => 'Rogue',
-            'year' => '2026/2027',
-            'banner_media_id' => 99999,
-        ])
-        ->assertSessionHasErrors('banner_media_id');
+test('a banner outside the library is rejected', function () {
+    // Tailwind cannot scan the DB, so only library keys may ever be stored.
+    foreach (['bg-[#ff0000]', 'waves-ocean', 'not-a-banner', '../../etc/passwd', 'art table'] as $bad) {
+        $this->actingAs($this->admin)
+            ->post(route('portal.classes.store'), [
+                'name' => 'Rogue',
+                'year' => '2026/2027',
+                'banner' => $bad,
+            ])
+            ->assertSessionHasErrors('banner');
+    }
 
     expect(Classroom::where('name', 'Rogue')->exists())->toBeFalse();
+});
+
+test('every banner in the manifest names a real file and validates', function () {
+    $keys = ClassroomBanner::keys();
+
+    expect($keys)->toHaveCount(56)
+        ->and($keys)->toEqual(array_unique($keys));
+
+    foreach ($keys as $key) {
+        // The manifest is the contract between PHP and the front end; a key with
+        // no artwork behind it would render a broken cover.
+        expect(ClassroomBanner::valid($key))->toBeTrue()
+            ->and(public_path("images/banners/{$key}.svg"))->toBeFile();
+    }
+
+    expect(ClassroomBanner::valid(ClassroomBanner::DEFAULT))->toBeTrue()
+        ->and(ClassroomBanner::categories())->toHaveCount(9);
 });
 
 test('a teacher cannot create a class', function () {
@@ -107,6 +90,7 @@ test('a class can only be assigned to staff', function () {
         ->post(route('portal.classes.store'), [
             'name' => 'Mr James',
             'year' => '2026/2027',
+            'banner' => 'dots-grape',
             'teacher_id' => $parent->id,
         ])
         ->assertSessionHasErrors('teacher_id');
@@ -133,9 +117,73 @@ test('home exposes the teacher list to admins only', function () {
     // Admins are assignable too — they cover rooms — so the list is teacher + admin.
     $this->actingAs($this->admin)
         ->get(route('portal.home'))
-        ->assertInertia(fn ($p) => $p->where('canCreate', true)->has('teachers', 2));
+        ->assertInertia(fn ($p) => $p->where('canManage', true)->has('teachers', 2));
 
     $this->actingAs(User::factory()->teacher()->create())
         ->get(route('portal.home'))
-        ->assertInertia(fn ($p) => $p->where('canCreate', false)->has('teachers', 0));
+        ->assertInertia(fn ($p) => $p->where('canManage', false)->has('teachers', 0));
+});
+
+test('an admin edits a class', function () {
+    $classroom = Classroom::factory()->create([
+        'name' => 'Mr James',
+        'banner' => 'blocks',
+    ]);
+
+    $this->actingAs($this->admin)
+        ->patch(route('portal.classes.update', $classroom), [
+            'name' => 'Mr James (AM)',
+            'grade' => 'Grade 2',
+            'year' => '2027/2028',
+            'banner' => 'xylophone',
+        ])
+        ->assertRedirect();
+
+    $fresh = $classroom->fresh();
+
+    expect($fresh->name)->toBe('Mr James (AM)')
+        ->and($fresh->grade)->toBe('Grade 2')
+        ->and($fresh->year)->toBe('2027/2028')
+        ->and($fresh->banner)->toBe('xylophone');
+});
+
+test('editing rejects a banner outside the library', function () {
+    $classroom = Classroom::factory()->create(['banner' => 'blocks']);
+
+    $this->actingAs($this->admin)
+        ->patch(route('portal.classes.update', $classroom), [
+            'name' => 'Mr James',
+            'year' => '2026/2027',
+            'banner' => 'not-a-banner',
+        ])
+        ->assertSessionHasErrors('banner');
+
+    expect($classroom->fresh()->banner)->toBe('blocks');
+});
+
+test('a teacher cannot edit or archive their own room', function () {
+    $teacher = User::factory()->teacher()->create();
+    $classroom = Classroom::factory()->create(['teacher_id' => $teacher->id]);
+
+    $this->actingAs($teacher)
+        ->patch(route('portal.classes.update', $classroom), [
+            'name' => 'Renamed',
+            'year' => '2026/2027',
+        ])
+        ->assertForbidden();
+
+    $this->actingAs($teacher)
+        ->delete(route('portal.classes.destroy', $classroom))
+        ->assertForbidden();
+
+    expect($classroom->fresh()->is_archived)->toBeFalse();
+});
+
+test('home sends the teacher id so the edit form can preselect it', function () {
+    $teacher = User::factory()->teacher()->create();
+    Classroom::factory()->create(['teacher_id' => $teacher->id]);
+
+    $this->actingAs($this->admin)
+        ->get(route('portal.home'))
+        ->assertInertia(fn ($p) => $p->where('classes.0.teacherId', $teacher->id));
 });

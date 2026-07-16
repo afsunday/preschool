@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Open lunchbox with sandwich triangles, grapes and an apple">
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- lunchbox with divider -->
+  <g transform="rotate(-4 837 228)">
+    <rect x="810" y="114" width="64" height="22" rx="11" fill="#000" opacity="0.12"/>
+    <rect x="810" y="108" width="64" height="22" rx="11" fill="#3A3A48"/>
+    <rect x="654" y="126" width="366" height="216" rx="22" fill="#000" opacity="0.12"/>
+    <rect x="654" y="120" width="366" height="216" rx="22" fill="#5B6BD6"/>
+    <rect x="672" y="138" width="330" height="180" rx="12" fill="#FFF6F9"/>
+    <rect x="858" y="138" width="8" height="180" fill="#B9BCC4"/>
+  </g>
+
+  <!-- sandwich triangles -->
+  <g transform="translate(700 166) rotate(-8)">
+    <path d="M-10 16 h122 v96 z" fill="#000" opacity="0.12"/>
+    <path d="M-10 10 h122 v96 z" fill="#31C48D"/>
+    <path d="M-5 5 h122 v96 z" fill="#E8455A"/>
+    <path d="M0 0 h122 v96 z" fill="#E0A413"/>
+    <path d="M11 9 h102 v80 z" fill="#FFC94A"/>
+  </g>
+  <g transform="translate(690 210) rotate(7)">
+    <path d="M-10 16 h116 v88 z" fill="#000" opacity="0.12"/>
+    <path d="M-10 10 h116 v88 z" fill="#31C48D"/>
+    <path d="M-5 5 h116 v88 z" fill="#E8455A"/>
+    <path d="M0 0 h116 v88 z" fill="#E0A413"/>
+    <path d="M12 9 h95 v72 z" fill="#FFC94A"/>
+  </g>
+
+  <!-- grapes -->
+  <g>
+    <g fill="#000" opacity="0.12">
+      <circle cx="896" cy="214" r="17"/><circle cx="930" cy="214" r="17"/><circle cx="964" cy="214" r="17"/>
+      <circle cx="913" cy="244" r="17"/><circle cx="947" cy="244" r="17"/><circle cx="930" cy="274" r="17"/>
+    </g>
+    <rect x="926" y="180" width="8" height="24" rx="4" fill="#6B4A2A"/>
+    <path d="M934 188q26-16 38 2-24 12-38-2z" fill="#31C48D"/>
+    <g fill="#7C5CFF">
+      <circle cx="896" cy="208" r="17"/><circle cx="930" cy="208" r="17"/><circle cx="964" cy="208" r="17"/>
+      <circle cx="913" cy="238" r="17"/><circle cx="947" cy="238" r="17"/><circle cx="930" cy="268" r="17"/>
+    </g>
+  </g>
+
+  <!-- green apple -->
+  <g>
+    <path d="M1058 216c-34 0-52 24-52 52s24 44 52 44 52-16 52-44-18-52-52-52z" fill="#000" opacity="0.12"/>
+    <path d="M1058 210c-34 0-52 24-52 52s24 44 52 44 52-16 52-44-18-52-52-52z" fill="#31C48D"/>
+    <path d="M1058 210c-18 0-30 8-38 20 10 8 24 12 38 12s28-4 38-12c-8-12-20-20-38-20z" fill="#FFFFFF" opacity="0.2"/>
+    <rect x="1054" y="192" width="8" height="24" rx="4" fill="#6B4A2A"/>
+    <path d="M1062 200q26-18 40 2-24 12-40-2z" fill="#1E8A62"/>
+  </g>
+</svg>

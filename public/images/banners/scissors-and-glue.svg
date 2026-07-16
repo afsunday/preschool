@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Safety scissors, a glue stick and paper offcuts">
+  <rect width="1200" height="400" fill="#E8455A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- paper offcuts -->
+  <g transform="rotate(-12 700 292)">
+    <path transform="translate(0 6)" d="M652 246l92-14 14 18-12 16 14 18-12 16 8 20-96 14z" fill="#000" opacity="0.12"/>
+    <path d="M652 246l92-14 14 18-12 16 14 18-12 16 8 20-96 14z" fill="#FFF6F9"/>
+  </g>
+  <g transform="rotate(20 790 300)">
+    <path transform="translate(0 6)" d="M740 288l88-42 16 40-46 22z" fill="#000" opacity="0.12"/>
+    <path d="M740 288l88-42 16 40-46 22z" fill="#FFC94A"/>
+  </g>
+
+  <!-- safety scissors -->
+  <g transform="rotate(-10 880 228)">
+    <g transform="translate(0 6)" fill="#000" stroke="#000" opacity="0.12">
+      <path d="M874 236L843 124L856 118L890 228Z" stroke="none"/>
+      <path d="M886 236L917 124L904 118L870 228Z" stroke="none"/>
+      <path d="M876 236L846 282" fill="none" stroke-width="16" stroke-linecap="round"/>
+      <path d="M884 236L914 282" fill="none" stroke-width="16" stroke-linecap="round"/>
+      <ellipse cx="836" cy="310" rx="28" ry="30" fill="none" stroke-width="15"/>
+      <ellipse cx="924" cy="310" rx="28" ry="30" fill="none" stroke-width="15"/>
+    </g>
+    <path d="M876 236L846 282" fill="none" stroke="#7C5CFF" stroke-width="16" stroke-linecap="round"/>
+    <ellipse cx="836" cy="310" rx="28" ry="30" fill="none" stroke="#7C5CFF" stroke-width="15"/>
+    <path d="M884 236L914 282" fill="none" stroke="#E8618C" stroke-width="16" stroke-linecap="round"/>
+    <ellipse cx="924" cy="310" rx="28" ry="30" fill="none" stroke="#E8618C" stroke-width="15"/>
+    <path d="M874 236L843 124L856 118L890 228Z" fill="#B9BCC4"/>
+    <path d="M886 236L917 124L904 118L870 228Z" fill="#FFFFFF"/>
+    <circle cx="880" cy="232" r="9" fill="#3A3A48"/>
+  </g>
+
+  <!-- glue stick -->
+  <g transform="rotate(14 1030 275)">
+    <rect transform="translate(0 6)" x="1016" y="176" width="28" height="30" rx="6" fill="#000" opacity="0.12"/>
+    <rect transform="translate(0 6)" x="1004" y="200" width="52" height="146" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="1016" y="176" width="28" height="30" rx="6" fill="#FFF6F9"/>
+    <rect x="1004" y="200" width="52" height="146" rx="10" fill="#7C5CFF"/>
+    <rect x="1004" y="250" width="52" height="50" fill="#FFF6F9"/>
+    <rect x="1012" y="216" width="10" height="22" rx="5" fill="#FFF" opacity="0.35"/>
+  </g>
+
+  <!-- glue stick cap -->
+  <g transform="rotate(-24 1096 310)">
+    <rect transform="translate(0 6)" x="1074" y="280" width="44" height="60" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="1074" y="280" width="44" height="60" rx="10" fill="#5B3AC4"/>
+    <rect x="1074" y="296" width="44" height="8" fill="#FFF" opacity="0.35"/>
+  </g>
+</svg>

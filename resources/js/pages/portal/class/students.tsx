@@ -23,7 +23,7 @@ function InviteCode({ code }: { code: string }) {
             type="button"
             onClick={copy}
             title="Copy this code and give it to a parent to link them to this child"
-            className="hidden items-center gap-1.5 rounded-full border border-portal-line px-2.5 py-1 font-mono text-xs text-neutral-600 transition hover:bg-neutral-50 sm:flex"
+            className="hidden items-center gap-1.5 rounded-[4px] border border-portal-line px-2.5 py-1 font-mono text-xs text-neutral-600 transition hover:bg-neutral-50 sm:flex"
         >
             {copied ? (
                 <Check className="size-3.5 text-emerald-500" />
@@ -47,7 +47,7 @@ function ChildRow({
     canManage: boolean;
 }) {
     return (
-        <div className="flex items-center gap-3 rounded-[6px] border border-portal-line bg-white px-3 py-3">
+        <div className="flex items-center gap-3 rounded-[4px] border border-portal-line bg-white px-3 py-3">
             {child.photo ? (
                 <img
                     src={child.photo}
@@ -102,7 +102,7 @@ function ChildRow({
     );
 }
 
-export default function ClassChildren({
+export default function ClassStudents({
     classroom,
     children,
     canManage,
@@ -113,11 +113,11 @@ export default function ClassChildren({
 }) {
     return (
         <>
-            <Head title={`${classroom.name} · Children`} />
+            <Head title={`${classroom.name} · Students`} />
             <div className="py-5">
                 <div className="flex items-center justify-between pb-3">
                     <h2 className="text-lg font-bold text-portal-ink">
-                        Children
+                        Students
                         <span className="ml-2 text-sm font-normal text-neutral-400">
                             {children.length}
                         </span>
@@ -125,13 +125,13 @@ export default function ClassChildren({
                 </div>
 
                 {children.length === 0 ? (
-                    <div className="grid place-items-center rounded-[6px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
+                    <div className="grid place-items-center rounded-[4px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
                         <Users className="size-8 text-neutral-300" />
                         <p className="mt-3 text-sm font-medium text-portal-ink">
-                            No children in this room
+                            No students in this room
                         </p>
                         <p className="mt-1 text-xs text-neutral-500">
-                            An admin adds children to a class.
+                            An admin adds students to a class.
                         </p>
                     </div>
                 ) : (

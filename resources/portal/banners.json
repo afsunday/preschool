@@ -1,0 +1,378 @@
+{
+    "categories": [
+        {
+            "key": "art",
+            "label": "Art & Craft"
+        },
+        {
+            "key": "play",
+            "label": "Play & Toys"
+        },
+        {
+            "key": "story",
+            "label": "Story time"
+        },
+        {
+            "key": "music",
+            "label": "Music"
+        },
+        {
+            "key": "outdoors",
+            "label": "Outdoors"
+        },
+        {
+            "key": "food",
+            "label": "Food & Snacks"
+        },
+        {
+            "key": "numbers",
+            "label": "Numbers & Shapes"
+        },
+        {
+            "key": "weather",
+            "label": "Weather"
+        },
+        {
+            "key": "celebrations",
+            "label": "Celebrations"
+        }
+    ],
+    "banners": [
+        {
+            "key": "art-table",
+            "label": "Art table",
+            "category": "art",
+            "bg": "#E8618C"
+        },
+        {
+            "key": "paint-palette",
+            "label": "Paint palette",
+            "category": "art",
+            "bg": "#7C5CFF"
+        },
+        {
+            "key": "scissors-and-glue",
+            "label": "Scissors & glue",
+            "category": "art",
+            "bg": "#E8455A"
+        },
+        {
+            "key": "easel-canvas",
+            "label": "Easel canvas",
+            "category": "art",
+            "bg": "#B5487F"
+        },
+        {
+            "key": "coloured-pencils",
+            "label": "Coloured pencils",
+            "category": "art",
+            "bg": "#E8618C"
+        },
+        {
+            "key": "clay-and-tools",
+            "label": "Clay & tools",
+            "category": "art",
+            "bg": "#E07A2F"
+        },
+        {
+            "key": "stickers-and-tape",
+            "label": "Stickers & tape",
+            "category": "art",
+            "bg": "#C9911A"
+        },
+        {
+            "key": "blocks",
+            "label": "Blocks",
+            "category": "play",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "rocking-horse",
+            "label": "Rocking horse",
+            "category": "play",
+            "bg": "#6B4A9E"
+        },
+        {
+            "key": "kite-and-string",
+            "label": "Kite & string",
+            "category": "play",
+            "bg": "#3A7BB5"
+        },
+        {
+            "key": "toy-train",
+            "label": "Toy train",
+            "category": "play",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "spinning-top",
+            "label": "Spinning top",
+            "category": "play",
+            "bg": "#7C5CFF"
+        },
+        {
+            "key": "puzzle-pieces",
+            "label": "Puzzle pieces",
+            "category": "play",
+            "bg": "#E07A2F"
+        },
+        {
+            "key": "bucket-and-spade",
+            "label": "Bucket & spade",
+            "category": "play",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "story-time",
+            "label": "Story time",
+            "category": "story",
+            "bg": "#2F8F6B"
+        },
+        {
+            "key": "stack-of-books",
+            "label": "Stack of books",
+            "category": "story",
+            "bg": "#3A7BB5"
+        },
+        {
+            "key": "alphabet-cards",
+            "label": "Alphabet cards",
+            "category": "story",
+            "bg": "#6B4A9E"
+        },
+        {
+            "key": "bookmark-and-glasses",
+            "label": "Bookmark & glasses",
+            "category": "story",
+            "bg": "#2F8F6B"
+        },
+        {
+            "key": "library-shelf",
+            "label": "Library shelf",
+            "category": "story",
+            "bg": "#D98A1F"
+        },
+        {
+            "key": "notebook-and-pen",
+            "label": "Notebook & pen",
+            "category": "story",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "parchment-and-ink",
+            "label": "Parchment & ink",
+            "category": "story",
+            "bg": "#2F8F8F"
+        },
+        {
+            "key": "drum-and-sticks",
+            "label": "Drum & sticks",
+            "category": "music",
+            "bg": "#7C5CFF"
+        },
+        {
+            "key": "xylophone",
+            "label": "Xylophone",
+            "category": "music",
+            "bg": "#6B4A9E"
+        },
+        {
+            "key": "tambourine",
+            "label": "Tambourine",
+            "category": "music",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "music-notes",
+            "label": "Music notes",
+            "category": "music",
+            "bg": "#E07A2F"
+        },
+        {
+            "key": "toy-piano",
+            "label": "Toy piano",
+            "category": "music",
+            "bg": "#C9911A"
+        },
+        {
+            "key": "watering-can",
+            "label": "Watering can",
+            "category": "outdoors",
+            "bg": "#2F8F6B"
+        },
+        {
+            "key": "potted-plants",
+            "label": "Potted plants",
+            "category": "outdoors",
+            "bg": "#D98A1F"
+        },
+        {
+            "key": "leaves-and-acorns",
+            "label": "Leaves & acorns",
+            "category": "outdoors",
+            "bg": "#2F8F8F"
+        },
+        {
+            "key": "garden-tools",
+            "label": "Garden tools",
+            "category": "outdoors",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "sandpit-toys",
+            "label": "Sandpit toys",
+            "category": "outdoors",
+            "bg": "#C9911A"
+        },
+        {
+            "key": "flower-bed",
+            "label": "Flower bed",
+            "category": "outdoors",
+            "bg": "#3A7BB5"
+        },
+        {
+            "key": "lunchbox",
+            "label": "Lunchbox",
+            "category": "food",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "apple-and-milk",
+            "label": "Apple & milk",
+            "category": "food",
+            "bg": "#2F8F6B"
+        },
+        {
+            "key": "fruit-bowl",
+            "label": "Fruit bowl",
+            "category": "food",
+            "bg": "#E8455A"
+        },
+        {
+            "key": "water-bottle",
+            "label": "Water bottle",
+            "category": "food",
+            "bg": "#D98A1F"
+        },
+        {
+            "key": "biscuits-and-jam",
+            "label": "Biscuits & jam",
+            "category": "food",
+            "bg": "#2F8F6B"
+        },
+        {
+            "key": "breakfast-tray",
+            "label": "Breakfast tray",
+            "category": "food",
+            "bg": "#B5487F"
+        },
+        {
+            "key": "abacus",
+            "label": "Abacus",
+            "category": "numbers",
+            "bg": "#E07A2F"
+        },
+        {
+            "key": "number-blocks",
+            "label": "Number blocks",
+            "category": "numbers",
+            "bg": "#6B4A9E"
+        },
+        {
+            "key": "shape-sorter",
+            "label": "Shape sorter",
+            "category": "numbers",
+            "bg": "#3A7BB5"
+        },
+        {
+            "key": "counting-beads",
+            "label": "Counting beads",
+            "category": "numbers",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "ruler-and-shapes",
+            "label": "Ruler & shapes",
+            "category": "numbers",
+            "bg": "#2F8F8F"
+        },
+        {
+            "key": "clock-face",
+            "label": "Clock face",
+            "category": "numbers",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "sun-and-clouds",
+            "label": "Sun & clouds",
+            "category": "weather",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "rain-and-umbrella",
+            "label": "Rain & umbrella",
+            "category": "weather",
+            "bg": "#2F8F8F"
+        },
+        {
+            "key": "rainbow",
+            "label": "Rainbow",
+            "category": "weather",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "autumn-leaves",
+            "label": "Autumn leaves",
+            "category": "weather",
+            "bg": "#D98A1F"
+        },
+        {
+            "key": "snowflakes",
+            "label": "Snowflakes",
+            "category": "weather",
+            "bg": "#3A7BB5"
+        },
+        {
+            "key": "windy-day",
+            "label": "Windy day",
+            "category": "weather",
+            "bg": "#2F8F8F"
+        },
+        {
+            "key": "balloons",
+            "label": "Balloons",
+            "category": "celebrations",
+            "bg": "#5B6BD6"
+        },
+        {
+            "key": "birthday-cake",
+            "label": "Birthday cake",
+            "category": "celebrations",
+            "bg": "#7C5CFF"
+        },
+        {
+            "key": "party-hats",
+            "label": "Party hats",
+            "category": "celebrations",
+            "bg": "#E8785A"
+        },
+        {
+            "key": "gift-boxes",
+            "label": "Gift boxes",
+            "category": "celebrations",
+            "bg": "#E07A2F"
+        },
+        {
+            "key": "bunting",
+            "label": "Bunting",
+            "category": "celebrations",
+            "bg": "#B5487F"
+        },
+        {
+            "key": "confetti-popper",
+            "label": "Confetti popper",
+            "category": "celebrations",
+            "bg": "#5B6BD6"
+        }
+    ]
+}

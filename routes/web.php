@@ -48,7 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::prefix('classes/{classroom}')->name('classes.')->group(function () {
             Route::get('/', [PortalController::class, 'feed'])->name('feed');
-            Route::get('children', [PortalController::class, 'children'])->name('children');
+            Route::get('students', [PortalController::class, 'students'])->name('students');
             Route::get('today', [PortalController::class, 'today'])->name('today');
             Route::get('chats/{conversation?}', [PortalController::class, 'chats'])->name('chats');
 

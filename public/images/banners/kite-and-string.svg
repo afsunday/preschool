@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Diamond kite with a ribbon tail and a spool of string">
+  <rect width="1200" height="400" fill="#3A7BB5"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- spool of string -->
+  <g transform="rotate(-8 707 292)">
+    <rect x="648" y="246" width="118" height="104" rx="8" fill="#000" opacity="0.12"/>
+    <rect x="666" y="256" width="82" height="72" rx="6" fill="#FFF6F9"/>
+    <g stroke="#B9BCC4" stroke-width="4">
+      <path d="M666 274h82M666 292h82M666 310h82"/>
+    </g>
+    <rect x="648" y="240" width="22" height="104" rx="6" fill="#6B4A2A"/>
+    <rect x="744" y="240" width="22" height="104" rx="6" fill="#6B4A2A"/>
+  </g>
+
+  <!-- string running up to the kite -->
+  <path d="M764 272q40-32 66-58" fill="none" stroke="#FFF6F9" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- kite -->
+  <g transform="rotate(-12 850 215)">
+    <path d="M850 116L930 216L850 326L770 216Z" fill="#000" opacity="0.12"/>
+    <path d="M850 110L850 210L770 210Z" fill="#E8618C"/>
+    <path d="M850 110L930 210L850 210Z" fill="#FFC94A"/>
+    <path d="M850 210L850 320L770 210Z" fill="#31C48D"/>
+    <path d="M850 210L930 210L850 320Z" fill="#FFF6F9"/>
+    <g stroke="#3A3A48" stroke-width="5" stroke-linecap="round">
+      <path d="M850 110v210M770 210h160"/>
+    </g>
+  </g>
+
+  <!-- tail -->
+  <g fill="none" stroke-linecap="round">
+    <path d="M872 322Q944 356 1006 322Q1064 286 1116 268" stroke="#000" stroke-width="5" opacity="0.12"/>
+    <path d="M872 316Q944 350 1006 316Q1064 280 1116 262" stroke="#FFF6F9" stroke-width="5"/>
+  </g>
+
+  <!-- tail bows -->
+  <g fill="#000" opacity="0.12">
+    <path d="M-22-14L0 0L-22 14zM22-14L0 0L22 14z" transform="translate(942 339) rotate(12)"/>
+    <path d="M-22-14L0 0L-22 14zM22-14L0 0L22 14z" transform="translate(1035 305) rotate(-20)"/>
+    <path d="M-22-14L0 0L-22 14zM22-14L0 0L22 14z" transform="translate(1096 276) rotate(-22)"/>
+  </g>
+  <g transform="translate(942 333) rotate(12)">
+    <path d="M-22-14L0 0L-22 14z" fill="#E8455A"/>
+    <path d="M22-14L0 0L22 14z" fill="#E8455A"/>
+    <circle r="6" fill="#FFF6F9"/>
+  </g>
+  <g transform="translate(1035 299) rotate(-20)">
+    <path d="M-22-14L0 0L-22 14z" fill="#7C5CFF"/>
+    <path d="M22-14L0 0L22 14z" fill="#7C5CFF"/>
+    <circle r="6" fill="#FFF6F9"/>
+  </g>
+  <g transform="translate(1096 270) rotate(-22)">
+    <path d="M-22-14L0 0L-22 14z" fill="#FFC94A"/>
+    <path d="M22-14L0 0L22 14z" fill="#FFC94A"/>
+    <circle r="6" fill="#FFF6F9"/>
+  </g>
+</svg>

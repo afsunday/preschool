@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Wooden rocking horse toy with a block and ball">
+  <rect width="1200" height="400" fill="#6B4A9E"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- wooden block -->
+  <g transform="rotate(-12 728 298)">
+    <rect x="684" y="256" width="96" height="96" rx="10" fill="#000" opacity="0.12"/>
+    <rect x="680" y="250" width="96" height="96" rx="10" fill="#E8455A"/>
+    <rect x="698" y="268" width="60" height="10" rx="5" fill="#FFF6F9" opacity="0.45"/>
+  </g>
+
+  <!-- rocking horse: shadow silhouette first -->
+  <g fill="#000" opacity="0.12" transform="translate(0 6)">
+    <path d="M756 298 Q880 368 1004 298 L1004 318 Q880 388 756 318 Z"/>
+    <rect x="832" y="272" width="32" height="68" rx="16"/>
+    <rect x="928" y="272" width="32" height="68" rx="16"/>
+    <rect x="951" y="245" width="68" height="26" rx="13" transform="rotate(42 985 258)"/>
+    <rect x="810" y="214" width="164" height="78" rx="36"/>
+    <rect x="796" y="146" width="62" height="110" rx="30" transform="rotate(-18 827 200)"/>
+    <rect x="742" y="140" width="104" height="56" rx="28" transform="rotate(-8 794 168)"/>
+  </g>
+
+  <!-- rocking horse -->
+  <g>
+    <rect x="832" y="272" width="32" height="68" rx="16" fill="#E0A413" transform="rotate(10 848 306)"/>
+    <rect x="928" y="272" width="32" height="68" rx="16" fill="#E0A413" transform="rotate(-10 944 306)"/>
+    <g transform="rotate(-18 827 200)">
+      <rect x="796" y="146" width="62" height="110" rx="30" fill="#FFF6F9"/>
+      <rect x="840" y="148" width="30" height="104" rx="15" fill="#E8618C"/>
+    </g>
+    <path d="M826 132l24 20-30 8z" fill="#FFF6F9"/>
+    <rect x="742" y="140" width="104" height="56" rx="28" fill="#FFF6F9" transform="rotate(-8 794 168)"/>
+    <rect x="951" y="245" width="68" height="26" rx="13" fill="#E8618C" transform="rotate(42 985 258)"/>
+    <rect x="810" y="214" width="164" height="78" rx="36" fill="#FFF6F9"/>
+    <rect x="864" y="196" width="80" height="30" rx="10" fill="#31C48D"/>
+    <rect x="880" y="204" width="48" height="8" rx="4" fill="#FFF6F9" opacity="0.4"/>
+    <path d="M756 298 Q880 368 1004 298 L1004 318 Q880 388 756 318 Z" fill="#F2E3C4"/>
+  </g>
+
+  <!-- ball -->
+  <g>
+    <circle cx="1068" cy="304" r="48" fill="#000" opacity="0.12"/>
+    <circle cx="1068" cy="298" r="48" fill="#FFC94A"/>
+    <path d="M1020 298h96" stroke="#E0A413" stroke-width="9"/>
+    <path d="M1068 250q26 48 0 96" fill="none" stroke="#E0A413" stroke-width="9"/>
+  </g>
+
+  <!-- marble -->
+  <g>
+    <circle cx="1092" cy="180" r="26" fill="#000" opacity="0.12"/>
+    <circle cx="1092" cy="174" r="26" fill="#31C48D"/>
+    <circle cx="1084" cy="166" r="8" fill="#FFF6F9" opacity="0.5"/>
+  </g>
+</svg>

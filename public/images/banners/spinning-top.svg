@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Spinning top with jacks and marbles">
+  <rect width="1200" height="400" fill="#7C5CFF"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- jack -->
+  <g transform="translate(700 196) rotate(12)">
+    <g fill="none" stroke-linecap="round">
+      <path d="M-34 6h68M0-28v68M-24-18l48 48" stroke="#000" stroke-width="11" opacity="0.12"/>
+      <path d="M-34 0h68M0-34v68M-24-24l48 48" stroke="#B9BCC4" stroke-width="11"/>
+    </g>
+    <g fill="#B9BCC4">
+      <circle cx="-34" r="9"/><circle cx="34" r="9"/>
+      <circle cy="-34" r="9"/><circle cy="34" r="9"/>
+      <circle cx="-24" cy="-24" r="9"/><circle cx="24" cy="24" r="9"/>
+    </g>
+  </g>
+
+  <!-- jack -->
+  <g transform="translate(1052 168) rotate(-24)">
+    <g fill="none" stroke-linecap="round">
+      <path d="M-34 6h68M0-28v68M-24-18l48 48" stroke="#000" stroke-width="11" opacity="0.12"/>
+      <path d="M-34 0h68M0-34v68M-24-24l48 48" stroke="#FFF6F9" stroke-width="11"/>
+    </g>
+    <g fill="#FFF6F9">
+      <circle cx="-34" r="9"/><circle cx="34" r="9"/>
+      <circle cy="-34" r="9"/><circle cy="34" r="9"/>
+      <circle cx="-24" cy="-24" r="9"/><circle cx="24" cy="24" r="9"/>
+    </g>
+  </g>
+
+  <!-- spinning top -->
+  <g transform="rotate(-10 877 220)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <rect x="866" y="132" width="22" height="66" rx="10"/>
+      <circle cx="877" cy="132" r="15"/>
+      <path d="M787 196L877 302L967 196Z"/>
+      <ellipse cx="877" cy="196" rx="90" ry="20"/>
+    </g>
+    <rect x="866" y="132" width="22" height="66" rx="10" fill="#6B4A2A"/>
+    <circle cx="877" cy="132" r="15" fill="#6B4A2A"/>
+    <path d="M787 196L877 302L967 196Z" fill="#E8455A"/>
+    <ellipse cx="877" cy="196" rx="90" ry="20" fill="#FFF6F9"/>
+    <g stroke-linecap="round" fill="none">
+      <path d="M877 196h84M877 196h-84" stroke="#E8618C" stroke-width="7"/>
+      <path d="M877 196v-18M877 196v18" stroke="#31C48D" stroke-width="7"/>
+      <path d="M877 196l60-14M877 196l-60 14" stroke="#FFC94A" stroke-width="7"/>
+    </g>
+    <circle cx="877" cy="196" r="9" fill="#5B3AC4"/>
+  </g>
+
+  <!-- marbles -->
+  <g>
+    <circle cx="1046" cy="302" r="34" fill="#000" opacity="0.12"/>
+    <circle cx="1046" cy="296" r="34" fill="#31C48D"/>
+    <circle cx="1035" cy="285" r="10" fill="#FFF6F9" opacity="0.5"/>
+  </g>
+  <g>
+    <circle cx="1112" cy="256" r="24" fill="#000" opacity="0.12"/>
+    <circle cx="1112" cy="250" r="24" fill="#FFC94A"/>
+    <circle cx="1104" cy="242" r="7" fill="#FFF6F9" opacity="0.5"/>
+  </g>
+  <g>
+    <circle cx="962" cy="328" r="26" fill="#000" opacity="0.12"/>
+    <circle cx="962" cy="322" r="26" fill="#E8618C"/>
+    <circle cx="953" cy="313" r="8" fill="#FFF6F9" opacity="0.5"/>
+  </g>
+</svg>

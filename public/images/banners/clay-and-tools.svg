@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Rolled clay with cut-out shapes, a rolling pin and cutters">
+  <rect width="1200" height="400" fill="#E07A2F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- rolled slab of clay, with a star and a circle cut out of it -->
+  <g>
+    <path transform="translate(0 6)" fill-rule="evenodd" d="M694 194C780 180 880 182 946 196C966 200 968 214 964 232C960 256 956 284 948 306C942 322 926 326 900 326C820 328 740 322 700 310C682 304 676 292 678 274C680 250 682 220 686 206C688 198 690 195 694 194ZM756 210L764 232L786 232L768 246L775 268L756 255L737 268L744 246L726 232L748 232ZM876 212a28 28 0 1 0 0 56a28 28 0 1 0 0-56z" fill="#000" opacity="0.12"/>
+    <path fill-rule="evenodd" d="M694 194C780 180 880 182 946 196C966 200 968 214 964 232C960 256 956 284 948 306C942 322 926 326 900 326C820 328 740 322 700 310C682 304 676 292 678 274C680 250 682 220 686 206C688 198 690 195 694 194ZM756 210L764 232L786 232L768 246L775 268L756 255L737 268L744 246L726 232L748 232ZM876 212a28 28 0 1 0 0 56a28 28 0 1 0 0-56z" fill="#B9BCC4"/>
+    <path d="M706 296q54 14 120 16" fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round" opacity="0.35"/>
+  </g>
+
+  <!-- lump of clay -->
+  <g>
+    <path transform="translate(0 6)" d="M1012 248c28-2 50 16 52 38s-18 42-44 44-50-14-52-36 16-44 44-46z" fill="#000" opacity="0.12"/>
+    <path d="M1012 248c28-2 50 16 52 38s-18 42-44 44-50-14-52-36 16-44 44-46z" fill="#B9BCC4"/>
+    <path d="M986 276q16-18 40-16" fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round" opacity="0.35"/>
+  </g>
+
+  <!-- rolling pin -->
+  <g transform="rotate(-16 1005 174)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <rect x="884" y="166" width="38" height="16" rx="8"/>
+      <rect x="1088" y="166" width="38" height="16" rx="8"/>
+      <rect x="920" y="150" width="170" height="48" rx="10"/>
+    </g>
+    <rect x="884" y="166" width="38" height="16" rx="8" fill="#6B4A2A"/>
+    <rect x="1088" y="166" width="38" height="16" rx="8" fill="#6B4A2A"/>
+    <rect x="920" y="150" width="170" height="48" rx="10" fill="#F2E3C4"/>
+    <rect x="940" y="160" width="80" height="7" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+
+  <!-- star cutter -->
+  <g transform="rotate(-10 750 306)">
+    <path transform="translate(0 6)" d="M750 276L757 296L779 297L762 310L768 330L750 318L732 330L738 310L721 297L743 296Z" fill="none" stroke="#000" stroke-width="9" stroke-linejoin="round" opacity="0.12"/>
+    <path d="M750 276L757 296L779 297L762 310L768 330L750 318L732 330L738 310L721 297L743 296Z" fill="none" stroke="#E8618C" stroke-width="9" stroke-linejoin="round"/>
+  </g>
+
+  <!-- round cutter -->
+  <g>
+    <circle cx="900" cy="306" r="34" fill="none" stroke="#000" stroke-width="9" opacity="0.12"/>
+    <circle cx="900" cy="300" r="34" fill="none" stroke="#31C48D" stroke-width="9"/>
+  </g>
+</svg>

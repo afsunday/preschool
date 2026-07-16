@@ -41,6 +41,7 @@ class PortalSeeder extends Seeder
             'year' => '2026/2027',
             'teacher_id' => $james->id,
             'color' => '#159cb0',
+            'banner' => 'blocks',
         ]);
 
         $toddlers = Classroom::factory()->create([
@@ -49,6 +50,7 @@ class PortalSeeder extends Seeder
             'year' => '2026/2027',
             'teacher_id' => $ada->id,
             'color' => '#f0a020',
+            'banner' => 'art-table',
         ]);
 
         // The parent who proves the model: one account, two kids, two rooms.

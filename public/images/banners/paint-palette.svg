@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Paint palette with paint blobs and brushes in a jar">
+  <rect width="1200" height="400" fill="#7C5CFF"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- palette (thumb hole cut with evenodd) -->
+  <g transform="rotate(-8 862 240)">
+    <path transform="translate(0 6)" fill-rule="evenodd" d="M732 240a130 95 0 1 1 260 0a130 95 0 1 1-260 0zM806 272a26 20 0 1 0 52 0a26 20 0 1 0-52 0z" fill="#000" opacity="0.12"/>
+    <path fill-rule="evenodd" d="M732 240a130 95 0 1 1 260 0a130 95 0 1 1-260 0zM806 272a26 20 0 1 0 52 0a26 20 0 1 0-52 0z" fill="#FFF6F9"/>
+    <circle cx="794" cy="192" r="22" fill="#E8455A"/>
+    <circle cx="852" cy="176" r="20" fill="#FFC94A"/>
+    <circle cx="910" cy="192" r="21" fill="#31C48D"/>
+    <circle cx="944" cy="240" r="20" fill="#5B6BD6"/>
+    <circle cx="922" cy="292" r="19" fill="#E8618C"/>
+  </g>
+
+  <!-- brushes fanned from the jar mouth -->
+  <g transform="rotate(-16 1036 250)">
+    <rect x="1029" y="112" width="14" height="154" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="1029" y="140" width="14" height="120" rx="7" fill="#7C5CFF"/>
+    <rect x="1028" y="132" width="16" height="12" rx="2" fill="#B9BCC4"/>
+    <path d="M1029 134h14l-3-26a4 4 0 0 0-8 0z" fill="#F2E3C4"/>
+  </g>
+  <g transform="rotate(4 1036 250)">
+    <rect x="1029" y="112" width="14" height="154" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="1029" y="140" width="14" height="120" rx="7" fill="#31C48D"/>
+    <rect x="1028" y="132" width="16" height="12" rx="2" fill="#B9BCC4"/>
+    <path d="M1029 134h14l-3-26a4 4 0 0 0-8 0z" fill="#F2E3C4"/>
+  </g>
+  <g transform="rotate(20 1036 250)">
+    <rect x="1029" y="112" width="14" height="154" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="1029" y="140" width="14" height="120" rx="7" fill="#FFC94A"/>
+    <rect x="1028" y="132" width="16" height="12" rx="2" fill="#B9BCC4"/>
+    <path d="M1029 134h14l-3-26a4 4 0 0 0-8 0z" fill="#F2E3C4"/>
+  </g>
+
+  <!-- brush jar -->
+  <g>
+    <path transform="translate(0 6)" d="M990 250h92l-9 92a12 12 0 0 1-12 11h-50a12 12 0 0 1-12-11z" fill="#000" opacity="0.12"/>
+    <path d="M990 250h92l-9 92a12 12 0 0 1-12 11h-50a12 12 0 0 1-12-11z" fill="#FFFFFF"/>
+    <rect x="1002" y="272" width="10" height="58" rx="5" fill="#FFF" opacity="0.35"/>
+    <ellipse cx="1036" cy="250" rx="46" ry="14" fill="#5B6BD6"/>
+  </g>
+</svg>

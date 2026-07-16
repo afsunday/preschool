@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Open umbrella with raindrops and wellington boots">
+  <rect width="1200" height="400" fill="#2F8F8F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- open umbrella: shaft and J handle, then the scalloped canopy over it -->
+  <g transform="rotate(-7 850 220)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M850 118V300q0 26-22 26q-22 0-22-20" fill="none" stroke="#000" stroke-width="8" stroke-linecap="round"/>
+      <path d="M740 230A110 100 0 0 1 960 230q-27 26-55 0q-27 26-55 0q-27 26-55 0q-27 26-55 0z" fill="#000"/>
+    </g>
+    <path d="M850 112V300q0 26-22 26q-22 0-22-20" fill="none" stroke="#6B4A2A" stroke-width="8" stroke-linecap="round"/>
+    <path d="M850 130A110 100 0 0 0 740 230q27 26 55 0z" fill="#E8455A"/>
+    <path d="M850 130L795 230q27 26 55 0z" fill="#FFC94A"/>
+    <path d="M850 130L905 230q-27 26-55 0z" fill="#E8455A"/>
+    <path d="M850 130A110 100 0 0 1 960 230q-27 26-55 0z" fill="#FFC94A"/>
+  </g>
+
+  <!-- wellington boots -->
+  <g transform="rotate(6 1006 278)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M964 230q0-8 8-8h30q8 0 8 8v62q0 8 8 10l24 7q12 4 12 16v10q0 8-8 8h-74q-8 0-8-8z"/>
+    </g>
+    <path d="M964 224q0-8 8-8h30q8 0 8 8v62q0 8 8 10l24 7q12 4 12 16v10q0 8-8 8h-74q-8 0-8-8z" fill="#5B6BD6"/>
+    <rect x="964" y="222" width="46" height="18" rx="8" fill="#FFC94A"/>
+    <path d="M964 319h90v10q0 8-8 8h-74q-8 0-8-8z" fill="#3A3A48"/>
+  </g>
+  <g transform="rotate(-9 1072 294)">
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M1030 234q0-8 8-8h30q8 0 8 8v62q0 8 8 10l24 7q12 4 12 16v10q0 8-8 8h-74q-8 0-8-8z"/>
+    </g>
+    <path d="M1030 228q0-8 8-8h30q8 0 8 8v62q0 8 8 10l24 7q12 4 12 16v10q0 8-8 8h-74q-8 0-8-8z" fill="#5B6BD6"/>
+    <rect x="1030" y="226" width="46" height="18" rx="8" fill="#FFC94A"/>
+    <path d="M1030 323h90v10q0 8-8 8h-74q-8 0-8-8z" fill="#3A3A48"/>
+  </g>
+
+  <!-- raindrops -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M668 150c-14 18-22 28-22 38a22 22 0 0 0 44 0c0-10-8-20-22-38z"/>
+      <path d="M706 282c-11 14-17 22-17 30a17 17 0 0 0 34 0c0-8-6-16-17-30z"/>
+      <path d="M1098 132c-12 16-19 24-19 33a19 19 0 0 0 38 0c0-9-7-17-19-33z"/>
+    </g>
+    <path d="M668 150c-14 18-22 28-22 38a22 22 0 0 0 44 0c0-10-8-20-22-38z" fill="#FFF6F9"/>
+    <path d="M706 282c-11 14-17 22-17 30a17 17 0 0 0 34 0c0-8-6-16-17-30z" fill="#FFF6F9"/>
+    <path d="M1098 132c-12 16-19 24-19 33a19 19 0 0 0 38 0c0-9-7-17-19-33z" fill="#FFF6F9"/>
+  </g>
+</svg>

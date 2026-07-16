@@ -141,9 +141,18 @@
                             "label": "Cutout",
                             "default": "cheer",
                             "options": [
-                                { "value": "cheer", "label": "Kids cheering (red)" },
-                                { "value": "thumbs", "label": "Boy thumbs up (green)" },
-                                { "value": "wave", "label": "Girl waving (yellow)" }
+                                {
+                                    "value": "cheer",
+                                    "label": "Kids cheering (red)"
+                                },
+                                {
+                                    "value": "thumbs",
+                                    "label": "Boy thumbs up (green)"
+                                },
+                                {
+                                    "value": "wave",
+                                    "label": "Girl waving (yellow)"
+                                }
                             ]
                         },
                         {
@@ -225,7 +234,10 @@
                             "label": "Action",
                             "default": "read",
                             "options": [
-                                { "value": "download", "label": "Download File" },
+                                {
+                                    "value": "download",
+                                    "label": "Download File"
+                                },
                                 { "value": "video", "label": "Watch Video" },
                                 { "value": "read", "label": "Read" }
                             ]

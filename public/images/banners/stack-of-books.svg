@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Leaning stack of books with one open on top">
+  <rect width="1200" height="400" fill="#3A7BB5"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- book propped against the stack -->
+  <g transform="rotate(-62 1055 258)">
+    <rect x="969" y="242" width="180" height="44" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="965" y="236" width="180" height="44" rx="7" fill="#E8455A"/>
+    <rect x="987" y="242" width="150" height="32" rx="3" fill="#FFF6F9"/>
+    <rect x="965" y="236" width="22" height="44" rx="7" fill="#3A3A48"/>
+    <rect x="993" y="250" width="132" height="4" rx="2" fill="#B9BCC4"/>
+    <rect x="993" y="264" width="132" height="4" rx="2" fill="#B9BCC4"/>
+  </g>
+
+  <!-- bottom book -->
+  <g transform="rotate(-3 840 320)">
+    <rect x="704" y="302" width="280" height="48" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="700" y="296" width="280" height="48" rx="7" fill="#7C5CFF"/>
+    <rect x="722" y="302" width="250" height="36" rx="3" fill="#FFF6F9"/>
+    <rect x="700" y="296" width="22" height="48" rx="7" fill="#5B3AC4"/>
+    <rect x="728" y="310" width="232" height="4" rx="2" fill="#B9BCC4"/>
+    <rect x="728" y="326" width="232" height="4" rx="2" fill="#B9BCC4"/>
+  </g>
+
+  <!-- middle book -->
+  <g transform="rotate(5 851 274)">
+    <rect x="726" y="258" width="258" height="44" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="722" y="252" width="258" height="44" rx="7" fill="#31C48D"/>
+    <rect x="744" y="258" width="228" height="32" rx="3" fill="#FFF6F9"/>
+    <rect x="722" y="252" width="22" height="44" rx="7" fill="#1E8A62"/>
+    <rect x="750" y="266" width="210" height="4" rx="2" fill="#B9BCC4"/>
+    <rect x="750" y="280" width="210" height="4" rx="2" fill="#B9BCC4"/>
+  </g>
+
+  <!-- top book -->
+  <g transform="rotate(-7 845 232)">
+    <rect x="716" y="216" width="266" height="44" rx="7" fill="#000" opacity="0.12"/>
+    <rect x="712" y="210" width="266" height="44" rx="7" fill="#FFC94A"/>
+    <rect x="734" y="216" width="236" height="32" rx="3" fill="#FFF6F9"/>
+    <rect x="712" y="210" width="22" height="44" rx="7" fill="#E0A413"/>
+    <rect x="740" y="224" width="218" height="4" rx="2" fill="#B9BCC4"/>
+    <rect x="740" y="238" width="218" height="4" rx="2" fill="#B9BCC4"/>
+  </g>
+
+  <!-- open book resting on the stack -->
+  <g transform="rotate(-4 860 172)">
+    <path d="M750 130q55-18 110 0v92q-55-18-110 0z" fill="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M970 130q-55-18-110 0v92q55-18 110 0z" fill="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M750 130q55-18 110 0v92q-55-18-110 0z" fill="#FFFFFF"/>
+    <path d="M970 130q-55-18-110 0v92q55-18 110 0z" fill="#FFF6F9"/>
+    <path d="M860 130v92" stroke="#B9BCC4" stroke-width="4"/>
+    <g stroke="#B9BCC4" stroke-width="5" stroke-linecap="round">
+      <path d="M772 158h68M772 178h68M772 198h48"/>
+      <path d="M880 158h68M880 178h68M880 198h48"/>
+    </g>
+  </g>
+</svg>

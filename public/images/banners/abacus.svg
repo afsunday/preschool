@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Abacus with rows of coloured counting beads">
+  <rect width="1200" height="400" fill="#E07A2F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- number card -->
+  <g transform="rotate(-14 676 304)">
+    <rect x="630" y="272" width="92" height="76" rx="8" fill="#000" opacity="0.12"/>
+    <rect x="630" y="266" width="92" height="76" rx="8" fill="#FFF6F9"/>
+    <text x="676" y="322" font-family="Verdana,DejaVu Sans,sans-serif" font-size="46" font-weight="bold" fill="#E8618C" text-anchor="middle">8</text>
+  </g>
+
+  <!-- abacus -->
+  <g transform="rotate(-4 886 232)">
+    <rect x="712" y="138" width="348" height="200" rx="14" fill="#000" opacity="0.12"/>
+    <rect x="712" y="132" width="348" height="200" rx="14" fill="#F2E3C4"/>
+    <rect x="738" y="158" width="296" height="148" rx="6" fill="#6B4A2A"/>
+    <path d="M738 186h296M738 232h296M738 278h296" fill="none" stroke="#B9BCC4" stroke-width="5"/>
+    <g fill="#E8618C">
+      <circle cx="762" cy="186" r="17"/><circle cx="798" cy="186" r="17"/><circle cx="834" cy="186" r="17"/>
+      <circle cx="902" cy="186" r="17"/><circle cx="938" cy="186" r="17"/><circle cx="974" cy="186" r="17"/><circle cx="1010" cy="186" r="17"/>
+    </g>
+    <g fill="#FFC94A">
+      <circle cx="762" cy="232" r="17"/><circle cx="798" cy="232" r="17"/><circle cx="834" cy="232" r="17"/><circle cx="870" cy="232" r="17"/><circle cx="906" cy="232" r="17"/>
+      <circle cx="974" cy="232" r="17"/><circle cx="1010" cy="232" r="17"/>
+    </g>
+    <g fill="#31C48D">
+      <circle cx="762" cy="278" r="17"/><circle cx="798" cy="278" r="17"/>
+      <circle cx="866" cy="278" r="17"/><circle cx="902" cy="278" r="17"/><circle cx="938" cy="278" r="17"/><circle cx="974" cy="278" r="17"/><circle cx="1010" cy="278" r="17"/>
+    </g>
+  </g>
+
+  <!-- spare beads -->
+  <g>
+    <circle cx="1084" cy="174" r="17" fill="#000" opacity="0.12"/>
+    <circle cx="1084" cy="168" r="17" fill="#7C5CFF"/>
+    <circle cx="1098" cy="238" r="17" fill="#000" opacity="0.12"/>
+    <circle cx="1098" cy="232" r="17" fill="#31C48D"/>
+    <circle cx="1078" cy="302" r="17" fill="#000" opacity="0.12"/>
+    <circle cx="1078" cy="296" r="17" fill="#5B6BD6"/>
+  </g>
+</svg>

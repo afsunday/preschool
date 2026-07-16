@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Art table with crayons and paper">
+  <!-- Google-Classroom-style flat lay: solid field on the left for the class
+       title, objects clustered right on a soft disc. -->
+  <rect width="1200" height="400" fill="#E8618C"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- sheet of paper -->
+  <g transform="rotate(-8 740 210)">
+    <rect x="640" y="110" width="200" height="200" rx="4" fill="#000" opacity="0.12"/>
+    <rect x="636" y="104" width="200" height="200" rx="4" fill="#FFF6F9"/>
+    <path d="M672 190q22-30 44 0t44 0" fill="none" stroke="#E8618C" stroke-width="7" stroke-linecap="round"/>
+    <path d="M672 226q22-30 44 0t44 0" fill="none" stroke="#7C5CFF" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="736" cy="150" r="18" fill="#FFC94A"/>
+  </g>
+
+  <!-- crayons -->
+  <g transform="rotate(24 930 250)">
+    <rect x="866" y="240" width="128" height="26" rx="13" fill="#000" opacity="0.12"/>
+    <rect x="862" y="234" width="128" height="26" rx="13" fill="#7C5CFF"/>
+    <path d="M990 234l26 13-26 13z" fill="#5B3AC4"/>
+    <rect x="884" y="240" width="70" height="6" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+  <g transform="rotate(-14 950 300)">
+    <rect x="890" y="296" width="128" height="26" rx="13" fill="#000" opacity="0.12"/>
+    <rect x="886" y="290" width="128" height="26" rx="13" fill="#31C48D"/>
+    <path d="M1014 290l26 13-26 13z" fill="#1E8A62"/>
+    <rect x="908" y="296" width="70" height="6" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+  <g transform="rotate(64 1046 168)">
+    <rect x="986" y="160" width="128" height="26" rx="13" fill="#000" opacity="0.12"/>
+    <rect x="982" y="154" width="128" height="26" rx="13" fill="#FFC94A"/>
+    <path d="M1110 154l26 13-26 13z" fill="#E0A413"/>
+    <rect x="1004" y="160" width="70" height="6" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+
+  <!-- paint pot -->
+  <g>
+    <ellipse cx="900" cy="128" rx="52" ry="16" fill="#000" opacity="0.12"/>
+    <path d="M852 118h96l-10 62a12 12 0 0 1-12 10h-52a12 12 0 0 1-12-10z" fill="#FFFFFF"/>
+    <ellipse cx="900" cy="118" rx="48" ry="14" fill="#7C5CFF"/>
+  </g>
+</svg>

@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Tambourine with jingles and a ribbon, beside a jingle stick">
+  <rect width="1200" height="400" fill="#5B6BD6"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- jingle stick tucked behind: grip and paddle -->
+  <g transform="rotate(-16 730 307)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <rect x="640" y="298" width="90" height="18" rx="9"/>
+      <rect x="712" y="284" width="110" height="46" rx="14"/>
+    </g>
+    <rect x="640" y="298" width="90" height="18" rx="9" fill="#6B4A2A"/>
+    <rect x="712" y="284" width="110" height="46" rx="14" fill="#F2E3C4"/>
+    <g fill="#E0A413">
+      <circle cx="742" cy="307" r="12"/>
+      <circle cx="792" cy="307" r="12"/>
+    </g>
+    <g fill="#6B4A2A">
+      <circle cx="742" cy="307" r="4"/>
+      <circle cx="792" cy="307" r="4"/>
+    </g>
+  </g>
+
+  <!-- tambourine: wooden shell, painted rim, skin, eight jingles -->
+  <g>
+    <circle cx="880" cy="228" r="118" fill="#000" opacity="0.12"/>
+    <circle cx="880" cy="222" r="118" fill="#6B4A2A"/>
+    <circle cx="880" cy="222" r="98" fill="#E8618C"/>
+    <circle cx="880" cy="222" r="86" fill="#FFF6F9"/>
+    <g fill="#E0A413">
+      <circle cx="986" cy="222" r="9"/>
+      <circle cx="955" cy="297" r="9"/>
+      <circle cx="880" cy="328" r="9"/>
+      <circle cx="805" cy="297" r="9"/>
+      <circle cx="774" cy="222" r="9"/>
+      <circle cx="805" cy="147" r="9"/>
+      <circle cx="880" cy="116" r="9"/>
+      <circle cx="955" cy="147" r="9"/>
+    </g>
+    <g fill="#6B4A2A">
+      <circle cx="986" cy="222" r="3.5"/>
+      <circle cx="955" cy="297" r="3.5"/>
+      <circle cx="880" cy="328" r="3.5"/>
+      <circle cx="805" cy="297" r="3.5"/>
+      <circle cx="774" cy="222" r="3.5"/>
+      <circle cx="805" cy="147" r="3.5"/>
+      <circle cx="880" cy="116" r="3.5"/>
+      <circle cx="955" cy="147" r="3.5"/>
+    </g>
+  </g>
+
+  <!-- ribbon bow tied to the shell: two loops, knot, notched tails -->
+  <g>
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <path d="M983 169L1059 254L1040 250L1041 270L967 182z"/>
+      <path d="M974 165L1084 149L1069 163L1087 173L976 185z"/>
+      <ellipse cx="1015" cy="147" rx="40" ry="22" transform="rotate(-30 1015 147)"/>
+      <ellipse cx="1015" cy="203" rx="40" ry="22" transform="rotate(30 1015 203)"/>
+      <circle cx="975" cy="175" r="15"/>
+    </g>
+    <path d="M983 169L1059 254L1040 250L1041 270L967 182z" fill="#E8618C"/>
+    <path d="M974 165L1084 149L1069 163L1087 173L976 185z" fill="#E8618C"/>
+    <ellipse cx="1015" cy="147" rx="40" ry="22" transform="rotate(-30 1015 147)" fill="#E8618C"/>
+    <ellipse cx="1015" cy="203" rx="40" ry="22" transform="rotate(30 1015 203)" fill="#E8618C"/>
+    <circle cx="975" cy="175" r="15" fill="#E8455A"/>
+  </g>
+</svg>

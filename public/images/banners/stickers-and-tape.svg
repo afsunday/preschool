@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Sticker sheet with washi tape rolls and star stickers">
+  <rect width="1200" height="400" fill="#C9911A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- sticker sheet -->
+  <g transform="rotate(-8 750 232)">
+    <rect transform="translate(0 6)" x="644" y="134" width="210" height="196" rx="8" fill="#000" opacity="0.12"/>
+    <rect x="644" y="134" width="210" height="196" rx="8" fill="#FFF6F9"/>
+    <circle cx="700" cy="188" r="26" fill="#E8455A"/>
+    <path d="M800 160L807 179L827 179L811 192L817 211L800 199L784 211L789 192L773 179L793 179Z" fill="#FFC94A"/>
+    <circle cx="700" cy="276" r="26" fill="#31C48D"/>
+    <path d="M800 248L807 267L827 267L811 280L817 299L800 287L784 299L789 280L773 267L793 267Z" fill="#7C5CFF"/>
+  </g>
+
+  <!-- unspooled tape tail -->
+  <g>
+    <path transform="translate(0 6)" d="M980 236l84 34-12 28-84-34z" fill="#000" opacity="0.12"/>
+    <path d="M980 236l84 34-12 28-84-34z" fill="#7C5CFF"/>
+    <path d="M1052 298l-84-34" fill="none" stroke="#5B3AC4" stroke-width="5"/>
+  </g>
+
+  <!-- washi tape roll -->
+  <g>
+    <circle cx="950" cy="206" r="44" fill="none" stroke="#000" stroke-width="30" opacity="0.12"/>
+    <circle cx="950" cy="200" r="44" fill="none" stroke="#7C5CFF" stroke-width="30"/>
+    <circle cx="950" cy="200" r="52" fill="none" stroke="#FFF" stroke-width="6" opacity="0.35"/>
+  </g>
+
+  <!-- second washi tape roll -->
+  <g>
+    <circle cx="1046" cy="174" r="36" fill="none" stroke="#000" stroke-width="26" opacity="0.12"/>
+    <circle cx="1046" cy="168" r="36" fill="none" stroke="#31C48D" stroke-width="26"/>
+    <circle cx="1046" cy="168" r="42" fill="none" stroke="#FFF" stroke-width="5" opacity="0.35"/>
+  </g>
+
+  <!-- loose star stickers -->
+  <g transform="rotate(12 1060 296)">
+    <path transform="translate(0 6)" d="M1060 262L1068 285L1092 286L1073 300L1080 324L1060 310L1040 324L1047 300L1028 286L1052 285Z" fill="#000" opacity="0.12"/>
+    <path d="M1060 262L1068 285L1092 286L1073 300L1080 324L1060 310L1040 324L1047 300L1028 286L1052 285Z" fill="#E8455A"/>
+  </g>
+  <g transform="rotate(-20 896 320)">
+    <path transform="translate(0 6)" d="M896 294L902 312L921 312L906 323L911 341L896 331L881 341L886 323L871 312L890 312Z" fill="#000" opacity="0.12"/>
+    <path d="M896 294L902 312L921 312L906 323L911 341L896 331L881 341L886 323L871 312L890 312Z" fill="#FFF6F9"/>
+  </g>
+</svg>

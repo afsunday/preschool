@@ -9,6 +9,7 @@ export interface PortalClass {
     color: string | null;
     banner: string | null;
     teacher: string | null;
+    teacherId: number | null;
     childCount: number;
 }
 

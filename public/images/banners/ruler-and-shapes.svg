@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Ruler set square protractor and pencil">
+  <rect width="1200" height="400" fill="#2F8F8F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- ruler -->
+  <g transform="rotate(-7 826 304)">
+    <rect x="644" y="284" width="364" height="52" rx="6" fill="#000" opacity="0.12"/>
+    <rect x="644" y="278" width="364" height="52" rx="6" fill="#FFC94A"/>
+    <path d="M664 278v18M691 278v11M718 278v18M745 278v11M772 278v18M799 278v11M826 278v18M853 278v11M880 278v18M907 278v11M934 278v18M961 278v11M988 278v18" fill="none" stroke="#3A3A48" stroke-width="3"/>
+    <g font-family="Verdana,DejaVu Sans,sans-serif" font-size="14" fill="#3A3A48" text-anchor="middle">
+      <text x="664" y="320">1</text><text x="718" y="320">2</text><text x="772" y="320">3</text><text x="826" y="320">4</text><text x="880" y="320">5</text><text x="934" y="320">6</text><text x="988" y="320">7</text>
+    </g>
+  </g>
+
+  <!-- set square -->
+  <g transform="rotate(9 760 230)">
+    <path fill-rule="evenodd" d="M690 144v150h178zM714 184v86h102z" fill="#000" opacity="0.12"/>
+    <path fill-rule="evenodd" d="M690 138v150h178zM714 178v86h102z" fill="#7C5CFF"/>
+    <path d="M690 262h26v26" fill="none" stroke="#FFF6F9" stroke-width="4"/>
+  </g>
+
+  <!-- protractor -->
+  <g transform="rotate(-10 1010 240)">
+    <path d="M916 274a94 94 0 0 1 188 0z" fill="#000" opacity="0.12"/>
+    <path d="M916 268a94 94 0 0 1 188 0z" fill="#E8455A"/>
+    <path d="M956 268a54 54 0 0 1 108 0z" fill="#FFF6F9"/>
+    <g fill="none" stroke="#FFF6F9" stroke-width="3">
+      <path d="M916 268h16M928.6 221l13.9 8M963 186.6l8 13.9M1010 174v16M1057 186.6l-8 13.9M1091.4 221l-13.9 8M1104 268h-16"/>
+    </g>
+    <circle cx="1010" cy="268" r="6" fill="#E8455A"/>
+  </g>
+
+  <!-- pencil -->
+  <g transform="rotate(-22 851 176)">
+    <rect x="760" y="170" width="150" height="24" rx="3" fill="#000" opacity="0.12"/>
+    <rect x="760" y="164" width="150" height="24" rx="3" fill="#E8618C"/>
+    <path d="M910 164l32 12-32 12z" fill="#F2E3C4"/>
+    <path d="M934 171l8 5-8 5z" fill="#3A3A48"/>
+    <rect x="760" y="164" width="22" height="24" rx="3" fill="#31C48D"/>
+    <rect x="782" y="164" width="8" height="24" fill="#B9BCC4"/>
+  </g>
+</svg>

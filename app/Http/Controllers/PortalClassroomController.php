@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Models\ClassroomBanner;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 
 /**
@@ -22,7 +22,6 @@ class PortalClassroomController extends Controller
         $data = $this->validated($request);
 
         $classroom = Classroom::create($data);
-        $classroom->setBanner($request->integer('banner_media_id') ?: null);
 
         return redirect()->route('portal.classes.feed', $classroom);
     }
@@ -32,12 +31,6 @@ class PortalClassroomController extends Controller
         $this->authorize('update', $classroom);
 
         $classroom->update($this->validated($request));
-
-        // Only touch the cover when the field was actually submitted, so a plain
-        // rename never silently drops the banner.
-        if ($request->has('banner_media_id')) {
-            $classroom->setBanner($request->integer('banner_media_id') ?: null);
-        }
 
         return back();
     }
@@ -54,26 +47,28 @@ class PortalClassroomController extends Controller
     }
 
     /**
-     * Validated class attributes. `banner_media_id` is applied separately — it
-     * lives in the mediables pivot, not on the row.
-     *
      * @return array<string, mixed>
      */
     protected function validated(Request $request): array
     {
-        return Arr::except($request->validate([
+        return $request->validate([
             'name' => ['required', 'string', 'max:120'],
             'grade' => ['nullable', 'string', 'max:60'],
             'year' => ['required', 'string', 'max:20'],
-            // The cover is a real image from the media library, attached through
-            // the mediables pivot rather than stored on the row.
-            'banner_media_id' => ['nullable', 'integer', 'exists:media,id'],
+            // A key into the generated banner library — never a colour or a
+            // class. Omitting it is fine: the column defaults. But anything sent
+            // must name a banner we actually generate.
+            'banner' => ['sometimes', 'string', function ($attr, $value, $fail) {
+                if (! ClassroomBanner::valid($value)) {
+                    $fail('That banner is not one we offer.');
+                }
+            }],
             'teacher_id' => [
                 'nullable',
                 Rule::exists('users', 'id')->where(
                     fn ($q) => $q->whereIn('user_type', [User::TEACHER, User::ADMIN]),
                 ),
             ],
-        ]), ['banner_media_id']);
+        ]);
     }
 }

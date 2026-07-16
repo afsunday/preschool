@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Falling autumn leaves with a conker and a bare twig">
+  <rect width="1200" height="400" fill="#D98A1F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- bare twig -->
+  <g fill="none" stroke-linecap="round">
+    <g stroke="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M646 306q118 26 240-22q58-23 102-66" stroke-width="16"/>
+      <path d="M800 310q16-42 0-78" stroke-width="10"/>
+      <path d="M940 256q30-16 40-48" stroke-width="10"/>
+    </g>
+    <g stroke="#6B4A2A">
+      <path d="M646 306q118 26 240-22q58-23 102-66" stroke-width="16"/>
+      <path d="M800 310q16-42 0-78" stroke-width="10"/>
+      <path d="M940 256q30-16 40-48" stroke-width="10"/>
+    </g>
+  </g>
+
+  <!-- leaf -->
+  <g transform="translate(696 126) rotate(-26)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#000"/>
+      <path d="M0 124v20" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#E8455A"/>
+    <path d="M0 124v20M0 14V114M0 44l24 18M0 44l-24 18M0 76l22 18M0 76l-22 18" fill="none" stroke="#6B4A2A" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- leaf -->
+  <g transform="translate(836 106) rotate(12)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#000"/>
+      <path d="M0 124v20" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#FFC94A"/>
+    <path d="M0 124v20M0 14V114M0 44l24 18M0 44l-24 18M0 76l22 18M0 76l-22 18" fill="none" stroke="#6B4A2A" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- leaf -->
+  <g transform="translate(952 160) rotate(-46)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#000"/>
+      <path d="M0 124v20" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <path d="M0 0c46 30 58 76 0 126c-58-50-46-96 0-126z" fill="#E8618C"/>
+    <path d="M0 124v20M0 14V114M0 44l24 18M0 44l-24 18M0 76l22 18M0 76l-22 18" fill="none" stroke="#6B4A2A" stroke-width="6" stroke-linecap="round"/>
+  </g>
+
+  <!-- conker husk -->
+  <g transform="rotate(-10 1002 288)">
+    <g opacity="0.12" transform="translate(0 6)">
+      <circle cx="1002" cy="288" r="44" fill="#000"/>
+      <path d="M1002 244V226M1002 332v18M958 288h-18M1046 288h18M971 257l-13-13M1033 319l13 13M971 319l-13 13M1033 257l13-13" fill="none" stroke="#000" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <circle cx="1002" cy="288" r="44" fill="#31C48D"/>
+    <path d="M1002 244V226M1002 332v18M958 288h-18M1046 288h18M971 257l-13-13M1033 319l13 13M971 319l-13 13M1033 257l13-13" fill="none" stroke="#1E8A62" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="1002" cy="288" r="24" fill="#1E8A62"/>
+  </g>
+
+  <!-- conker nut -->
+  <g>
+    <circle cx="1066" cy="288" r="46" fill="#000" opacity="0.12"/>
+    <circle cx="1066" cy="282" r="46" fill="#6B4A2A"/>
+    <ellipse cx="1056" cy="296" rx="20" ry="14" fill="#F2E3C4"/>
+    <path d="M1066 236a46 46 0 0 1 34 16" fill="none" stroke="#FFF" stroke-width="7" stroke-linecap="round" opacity="0.25"/>
+  </g>
+</svg>

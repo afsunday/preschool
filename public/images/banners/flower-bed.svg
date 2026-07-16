@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Geometric flowers with water droplets and pebbles">
+ <rect width="1200" height="400" fill="#3A7BB5"/>
+ <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+ <defs>
+  <path id="dr" d="M0-22C10-8 16 0 16 8A16 16 0 0 1-16 8C-16 0-10-8 0-22z"/>
+  <ellipse id="pb" rx="32" ry="21"/>
+  <g id="p6"><circle cx="26" r="20"/><circle cx="13" cy="23" r="20"/><circle cx="-13" cy="23" r="20"/><circle cx="-26" r="20"/><circle cx="-13" cy="-23" r="20"/><circle cx="13" cy="-23" r="20"/></g>
+  <g id="p5"><ellipse cy="-32" rx="17" ry="32"/><ellipse cy="-32" rx="17" ry="32" transform="rotate(72)"/><ellipse cy="-32" rx="17" ry="32" transform="rotate(144)"/><ellipse cy="-32" rx="17" ry="32" transform="rotate(216)"/><ellipse cy="-32" rx="17" ry="32" transform="rotate(288)"/></g>
+ </defs>
+
+ <!-- pebbles -->
+ <g fill="#000" opacity=".12">
+  <use href="#pb" transform="translate(818 336)rotate(-14)"/>
+  <use href="#pb" transform="translate(890 340)rotate(20)scale(.75)"/>
+  <use href="#pb" transform="translate(762 342)rotate(-32)scale(.63)"/>
+ </g>
+ <g fill="#B9BCC4">
+  <use href="#pb" transform="translate(818 330)rotate(-14)"/>
+  <use href="#pb" transform="translate(890 334)rotate(20)scale(.75)"/>
+  <use href="#pb" transform="translate(762 336)rotate(-32)scale(.63)"/>
+ </g>
+
+ <!-- water droplets -->
+ <g fill="#000" opacity=".12">
+  <use href="#dr" transform="translate(944 154)rotate(18)"/>
+  <use href="#dr" transform="translate(1090 274)rotate(-8)"/>
+  <use href="#dr" transform="translate(700 294)rotate(24)"/>
+  <use href="#dr" transform="translate(1046 330)rotate(-14)"/>
+ </g>
+ <g fill="#FFF6F9">
+  <use href="#dr" transform="translate(944 148)rotate(18)"/>
+  <use href="#dr" transform="translate(1090 268)rotate(-8)"/>
+  <use href="#dr" transform="translate(700 288)rotate(24)"/>
+  <use href="#dr" transform="translate(1046 324)rotate(-14)"/>
+ </g>
+
+ <!-- flowers -->
+ <g fill="#000" opacity=".12" transform="translate(0 6)">
+  <path d="M748 252v92M868 294q22 30 28 52M968 252v84" fill="none" stroke="#000" stroke-width="9" stroke-linecap="round"/>
+  <path d="M748 302q-34-12-40 14 32 10 40-14zM968 298q30-12 36 10-28 10-36-10z"/>
+  <use href="#p6" transform="translate(748 210)scale(1.54)"/>
+  <use href="#p5" transform="translate(868 262)"/>
+  <use href="#p6" transform="translate(968 206)"/>
+ </g>
+ <path d="M748 252v92M868 294q22 30 28 52M968 252v84" fill="none" stroke="#1E8A62" stroke-width="9" stroke-linecap="round"/>
+ <path d="M748 302q-34-12-40 14 32 10 40-14zM968 298q30-12 36 10-28 10-36-10z" fill="#31C48D"/>
+ <use href="#p6" transform="translate(748 210)scale(1.54)" fill="#E8618C"/>
+ <circle cx="748" cy="210" r="26" fill="#FFC94A"/>
+ <circle cx="748" cy="210" r="12" fill="#E0A413"/>
+ <use href="#p5" transform="translate(868 262)" fill="#7C5CFF"/>
+ <circle cx="868" cy="262" r="20" fill="#FFC94A"/>
+ <use href="#p6" transform="translate(968 206)" fill="#FFC94A"/>
+ <circle cx="968" cy="206" r="18" fill="#E8455A"/>
+</svg>

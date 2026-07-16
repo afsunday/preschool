@@ -19,22 +19,34 @@
                         "icon": "mail",
                         "title": "Email Us",
                         "items": [
-                            { "label": "email go in here", "url": "mailto:info@wodischools.com" }
+                            {
+                                "label": "email go in here",
+                                "url": "mailto:info@wodischools.com"
+                            }
                         ]
                     },
                     {
                         "icon": "phone",
                         "title": "Call Us",
                         "items": [
-                            { "label": "0201-280-9919", "url": "tel:02012809919" },
-                            { "label": "0201-280-9919", "url": "tel:02012809919" }
+                            {
+                                "label": "0201-280-9919",
+                                "url": "tel:02012809919"
+                            },
+                            {
+                                "label": "0201-280-9919",
+                                "url": "tel:02012809919"
+                            }
                         ]
                     },
                     {
                         "icon": "locate",
                         "title": "Find Us",
                         "items": [
-                            { "label": "South Africa Address: 372 Oak Avenue, Ferndale, Ranburg, Gauteng, 2194", "url": "#" }
+                            {
+                                "label": "South Africa Address: 372 Oak Avenue, Ferndale, Ranburg, Gauteng, 2194",
+                                "url": "#"
+                            }
                         ]
                     }
                 ]

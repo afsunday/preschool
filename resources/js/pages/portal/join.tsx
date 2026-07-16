@@ -30,8 +30,8 @@ export default function PortalJoin({ children }: { children: LinkedChild[] }) {
         <>
             <Head title="Add a child" />
             <div className="mx-auto max-w-md py-10">
-                <div className="rounded-[10px] border border-portal-line bg-white p-6 shadow-s1">
-                    <span className="grid size-11 place-items-center rounded-full bg-portal-soft text-portal-accent">
+                <div className="rounded-[4px] border border-portal-line bg-white p-6 shadow-s1">
+                    <span className="grid size-11 place-items-center rounded-[4px] bg-portal-soft text-portal-accent">
                         <KeyRound className="size-5" />
                     </span>
                     <h1 className="mt-4 text-xl font-bold text-portal-ink">
@@ -61,7 +61,7 @@ export default function PortalJoin({ children }: { children: LinkedChild[] }) {
                                 }
                                 placeholder="e.g. TUNDE001"
                                 autoComplete="off"
-                                className="w-full rounded-[8px] border border-portal-line px-3 py-2.5 text-center font-mono text-lg tracking-widest text-portal-ink uppercase outline-none focus:border-portal-accent"
+                                className="w-full rounded-[4px] border border-portal-line px-3 py-2.5 text-center font-mono text-lg tracking-widest text-portal-ink uppercase outline-none focus:border-portal-accent"
                             />
                             {form.errors.code && (
                                 <p className="mt-1 text-xs text-red-500">
@@ -83,7 +83,7 @@ export default function PortalJoin({ children }: { children: LinkedChild[] }) {
                                 onChange={(e) =>
                                     form.setData('relationship', e.target.value)
                                 }
-                                className="w-full rounded-[8px] border border-portal-line px-3 py-2.5 text-sm outline-none focus:border-portal-accent"
+                                className="w-full rounded-[4px] border border-portal-line px-3 py-2.5 text-sm outline-none focus:border-portal-accent"
                             >
                                 {RELATIONSHIPS.map((r) => (
                                     <option key={r.value} value={r.value}>
@@ -98,7 +98,7 @@ export default function PortalJoin({ children }: { children: LinkedChild[] }) {
                             disabled={
                                 form.processing || form.data.code.trim() === ''
                             }
-                            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-portal-accent px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-portal-accent px-4 py-2.5 text-sm font-bold text-white transition hover:brightness-95 disabled:opacity-50"
                         >
                             {form.processing && (
                                 <Loader2 className="size-4 animate-spin" />
@@ -117,7 +117,7 @@ export default function PortalJoin({ children }: { children: LinkedChild[] }) {
                             {children.map((child) => (
                                 <div
                                     key={child.id}
-                                    className="flex items-center gap-3 rounded-[8px] border border-portal-line bg-white px-3 py-2.5"
+                                    className="flex items-center gap-3 rounded-[4px] border border-portal-line bg-white px-3 py-2.5"
                                 >
                                     <span className="grid size-8 shrink-0 place-items-center rounded-full bg-portal-soft text-xs font-bold text-portal-accent">
                                         {child.name.charAt(0)}

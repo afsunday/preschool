@@ -76,7 +76,7 @@ function NewPostDialog({
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <DialogPanel
                     transition
-                    className="w-full max-w-[560px] overflow-hidden rounded-[16px] bg-white shadow-s3 duration-150 data-closed:scale-95 data-closed:opacity-0"
+                    className="w-full max-w-[560px] overflow-hidden rounded-[4px] bg-white shadow-s3 duration-150 data-closed:scale-95 data-closed:opacity-0"
                 >
                     <div className="flex items-center justify-between border-b border-portal-line px-5 py-4">
                         <DialogTitle className="text-lg font-bold text-portal-ink">
@@ -86,7 +86,7 @@ function NewPostDialog({
                             type="button"
                             onClick={onClose}
                             aria-label="Close"
-                            className="grid size-9 place-items-center rounded-full bg-portal-field text-portal-ink transition hover:bg-neutral-200"
+                            className="grid size-9 place-items-center rounded-[4px] bg-portal-field text-portal-ink transition hover:bg-neutral-200"
                         >
                             <X className="size-4.5" />
                         </button>
@@ -111,7 +111,7 @@ function NewPostDialog({
                                     }
                                     rows={4}
                                     placeholder={`What's happening at ${classroom.name}'s class?`}
-                                    className="w-full resize-none rounded-[10px] border border-portal-line px-4 py-3 text-sm text-portal-ink outline-none placeholder:text-neutral-500 focus:border-portal-accent"
+                                    className="w-full resize-none rounded-[4px] border border-portal-line px-4 py-3 text-sm text-portal-ink outline-none placeholder:text-neutral-500 focus:border-portal-accent"
                                 />
                                 {form.errors.body && (
                                     <p className="mt-1 text-xs text-red-500">
@@ -122,7 +122,7 @@ function NewPostDialog({
 
                             {/* Photo attachment lands here — the media library is
                                 already wired for posts via the mediables pivot. */}
-                            <div className="grid place-items-center rounded-[10px] bg-portal-field px-4 py-8 text-center">
+                            <div className="grid place-items-center rounded-[4px] bg-portal-field px-4 py-8 text-center">
                                 <ImageIcon className="size-6 text-portal-ink" />
                                 <p className="mt-2 text-sm font-bold text-portal-ink">
                                     Add Photos/Videos
@@ -133,13 +133,13 @@ function NewPostDialog({
                             </div>
 
                             <div className="flex items-center gap-2">
-                                <span className="grid size-9 place-items-center rounded-full bg-[#eef4ff] text-[#3b6fd4]">
+                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eef4ff] text-[#3b6fd4]">
                                     <ImageIcon className="size-4.5" />
                                 </span>
-                                <span className="grid size-9 place-items-center rounded-full bg-[#eaf7fd] text-[#3a97c9]">
+                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eaf7fd] text-[#3a97c9]">
                                     <Paperclip className="size-4.5" />
                                 </span>
-                                <span className="grid size-9 place-items-center rounded-full bg-[#eafaf1] text-[#2e9e63]">
+                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eafaf1] text-[#2e9e63]">
                                     <CalendarDays className="size-4.5" />
                                 </span>
                             </div>
@@ -152,7 +152,7 @@ function NewPostDialog({
                                     form.processing ||
                                     form.data.body.trim() === ''
                                 }
-                                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-portal-accent py-3 text-sm font-bold text-white transition hover:brightness-95 disabled:bg-portal-field disabled:text-neutral-400"
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-[4px] bg-portal-accent py-3 text-sm font-bold text-white transition hover:brightness-95 disabled:bg-portal-field disabled:text-neutral-400"
                             >
                                 {form.processing && (
                                     <Loader2 className="size-4 animate-spin" />
@@ -184,13 +184,13 @@ function Composer({
 
     return (
         <>
-            <div className="rounded-[16px] border border-portal-line bg-white p-4">
+            <div className="rounded-[4px] border border-portal-line bg-white p-4">
                 <div className="flex items-center gap-3">
                     <Avatar name={author} className="size-11 text-sm" />
                     <button
                         type="button"
                         onClick={() => setOpen(true)}
-                        className="flex-1 rounded-[10px] bg-portal-field px-4 py-3 text-left text-sm text-neutral-500 transition hover:bg-neutral-200"
+                        className="flex-1 rounded-[4px] bg-portal-field px-4 py-3 text-left text-sm text-neutral-500 transition hover:bg-neutral-200"
                     >
                         What's happening at {classroom.name}'s class?
                     </button>
@@ -218,7 +218,7 @@ function Composer({
                             type="button"
                             onClick={() => setOpen(true)}
                             className={cn(
-                                'inline-flex flex-1 items-center justify-center gap-2 rounded-full py-3 text-sm font-bold transition hover:brightness-97',
+                                'inline-flex flex-1 items-center justify-center gap-2 rounded-[4px] py-3 text-sm font-bold transition hover:brightness-97',
                                 tone,
                             )}
                         >
@@ -249,7 +249,7 @@ function PostCard({
     canPost: boolean;
 }) {
     return (
-        <article className="overflow-hidden rounded-[16px] border border-portal-line bg-white">
+        <article className="overflow-hidden rounded-[4px] border border-portal-line bg-white">
             <div className="p-5">
                 {/* Author over class, date pinned right — the Class Story header. */}
                 <div className="flex items-start gap-3">
@@ -278,7 +278,7 @@ function PostCard({
                                 key={photo.id}
                                 src={photo.url}
                                 alt=""
-                                className="aspect-4/3 w-full rounded-[10px] object-cover"
+                                className="aspect-4/3 w-full rounded-[4px] object-cover"
                             />
                         ))}
                     </div>
@@ -288,14 +288,14 @@ function PostCard({
             <div className="flex items-center gap-3 border-t border-portal-line px-5 py-4">
                 <button
                     type="button"
-                    className="inline-flex items-center gap-2 rounded-full border border-portal-line px-5 py-2.5 text-[15px] font-bold text-portal-ink transition hover:bg-portal-field"
+                    className="inline-flex items-center gap-2 rounded-[4px] border border-portal-line px-5 py-2.5 text-[15px] font-bold text-portal-ink transition hover:bg-portal-field"
                 >
                     <Heart className="size-4.5" />
                     Like
                 </button>
                 <button
                     type="button"
-                    className="inline-flex items-center gap-2 rounded-full border border-portal-line px-5 py-2.5 text-[15px] font-bold text-portal-ink transition hover:bg-portal-field"
+                    className="inline-flex items-center gap-2 rounded-[4px] border border-portal-line px-5 py-2.5 text-[15px] font-bold text-portal-ink transition hover:bg-portal-field"
                 >
                     <MessageCircle className="size-4.5" />
                     Comment
@@ -303,12 +303,12 @@ function PostCard({
 
                 {canPost && (
                     <Menu as="div" className="relative ml-auto">
-                        <MenuButton className="grid size-9 place-items-center rounded-full text-neutral-400 transition hover:bg-portal-field hover:text-portal-ink">
+                        <MenuButton className="grid size-9 place-items-center rounded-[4px] text-neutral-400 transition hover:bg-portal-field hover:text-portal-ink">
                             <MoreHorizontal className="size-5" />
                         </MenuButton>
                         <MenuItems
                             anchor="bottom end"
-                            className="z-50 mt-1 w-40 rounded-[10px] border border-portal-line bg-white py-1 text-sm shadow-s3 focus:outline-none"
+                            className="z-50 mt-1 w-40 rounded-[4px] border border-portal-line bg-white py-1 text-sm shadow-s3 focus:outline-none"
                         >
                             <MenuItem>
                                 <button
@@ -355,7 +355,7 @@ export default function ClassFeed({
                     )}
 
                     {posts.length === 0 ? (
-                        <div className="grid place-items-center rounded-[12px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
+                        <div className="grid place-items-center rounded-[4px] border border-dashed border-portal-line bg-white px-4 py-14 text-center">
                             <Newspaper className="size-8 text-neutral-300" />
                             <p className="mt-3 text-sm font-medium text-portal-ink">
                                 Nothing posted yet
@@ -380,7 +380,7 @@ export default function ClassFeed({
 
                 {/* Right rail — ClassDojo stacks distinct cards rather than one panel. */}
                 <aside className="hidden space-y-4 lg:block">
-                    <div className="rounded-[16px] border border-portal-line bg-white p-5">
+                    <div className="rounded-[4px] border border-portal-line bg-white p-5">
                         <h3 className="text-xl font-bold text-portal-ink">
                             This class
                         </h3>
@@ -398,7 +398,7 @@ export default function ClassFeed({
                                 </dd>
                             </div>
                             <div className="flex justify-between">
-                                <dt className="text-neutral-500">Children</dt>
+                                <dt className="text-neutral-500">Students</dt>
                                 <dd className="font-bold text-portal-ink">
                                     {classroom.childCount}
                                 </dd>
@@ -407,20 +407,20 @@ export default function ClassFeed({
                     </div>
 
                     {/* Invite families: the roster is where the codes live. */}
-                    <div className="rounded-[16px] border border-portal-line bg-white p-5 text-center">
+                    <div className="rounded-[4px] border border-portal-line bg-white p-5 text-center">
                         <h3 className="text-xl font-bold text-portal-ink">
                             Invite families
                         </h3>
-                        <span className="mx-auto mt-4 grid size-20 place-items-center rounded-full bg-portal-soft text-4xl">
+                        <span className="mx-auto mt-4 grid size-20 place-items-center rounded-[4px] bg-portal-soft text-4xl">
                             👋
                         </span>
                         <p className="mt-4 text-[15px] leading-relaxed text-neutral-600">
                             Parents get their child's invite code from the
-                            Children tab, then link themselves.
+                            Students tab, then link themselves.
                         </p>
                         <Link
-                            href={`/portal/classes/${classroom.id}/children`}
-                            className="mt-4 inline-block w-full rounded-full bg-portal-accent px-4 py-3 text-[15px] font-bold text-white transition hover:brightness-95"
+                            href={`/portal/classes/${classroom.id}/students`}
+                            className="mt-4 inline-block w-full rounded-[4px] bg-portal-accent px-4 py-3 text-[15px] font-bold text-white transition hover:brightness-95"
                         >
                             Invite families
                         </Link>

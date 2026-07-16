@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Milk carton with a glass, drinking straw and an apple">
+  <rect width="1200" height="400" fill="#2F8F6B"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- milk carton -->
+  <g transform="translate(688 128) rotate(-6)">
+    <rect x="60" y="10" width="30" height="16" rx="4" fill="#000" opacity="0.12"/>
+    <rect x="60" y="4" width="30" height="16" rx="4" fill="#B9BCC4"/>
+    <path d="M0 62 l75 -44 l75 44 v150 h-150 z" fill="#000" opacity="0.12"/>
+    <path d="M0 56 l75 -44 l75 44 v150 h-150 z" fill="#FFFFFF"/>
+    <rect x="0" y="104" width="150" height="62" fill="#5B6BD6"/>
+    <text x="75" y="148" font-family="Verdana,DejaVu Sans,sans-serif" font-size="32" font-weight="bold" fill="#FFF6F9" text-anchor="middle">MILK</text>
+  </g>
+
+  <!-- straw -->
+  <g transform="rotate(22 906 160)">
+    <rect x="898" y="112" width="16" height="106" rx="8" fill="#000" opacity="0.12"/>
+    <rect x="898" y="106" width="16" height="106" rx="8" fill="#E8618C"/>
+    <rect x="898" y="126" width="16" height="10" fill="#FFFFFF"/>
+    <rect x="898" y="152" width="16" height="10" fill="#FFFFFF"/>
+    <rect x="898" y="178" width="16" height="10" fill="#FFFFFF"/>
+  </g>
+
+  <!-- glass of milk -->
+  <g transform="rotate(3 896 254)">
+    <path d="M846 182 h100 l-10 148 a10 10 0 0 1-10 9 h-60 a10 10 0 0 1-10-9 z" fill="#000" opacity="0.12"/>
+    <path d="M846 176 h100 l-10 148 a10 10 0 0 1-10 9 h-60 a10 10 0 0 1-10-9 z" fill="#FFFFFF"/>
+    <rect x="858" y="200" width="12" height="104" rx="6" fill="#B9BCC4" opacity="0.45"/>
+    <ellipse cx="896" cy="176" rx="50" ry="11" fill="#B9BCC4"/>
+    <ellipse cx="896" cy="177" rx="41" ry="8" fill="#FFF6F9"/>
+  </g>
+
+  <!-- apple -->
+  <g>
+    <path d="M986 216c-34 0-52 24-52 52s24 44 52 44 52-16 52-44-18-52-52-52z" fill="#000" opacity="0.12"/>
+    <path d="M986 210c-34 0-52 24-52 52s24 44 52 44 52-16 52-44-18-52-52-52z" fill="#E8455A"/>
+    <path d="M986 210c-18 0-30 8-38 20 10 8 24 12 38 12s28-4 38-12c-8-12-20-20-38-20z" fill="#FFFFFF" opacity="0.2"/>
+    <rect x="982" y="192" width="8" height="24" rx="4" fill="#6B4A2A"/>
+    <path d="M990 200q26-18 40 2-24 12-40-2z" fill="#31C48D"/>
+  </g>
+</svg>

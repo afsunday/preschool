@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Small easel holding a canvas, with a brush and a paint tube">
+  <rect width="1200" height="400" fill="#B5487F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- easel with canvas -->
+  <g transform="rotate(-4 880 240)">
+    <g transform="translate(0 6)" fill="#000" stroke="#000" opacity="0.12">
+      <path d="M868 118L806 336" fill="none" stroke-width="16" stroke-linecap="round"/>
+      <path d="M892 118L954 336" fill="none" stroke-width="16" stroke-linecap="round"/>
+      <rect x="798" y="150" width="164" height="146" rx="4" stroke="none"/>
+      <rect x="790" y="296" width="180" height="16" rx="6" stroke="none"/>
+    </g>
+    <path d="M868 118L806 336" fill="none" stroke="#F2E3C4" stroke-width="16" stroke-linecap="round"/>
+    <path d="M892 118L954 336" fill="none" stroke="#F2E3C4" stroke-width="16" stroke-linecap="round"/>
+    <rect x="798" y="150" width="164" height="146" rx="4" fill="#FFF6F9"/>
+    <circle cx="920" cy="186" r="18" fill="#FFC94A"/>
+    <path d="M816 236q22-30 44 0t44 0" fill="none" stroke="#E8618C" stroke-width="7" stroke-linecap="round"/>
+    <path d="M816 268q22-30 44 0t44 0" fill="none" stroke="#5B6BD6" stroke-width="7" stroke-linecap="round"/>
+    <rect x="790" y="296" width="180" height="16" rx="6" fill="#F2E3C4"/>
+    <circle cx="880" cy="120" r="10" fill="#E0A413"/>
+  </g>
+
+  <!-- paint tube -->
+  <g transform="rotate(-16 1030 190)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <rect x="962" y="168" width="16" height="44" rx="3"/>
+      <rect x="976" y="160" width="90" height="60" rx="12"/>
+      <rect x="1064" y="176" width="16" height="28" rx="3"/>
+      <rect x="1078" y="170" width="22" height="40" rx="6"/>
+    </g>
+    <rect x="962" y="168" width="16" height="44" rx="3" fill="#B9BCC4"/>
+    <rect x="976" y="160" width="90" height="60" rx="12" fill="#FFC94A"/>
+    <rect x="1064" y="176" width="16" height="28" rx="3" fill="#B9BCC4"/>
+    <rect x="1078" y="170" width="22" height="40" rx="6" fill="#E0A413"/>
+    <rect x="990" y="172" width="44" height="8" rx="4" fill="#FFF" opacity="0.35"/>
+  </g>
+
+  <!-- brush -->
+  <g transform="rotate(22 1070 307)">
+    <g transform="translate(0 6)" fill="#000" opacity="0.12">
+      <path d="M1010 300l-30 5a4 4 0 0 0 0 4l30 5z"/>
+      <rect x="1008" y="298" width="14" height="18" rx="2"/>
+      <rect x="1020" y="299" width="110" height="16" rx="8"/>
+    </g>
+    <path d="M1010 300l-30 5a4 4 0 0 0 0 4l30 5z" fill="#F2E3C4"/>
+    <rect x="1008" y="298" width="14" height="18" rx="2" fill="#B9BCC4"/>
+    <rect x="1020" y="299" width="110" height="16" rx="8" fill="#31C48D"/>
+    <rect x="1038" y="303" width="56" height="6" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+</svg>

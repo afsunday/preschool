@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Breakfast tray with a bowl of cereal, spoon and juice glass">
+  <rect width="1200" height="400" fill="#B5487F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- wooden tray -->
+  <g transform="rotate(-2 878 238)">
+    <rect x="650" y="146" width="456" height="196" rx="22" fill="#000" opacity="0.12"/>
+    <rect x="650" y="140" width="456" height="196" rx="22" fill="#F2E3C4"/>
+    <rect x="666" y="156" width="424" height="164" rx="14" fill="none" stroke="#E0A413" stroke-width="6"/>
+  </g>
+
+  <!-- bowl of cereal -->
+  <g>
+    <ellipse cx="780" cy="238" rx="100" ry="27" fill="#000" opacity="0.12"/>
+    <path d="M680 238 a100 72 0 0 0 200 0 z" fill="#000" opacity="0.12"/>
+    <ellipse cx="780" cy="232" rx="100" ry="27" fill="#5B6BD6"/>
+    <ellipse cx="780" cy="232" rx="86" ry="21" fill="#FFF6F9"/>
+    <g fill="#E0A413">
+      <circle cx="744" cy="225" r="9"/><circle cx="806" cy="222" r="9"/><circle cx="760" cy="230" r="9"/>
+    </g>
+    <g fill="#FFC94A">
+      <circle cx="775" cy="221" r="9"/><circle cx="836" cy="226" r="9"/><circle cx="820" cy="230" r="9"/>
+    </g>
+    <path d="M680 232 a100 72 0 0 0 200 0 z" fill="#5B6BD6"/>
+  </g>
+
+  <!-- spoon -->
+  <g transform="rotate(26 900 250)">
+    <ellipse cx="900" cy="202" rx="24" ry="30" fill="#000" opacity="0.12"/>
+    <rect x="892" y="226" width="16" height="104" rx="8" fill="#000" opacity="0.12"/>
+    <ellipse cx="900" cy="196" rx="24" ry="30" fill="#B9BCC4"/>
+    <rect x="892" y="220" width="16" height="104" rx="8" fill="#B9BCC4"/>
+    <ellipse cx="900" cy="196" rx="15" ry="19" fill="#FFF6F9"/>
+    <rect x="896" y="238" width="6" height="72" rx="3" fill="#FFFFFF" opacity="0.35"/>
+  </g>
+
+  <!-- juice glass -->
+  <g transform="rotate(3 998 250)">
+    <path d="M950 178 h96 l-9 138 a11 11 0 0 1-11 10 h-56 a11 11 0 0 1-11-10 z" fill="#000" opacity="0.12"/>
+    <path d="M950 172 h96 l-9 138 a11 11 0 0 1-11 10 h-56 a11 11 0 0 1-11-10 z" fill="#FFFFFF"/>
+    <path d="M958 208 h80 l-7 100 a11 11 0 0 1-11 10 h-44 a11 11 0 0 1-11-10 z" fill="#FFC94A"/>
+    <ellipse cx="998" cy="208" rx="40" ry="7" fill="#E0A413"/>
+    <ellipse cx="998" cy="172" rx="48" ry="10" fill="#B9BCC4"/>
+    <ellipse cx="998" cy="172" rx="39" ry="6.5" fill="#FFF6F9"/>
+  </g>
+</svg>

@@ -77,7 +77,9 @@ export function PageBuilder({
                 }
             } catch (e) {
                 if (!superseded) {
-                    onError?.(e instanceof Error ? e.message : 'Preview failed');
+                    onError?.(
+                        e instanceof Error ? e.message : 'Preview failed',
+                    );
                 }
             } finally {
                 // Marks this doc as settled whether or not it rendered, so a

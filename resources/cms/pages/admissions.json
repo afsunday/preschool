@@ -58,11 +58,46 @@
                 "cta_label": "Enroll Your Child Today",
                 "cta_url": "#enrol",
                 "classes": [
-                    { "name": "Sunshine Tots", "time": "9:00AM", "seats": "30", "age": "3-4years", "src": "/images/admissions/class-1.jpg", "cta_label": "Enrol Class" },
-                    { "name": "Little Explorers", "time": "9:00AM", "seats": "10", "age": "3-4years", "src": "/images/admissions/class-2.jpg", "cta_label": "Enrol Class" },
-                    { "name": "Bright Beginners", "time": "9:00AM", "seats": "09", "age": "3-4years", "src": "/images/admissions/class-3.jpg", "cta_label": "Enrol Class" },
-                    { "name": "Baby Pampers", "time": "9:00AM", "seats": "25", "age": "3-4years", "src": "/images/admissions/class-4.jpg", "cta_label": "Enrol Class" },
-                    { "name": "PreSchool", "time": "9:00AM", "seats": "18", "age": "3-4years", "src": "/images/admissions/class-5.jpg", "cta_label": "Enrol Class" }
+                    {
+                        "name": "Sunshine Tots",
+                        "time": "9:00AM",
+                        "seats": "30",
+                        "age": "3-4years",
+                        "src": "/images/admissions/class-1.jpg",
+                        "cta_label": "Enrol Class"
+                    },
+                    {
+                        "name": "Little Explorers",
+                        "time": "9:00AM",
+                        "seats": "10",
+                        "age": "3-4years",
+                        "src": "/images/admissions/class-2.jpg",
+                        "cta_label": "Enrol Class"
+                    },
+                    {
+                        "name": "Bright Beginners",
+                        "time": "9:00AM",
+                        "seats": "09",
+                        "age": "3-4years",
+                        "src": "/images/admissions/class-3.jpg",
+                        "cta_label": "Enrol Class"
+                    },
+                    {
+                        "name": "Baby Pampers",
+                        "time": "9:00AM",
+                        "seats": "25",
+                        "age": "3-4years",
+                        "src": "/images/admissions/class-4.jpg",
+                        "cta_label": "Enrol Class"
+                    },
+                    {
+                        "name": "PreSchool",
+                        "time": "9:00AM",
+                        "seats": "18",
+                        "age": "3-4years",
+                        "src": "/images/admissions/class-5.jpg",
+                        "cta_label": "Enrol Class"
+                    }
                 ]
             }
         },
@@ -135,14 +170,28 @@
             "group": "Admissions",
             "version": 1,
             "fields": [
-                { "id": "title", "type": "text", "label": "Title", "required": true },
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
                 { "id": "note_title", "type": "text", "label": "Note Title" },
                 { "id": "note_body", "type": "richtext", "label": "Note Body" },
                 { "id": "lead", "type": "textarea", "label": "Lead" },
                 { "id": "cta_label", "type": "text", "label": "CTA Label" },
                 { "id": "cta_url", "type": "url", "label": "CTA Url" },
-                { "id": "image", "type": "media", "label": "Cutout", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Cutout Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Cutout",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Cutout Fallback Path"
+                },
                 { "id": "image_alt", "type": "text", "label": "Cutout Alt" },
                 { "id": "pill_value", "type": "text", "label": "Pill Value" },
                 { "id": "pill_label", "type": "text", "label": "Pill Label" },
@@ -151,7 +200,12 @@
                     "type": "repeater",
                     "label": "Avatars",
                     "fields": [
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
                         { "id": "src", "type": "url", "label": "Fallback Path" }
                     ]
                 }
@@ -162,20 +216,46 @@
             "group": "Admissions",
             "version": 1,
             "fields": [
-                { "id": "lead_strong", "type": "textarea", "label": "Lead (emphasis)" },
-                { "id": "lead_muted", "type": "textarea", "label": "Lead (muted)" },
-                { "id": "trusted_label", "type": "text", "label": "Trusted Label" },
+                {
+                    "id": "lead_strong",
+                    "type": "textarea",
+                    "label": "Lead (emphasis)"
+                },
+                {
+                    "id": "lead_muted",
+                    "type": "textarea",
+                    "label": "Lead (muted)"
+                },
+                {
+                    "id": "trusted_label",
+                    "type": "text",
+                    "label": "Trusted Label"
+                },
                 { "id": "cta_label", "type": "text", "label": "CTA Label" },
                 { "id": "cta_url", "type": "url", "label": "CTA Url" },
-                { "id": "image", "type": "media", "label": "Kids Row", "kind": "image" },
-                { "id": "image_src", "type": "url", "label": "Kids Row Fallback Path" },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Kids Row",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Kids Row Fallback Path"
+                },
                 { "id": "image_alt", "type": "text", "label": "Kids Row Alt" },
                 {
                     "id": "avatars",
                     "type": "repeater",
                     "label": "Avatars",
                     "fields": [
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
                         { "id": "src", "type": "url", "label": "Fallback Path" }
                     ]
                 }
@@ -200,9 +280,22 @@
                         { "id": "time", "type": "text", "label": "Time" },
                         { "id": "seats", "type": "text", "label": "Seats" },
                         { "id": "age", "type": "text", "label": "Age" },
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
-                        { "id": "src", "type": "url", "label": "Fallback Path" },
-                        { "id": "cta_label", "type": "text", "label": "CTA Label" }
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
+                        {
+                            "id": "cta_label",
+                            "type": "text",
+                            "label": "CTA Label"
+                        }
                     ]
                 }
             ]
@@ -213,8 +306,16 @@
             "version": 1,
             "fields": [
                 { "id": "heading", "type": "text", "label": "Heading" },
-                { "id": "subheading", "type": "textarea", "label": "Subheading" },
-                { "id": "activities_title", "type": "text", "label": "Activities Title" },
+                {
+                    "id": "subheading",
+                    "type": "textarea",
+                    "label": "Subheading"
+                },
+                {
+                    "id": "activities_title",
+                    "type": "text",
+                    "label": "Activities Title"
+                },
                 { "id": "cta_label", "type": "text", "label": "CTA Label" },
                 { "id": "cta_url", "type": "url", "label": "CTA Url" },
                 {
@@ -237,7 +338,12 @@
                                 { "value": "yellow", "label": "Yellow" }
                             ]
                         },
-                        { "id": "image", "type": "media", "label": "Image", "kind": "image" },
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
                         { "id": "src", "type": "url", "label": "Fallback Path" }
                     ]
                 },
@@ -268,14 +374,32 @@
             "group": "Admissions",
             "version": 1,
             "fields": [
-                { "id": "left", "type": "media", "label": "Left Image", "kind": "image" },
-                { "id": "left_src", "type": "url", "label": "Left Fallback Path" },
+                {
+                    "id": "left",
+                    "type": "media",
+                    "label": "Left Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "left_src",
+                    "type": "url",
+                    "label": "Left Fallback Path"
+                },
                 { "id": "left_alt", "type": "text", "label": "Left Alt" },
                 { "id": "heading", "type": "text", "label": "Heading" },
                 { "id": "cta_label", "type": "text", "label": "CTA Label" },
                 { "id": "cta_url", "type": "url", "label": "CTA Url" },
-                { "id": "right", "type": "media", "label": "Right Image", "kind": "image" },
-                { "id": "right_src", "type": "url", "label": "Right Fallback Path" },
+                {
+                    "id": "right",
+                    "type": "media",
+                    "label": "Right Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "right_src",
+                    "type": "url",
+                    "label": "Right Fallback Path"
+                },
                 { "id": "right_alt", "type": "text", "label": "Right Alt" }
             ]
         }

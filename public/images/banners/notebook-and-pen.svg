@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Spiral notebook with a fountain pen and a bottle of ink">
+  <rect width="1200" height="400" fill="#E8785A"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- spiral notebook -->
+  <g transform="rotate(-7 820 226)">
+    <rect x="719" y="121" width="210" height="222" rx="6" fill="#000" opacity="0.12"/>
+    <rect x="715" y="115" width="210" height="222" rx="6" fill="#FFF6F9"/>
+    <rect x="742" y="125" width="4" height="202" fill="#E8618C"/>
+    <g fill="#B9BCC4">
+      <rect x="758" y="170" width="150" height="5" rx="2.5"/>
+      <rect x="758" y="198" width="150" height="5" rx="2.5"/>
+      <rect x="758" y="226" width="150" height="5" rx="2.5"/>
+      <rect x="758" y="254" width="150" height="5" rx="2.5"/>
+      <rect x="758" y="282" width="150" height="5" rx="2.5"/>
+      <rect x="758" y="310" width="106" height="5" rx="2.5"/>
+    </g>
+    <g fill="#B9BCC4">
+      <rect x="703" y="136" width="28" height="10" rx="5"/>
+      <rect x="703" y="160" width="28" height="10" rx="5"/>
+      <rect x="703" y="184" width="28" height="10" rx="5"/>
+      <rect x="703" y="208" width="28" height="10" rx="5"/>
+      <rect x="703" y="232" width="28" height="10" rx="5"/>
+      <rect x="703" y="256" width="28" height="10" rx="5"/>
+      <rect x="703" y="280" width="28" height="10" rx="5"/>
+      <rect x="703" y="304" width="28" height="10" rx="5"/>
+    </g>
+  </g>
+
+  <!-- fountain pen -->
+  <g transform="rotate(30 960 240)">
+    <rect x="884" y="233" width="130" height="26" rx="13" fill="#000" opacity="0.12"/>
+    <rect x="880" y="227" width="130" height="26" rx="13" fill="#5B3AC4"/>
+    <rect x="880" y="227" width="46" height="26" rx="13" fill="#3A3A48"/>
+    <rect x="994" y="227" width="12" height="26" fill="#E0A413"/>
+    <path d="M1006 227l36 13-36 13z" fill="#B9BCC4"/>
+    <path d="M1014 240h22" stroke="#3A3A48" stroke-width="4"/>
+    <rect x="934" y="233" width="52" height="6" rx="3" fill="#FFF" opacity="0.35"/>
+  </g>
+
+  <!-- ink bottle -->
+  <g>
+    <ellipse cx="1082" cy="336" rx="56" ry="16" fill="#000" opacity="0.12"/>
+    <path d="M1030 256h104l-8 68a14 14 0 0 1-14 12h-60a14 14 0 0 1-14-12z" fill="#FFF6F9"/>
+    <ellipse cx="1082" cy="256" rx="52" ry="15" fill="#3A3A48"/>
+    <rect x="1048" y="282" width="68" height="30" rx="4" fill="#5B6BD6"/>
+  </g>
+</svg>

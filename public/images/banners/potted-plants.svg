@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Potted leafy plants with a saucer">
+ <rect width="1200" height="400" fill="#D98A1F"/>
+ <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+ <defs>
+  <path id="lf" d="M0 0C-22-26-22-64 0-92 22-64 22-26 0 0z"/>
+  <g id="pa"><use href="#lf" transform="rotate(-46)"/><use href="#lf"/><use href="#lf" transform="rotate(46)"/></g>
+  <g id="pb"><use href="#lf" transform="rotate(-22)"/><use href="#lf" transform="rotate(22)"/></g>
+  <g id="po"><path d="M-66 0h132l-14 76a14 14 0 0 1-14 12h-76a14 14 0 0 1-14-12z"/><rect x="-78" y="-28" width="156" height="30" rx="8"/></g>
+  <g id="pd"><rect x="-78" y="-8" width="156" height="10" fill="#000" opacity=".12"/><rect x="-52" y="16" width="18" height="52" rx="9" fill="#FFF" opacity=".3"/></g>
+ </defs>
+ <!-- tall pot -->
+ <g fill="#000" opacity=".12" transform="translate(0 6)">
+  <use href="#pb" transform="translate(770 236)rotate(-6)"/><use href="#pa" transform="translate(770 236)rotate(-6)"/>
+  <use href="#po" transform="translate(770 254)"/>
+ </g>
+ <use href="#pb" transform="translate(770 236)rotate(-6)" fill="#1E8A62"/>
+ <use href="#pa" transform="translate(770 236)rotate(-6)" fill="#31C48D"/>
+ <use href="#po" transform="translate(770 254)" fill="#E8618C"/>
+ <use href="#pd" transform="translate(770 254)"/>
+ <!-- middle pot -->
+ <g fill="#000" opacity=".12" transform="translate(0 6)">
+  <use href="#pb" transform="translate(895 262)rotate(5)scale(.82)"/><use href="#pa" transform="translate(895 262)rotate(5)scale(.82)"/>
+  <use href="#po" transform="translate(895 278)scale(.8)"/>
+ </g>
+ <use href="#pb" transform="translate(895 262)rotate(5)scale(.82)" fill="#31C48D"/>
+ <use href="#pa" transform="translate(895 262)rotate(5)scale(.82)" fill="#1E8A62"/>
+ <use href="#po" transform="translate(895 278)scale(.8)" fill="#5B6BD6"/>
+ <use href="#pd" transform="translate(895 278)scale(.8)"/>
+ <!-- small pot on a saucer -->
+ <ellipse cx="992" cy="344" rx="58" ry="14" fill="#000" opacity=".12"/>
+ <ellipse cx="992" cy="338" rx="58" ry="14" fill="#6B4A2A"/>
+ <ellipse cx="992" cy="334" rx="42" ry="8" fill="#F2E3C4"/>
+ <g fill="#000" opacity=".12" transform="translate(0 6)">
+  <use href="#pb" transform="translate(992 282)rotate(-4)scale(.63)"/><use href="#pa" transform="translate(992 282)rotate(-4)scale(.63)"/>
+  <use href="#po" transform="translate(992 294)scale(.6)"/>
+ </g>
+ <use href="#pb" transform="translate(992 282)rotate(-4)scale(.63)" fill="#1E8A62"/>
+ <use href="#pa" transform="translate(992 282)rotate(-4)scale(.63)" fill="#31C48D"/>
+ <use href="#po" transform="translate(992 294)scale(.6)" fill="#FFF6F9"/>
+ <use href="#pd" transform="translate(992 294)scale(.6)"/>
+</svg>

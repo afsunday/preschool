@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Parchment sheet with a quill, ink pot and wax seal">
+  <rect width="1200" height="400" fill="#2F8F8F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- parchment sheet -->
+  <g transform="rotate(-5 810 225)">
+    <path d="M700 118h212v194q-53 16-106 0t-106 0z" fill="#000" opacity="0.12" transform="translate(4 6)"/>
+    <path d="M700 118h212v194q-53 16-106 0t-106 0z" fill="#F2E3C4"/>
+    <g stroke="#6B4A2A" stroke-width="5" stroke-linecap="round">
+      <path d="M726 158h150M726 184h132M726 210h150M726 236h120M726 262h150M726 288h86"/>
+    </g>
+  </g>
+
+  <!-- wax seal -->
+  <g>
+    <path d="M862 312l-18 42 26-12zM882 312l14 42-26-12z" fill="#000" opacity="0.12" transform="translate(4 6)"/>
+    <path d="M862 312l-18 42 26-12zM882 312l14 42-26-12z" fill="#E8455A"/>
+    <circle cx="872" cy="302" r="30" fill="#000" opacity="0.12"/>
+    <circle cx="868" cy="296" r="30" fill="#E8455A"/>
+    <circle cx="868" cy="296" r="19" fill="none" stroke="#FFF" stroke-width="4" opacity="0.35"/>
+  </g>
+
+  <!-- ink pot -->
+  <g>
+    <ellipse cx="956" cy="330" rx="50" ry="15" fill="#000" opacity="0.12"/>
+    <path d="M908 256h96l-8 60a13 13 0 0 1-13 10h-54a13 13 0 0 1-13-10z" fill="#FFF6F9"/>
+    <rect x="928" y="278" width="56" height="26" rx="4" fill="#7C5CFF"/>
+    <ellipse cx="956" cy="256" rx="48" ry="14" fill="#3A3A48"/>
+  </g>
+
+  <!-- dip pen resting in the ink pot -->
+  <g transform="rotate(-31 950 258)">
+    <rect x="998" y="254" width="150" height="20" rx="10" fill="#000" opacity="0.12"/>
+    <path d="M950 258l34-10v20z" fill="#B9BCC4"/>
+    <path d="M964 258h14" stroke="#3A3A48" stroke-width="3" stroke-linecap="round"/>
+    <rect x="980" y="248" width="16" height="20" rx="3" fill="#E0A413"/>
+    <rect x="994" y="248" width="150" height="20" rx="10" fill="#6B4A2A"/>
+    <rect x="1014" y="253" width="62" height="5" rx="2.5" fill="#FFF" opacity="0.35"/>
+  </g>
+</svg>

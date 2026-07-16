@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Scattered autumn leaves, acorns and a twig">
+ <rect width="1200" height="400" fill="#2F8F8F"/>
+ <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+ <defs>
+  <path id="lb" d="M0 0C-34-20-38-58 0-84 38-58 34-20 0 0z"/>
+  <path id="lv" d="M0-6V-74M0-26l-18-14M0-26l18-14M0-48l-14-14M0-48l14-14" fill="none" stroke="#6B4A2A" stroke-width="4.5" stroke-linecap="round"/>
+  <path id="an" d="M-22 6C-22 38-10 58 0 58 10 58 22 38 22 6z"/>
+  <path id="ap" d="M-27 6C-27-12-15-21 0-21 15-21 27-12 27 6z"/>
+  <path id="ak" d="M0-21v-16" fill="none" stroke-width="7" stroke-linecap="round"/>
+  <g id="tg"><path d="M718 288C800 264 920 224 1080 176" stroke-width="15"/><path d="M842 252l-22-32M984 208l26-30" stroke-width="9"/></g>
+ </defs>
+ <use href="#tg" transform="translate(0 6)" fill="none" stroke="#000" stroke-linecap="round" opacity=".12"/>
+ <use href="#tg" fill="none" stroke="#6B4A2A" stroke-linecap="round"/>
+ <!-- leaves -->
+ <use href="#lb" transform="translate(778 280)rotate(-34)scale(1.3)" fill="#000" opacity=".12"/>
+ <g transform="translate(778 274)rotate(-34)scale(1.3)"><use href="#lb" fill="#E8455A"/><use href="#lv"/></g>
+ <use href="#lb" transform="translate(900 246)rotate(24)scale(1.3)" fill="#000" opacity=".12"/>
+ <g transform="translate(900 240)rotate(24)scale(1.3)"><use href="#lb" fill="#FFC94A"/><use href="#lv"/></g>
+ <use href="#lb" transform="translate(1050 256)rotate(16)scale(1.2)" fill="#000" opacity=".12"/>
+ <g transform="translate(1050 250)rotate(16)scale(1.2)"><use href="#lb" fill="#E0A413"/><use href="#lv"/></g>
+ <use href="#lb" transform="translate(876 244)rotate(158)scale(1.2)" fill="#000" opacity=".12"/>
+ <g transform="translate(876 238)rotate(158)scale(1.2)"><use href="#lb" fill="#31C48D"/><use href="#lv"/></g>
+ <!-- acorns -->
+ <g fill="#000" stroke="#000" opacity=".12" transform="translate(976 268)rotate(-12)">
+  <use href="#ak"/><use href="#ap"/><use href="#an"/>
+ </g>
+ <g transform="translate(976 262)rotate(-12)">
+  <use href="#ak" stroke="#6B4A2A"/>
+  <use href="#an" fill="#F2E3C4"/>
+  <path d="M-13 18C-13 32-9 44-5 48" fill="none" stroke="#FFF" stroke-width="6" opacity=".5" stroke-linecap="round"/>
+  <use href="#ap" fill="#6B4A2A"/>
+  <path d="M-27 2h54" stroke="#3A3A48" stroke-width="4" opacity=".2"/>
+ </g>
+ <g fill="#000" stroke="#000" opacity=".12" transform="translate(1040 260)rotate(28)">
+  <use href="#ak"/><use href="#ap"/><use href="#an"/>
+ </g>
+ <g transform="translate(1040 254)rotate(28)">
+  <use href="#ak" stroke="#6B4A2A"/>
+  <use href="#an" fill="#E0A413"/>
+  <path d="M-13 18C-13 32-9 44-5 48" fill="none" stroke="#FFF" stroke-width="6" opacity=".4" stroke-linecap="round"/>
+  <use href="#ap" fill="#6B4A2A"/>
+  <path d="M-27 2h54" stroke="#3A3A48" stroke-width="4" opacity=".2"/>
+ </g>
+</svg>

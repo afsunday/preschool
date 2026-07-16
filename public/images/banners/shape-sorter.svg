@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Shape sorter box with circle square and triangle holes and loose shapes">
+  <rect width="1200" height="400" fill="#3A7BB5"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- sorter box -->
+  <g transform="rotate(-5 848 234)">
+    <rect x="672" y="140" width="352" height="194" rx="18" fill="#000" opacity="0.12"/>
+    <rect x="672" y="134" width="352" height="194" rx="18" fill="#FFC94A"/>
+    <rect x="692" y="154" width="312" height="154" rx="10" fill="#E0A413"/>
+    <rect x="700" y="140" width="130" height="8" rx="4" fill="#FFF" opacity="0.35"/>
+    <g fill="#F2E3C4">
+      <circle cx="708" cy="170" r="5"/><circle cx="988" cy="170" r="5"/>
+      <circle cx="708" cy="292" r="5"/><circle cx="988" cy="292" r="5"/>
+    </g>
+    <circle cx="760" cy="230" r="36" fill="#3A3A48"/>
+    <rect x="812" y="196" width="68" height="68" rx="4" fill="#3A3A48"/>
+    <path d="M936 194l38 68h-76z" fill="#3A3A48"/>
+  </g>
+
+  <!-- loose circle -->
+  <g>
+    <circle cx="1062" cy="176" r="40" fill="#000" opacity="0.12"/>
+    <circle cx="1062" cy="170" r="40" fill="#E8618C"/>
+  </g>
+
+  <!-- loose square -->
+  <g transform="rotate(18 1076 280)">
+    <rect x="1036" y="246" width="80" height="80" rx="6" fill="#000" opacity="0.12"/>
+    <rect x="1036" y="240" width="80" height="80" rx="6" fill="#7C5CFF"/>
+  </g>
+
+  <!-- loose triangle -->
+  <g transform="rotate(-16 730 316)">
+    <path d="M730 288l42 60h-84z" fill="#000" opacity="0.12"/>
+    <path d="M730 282l42 60h-84z" fill="#31C48D"/>
+  </g>
+
+  <!-- loose circle, small -->
+  <g>
+    <circle cx="944" cy="330" r="28" fill="#000" opacity="0.12"/>
+    <circle cx="944" cy="324" r="28" fill="#E8455A"/>
+  </g>
+</svg>

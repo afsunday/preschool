@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Classroom;
+use App\Models\ClassroomBanner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class ClassroomFactory extends Factory
             'year' => '2026/2027',
             'teacher_id' => null,
             'color' => fake()->randomElement(['#159cb0', '#f0a020', '#7c5cff', '#e8618c']),
+            'banner' => fake()->randomElement(ClassroomBanner::keys()),
             'is_archived' => false,
         ];
     }

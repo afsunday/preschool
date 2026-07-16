@@ -40,13 +40,13 @@ function Composer({
                 value={form.data.body}
                 onChange={(e) => form.setData('body', e.target.value)}
                 placeholder="Type a message…"
-                className="flex-1 rounded-full border border-portal-line px-4 py-2 text-sm outline-none focus:border-portal-accent"
+                className="flex-1 rounded-[4px] border border-portal-line px-4 py-2 text-sm outline-none focus:border-portal-accent"
             />
             <button
                 type="submit"
                 disabled={form.processing || form.data.body.trim() === ''}
                 aria-label="Send"
-                className="grid size-9 shrink-0 place-items-center rounded-full bg-portal-accent text-white transition hover:brightness-95 disabled:opacity-50"
+                className="grid size-9 shrink-0 place-items-center rounded-[4px] bg-portal-accent text-white transition hover:brightness-95 disabled:opacity-50"
             >
                 {form.processing ? (
                     <Loader2 className="size-4 animate-spin" />
@@ -80,7 +80,7 @@ export default function ClassChats({
         <>
             <Head title={`${classroom.name} · Chats`} />
             <div className="py-5">
-                <div className="grid h-[calc(100vh-14rem)] grid-cols-1 overflow-hidden rounded-[6px] border border-portal-line bg-white md:grid-cols-[280px_1fr]">
+                <div className="grid h-[calc(100vh-14rem)] grid-cols-1 overflow-hidden rounded-[4px] border border-portal-line bg-white md:grid-cols-[280px_1fr]">
                     {/* Thread list — staff see every parent; a parent sees only their own. */}
                     {isStaff && (
                         <div className="hidden flex-col border-r border-portal-line md:flex">
@@ -167,7 +167,7 @@ export default function ClassChats({
                                     >
                                         <div
                                             className={cn(
-                                                'max-w-[75%] rounded-[8px] px-3 py-2',
+                                                'max-w-[75%] rounded-[4px] px-3 py-2',
                                                 message.mine
                                                     ? 'bg-portal-accent text-white'
                                                     : 'bg-neutral-100 text-neutral-800',

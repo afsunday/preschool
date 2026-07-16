@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Triangular bunting strings and paper stars">
+  <!-- Google-Classroom-style flat lay: solid field on the left for the class
+       title, objects clustered right on a soft disc. -->
+  <rect width="1200" height="400" fill="#B5487F"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- upper bunting string -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M624 138Q880 218 1136 132" fill="none" stroke="#000" stroke-width="5"/>
+      <path d="M639 150h52l-26 66z"/>
+      <path d="M711 165h52l-26 66z"/>
+      <path d="M782 174h52l-26 66z"/>
+      <path d="M854 177h52l-26 66z"/>
+      <path d="M926 172h52l-26 66z"/>
+      <path d="M997 162h52l-26 66z"/>
+      <path d="M1069 145h52l-26 66z"/>
+    </g>
+    <path d="M624 138Q880 218 1136 132" fill="none" stroke="#FFF6F9" stroke-width="5"/>
+    <path d="M639 150h52l-26 66z" fill="#5B6BD6"/>
+    <path d="M711 165h52l-26 66z" fill="#FFC94A"/>
+    <path d="M782 174h52l-26 66z" fill="#31C48D"/>
+    <path d="M854 177h52l-26 66z" fill="#FFF6F9"/>
+    <path d="M926 172h52l-26 66z" fill="#5B6BD6"/>
+    <path d="M997 162h52l-26 66z" fill="#FFC94A"/>
+    <path d="M1069 145h52l-26 66z" fill="#31C48D"/>
+  </g>
+
+  <!-- lower bunting string -->
+  <g>
+    <g fill="#000" opacity="0.12" transform="translate(0 6)">
+      <path d="M648 236Q896 302 1140 232" fill="none" stroke="#000" stroke-width="5"/>
+      <path d="M675 248h46l-23 54z"/>
+      <path d="M773 263h46l-23 54z"/>
+      <path d="M872 268h46l-23 54z"/>
+      <path d="M970 262h46l-23 54z"/>
+      <path d="M1068 245h46l-23 54z"/>
+    </g>
+    <path d="M648 236Q896 302 1140 232" fill="none" stroke="#FFF6F9" stroke-width="5"/>
+    <path d="M675 248h46l-23 54z" fill="#FFC94A"/>
+    <path d="M773 263h46l-23 54z" fill="#31C48D"/>
+    <path d="M872 268h46l-23 54z" fill="#5B6BD6"/>
+    <path d="M970 262h46l-23 54z" fill="#FFC94A"/>
+    <path d="M1068 245h46l-23 54z" fill="#5B6BD6"/>
+  </g>
+
+  <!-- paper stars -->
+  <g transform="translate(720 317) rotate(-14)">
+    <path d="M0 -34L7.6 -10.5L32.3 -10.5L12.4 4L20 27.5L0 13L-20 27.5L-12.4 4L-32.3 -10.5L-7.6 -10.5Z" fill="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M0 -34L7.6 -10.5L32.3 -10.5L12.4 4L20 27.5L0 13L-20 27.5L-12.4 4L-32.3 -10.5L-7.6 -10.5Z" fill="#FFC94A"/>
+  </g>
+  <g transform="translate(866 331) rotate(24)">
+    <path d="M0 -22L4.9 -6.8L20.9 -6.8L8 2.6L12.9 17.8L0 8.4L-12.9 17.8L-8 2.6L-20.9 -6.8L-4.9 -6.8Z" fill="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M0 -22L4.9 -6.8L20.9 -6.8L8 2.6L12.9 17.8L0 8.4L-12.9 17.8L-8 2.6L-20.9 -6.8L-4.9 -6.8Z" fill="#31C48D"/>
+  </g>
+  <g transform="translate(1046 315) rotate(18)">
+    <path d="M0 -36L8 -11.1L34.2 -11.1L13.1 4.2L21.2 29.1L0 13.8L-21.2 29.1L-13.1 4.2L-34.2 -11.1L-8 -11.1Z" fill="#000" opacity="0.12" transform="translate(0 6)"/>
+    <path d="M0 -36L8 -11.1L34.2 -11.1L13.1 4.2L21.2 29.1L0 13.8L-21.2 29.1L-13.1 4.2L-34.2 -11.1L-8 -11.1Z" fill="#FFF6F9"/>
+  </g>
+</svg>

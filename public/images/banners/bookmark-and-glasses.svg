@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400" role="img" aria-label="Closed book with a ribbon bookmark and reading glasses">
+  <rect width="1200" height="400" fill="#2F8F6B"/>
+  <circle cx="880" cy="200" r="235" fill="#000" opacity="0.08"/>
+
+  <!-- closed book with ribbon bookmark tucked inside -->
+  <g transform="rotate(-6 830 222)">
+    <path d="M848 280h42v78l-21-16-21 16z" fill="#000" opacity="0.12" transform="translate(4 6)"/>
+    <path d="M848 280h42v78l-21-16-21 16z" fill="#E8455A"/>
+    <rect x="719" y="124" width="230" height="196" rx="8" fill="#000" opacity="0.12"/>
+    <rect x="722" y="124" width="232" height="186" rx="4" fill="#FFF6F9"/>
+    <rect x="715" y="118" width="230" height="196" rx="8" fill="#7C5CFF"/>
+    <rect x="715" y="118" width="26" height="196" rx="8" fill="#5B3AC4"/>
+    <rect x="760" y="184" width="142" height="64" rx="6" fill="#FFF6F9"/>
+    <rect x="776" y="204" width="110" height="6" rx="3" fill="#B9BCC4"/>
+    <rect x="776" y="222" width="80" height="6" rx="3" fill="#B9BCC4"/>
+  </g>
+
+  <!-- reading glasses -->
+  <g transform="rotate(-8 1000 268)">
+    <g transform="translate(0 6)" opacity="0.12">
+      <circle cx="946" cy="268" r="42" fill="#000"/>
+      <circle cx="1052" cy="268" r="42" fill="#000"/>
+      <path d="M908 254l-46-12M1090 254l46-12" fill="none" stroke="#000" stroke-width="10" stroke-linecap="round"/>
+    </g>
+    <circle cx="946" cy="268" r="38" fill="#FFF6F9" stroke="#3A3A48" stroke-width="8"/>
+    <circle cx="1052" cy="268" r="38" fill="#FFF6F9" stroke="#3A3A48" stroke-width="8"/>
+    <path d="M986 262q14-12 28 0" fill="none" stroke="#3A3A48" stroke-width="8" stroke-linecap="round"/>
+    <path d="M908 254l-46-12M1090 254l46-12" fill="none" stroke="#3A3A48" stroke-width="8" stroke-linecap="round"/>
+  </g>
+</svg>
