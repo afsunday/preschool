@@ -49,18 +49,67 @@ export default function LogicSelect({
     noRecordActionText,
     noRecordActionClick,
 }: SelectType) {
-    const [selected, setSelected] = useState<Dynamic | null>(null);
+    const [selected, setSelected] = useState<Dynamic | null>(value);
     const [query, setQuery] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [filteredData, setFilteredData] = useState<Dynamic[]>([]);
+    const [loading, setLoading] = useState(data == undefined);
+    const [filteredData, setFilteredData] = useState<Dynamic[]>(() =>
+        Array.isArray(data) ? [...data] : [],
+    );
+    const [syncedValue, setSyncedValue] = useState<Dynamic | null>(value);
+    const [syncedData, setSyncedData] = useState(data);
     const searchInput = useRef<HTMLInputElement>(null);
     const throttleRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // `selected` and `filteredData` can't be pure derivations: local selection
+    // and search results overwrite them between prop changes. So they stay state
+    // and are reseeded during render when the prop identity changes — React's
+    // documented alternative to a setState-in-effect sync.
+    if (value !== syncedValue) {
+        setSyncedValue(value);
+        setSelected(value);
+    }
+
+    if (data !== syncedData) {
+        setSyncedData(data);
+
+        if (data == undefined) {
+            setLoading(true);
+        } else {
+            setFilteredData([...(Array.isArray(data) ? data : [])]);
+            setLoading(false);
+        }
+    }
 
     const handleSelected = (item: Dynamic | null) => {
         setSelected(item);
         onChange(item);
 
         document.body.click();
+    };
+
+    const callApi = async (keyword?: string): Promise<Dynamic[]> => {
+        try {
+            setLoading(true);
+
+            const url = appendQueryParam(route, 'search', keyword);
+
+            const response = await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const { data } = await response.json();
+
+            return data;
+        } catch (error) {
+            console.error('Error occurred:', error);
+
+            return [];
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -76,19 +125,6 @@ export default function LogicSelect({
         preload();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        setSelected(value);
-    }, [value]);
-
-    useEffect(() => {
-        if (data == undefined) {
-            setLoading(true);
-        } else {
-            setFilteredData([...(Array.isArray(data) ? data : [])]);
-            setLoading(false);
-        }
-    }, [data]);
 
     const handleFiltering = async (keyword: string) => {
         setQuery(keyword);
@@ -123,31 +159,6 @@ export default function LogicSelect({
             }
         } else {
             setFilteredData(filtered);
-        }
-    };
-
-    const callApi = async (keyword?: string): Promise<Dynamic[]> => {
-        try {
-            setLoading(true);
-
-            const url = appendQueryParam(route, 'search', keyword);
-
-            const response = await fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            const { data } = await response.json();
-
-            return data;
-        } catch (error) {
-            console.error('Error occurred:', error);
-
-            return [];
-        } finally {
-            setLoading(false);
         }
     };
 
