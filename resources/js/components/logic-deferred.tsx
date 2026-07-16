@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react';
-import { useEffect, useState } from 'react';
 
 interface DeferredProps {
     children: ReactElement | number | string;
@@ -8,13 +7,7 @@ interface DeferredProps {
 }
 
 const LogicDeferred = ({ children, fallback, loading }: DeferredProps) => {
-    const [loaded, setLoaded] = useState(false);
-
-    useEffect(() => {
-        setLoaded(!loading);
-    }, [loading]);
-
-    return loaded ? children : fallback;
+    return loading ? fallback : children;
 };
 
 export default LogicDeferred;
