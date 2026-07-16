@@ -7,7 +7,9 @@ use App\Http\Controllers\PortalController;
 use App\Http\Controllers\PortalJoinController;
 use App\Http\Controllers\PortalMessageController;
 use App\Http\Controllers\PortalPostController;
+use App\Http\Controllers\PortalReportCardController;
 use App\Http\Controllers\PortalReportController;
+use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +36,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('portal')->name('portal.')->group(function () {
         Route::get('/', [PortalController::class, 'home'])->name('home');
 
+        // Ordinary uploads (photos in posts, chats, day logs). Lands in temp/
+        // immediately; the receiving controller promotes it on submit.
+        Route::post('uploads', [PortalUploadController::class, 'store'])->name('uploads.store');
+
         // Linking a parent to a child — redeeming the child's invite code is the
         // whole relationship system.
         Route::get('join', [PortalJoinController::class, 'show'])->name('join');
@@ -59,12 +65,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 ->name('messages.store');
         });
 
+        // Report cards — the termly document. Staff-only writes.
+        Route::prefix('children/{child}/report-cards')->name('report-cards.')->group(function () {
+            Route::post('/', [PortalReportCardController::class, 'store'])->name('store');
+            // Streamed through the app, never a public URL — a report card is
+            // private to one family.
+            Route::get('{card}/download', [PortalReportCardController::class, 'download'])
+                ->name('download');
+            Route::patch('{card}', [PortalReportCardController::class, 'update'])->name('update');
+            Route::delete('{card}', [PortalReportCardController::class, 'destroy'])->name('destroy');
+        });
+
         // Daily reports — staff-only writes (enforced in the controller).
         Route::prefix('children/{child}/report')->name('report.')->group(function () {
             Route::patch('/', [PortalReportController::class, 'update'])->name('update');
             Route::post('entries', [PortalReportController::class, 'addEntry'])->name('entries.store');
             Route::delete('entries/{entry}', [PortalReportController::class, 'removeEntry'])->name('entries.destroy');
             Route::post('publish', [PortalReportController::class, 'publish'])->name('publish');
+            Route::delete('publish', [PortalReportController::class, 'unpublish'])->name('unpublish');
         });
     });
 

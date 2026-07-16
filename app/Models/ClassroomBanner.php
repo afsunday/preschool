@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 /**
  * The class banner library — hand-authored SVGs in `public/images/banners/`.
  *
- * `resources/cms/banners.json` is the single source of truth, shared with
+ * `resources/portal/banners.json` is the single source of truth, shared with
  * resources/js/lib/class-banners.ts, so PHP and the front end cannot drift.
  *
  * Only the key is ever stored on a classroom. Never a colour and never a CSS

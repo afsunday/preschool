@@ -62,7 +62,7 @@ const ActionDialog: FC<ModalProps> = ({
             onClick={handleClose}
         >
             <div
-                className={`xs:h-fit relative mr-0 box-content flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-lg border bg-white/80 backdrop-blur-sm ${sizeClassName}`}
+                className={`relative mr-0 box-content flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-lg border bg-white/80 backdrop-blur-sm xs:h-fit ${sizeClassName}`}
             >
                 <div className="scroll-sm relative h-full overflow-y-auto px-4 pt-5 pb-8 md:px-6">
                     {iconSlot && (

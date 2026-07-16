@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Models\Post;
+use App\Support\Upload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -19,18 +20,17 @@ class PortalPostController extends Controller
 
         $data = $request->validate([
             'body' => ['required', 'string', 'max:5000'],
+            // Temp paths from PortalUploadController — the files are already on
+            // disk; this only moves them somewhere permanent.
             'photos' => ['array', 'max:10'],
-            'photos.*' => ['integer', 'exists:media,id'],
+            'photos.*' => ['string'],
         ]);
 
-        $post = $classroom->posts()->create([
+        $classroom->posts()->create([
             'user_id' => $request->user()->id,
             'body' => $data['body'],
+            'photos' => Upload::keepAll($data['photos'] ?? [], "posts/{$classroom->id}"),
         ]);
-
-        foreach ($data['photos'] ?? [] as $i => $mediaId) {
-            $post->attachMedia((int) $mediaId, 'photos', $i);
-        }
 
         return back();
     }
@@ -40,6 +40,8 @@ class PortalPostController extends Controller
         $this->authorize('staff', $classroom);
         abort_unless($post->classroom_id === $classroom->id, 404);
 
+        // Nothing else can reference these, so they go with the row.
+        Upload::removeAll($post->photos);
         $post->delete();
 
         return back();

@@ -20,14 +20,13 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $child_id
  * @property Carbon $date
- * @property string|null $mood
  * @property string|null $summary
  * @property Carbon|null $published_at
  * @property int|null $created_by
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['child_id', 'date', 'mood', 'summary', 'published_at', 'created_by'])]
+#[Fillable(['child_id', 'date', 'summary', 'published_at', 'created_by'])]
 class DailyReport extends Model
 {
     /** @use HasFactory<DailyReportFactory> */
@@ -61,6 +60,12 @@ class DailyReport extends Model
     public function publish(): void
     {
         $this->forceFill(['published_at' => now()])->save();
+    }
+
+    /** Close the day back to a draft, hiding it from the guardians again. */
+    public function unpublish(): void
+    {
+        $this->forceFill(['published_at' => null])->save();
     }
 
     /** @param Builder<DailyReport> $query */

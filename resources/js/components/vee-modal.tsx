@@ -47,13 +47,13 @@ const VeeModal: React.FC<ModalProps> = ({
 
     return (
         <div
-            className={`modal-backdrop bg-opacity-50 xs:items-center xs:py-8 fixed inset-0 z-[50] flex h-full translate-y-full items-end justify-center overflow-x-hidden overflow-y-auto bg-black backdrop-blur-[2px] transition-transform duration-200 md:translate-x-full md:translate-y-0 md:duration-0 ${
+            className={`modal-backdrop fixed inset-0 z-[50] flex h-full translate-y-full items-end justify-center overflow-x-hidden overflow-y-auto bg-black/50 backdrop-blur-[2px] transition-transform duration-200 xs:items-center xs:py-8 md:translate-x-full md:translate-y-0 md:duration-0 ${
                 hidden ? '!translate-y-0 md:!translate-x-0' : ''
             }`}
             onClick={handleClose}
         >
             <div
-                className={`xs:h-fit xs:rounded-lg relative mr-0 flex max-h-full w-full max-w-full flex-col overflow-hidden border bg-white shadow-lg ${sizeClassName}`}
+                className={`relative mr-0 flex max-h-full w-full max-w-full flex-col overflow-hidden border bg-white shadow-lg xs:h-fit xs:rounded-lg ${sizeClassName}`}
             >
                 <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
                     <h3 className="text-default text-base font-medium">

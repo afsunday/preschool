@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Schema;
  * there are no student logins. `children` is the edge that connects a classroom
  * to the parents the app actually talks to.
  *
- * Photos attach through the existing polymorphic `mediables` pivot (HasMedia),
- * so nothing here carries a media_id and "where is this file used?" keeps working.
+ * Photos are plain uploads stored as paths (see App\Support\Upload), NOT media
+ * library references. The library is for the public site's CMS — reusable assets
+ * with alt text and usage tracking. A room's daily photos are none of those, and
+ * would bury the CMS asset list within a week.
  */
 return new class extends Migration
 {
@@ -41,6 +43,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('dob')->nullable();
+            $table->string('photo_path')->nullable();
             $table->text('notes')->nullable();
             $table->string('invite_code', 12)->nullable()->unique();
             $table->timestamps();
@@ -68,6 +71,7 @@ return new class extends Migration
             $table->foreignId('classroom_id')->constrained('classrooms')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->text('body');
+            $table->json('photos')->nullable();
             $table->timestamps();
 
             $table->index(['classroom_id', 'created_at']);
@@ -94,6 +98,7 @@ return new class extends Migration
             $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->text('body');
+            $table->json('photos')->nullable();
             $table->timestamps();
 
             $table->index(['conversation_id', 'created_at']);
@@ -124,6 +129,7 @@ return new class extends Migration
             $table->timestamp('ended_at')->nullable(); // naps are a range
             $table->string('detail')->nullable();      // "Ate all", "Wet", …
             $table->text('note')->nullable();
+            $table->json('photos')->nullable();
             $table->timestamps();
 
             $table->index(['daily_report_id', 'occurred_at']);

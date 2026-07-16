@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Child;
 use App\Models\DailyReport;
 use App\Models\ReportEntry;
+use App\Support\Upload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -18,13 +19,12 @@ use Illuminate\Validation\Rule;
  */
 class PortalReportController extends Controller
 {
-    /** Set the mood/summary for a child's day, creating the report on demand. */
+    /** Set the day's closing summary, creating the report on demand. */
     public function update(Request $request, Child $child): RedirectResponse
     {
         $report = $this->reportFor($request, $child);
 
         $data = $request->validate([
-            'mood' => ['nullable', 'string', Rule::in(['happy', 'ok', 'sad', 'tired'])],
             'summary' => ['nullable', 'string', 'max:2000'],
         ]);
 
@@ -37,28 +37,33 @@ class PortalReportController extends Controller
     public function addEntry(Request $request, Child $child): RedirectResponse
     {
         $report = $this->reportFor($request, $child);
+        $type = (string) $request->input('type');
 
         $data = $request->validate([
             'type' => ['required', Rule::in(ReportEntry::TYPES)],
+            'label' => ['nullable', 'string', 'max:120'],
             'occurred_at' => ['nullable', 'date'],
+            // A nap is the only entry with a span, and it cannot end before it
+            // started.
             'ended_at' => ['nullable', 'date', 'after_or_equal:occurred_at'],
-            'detail' => ['nullable', 'string', 'max:255'],
+            // Meals and nappies choose from a fixed set; a note is free text.
+            'detail' => array_key_exists($type, ReportEntry::DETAILS)
+                ? ['required', Rule::in(ReportEntry::DETAILS[$type])]
+                : ['nullable', 'string', 'max:255'],
             'note' => ['nullable', 'string', 'max:2000'],
             'photos' => ['array', 'max:10'],
-            'photos.*' => ['integer', 'exists:media,id'],
+            'photos.*' => ['string'],
         ]);
 
-        $entry = $report->entries()->create([
+        $report->entries()->create([
             'type' => $data['type'],
+            'label' => $data['label'] ?? null,
             'occurred_at' => $data['occurred_at'] ?? now(),
             'ended_at' => $data['ended_at'] ?? null,
             'detail' => $data['detail'] ?? null,
             'note' => $data['note'] ?? null,
+            'photos' => Upload::keepAll($data['photos'] ?? [], "reports/{$child->id}"),
         ]);
-
-        foreach ($data['photos'] ?? [] as $i => $mediaId) {
-            $entry->attachMedia((int) $mediaId, 'photos', $i);
-        }
 
         return back();
     }
@@ -68,15 +73,29 @@ class PortalReportController extends Controller
         $report = $this->reportFor($request, $child);
         abort_unless($entry->daily_report_id === $report->id, 404);
 
+        Upload::removeAll($entry->photos);
         $entry->delete();
 
         return back();
     }
 
-    /** Send the day to the parents. */
+    /**
+     * Open one child's day to their parents.
+     *
+     * This is a visibility gate, not a send: once open, anything logged after is
+     * visible immediately, so there is no second "send".
+     */
     public function publish(Request $request, Child $child): RedirectResponse
     {
         $this->reportFor($request, $child)->publish();
+
+        return back();
+    }
+
+    /** Close it back to a draft — for a day opened by mistake. */
+    public function unpublish(Request $request, Child $child): RedirectResponse
+    {
+        $this->reportFor($request, $child)->unpublish();
 
         return back();
     }
@@ -93,9 +112,19 @@ class PortalReportController extends Controller
 
         $date = $request->date('date') ?? Carbon::today();
 
-        return DailyReport::firstOrCreate(
-            ['child_id' => $child->id, 'date' => $date->toDateString()],
-            ['created_by' => $request->user()->id],
-        );
+        // Deliberately not firstOrCreate: the `date` cast writes a full
+        // timestamp, so matching on the bare 'Y-m-d' misses the row it just
+        // wrote and the second entry of the day hits the unique index. whereDate
+        // compares the date part, which is what the key actually means.
+        $report = DailyReport::query()
+            ->where('child_id', $child->id)
+            ->whereDate('date', $date)
+            ->first();
+
+        return $report ?? DailyReport::create([
+            'child_id' => $child->id,
+            'date' => $date->toDateString(),
+            'created_by' => $request->user()->id,
+        ]);
     }
 }

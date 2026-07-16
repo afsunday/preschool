@@ -88,6 +88,7 @@
     --shadow-s2: 0 0.375rem 0.75rem rgba(140, 152, 164, 0.045);
     --shadow-s3: 0 12px 40px 8px rgba(140, 152, 164, 0.144);
     --shadow-s4: 0 0.375rem 0.75rem rgba(140, 152, 164, 0.09);
+    --breakpoint-xs: 576px;
 }
 
 /* Portal palette — the parent/teacher-facing app (distinct from the admin CMS).

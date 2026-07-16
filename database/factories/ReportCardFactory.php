@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Child;
-use App\Models\DailyReport;
+use App\Models\ReportCard;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<DailyReport>
+ * @extends Factory<ReportCard>
  */
-class DailyReportFactory extends Factory
+class ReportCardFactory extends Factory
 {
     /**
      * @return array<string, mixed>
@@ -18,8 +18,13 @@ class DailyReportFactory extends Factory
     {
         return [
             'child_id' => Child::factory(),
-            'date' => today(),
-            'summary' => null,
+            'title' => 'Term 1 · 2026/2027',
+            'issued_on' => today(),
+            'note' => null,
+            'path' => 'report-cards/1/'.fake()->uuid().'.pdf',
+            'original_name' => 'report.pdf',
+            'mime_type' => 'application/pdf',
+            'size' => 128_000,
             'published_at' => null,
             'created_by' => null,
         ];

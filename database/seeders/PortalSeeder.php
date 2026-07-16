@@ -138,19 +138,24 @@ class PortalSeeder extends Seeder
         $report = DailyReport::factory()->published()->create([
             'child_id' => $tunde->id,
             'date' => today(),
-            'mood' => 'happy',
             'summary' => 'A brilliant day — lots of painting and a good long nap.',
             'created_by' => $james->id,
         ]);
         ReportEntry::factory()->nap()->create(['daily_report_id' => $report->id]);
         ReportEntry::factory()->meal()->create(['daily_report_id' => $report->id, 'detail' => 'Ate all']);
         ReportEntry::factory()->nappy()->create(['daily_report_id' => $report->id]);
+        ReportEntry::factory()->create([
+            'daily_report_id' => $report->id,
+            'type' => 'mood',
+            'detail' => 'Happy',
+            'note' => null,
+            'occurred_at' => today()->setTime(9, 15),
+        ]);
 
         // Zara's is still a draft — the teacher hasn't sent it yet.
         DailyReport::factory()->create([
             'child_id' => $zara->id,
             'date' => today(),
-            'mood' => 'ok',
             'created_by' => $ada->id,
         ]);
     }

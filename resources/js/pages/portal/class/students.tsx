@@ -1,8 +1,9 @@
 import { Head } from '@inertiajs/react';
-import { Check, Copy, Users } from 'lucide-react';
+import { Check, ChevronRight, Copy, FileText, Users } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import type { PortalChild, PortalClass } from '@/types/portal';
+import { ChildSheet } from '../partials/child-sheet';
 
 /**
  * The handoff point of the whole parent-link system: an admin copies this code
@@ -42,12 +43,18 @@ function InviteCode({ code }: { code: string }) {
 function ChildRow({
     child,
     canManage,
+    onOpen,
 }: {
     child: PortalChild;
     canManage: boolean;
+    onOpen: (child: PortalChild) => void;
 }) {
     return (
-        <div className="flex items-center gap-3 rounded-[4px] border border-portal-line bg-white px-3 py-3">
+        <button
+            type="button"
+            onClick={() => onOpen(child)}
+            className="flex w-full items-center gap-3 rounded-[4px] border border-portal-line bg-white px-3 py-3 text-left transition hover:bg-portal-field"
+        >
             {child.photo ? (
                 <img
                     src={child.photo}
@@ -95,10 +102,22 @@ function ChildRow({
 
             {/* The invite code IS the parent-link system: give it to a parent and
                 they attach themselves on sign-up. Admin-only. */}
+            {child.reportCards.length > 0 && (
+                <span
+                    title={`${child.reportCards.length} report card(s)`}
+                    className="hidden shrink-0 items-center gap-1 rounded-[4px] bg-portal-field px-2 py-1 text-xs font-bold text-neutral-600 sm:flex"
+                >
+                    <FileText className="size-3.5" />
+                    {child.reportCards.length}
+                </span>
+            )}
+
             {canManage && child.inviteCode && (
                 <InviteCode code={child.inviteCode} />
             )}
-        </div>
+
+            <ChevronRight className="size-4 shrink-0 text-neutral-300" />
+        </button>
     );
 }
 
@@ -106,11 +125,22 @@ export default function ClassStudents({
     classroom,
     children,
     canManage,
+    // Staff of this room — already sent by classProps. Uploading a report card
+    // is a staff job; managing the class itself is admin-only.
+    canPost,
 }: {
     classroom: PortalClass;
     children: PortalChild[];
     canManage: boolean;
+    canPost: boolean;
 }) {
+    const [open, setOpen] = useState<PortalChild | null>(null);
+
+    // Track fresh props after an upload rather than the stale captured child.
+    const active = open
+        ? (children.find((c) => c.id === open.id) ?? null)
+        : null;
+
     return (
         <>
             <Head title={`${classroom.name} · Students`} />
@@ -141,11 +171,20 @@ export default function ClassStudents({
                                 key={child.id}
                                 child={child}
                                 canManage={canManage}
+                                onOpen={setOpen}
                             />
                         ))}
                     </div>
                 )}
             </div>
+
+            <ChildSheet
+                child={active}
+                isStaff={canPost}
+                canManage={canManage}
+                open={active !== null}
+                onClose={() => setOpen(null)}
+            />
         </>
     );
 }

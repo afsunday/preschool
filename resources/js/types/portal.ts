@@ -19,6 +19,15 @@ export interface PortalGuardian {
     relationship: string | null;
 }
 
+export interface PortalReportCard {
+    id: number;
+    title: string;
+    issuedOn: string | null;
+    note: string | null;
+    published: boolean;
+    file: { url: string; name: string; size: number } | null;
+}
+
 export interface PortalChild {
     id: number;
     name: string;
@@ -28,11 +37,7 @@ export interface PortalChild {
     isMine?: boolean;
     guardians: PortalGuardian[];
     inviteCode: string | null;
-}
-
-export interface PortalPhoto {
-    id: number;
-    url: string;
+    reportCards: PortalReportCard[];
 }
 
 export interface PortalPost {
@@ -40,24 +45,25 @@ export interface PortalPost {
     body: string;
     author: string;
     createdAt: string | null;
-    photos: PortalPhoto[];
+    photos: string[];
 }
 
-export type ReportEntryType = 'nap' | 'meal' | 'nappy' | 'note' | 'photo';
+export type ReportEntryType =
+    'nap' | 'meal' | 'nappy' | 'mood' | 'note' | 'photo';
 
 export interface PortalReportEntry {
     id: number;
     type: ReportEntryType;
+    label: string | null;
     detail: string | null;
     note: string | null;
     at: string | null;
     until: string | null;
-    photos: PortalPhoto[];
+    photos: string[];
 }
 
 export interface PortalReport {
     id: number;
-    mood: string | null;
     summary: string | null;
     published: boolean;
     entries: PortalReportEntry[];
@@ -83,5 +89,12 @@ export interface PortalMessage {
     author: string;
     mine: boolean;
     at: string | null;
-    photos: PortalPhoto[];
+    photos: string[];
+}
+
+/** Pickers for the day sheet, driven by App\Models\ReportEntry so the form
+ *  can only offer what the controller accepts. */
+export interface ReportOptions {
+    details: Record<string, string[]>;
+    labels: Record<string, string[]>;
 }

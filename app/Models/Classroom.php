@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasMedia;
 use Database\Factories\ClassroomFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
@@ -36,7 +35,7 @@ use Illuminate\Support\Collection;
 class Classroom extends Model
 {
     /** @use HasFactory<ClassroomFactory> */
-    use HasFactory, HasMedia;
+    use HasFactory;
 
     protected function casts(): array
     {

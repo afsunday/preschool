@@ -51,7 +51,7 @@ const FullModal: React.FC<ModalProps> = ({
             onClick={handleClose}
         >
             <div
-                className={`xs:rounded-none relative flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-t-lg border bg-white shadow-lg md:h-full ${sizeClassName}`}
+                className={`relative flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-t-lg border bg-white shadow-lg xs:rounded-none md:h-full ${sizeClassName}`}
             >
                 <div className="flex items-center justify-between border-b border-gray-200 px-4 py-4">
                     <h3 className="text-default text-base font-medium">

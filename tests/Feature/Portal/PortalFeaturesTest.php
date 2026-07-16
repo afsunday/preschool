@@ -165,3 +165,149 @@ test('an entry type outside the allowed set is rejected', function () {
         ->post(route('portal.report.entries.store', $this->child), ['type' => 'karate'])
         ->assertSessionHasErrors('type');
 });
+
+// ---- day sheet: real inputs, not hardcoded ---------------------------------
+
+test('a meal records which meal it was and how it went', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'meal',
+            'label' => 'Lunch',
+            'detail' => 'Ate some',
+            'occurred_at' => today()->setTime(12, 15)->toDateTimeString(),
+        ])
+        ->assertRedirect();
+
+    $entry = DailyReport::where('child_id', $this->child->id)->first()->entries->first();
+
+    expect($entry->label)->toBe('Lunch')
+        ->and($entry->detail)->toBe('Ate some')
+        ->and($entry->occurred_at->format('H:i'))->toBe('12:15');
+});
+
+test('a meal detail outside the offered set is rejected', function () {
+    // The old quick-log hardcoded "Ate all"; now the value must be a real one.
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'meal',
+            'detail' => 'Ate a horse',
+        ])
+        ->assertSessionHasErrors('detail');
+});
+
+test('a meal must say how it went', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), ['type' => 'meal'])
+        ->assertSessionHasErrors('detail');
+});
+
+test('a note takes free text and needs no detail', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'note',
+            'note' => 'Wobbly tooth came out.',
+        ])
+        ->assertRedirect()
+        ->assertSessionHasNoErrors();
+});
+
+test('a nap cannot end before it starts', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'nap',
+            'occurred_at' => today()->setTime(14, 0)->toDateTimeString(),
+            'ended_at' => today()->setTime(12, 0)->toDateTimeString(),
+        ])
+        ->assertSessionHasErrors('ended_at');
+});
+
+test('an entry can be removed', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), ['type' => 'nap']);
+
+    $report = DailyReport::where('child_id', $this->child->id)->first();
+    $entry = $report->entries->first();
+
+    $this->actingAs($this->teacher)
+        ->delete(route('portal.report.entries.destroy', [$this->child, $entry]))
+        ->assertRedirect();
+
+    expect($report->fresh()->entries)->toHaveCount(0);
+});
+
+test('publishing is a gate, not a send — later entries are visible at once', function () {
+    // The teacher opens the day, then logs more. The parent sees the additions
+    // without anything being "sent" again.
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), ['type' => 'nap']);
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.publish', $this->child));
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'meal', 'label' => 'Lunch', 'detail' => 'Ate all',
+        ]);
+
+    $this->actingAs($this->parent)
+        ->get(route('portal.classes.today', $this->classroom))
+        ->assertInertia(fn ($p) => $p
+            ->where('children.0.report.published', true)
+            ->has('children.0.report.entries', 2));
+});
+
+test('a day can be hidden again after being sent by mistake', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), ['type' => 'nap']);
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.publish', $this->child));
+
+    $this->actingAs($this->teacher)
+        ->delete(route('portal.report.unpublish', $this->child))
+        ->assertRedirect();
+
+    expect(DailyReport::where('child_id', $this->child->id)->first()->isPublished())->toBeFalse();
+
+    // …and the parent loses sight of it again.
+    $this->actingAs($this->parent)
+        ->get(route('portal.classes.today', $this->classroom))
+        ->assertInertia(fn ($p) => $p->where('children.0.report', null));
+});
+
+test('a parent cannot hide their own report', function () {
+    $this->actingAs($this->parent)
+        ->delete(route('portal.report.unpublish', $this->child))
+        ->assertForbidden();
+});
+
+test('mood is logged as an entry with its own time, not once for the day', function () {
+    // A child can be happy at 9am and upset by 3pm — mood belongs on the timeline.
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'mood',
+            'detail' => 'Happy',
+            'occurred_at' => today()->setTime(9, 15)->toDateTimeString(),
+        ])
+        ->assertRedirect();
+
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'mood',
+            'detail' => 'Upset',
+            'occurred_at' => today()->setTime(15, 0)->toDateTimeString(),
+        ])
+        ->assertRedirect();
+
+    $entries = DailyReport::where('child_id', $this->child->id)->first()->entries;
+
+    expect($entries)->toHaveCount(2)
+        ->and($entries->pluck('detail')->all())->toBe(['Happy', 'Upset'])
+        ->and($entries->first()->occurred_at->format('H:i'))->toBe('09:15');
+});
+
+test('a mood outside the offered set is rejected', function () {
+    $this->actingAs($this->teacher)
+        ->post(route('portal.report.entries.store', $this->child), [
+            'type' => 'mood',
+            'detail' => 'Feral',
+        ])
+        ->assertSessionHasErrors('detail');
+});

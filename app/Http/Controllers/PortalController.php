@@ -6,6 +6,8 @@ use App\Models\Child;
 use App\Models\Classroom;
 use App\Models\Conversation;
 use App\Models\DailyReport;
+use App\Models\ReportCard;
+use App\Models\ReportEntry;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -55,7 +57,7 @@ class PortalController extends Controller
         $this->authorize('view', $classroom);
 
         $posts = $classroom->posts()
-            ->with(['author', 'media'])
+            ->with('author')
             ->latest()
             ->limit(30)
             ->get()
@@ -64,7 +66,7 @@ class PortalController extends Controller
                 'body' => $post->body,
                 'author' => $post->author->name,
                 'createdAt' => $post->created_at?->diffForHumans(),
-                'photos' => $post->media->map(fn ($m) => ['id' => $m->id, 'url' => $m->url()])->values(),
+                'photos' => $post->photoUrls(),
             ]);
 
         return Inertia::render('portal/class/feed', [
@@ -82,7 +84,7 @@ class PortalController extends Controller
         $canSeeAll = $user->can('staff', $classroom);
 
         $children = $classroom->children()
-            ->with(['guardians', 'media'])
+            ->with(['guardians', 'reportCards'])
             ->orderBy('first_name')
             ->get()
             // A parent sees the roster, but only their own child's guardians and
@@ -107,7 +109,7 @@ class PortalController extends Controller
 
         $children = $classroom->children()
             ->when(! $isStaff, fn ($q) => $q->whereHas('guardians', fn ($g) => $g->whereKey($user->id)))
-            ->with(['media', 'dailyReports' => fn ($q) => $q->whereDate('date', $date)->with('entries.media')])
+            ->with(['dailyReports' => fn ($q) => $q->whereDate('date', $date)->with('entries')])
             ->orderBy('first_name')
             ->get()
             ->map(function (Child $child) use ($isStaff) {
@@ -122,20 +124,20 @@ class PortalController extends Controller
                 return [
                     'id' => $child->id,
                     'name' => $child->name,
-                    'photo' => $child->getMedia('photo')->first()?->url(),
+                    'photo' => $child->photoUrl(),
                     'report' => $report === null ? null : [
                         'id' => $report->id,
-                        'mood' => $report->mood,
                         'summary' => $report->summary,
                         'published' => $report->isPublished(),
                         'entries' => $report->entries->map(fn ($e) => [
                             'id' => $e->id,
                             'type' => $e->type,
+                            'label' => $e->label,
                             'detail' => $e->detail,
                             'note' => $e->note,
                             'at' => $e->occurred_at?->format('H:i'),
                             'until' => $e->ended_at?->format('H:i'),
-                            'photos' => $e->media->map(fn ($m) => ['id' => $m->id, 'url' => $m->url()])->values(),
+                            'photos' => $e->photoUrls(),
                         ])->values(),
                     ],
                 ];
@@ -146,6 +148,12 @@ class PortalController extends Controller
             'date' => $date->toDateString(),
             'children' => $children,
             'isStaff' => $isStaff,
+            // The pickers are driven by the model, so the form can only offer
+            // what the controller will accept.
+            'options' => [
+                'details' => ReportEntry::DETAILS,
+                'labels' => ReportEntry::LABELS,
+            ],
         ]);
     }
 
@@ -192,7 +200,7 @@ class PortalController extends Controller
                 'id' => $conversation->id,
                 'guardian' => $conversation->guardian->name,
                 'messages' => $conversation->messages()
-                    ->with(['author', 'media'])
+                    ->with('author')
                     ->orderBy('created_at')
                     ->limit(100)
                     ->get()
@@ -202,7 +210,7 @@ class PortalController extends Controller
                         'author' => $m->author->name,
                         'mine' => $m->user_id === $user->id,
                         'at' => $m->created_at?->diffForHumans(),
-                        'photos' => $m->media->map(fn ($md) => ['id' => $md->id, 'url' => $md->url()])->values(),
+                        'photos' => $m->photoUrls(),
                     ])->values(),
             ],
             'isStaff' => $isStaff,
@@ -275,7 +283,7 @@ class PortalController extends Controller
         return [
             'id' => $child->id,
             'name' => $child->name,
-            'photo' => $child->getMedia('photo')->first()?->url(),
+            'photo' => $child->photoUrl(),
             'classroom' => $child->classroom?->label,
             'classroomId' => $child->classroom_id,
             'isMine' => $isMine,
@@ -288,6 +296,38 @@ class PortalController extends Controller
                 ])->values()
                 : [],
             'inviteCode' => $user->isAdmin() ? $child->invite_code : null,
+            'reportCards' => $this->reportCardsFor($child, $user, $canSeeAll),
         ];
+    }
+
+    /**
+     * A child's report cards. Staff see every card including unshared ones; a
+     * guardian sees only their own child's, and only once shared.
+     *
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function reportCardsFor(Child $child, User $user, bool $isStaff)
+    {
+        $isMine = $child->guardians->contains('id', $user->id);
+
+        if (! $isStaff && ! $isMine) {
+            return collect();
+        }
+
+        return $child->reportCards
+            ->filter(fn (ReportCard $card) => $isStaff || $card->isPublished())
+            ->map(fn (ReportCard $card) => [
+                'id' => $card->id,
+                'title' => $card->title,
+                'issuedOn' => $card->issued_on?->toDateString(),
+                'note' => $card->note,
+                'published' => $card->isPublished(),
+                'file' => [
+                    'url' => route('portal.report-cards.download', [$child, $card]),
+                    'name' => $card->original_name,
+                    'size' => $card->size,
+                ],
+            ])
+            ->values();
     }
 }

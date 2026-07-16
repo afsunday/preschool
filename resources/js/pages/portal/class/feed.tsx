@@ -24,6 +24,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { cn } from '@/lib/utils';
 import type { PortalClass, PortalPost } from '@/types/portal';
+import { PhotoUpload } from '../partials/photo-upload';
 
 function Avatar({ name, className }: { name: string; className?: string }) {
     return (
@@ -54,14 +55,17 @@ function NewPostDialog({
     open: boolean;
     onClose: () => void;
 }) {
-    const form = useForm({ body: '' });
+    const form = useForm<{ body: string; photos: string[] }>({
+        body: '',
+        photos: [],
+    });
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
         form.post(`/portal/classes/${classroom.id}/posts`, {
             preserveScroll: true,
             onSuccess: () => {
-                form.reset('body');
+                form.reset();
                 onClose();
             },
         });
@@ -120,28 +124,18 @@ function NewPostDialog({
                                 )}
                             </div>
 
-                            {/* Photo attachment lands here — the media library is
-                                already wired for posts via the mediables pivot. */}
-                            <div className="grid place-items-center rounded-[4px] bg-portal-field px-4 py-8 text-center">
-                                <ImageIcon className="size-6 text-portal-ink" />
-                                <p className="mt-2 text-sm font-bold text-portal-ink">
-                                    Add Photos/Videos
+                            <div>
+                                <p className="mb-2 text-sm font-bold text-portal-ink">
+                                    Photos
                                 </p>
-                                <p className="text-sm text-neutral-500">
-                                    or drag and drop
-                                </p>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eef4ff] text-[#3b6fd4]">
-                                    <ImageIcon className="size-4.5" />
-                                </span>
-                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eaf7fd] text-[#3a97c9]">
-                                    <Paperclip className="size-4.5" />
-                                </span>
-                                <span className="grid size-9 place-items-center rounded-[4px] bg-[#eafaf1] text-[#2e9e63]">
-                                    <CalendarDays className="size-4.5" />
-                                </span>
+                                {/* Uploads as they're chosen, so posting is
+                                    instant once the teacher stops typing. */}
+                                <PhotoUpload
+                                    value={form.data.photos}
+                                    onChange={(paths) =>
+                                        form.setData('photos', paths)
+                                    }
+                                />
                             </div>
                         </div>
 
@@ -273,10 +267,10 @@ function PostCard({
 
                 {post.photos.length > 0 && (
                     <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                        {post.photos.map((photo) => (
+                        {post.photos.map((url) => (
                             <img
-                                key={photo.id}
-                                src={photo.url}
+                                key={url}
+                                src={url}
                                 alt=""
                                 className="aspect-4/3 w-full rounded-[4px] object-cover"
                             />

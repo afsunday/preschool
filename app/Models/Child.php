@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasMedia;
+use App\Support\Upload;
 use Database\Factories\ChildFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -26,6 +26,7 @@ use Illuminate\Support\Str;
  * @property string $first_name
  * @property string $last_name
  * @property Carbon|null $dob
+ * @property string|null $photo_path
  * @property string|null $notes
  * @property string|null $invite_code
  * @property-read string $name
@@ -33,11 +34,11 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['classroom_id', 'first_name', 'last_name', 'dob', 'notes', 'invite_code'])]
+#[Fillable(['classroom_id', 'first_name', 'last_name', 'dob', 'photo_path', 'notes', 'invite_code'])]
 class Child extends Model
 {
     /** @use HasFactory<ChildFactory> */
-    use HasFactory, HasMedia, SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'children';
 
@@ -47,6 +48,12 @@ class Child extends Model
     }
 
     protected $appends = ['name'];
+
+    /** Where the child's picture actually lives, if they have one. */
+    public function photoUrl(): ?string
+    {
+        return Upload::url($this->photo_path);
+    }
 
     protected function name(): Attribute
     {
@@ -75,6 +82,12 @@ class Child extends Model
     public function dailyReports(): HasMany
     {
         return $this->hasMany(DailyReport::class);
+    }
+
+    /** @return HasMany<ReportCard, $this> */
+    public function reportCards(): HasMany
+    {
+        return $this->hasMany(ReportCard::class)->latest('issued_on');
     }
 
     /**

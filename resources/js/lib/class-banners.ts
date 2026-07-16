@@ -3,7 +3,7 @@ import manifest from '../../portal/banners.json';
 /**
  * The class banner library — hand-authored SVGs in `public/images/banners/`.
  *
- * `resources/cms/banners.json` is the single source of truth, read by this file
+ * `resources/portal/banners.json` is the single source of truth, read by this file
  * and by App\Models\ClassroomBanner, so the two cannot drift.
  *
  * The DB stores only the key ("art-table"). Tailwind cannot scan the database,

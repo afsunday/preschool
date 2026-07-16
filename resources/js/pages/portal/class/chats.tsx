@@ -183,14 +183,16 @@ export default function ClassChats({
                                             </p>
                                             {message.photos.length > 0 && (
                                                 <div className="mt-1.5 flex flex-wrap gap-1.5">
-                                                    {message.photos.map((p) => (
-                                                        <img
-                                                            key={p.id}
-                                                            src={p.url}
-                                                            alt=""
-                                                            className="size-24 rounded-[4px] object-cover"
-                                                        />
-                                                    ))}
+                                                    {message.photos.map(
+                                                        (url) => (
+                                                            <img
+                                                                key={url}
+                                                                src={url}
+                                                                alt=""
+                                                                className="size-24 rounded-[4px] object-cover"
+                                                            />
+                                                        ),
+                                                    )}
                                                 </div>
                                             )}
                                             <p
