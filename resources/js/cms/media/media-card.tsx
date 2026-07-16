@@ -1,12 +1,6 @@
-import {
-    Archive,
-    File as FileIcon,
-    FileText,
-    Film,
-    Music,
-} from 'lucide-react';
+import { Archive, File as FileIcon, FileText, Film, Music } from 'lucide-react';
 import { cn } from '../lib/cn';
-import { MediaItem, MediaKind } from './types';
+import type { MediaItem, MediaKind } from './types';
 
 const KIND_ICON: Record<Exclude<MediaKind, 'image'>, typeof FileIcon> = {
     video: Film,
@@ -18,6 +12,7 @@ const KIND_ICON: Record<Exclude<MediaKind, 'image'>, typeof FileIcon> = {
 
 function extensionOf(item: MediaItem): string {
     const dot = item.originalName.lastIndexOf('.');
+
     return dot > -1 ? item.originalName.slice(dot + 1) : item.kind;
 }
 

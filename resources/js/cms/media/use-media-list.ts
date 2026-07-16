@@ -1,11 +1,11 @@
+import type { InfiniteData } from '@tanstack/react-query';
 import {
-    InfiniteData,
     useInfiniteQuery,
     useMutation,
     useQueryClient,
 } from '@tanstack/react-query';
 import { useEffect, useMemo, useState } from 'react';
-import {
+import type {
     MediaApi,
     MediaItem,
     MediaKind,
@@ -30,6 +30,7 @@ export function useMediaList(api: MediaApi) {
     // Debounce the search term before it hits the query key.
     useEffect(() => {
         const t = setTimeout(() => setTerm(q), q ? 250 : 0);
+
         return () => clearTimeout(t);
     }, [q]);
 

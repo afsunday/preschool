@@ -1,4 +1,5 @@
-import { ReactElement, useEffect, useState } from 'react';
+import type { ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 
 interface DeferredProps {
     children: ReactElement | number | string;

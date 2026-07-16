@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 type FooterActioProps = PropsWithChildren<
     {
@@ -6,7 +6,11 @@ type FooterActioProps = PropsWithChildren<
     } & React.ButtonHTMLAttributes<HTMLButtonElement>
 >;
 
-export default function LoadingButton({ processing, children, ...props }: FooterActioProps) {
+export default function LoadingButton({
+    processing,
+    children,
+    ...props
+}: FooterActioProps) {
     return (
         <button
             {...props}
@@ -21,7 +25,9 @@ export default function LoadingButton({ processing, children, ...props }: Footer
                     <div></div>
                 </div>
             )}
-            <span className={`text-center ${processing ? 'hidden' : ''}`}>{children}</span>
+            <span className={`text-center ${processing ? 'hidden' : ''}`}>
+                {children}
+            </span>
         </button>
     );
 }

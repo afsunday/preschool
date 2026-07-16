@@ -1,4 +1,4 @@
-import { BuilderApi, PageDoc, SectionSchema } from './types';
+import type { BuilderApi, PageDoc, SectionSchema } from './types';
 
 /**
  * Default fetch-based adapter (no axios — Inertia 3 dropped it). This is the
@@ -10,8 +10,10 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
     const json = async (res: Response) => {
         if (!res.ok) {
             const body = await res.json().catch(() => null);
+
             throw new Error(body?.message ?? `Request failed (${res.status})`);
         }
+
         return res.json();
     };
 
@@ -21,6 +23,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                 headers: { Accept: 'application/json' },
                 credentials: 'same-origin',
             });
+
             return (await json(r)).data;
         },
 
@@ -29,6 +32,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                 headers: { Accept: 'application/json' },
                 credentials: 'same-origin',
             });
+
             return (await json(r)).data;
         },
 
@@ -44,6 +48,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                     sections: doc.sections,
                 }),
             });
+
             return (await json(r)).data;
         },
 
@@ -61,6 +66,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                     sections: doc.sections,
                 }),
             });
+
             return (await json(r)).html;
         },
 
@@ -69,6 +75,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                 headers: { Accept: 'application/json' },
                 credentials: 'same-origin',
             });
+
             return (await json(r)).data;
         },
     };
@@ -80,6 +87,10 @@ function jsonHeaders(): Record<string, string> {
         'Content-Type': 'application/json',
     };
     const m = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
-    if (m) headers['X-XSRF-TOKEN'] = decodeURIComponent(m[1]);
+
+    if (m) {
+        headers['X-XSRF-TOKEN'] = decodeURIComponent(m[1]);
+    }
+
     return headers;
 }

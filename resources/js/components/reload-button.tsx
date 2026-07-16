@@ -6,7 +6,12 @@ type ReloadButtonProps = React.HTMLAttributes<HTMLSpanElement> & {
     duration?: number;
 };
 
-const ReloadButton: React.FC<ReloadButtonProps> = ({ reload, duration = 1000, className = '', ...props }) => {
+const ReloadButton: React.FC<ReloadButtonProps> = ({
+    reload,
+    duration = 1000,
+    className = '',
+    ...props
+}) => {
     const [isSpinning, setIsSpinning] = useState(false);
 
     const handleReload = () => {
@@ -19,7 +24,11 @@ const ReloadButton: React.FC<ReloadButtonProps> = ({ reload, duration = 1000, cl
     };
 
     return (
-        <button {...props} className={`btn-light cursor-pointer p-2 px-3 py-[9px] !shadow-sm hover:!shadow-none ${className}`} onClick={handleReload}>
+        <button
+            {...props}
+            className={`btn-light cursor-pointer p-2 px-3 py-[9px] !shadow-sm hover:!shadow-none ${className}`}
+            onClick={handleReload}
+        >
             <dt className={`h-max w-max ${isSpinning ? 'animate-spin' : ''}`}>
                 <RotateCw className="size-4" />
             </dt>

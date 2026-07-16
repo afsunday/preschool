@@ -13,7 +13,8 @@ import {
     Strikethrough,
     Underline as UnderlineIcon,
 } from 'lucide-react';
-import { type ReactNode, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import type { ReactNode } from 'react';
 
 type RichTextEditorProps = {
     value: string;
@@ -64,16 +65,24 @@ export default function RichTextEditor({
         }
     }, [value, editor]);
 
-    if (!editor) return null;
+    if (!editor) {
+        return null;
+    }
 
     const promptLink = () => {
         const previous = editor.getAttributes('link').href;
         const url = window.prompt('Link URL', previous || 'https://');
-        if (url === null) return;
-        if (url === '') {
-            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+        if (url === null) {
             return;
         }
+
+        if (url === '') {
+            editor.chain().focus().extendMarkRange('link').unsetLink().run();
+
+            return;
+        }
+
         editor
             .chain()
             .focus()
@@ -85,7 +94,10 @@ export default function RichTextEditor({
     const onPickImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         event.target.value = '';
-        if (!file) return;
+
+        if (!file) {
+            return;
+        }
 
         // Inline the picked file as a data URL. Callers wanting server uploads
         // can wrap this component and manage image insertion themselves.

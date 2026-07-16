@@ -1,22 +1,24 @@
-import { useEffect, useState } from 'react';
-import {
-    Dialog,
-    DialogBackdrop,
-    DialogPanel,
-} from '@headlessui/react';
+import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { Loader2, Trash2, X } from 'lucide-react';
+import { useState } from 'react';
 import { cn } from '../lib/cn';
-import { MediaInUseError, MediaItem, MediaPatch, MediaUsage } from './types';
+import type { MediaItem, MediaPatch, MediaUsage } from './types';
+import { MediaInUseError } from './types';
 
 function formatBytes(bytes: number): string {
-    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024) {
+        return `${bytes} B`;
+    }
+
     const units = ['KB', 'MB', 'GB'];
     let value = bytes / 1024;
     let i = 0;
+
     while (value >= 1024 && i < units.length - 1) {
         value /= 1024;
         i++;
     }
+
     return `${value.toFixed(value < 10 ? 1 : 0)} ${units[i]}`;
 }
 
@@ -39,14 +41,17 @@ export function MediaDetails({
     const [saving, setSaving] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [usages, setUsages] = useState<MediaUsage[] | null>(null);
+    const [prevItem, setPrevItem] = useState(item);
 
-    // Reset the form whenever a different item is opened.
-    useEffect(() => {
+    // Reset the form whenever a different item is opened. Adjusted during render
+    // rather than in an effect so the stale item's values are never committed.
+    if (prevItem !== item) {
+        setPrevItem(item);
         setTitle(item.title ?? '');
         setAlt(item.alt ?? '');
         setDescription(item.description ?? '');
         setUsages(null);
-    }, [item]);
+    }
 
     const dirty =
         title !== (item.title ?? '') ||
@@ -55,6 +60,7 @@ export function MediaDetails({
 
     const save = async () => {
         setSaving(true);
+
         try {
             await onSave(item.id, {
                 title: title || null,
@@ -71,6 +77,7 @@ export function MediaDetails({
     const remove = async () => {
         setDeleting(true);
         setUsages(null);
+
         try {
             await onDelete(item.id);
             onClose();

@@ -6,9 +6,14 @@
 /**
  * Append a query parameter to a URL, choosing the correct separator.
  */
-export function appendQueryParam(url: string | undefined | null, param: string, value: string = ''): string {
+export function appendQueryParam(
+    url: string | undefined | null,
+    param: string,
+    value: string = '',
+): string {
     const base = url ?? '';
     const separator = base.includes('?') ? '&' : '?';
+
     return `${base}${separator}${encodeURIComponent(param)}=${encodeURIComponent(value)}`;
 }
 
@@ -20,7 +25,9 @@ export function appendQueryParam(url: string | undefined | null, param: string, 
  * target from `window.location` instead.
  */
 export function pagingUrl(pageUrl?: string | null): string {
-    if (!pageUrl) return '#';
+    if (!pageUrl) {
+        return '#';
+    }
 
     const current = new URL(window.location.href);
     const incoming = new URL(pageUrl, window.location.origin);

@@ -5,12 +5,7 @@
  */
 
 export type MediaKind =
-    | 'image'
-    | 'video'
-    | 'audio'
-    | 'document'
-    | 'archive'
-    | 'other';
+    'image' | 'video' | 'audio' | 'document' | 'archive' | 'other';
 
 export interface MediaItem {
     id: number;
@@ -38,7 +33,9 @@ export interface MediaListResult {
     nextCursor: string | null;
 }
 
-export type MediaPatch = Partial<Pick<MediaItem, 'title' | 'alt' | 'description'>>;
+export type MediaPatch = Partial<
+    Pick<MediaItem, 'title' | 'alt' | 'description'>
+>;
 
 /** A place this media item is currently attached to. */
 export interface MediaUsage {

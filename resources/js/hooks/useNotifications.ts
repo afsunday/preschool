@@ -12,34 +12,55 @@ export const useNotifications = () => {
     const defDuration = 7000;
 
     // Success toast action
-    const success = useCallback((message?: string, duration?: number | null) => {
-        const key = Math.random().toString(36).slice(2);
-        setNotifToasts((prevToasts) => [...prevToasts, { type: 'success', message, key }]);
-        const dur = duration ? Number(duration) : defDuration;
+    const success = useCallback(
+        (message?: string, duration?: number | null) => {
+            const key = Math.random().toString(36).slice(2);
+            setNotifToasts((prevToasts) => [
+                ...prevToasts,
+                { type: 'success', message, key },
+            ]);
+            const dur = duration ? Number(duration) : defDuration;
 
-        setTimeout(() => {
-            setNotifToasts((prevToasts) => prevToasts.filter((toast) => toast.key !== key));
-        }, dur);
-    }, []);
+            setTimeout(() => {
+                setNotifToasts((prevToasts) =>
+                    prevToasts.filter((toast) => toast.key !== key),
+                );
+            }, dur);
+        },
+        [],
+    );
 
     // Error toast action
     const error = useCallback((message?: string, duration?: number | null) => {
         const key = Math.random().toString(36).slice(2);
-        setNotifToasts((prevToasts) => [...prevToasts, { type: 'danger', message, key }]);
+        setNotifToasts((prevToasts) => [
+            ...prevToasts,
+            { type: 'danger', message, key },
+        ]);
         const dur = duration ? Number(duration) : defDuration;
 
         setTimeout(() => {
-            setNotifToasts((prevToasts) => prevToasts.filter((toast) => toast.key !== key));
+            setNotifToasts((prevToasts) =>
+                prevToasts.filter((toast) => toast.key !== key),
+            );
         }, dur);
     }, []);
 
     // Remove a specific toast
     const remove = useCallback((key: string) => {
-        setNotifToasts((prevToasts) => prevToasts.filter((toast) => toast.key !== key));
+        setNotifToasts((prevToasts) =>
+            prevToasts.filter((toast) => toast.key !== key),
+        );
     }, []);
 
-    const setToasts = (type: string | 'success' | 'danger', message: string) => {
-        setNotifToasts((prev) => [...prev, { type, message, key: Math.random().toString(36).slice(2) }]);
+    const setToasts = (
+        type: string | 'success' | 'danger',
+        message: string,
+    ) => {
+        setNotifToasts((prev) => [
+            ...prev,
+            { type, message, key: Math.random().toString(36).slice(2) },
+        ]);
     };
 
     return {

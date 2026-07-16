@@ -1,5 +1,5 @@
 import { CircleHelp } from 'lucide-react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export default function Label({
     text,
@@ -30,8 +30,16 @@ export default function Label({
         | 'left-end';
 }) {
     return (
-        <label htmlFor={htmlFor} className={`mb-1 block text-sm ${tooltip ? 'flex items-center gap-x-1' : ''} ${className}`}>
-            {text} {required && <span className="text-base font-bold leading-[0] text-red-600">*</span>}
+        <label
+            htmlFor={htmlFor}
+            className={`mb-1 block text-sm ${tooltip ? 'flex items-center gap-x-1' : ''} ${className}`}
+        >
+            {text}{' '}
+            {required && (
+                <span className="text-base leading-[0] font-bold text-red-600">
+                    *
+                </span>
+            )}
             {tooltip && (
                 <div className="relative">
                     <code
@@ -44,7 +52,10 @@ export default function Label({
                         <CircleHelp className="size-4 text-gray-600" />
                     </code>
                     <div className="dropdown-menu z-10 hidden w-[200px] rounded-md border border-neutral-100 bg-[#262a33] bg-clip-padding px-3 py-4">
-                        <p className="text-sm text-slate-200" dangerouslySetInnerHTML={{ __html: tooltip }}></p>
+                        <p
+                            className="text-sm text-slate-200"
+                            dangerouslySetInnerHTML={{ __html: tooltip }}
+                        ></p>
                     </div>
                 </div>
             )}

@@ -1,8 +1,9 @@
 import { Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import type { MediaItem } from '@/cms/media';
+import { createHttpMediaApi, MediaPicker } from '@/cms/media';
 import RichTextEditor from '@/components/rich-text-editor';
-import { createHttpMediaApi, MediaItem, MediaPicker } from '@/cms/media';
-import { FieldSchema } from './types';
+import type { FieldSchema } from './types';
 
 const mediaApi = createHttpMediaApi('/admin/media/items');
 
@@ -62,7 +63,11 @@ function Control({
                     className="form-control"
                     value={(value as number | string) ?? ''}
                     onChange={(e) =>
-                        onChange(e.target.value === '' ? null : Number(e.target.value))
+                        onChange(
+                            e.target.value === ''
+                                ? null
+                                : Number(e.target.value),
+                        )
                     }
                 />
             );
@@ -153,38 +158,42 @@ function MediaField({
     onChange: (id: number | null) => void;
 }) {
     const [item, setItem] = useState<MediaItem | null>(null);
-    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        let active = true;
         if (value == null) {
-            setItem(null);
-            setLoading(false);
             return;
         }
-        setLoading(true);
+
+        let active = true;
+
         fetch(`/admin/media/items/${value}`, {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',
         })
             .then((r) => (r.ok ? r.json() : null))
             .then((j) => {
-                if (!active) return;
-                setItem(j?.data ?? null);
-                setLoading(false);
+                if (active) {
+                    setItem(j?.data ?? null);
+                }
             })
-            .catch(() => active && setLoading(false));
+            .catch(() => {});
+
         return () => {
             active = false;
         };
     }, [value]);
 
+    // Derived, not stored: the fetched item counts only once it matches the
+    // current id. Avoids setState-in-effect, and means a stale item can never be
+    // shown for a new value.
+    const resolved = value != null && item?.id === value ? item : null;
+
     return (
         <MediaPicker
             api={mediaApi}
-            value={item}
+            value={resolved}
             hasValue={value != null}
-            loading={loading && !item}
+            loading={value != null && resolved === null}
             kind={kind as MediaItem['kind'] | undefined}
             onChange={(picked) => onChange(picked?.id ?? null)}
         />
@@ -268,6 +277,7 @@ function RelationField({
             .then((r) => (r.ok ? r.json() : { data: [] }))
             .then((j) => active && setOptions(j.data ?? []))
             .catch(() => {});
+
         return () => {
             active = false;
         };

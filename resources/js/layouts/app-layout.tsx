@@ -1,6 +1,13 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Link, router, usePage } from '@inertiajs/react';
-import { FileText, Image, LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import {
+    ArrowLeftRight,
+    FileText,
+    Image,
+    LayoutDashboard,
+    LogOut,
+    Settings,
+} from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Avatar } from '@/components/avatar';
 import { UserInfo } from '@/components/user-info';
@@ -28,7 +35,15 @@ function TopBar() {
                     <span className="text-sm font-semibold">{name}</span>
                 </Link>
 
-                <div className="ml-auto flex items-center">
+                <div className="ml-auto flex items-center gap-2">
+                    <Link
+                        href="/portal"
+                        className="hidden items-center gap-1.5 rounded-[4px] border border-white/15 px-3 py-1.5 text-xs font-medium text-white/90 transition hover:bg-white/10 sm:flex"
+                    >
+                        <ArrowLeftRight className="size-3.5" />
+                        Switch to portal
+                    </Link>
+
                     {auth.user && (
                         <Menu as="div" className="relative">
                             <MenuButton className="flex items-center rounded-full p-1 transition hover:bg-white/10">
@@ -85,7 +100,7 @@ function PrimaryNav() {
             <div className="mx-auto w-full px-4 md:max-w-7xl">
                 <nav
                     aria-label="Primary navigation"
-                    className="-mb-px flex items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    className="-mb-px flex [scrollbar-width:none] items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                 >
                     {navItems.map((item) => {
                         const Icon = item.icon;

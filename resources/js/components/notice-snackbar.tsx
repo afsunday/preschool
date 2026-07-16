@@ -1,8 +1,8 @@
-import { useNotifications } from '@/hooks/notificationContext';
 import { Transition } from '@headlessui/react';
 import { usePage } from '@inertiajs/react';
 import { Fragment, useEffect, useState } from 'react';
 import { useLocalStorage } from 'react-use';
+import { useNotifications } from '@/hooks/notificationContext';
 
 type Flash = {
     success?: string | null;
@@ -13,15 +13,24 @@ type Flash = {
 export const NoticeSnackbar = () => {
     const { flash = {} } = usePage().props as { flash?: Flash };
     const { toasts, remove } = useNotifications();
-    const [flashTime, setFlashTime] = useLocalStorage<string | number | null>('notice-flash', null);
-    const [visibleFlash, setVisibleFlash] = useState<{ success: string | null; error: string | null }>({
+    const [flashTime, setFlashTime] = useLocalStorage<string | number | null>(
+        'notice-flash',
+        null,
+    );
+    const [visibleFlash, setVisibleFlash] = useState<{
+        success: string | null;
+        error: string | null;
+    }>({
         success: flash?.success || null,
         error: flash?.error || null,
     });
 
     useEffect(() => {
         if (flash.success) {
-            setVisibleFlash((prev) => ({ ...prev, success: flash.success ?? null }));
+            setVisibleFlash((prev) => ({
+                ...prev,
+                success: flash.success ?? null,
+            }));
 
             setTimeout(() => {
                 setVisibleFlash((prev) => ({ ...prev, success: null }));
@@ -31,7 +40,10 @@ export const NoticeSnackbar = () => {
         }
 
         if (flash.error) {
-            setVisibleFlash((prev) => ({ ...prev, error: flash.error ?? null }));
+            setVisibleFlash((prev) => ({
+                ...prev,
+                error: flash.error ?? null,
+            }));
 
             setTimeout(() => {
                 setVisibleFlash((prev) => ({ ...prev, error: null }));
@@ -46,7 +58,10 @@ export const NoticeSnackbar = () => {
         <div>
             <Transition
                 as={Fragment}
-                show={visibleFlash?.success !== null && flashTime !== flash.timestamp}
+                show={
+                    visibleFlash?.success !== null &&
+                    flashTime !== flash.timestamp
+                }
                 enter="transform transition ease-out duration-300"
                 enterFrom="opacity-0 translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -54,18 +69,25 @@ export const NoticeSnackbar = () => {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-2"
             >
-                <div className="snackbar fixed right-0 top-0 z-[100] mx-auto pl-3 pr-3 sm:mx-0 sm:pl-0 sm:pr-4">
+                <div className="snackbar fixed top-0 right-0 z-[100] mx-auto pr-3 pl-3 sm:mx-0 sm:pr-4 sm:pl-0">
                     <div className="flex">
                         <nav className="flex-auto">
                             <div className="snack-success rounded-md">
                                 <div className="flex items-start">
                                     <div className="px-3 py-5">
-                                        <p className="text-[13px] font-normal leading-[1.25]">{visibleFlash?.success}</p>
+                                        <p className="text-[13px] leading-[1.25] font-normal">
+                                            {visibleFlash?.success}
+                                        </p>
                                     </div>
                                     <button
                                         className="m-auto mr-3 rounded-lg border border-neutral-300 px-2 py-1 text-neutral-300 sm:mr-3"
                                         role="button"
-                                        onClick={() => setVisibleFlash((prev) => ({ ...prev, success: null }))}
+                                        onClick={() =>
+                                            setVisibleFlash((prev) => ({
+                                                ...prev,
+                                                success: null,
+                                            }))
+                                        }
                                     >
                                         OK
                                     </button>
@@ -78,7 +100,10 @@ export const NoticeSnackbar = () => {
 
             <Transition
                 as={Fragment}
-                show={visibleFlash?.error !== null && flashTime !== flash.timestamp}
+                show={
+                    visibleFlash?.error !== null &&
+                    flashTime !== flash.timestamp
+                }
                 enter="transform transition ease-out duration-300"
                 enterFrom="opacity-0 translate-y-4"
                 enterTo="opacity-100 translate-y-0"
@@ -86,18 +111,25 @@ export const NoticeSnackbar = () => {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-2"
             >
-                <div className="snackbar fixed right-0 top-0 z-[100] mx-auto pl-3 pr-3 sm:mx-0 sm:pl-0 sm:pr-4">
+                <div className="snackbar fixed top-0 right-0 z-[100] mx-auto pr-3 pl-3 sm:mx-0 sm:pr-4 sm:pl-0">
                     <div className="flex">
                         <nav className="flex-auto">
                             <div className="snack-danger rounded-md">
                                 <div className="flex items-start">
                                     <div className="px-3 py-5">
-                                        <p className="text-[13px] font-normal leading-[1.25]">{visibleFlash?.error}</p>
+                                        <p className="text-[13px] leading-[1.25] font-normal">
+                                            {visibleFlash?.error}
+                                        </p>
                                     </div>
                                     <button
                                         className="m-auto mr-3 rounded-lg border border-neutral-300 px-2 py-1 text-neutral-300 sm:mr-3"
                                         role="button"
-                                        onClick={() => setVisibleFlash((prev) => ({ ...prev, error: null }))}
+                                        onClick={() =>
+                                            setVisibleFlash((prev) => ({
+                                                ...prev,
+                                                error: null,
+                                            }))
+                                        }
                                     >
                                         OK
                                     </button>
@@ -109,7 +141,7 @@ export const NoticeSnackbar = () => {
             </Transition>
 
             {/* Toasts from Store */}
-            <div className="fixed right-0 top-0 z-[100] mt-5 flex flex-col sm:mx-4">
+            <div className="fixed top-0 right-0 z-[100] mt-5 flex flex-col sm:mx-4">
                 {toasts.map((toast) => (
                     <Transition
                         key={toast.key}
@@ -122,18 +154,24 @@ export const NoticeSnackbar = () => {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-4"
                     >
-                        <div className="snackbar z-[100] mx-auto mb-2 !pt-2 pl-3 pr-3 sm:mx-0 sm:pl-0 sm:pr-4">
+                        <div className="snackbar z-[100] mx-auto mb-2 !pt-2 pr-3 pl-3 sm:mx-0 sm:pr-4 sm:pl-0">
                             <div className="flex">
                                 <nav className="flex-auto">
-                                    <div className={`snack-${toast.type} rounded-md`}>
+                                    <div
+                                        className={`snack-${toast.type} rounded-md`}
+                                    >
                                         <div className="flex items-start">
                                             <div className="px-3 py-5">
-                                                <p className="text-[13px] font-normal leading-[1.25] text-black">{toast.message}</p>
+                                                <p className="text-[13px] leading-[1.25] font-normal text-black">
+                                                    {toast.message}
+                                                </p>
                                             </div>
                                             <button
                                                 className="m-auto mr-3 rounded-lg border border-neutral-300 bg-transparent px-2 py-1 text-neutral-500 sm:mr-3"
                                                 role="button"
-                                                onClick={() => remove(toast.key)}
+                                                onClick={() =>
+                                                    remove(toast.key)
+                                                }
                                             >
                                                 OK
                                             </button>

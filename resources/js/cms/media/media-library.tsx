@@ -1,16 +1,10 @@
-import {
-    ChangeEvent,
-    DragEvent,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
 import { Loader2, Search, Upload, X } from 'lucide-react';
+import type { ChangeEvent, DragEvent } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../lib/cn';
 import { MediaCard } from './media-card';
 import { MediaDetails } from './media-details';
-import { MediaApi, MediaItem, MediaKind } from './types';
+import type { MediaApi, MediaItem, MediaKind } from './types';
 import { useMediaList } from './use-media-list';
 
 const KIND_CHIPS: { value: MediaKind | 'all'; label: string }[] = [
@@ -65,7 +59,9 @@ export function MediaLibrary({
 
     // When locked to one kind, force the filter and hide the chips.
     useEffect(() => {
-        if (fixedKind) setKind(fixedKind);
+        if (fixedKind) {
+            setKind(fixedKind);
+        }
     }, [fixedKind, setKind]);
 
     // Clicking a card: pick it (select mode) or open its details (manage mode).
@@ -80,14 +76,17 @@ export function MediaLibrary({
     const upload = useCallback(
         async (files: FileList | File[] | null) => {
             const list = files ? Array.from(files) : [];
-            if (list.length === 0) return;
+
+            if (list.length === 0) {
+                return;
+            }
+
             setProgress(0);
+
             try {
                 await uploadFiles(list, setProgress);
             } catch (e) {
-                onError?.(
-                    e instanceof Error ? e.message : 'Upload failed',
-                );
+                onError?.(e instanceof Error ? e.message : 'Upload failed');
             } finally {
                 setProgress(null);
             }
@@ -156,23 +155,23 @@ export function MediaLibrary({
 
             {/* Kind filter chips (hidden when locked to a single kind) */}
             {!fixedKind && (
-            <div className="flex flex-wrap gap-1.5">
-                {KIND_CHIPS.map((chip) => (
-                    <button
-                        key={chip.value}
-                        type="button"
-                        onClick={() => setKind(chip.value)}
-                        className={cn(
-                            'rounded-[4px] px-3 py-1 text-xs font-medium transition',
-                            kind === chip.value
-                                ? 'bg-neutral-900 text-white'
-                                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200',
-                        )}
-                    >
-                        {chip.label}
-                    </button>
-                ))}
-            </div>
+                <div className="flex flex-wrap gap-1.5">
+                    {KIND_CHIPS.map((chip) => (
+                        <button
+                            key={chip.value}
+                            type="button"
+                            onClick={() => setKind(chip.value)}
+                            className={cn(
+                                'rounded-[4px] px-3 py-1 text-xs font-medium transition',
+                                kind === chip.value
+                                    ? 'bg-neutral-900 text-white'
+                                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200',
+                            )}
+                        >
+                            {chip.label}
+                        </button>
+                    ))}
+                </div>
             )}
 
             {/* Drop area + grid. @container so cards reflow off THIS box's

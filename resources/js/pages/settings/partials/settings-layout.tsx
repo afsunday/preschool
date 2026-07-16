@@ -28,7 +28,10 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
             <div className="flex flex-col lg:flex-row lg:space-x-12">
                 <aside className="w-full max-w-xl lg:w-48">
-                    <nav className="flex flex-col space-y-1" aria-label="Settings">
+                    <nav
+                        className="flex flex-col space-y-1"
+                        aria-label="Settings"
+                    >
                         {settingsNavItems.map((item, index) => (
                             <Link
                                 key={`${toUrl(item.href)}-${index}`}
@@ -49,7 +52,9 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 <div className="my-6 h-px bg-black/10 lg:hidden" />
 
                 <div className="flex-1 md:max-w-2xl">
-                    <section className="max-w-xl space-y-12">{children}</section>
+                    <section className="max-w-xl space-y-12">
+                        {children}
+                    </section>
                 </div>
             </div>
         </div>

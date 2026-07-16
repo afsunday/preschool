@@ -6,14 +6,18 @@ interface ExtendedSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     loading?: boolean;
 }
 
-export const ExtendedSelect = ({ children, loading = false, ...props }: ExtendedSelectProps) => {
+export const ExtendedSelect = ({
+    children,
+    loading = false,
+    ...props
+}: ExtendedSelectProps) => {
     return (
         <div className="relative">
             <select {...props} className={`${props.className}`}>
                 {children}
             </select>
             {loading && (
-                <span className="absolute right-0 mr-3 top-1/4 rounded-full bg-zinc-300">
+                <span className="absolute top-1/4 right-0 mr-3 rounded-full bg-zinc-300">
                     <Circle />
                 </span>
             )}

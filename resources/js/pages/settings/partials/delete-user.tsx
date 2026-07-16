@@ -44,7 +44,8 @@ export default function DeleteUser() {
                 <p className="text-sm text-neutral-600">
                     Once your account is deleted, all of its resources and data
                     will also be permanently deleted. Please enter your password
-                    to confirm you would like to permanently delete your account.
+                    to confirm you would like to permanently delete your
+                    account.
                 </p>
 
                 <Form

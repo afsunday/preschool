@@ -1,5 +1,6 @@
 import { Loader2 } from 'lucide-react';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import type { RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export type Device = 'desktop' | 'tablet' | 'mobile';
 
@@ -35,19 +36,27 @@ export function PreviewFrame({
 
     useEffect(() => {
         const el = stageRef.current;
-        if (!el) return;
+
+        if (!el) {
+            return;
+        }
+
         const ro = new ResizeObserver(() =>
             setStage({ w: el.clientWidth, h: el.clientHeight }),
         );
         ro.observe(el);
+
         return () => ro.disconnect();
     }, []);
 
     useEffect(() => {
         const handler = (e: MessageEvent) => {
-            if (e.data?.source === 'cms-preview') onMessage(e.data);
+            if (e.data?.source === 'cms-preview') {
+                onMessage(e.data);
+            }
         };
         window.addEventListener('message', handler);
+
         return () => window.removeEventListener('message', handler);
     }, [onMessage]);
 

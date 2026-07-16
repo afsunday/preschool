@@ -4,7 +4,12 @@ type fieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
     divClassName?: string;
 };
 
-export default function LabeledField({ onChange, label, divClassName, ...props }: fieldProps) {
+export default function LabeledField({
+    onChange,
+    label,
+    divClassName,
+    ...props
+}: fieldProps) {
     const id = label.replace(/\s+/g, '-').toLowerCase();
 
     return (
@@ -12,7 +17,13 @@ export default function LabeledField({ onChange, label, divClassName, ...props }
             <label htmlFor={id} className="mb-1 block text-sm">
                 {label}
             </label>
-            <input id={id} placeholder="Jeremy" className="form-control bg-transparent" onChange={(e) => onChange(e)} {...props} />
+            <input
+                id={id}
+                placeholder="Jeremy"
+                className="form-control bg-transparent"
+                onChange={(e) => onChange(e)}
+                {...props}
+            />
         </div>
     );
 }

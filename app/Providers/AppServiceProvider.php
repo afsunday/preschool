@@ -37,7 +37,12 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function configureAuthorization(): void
     {
-        Gate::define('cms', fn (User $user): bool => $user->user_type === 'admin');
+        Gate::define('cms', fn (User $user): bool => $user->isAdmin());
+
+        // Portal roles. Classes and children are admin-only to create; teachers
+        // run the room they are assigned to.
+        Gate::define('portal-admin', fn (User $user): bool => $user->isAdmin());
+        Gate::define('portal-staff', fn (User $user): bool => $user->isStaff());
     }
 
     /**

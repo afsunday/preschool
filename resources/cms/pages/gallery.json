@@ -1,0 +1,155 @@
+{
+    "slug": "gallery",
+    "title": "Gallery",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "From messy art projects to outdoor adventures — see the joy, growth, and magic that happens here every day."
+    },
+    "sections": [
+        {
+            "type": "gallery_hero",
+            "name": "hero",
+            "settings": {
+                "title": "A peek into the WODI world.",
+                "subtitle": "From messy art projects to outdoor adventures — see the joy, growth, and magic that happens here every day.",
+                "photos": [
+                    { "src": "/images/admissions/kids-tablets.jpg" },
+                    { "src": "/images/admissions/class-1.jpg" },
+                    { "src": "/images/about/gallery-2.jpg" },
+                    { "src": "/images/about/nurturing.jpg" },
+                    { "src": "/images/admissions/class-3.jpg" },
+                    { "src": "/images/admissions/classroom-girl.jpg" }
+                ]
+            }
+        },
+        {
+            "type": "gallery_grid",
+            "name": "grid",
+            "settings": {
+                "groups": [
+                    {
+                        "tall_src": "/images/about/gallery-1.jpg",
+                        "top_src": "/images/about/gallery-3.jpg",
+                        "bottom_src": "/images/admissions/class-2.jpg"
+                    },
+                    {
+                        "tall_src": "/images/about/program-classroom.jpg",
+                        "top_src": "/images/about/gallery-4.jpg",
+                        "bottom_src": "/images/about/gallery-6.jpg"
+                    },
+                    {
+                        "tall_src": "/images/admissions/class-4.jpg",
+                        "top_src": "/images/about/gallery-2.jpg",
+                        "bottom_src": "/images/admissions/class-5.jpg"
+                    },
+                    {
+                        "tall_src": "/images/admissions/class-1.jpg",
+                        "top_src": "/images/about/gallery-8.jpg",
+                        "bottom_src": "/images/about/gallery-7.jpg"
+                    },
+                    {
+                        "tall_src": "/images/about/testimonial.jpg",
+                        "top_src": "/images/about/nurturing.jpg",
+                        "bottom_src": "/images/about/gallery-5.jpg"
+                    },
+                    {
+                        "tall_src": "/images/admissions/class-3.jpg",
+                        "top_src": "/images/admissions/classroom-girl.jpg",
+                        "bottom_src": "/images/admissions/kids-tablets.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "gallery_hero": {
+            "name": "Gallery Hero",
+            "group": "Gallery",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "subtitle",
+                    "type": "textarea",
+                    "label": "Subtitle"
+                },
+                {
+                    "id": "photos",
+                    "type": "repeater",
+                    "label": "Panorama Photos",
+                    "fields": [
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        }
+                    ]
+                }
+            ]
+        },
+        "gallery_grid": {
+            "name": "Gallery Grid",
+            "group": "Gallery",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "groups",
+                    "type": "repeater",
+                    "label": "Groups",
+                    "fields": [
+                        {
+                            "id": "tall",
+                            "type": "media",
+                            "label": "Tall Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "tall_src",
+                            "type": "url",
+                            "label": "Tall Fallback Path"
+                        },
+                        {
+                            "id": "top",
+                            "type": "media",
+                            "label": "Top Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "top_src",
+                            "type": "url",
+                            "label": "Top Fallback Path"
+                        },
+                        {
+                            "id": "bottom",
+                            "type": "media",
+                            "label": "Bottom Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "bottom_src",
+                            "type": "url",
+                            "label": "Bottom Fallback Path"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -27,11 +27,17 @@ export default function FilePicker({
     const handleDrop = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDropping(false);
-        if (e.dataTransfer.files.length) onFiles(e.dataTransfer.files);
+
+        if (e.dataTransfer.files.length) {
+            onFiles(e.dataTransfer.files);
+        }
     };
 
     const handleBrowse = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length) onFiles(e.target.files);
+        if (e.target.files?.length) {
+            onFiles(e.target.files);
+        }
+
         e.target.value = '';
     };
 
@@ -48,12 +54,17 @@ export default function FilePicker({
             }}
             className={cn(
                 'relative grid place-items-center rounded-[4px] border border-dashed bg-neutral-50 py-10 transition',
-                dropping ? 'border-neutral-500 bg-neutral-100' : 'border-black/15',
+                dropping
+                    ? 'border-neutral-500 bg-neutral-100'
+                    : 'border-black/15',
                 className,
             )}
         >
             <div className="flex flex-col items-center gap-2 text-center">
-                <CloudUpload className="size-7 text-neutral-400" strokeWidth={1.5} />
+                <CloudUpload
+                    className="size-7 text-neutral-400"
+                    strokeWidth={1.5}
+                />
                 <span className="text-sm text-neutral-600">
                     Drag and drop files, or
                 </span>

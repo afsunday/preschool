@@ -1,12 +1,12 @@
-import {
+import type {
     MediaApi,
-    MediaInUseError,
     MediaItem,
     MediaListResult,
     MediaPatch,
     MediaQuery,
     UploadOptions,
 } from './types';
+import { MediaInUseError } from './types';
 
 /**
  * The default HTTP adapter. This function is the ONLY host-aware code in the
@@ -21,17 +21,30 @@ export function createHttpMediaApi(baseUrl: string): MediaApi {
     return {
         async list(query: MediaQuery): Promise<MediaListResult> {
             const params = new URLSearchParams();
-            if (query.q) params.set('q', query.q);
-            if (query.kind && query.kind !== 'all') params.set('kind', query.kind);
-            if (query.cursor) params.set('cursor', query.cursor);
+
+            if (query.q) {
+                params.set('q', query.q);
+            }
+
+            if (query.kind && query.kind !== 'all') {
+                params.set('kind', query.kind);
+            }
+
+            if (query.cursor) {
+                params.set('cursor', query.cursor);
+            }
 
             const res = await fetch(`${base}?${params.toString()}`, {
                 headers: { Accept: 'application/json' },
                 credentials: 'same-origin',
             });
-            if (!res.ok) throw await httpError(res);
+
+            if (!res.ok) {
+                throw await httpError(res);
+            }
 
             const json = await res.json();
+
             return {
                 data: json.data as MediaItem[],
                 nextCursor: json.meta?.next_cursor ?? null,
@@ -50,7 +63,10 @@ export function createHttpMediaApi(baseUrl: string): MediaApi {
                 xhr.withCredentials = true;
                 xhr.setRequestHeader('Accept', 'application/json');
                 const token = xsrfToken();
-                if (token) xhr.setRequestHeader('X-XSRF-TOKEN', token);
+
+                if (token) {
+                    xhr.setRequestHeader('X-XSRF-TOKEN', token);
+                }
 
                 xhr.upload.onprogress = (e) => {
                     if (e.lengthComputable && opts?.onProgress) {
@@ -70,7 +86,8 @@ export function createHttpMediaApi(baseUrl: string): MediaApi {
                         );
                     }
                 };
-                xhr.onerror = () => reject(new Error('Network error during upload'));
+                xhr.onerror = () =>
+                    reject(new Error('Network error during upload'));
                 xhr.send(form);
             });
         },
@@ -82,7 +99,11 @@ export function createHttpMediaApi(baseUrl: string): MediaApi {
                 credentials: 'same-origin',
                 body: JSON.stringify(patch),
             });
-            if (!res.ok) throw await httpError(res);
+
+            if (!res.ok) {
+                throw await httpError(res);
+            }
+
             return (await res.json()).data as MediaItem;
         },
 
@@ -92,11 +113,16 @@ export function createHttpMediaApi(baseUrl: string): MediaApi {
                 headers: jsonHeaders(),
                 credentials: 'same-origin',
             });
+
             if (res.status === 409) {
                 const json = await res.json().catch(() => ({}));
+
                 throw new MediaInUseError(json.usages ?? []);
             }
-            if (!res.ok) throw await httpError(res);
+
+            if (!res.ok) {
+                throw await httpError(res);
+            }
         },
     };
 }
@@ -107,17 +133,23 @@ function jsonHeaders(): Record<string, string> {
         'Content-Type': 'application/json',
     };
     const token = xsrfToken();
-    if (token) headers['X-XSRF-TOKEN'] = token;
+
+    if (token) {
+        headers['X-XSRF-TOKEN'] = token;
+    }
+
     return headers;
 }
 
 /** Read Laravel's XSRF-TOKEN cookie (URL-encoded) for CSRF-protected writes. */
 function xsrfToken(): string | null {
     const match = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
+
     return match ? decodeURIComponent(match[1]) : null;
 }
 
 async function httpError(res: Response): Promise<Error> {
     const body = await res.json().catch(() => null);
+
     return new Error(body?.message ?? `Request failed (${res.status})`);
 }

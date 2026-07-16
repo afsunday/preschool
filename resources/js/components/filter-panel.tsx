@@ -13,18 +13,24 @@ interface FilterPanelProps {
     children: ReactNode;
 }
 
-export function FilterPanel({ filterCount, resetFilter, onApplyFilter, isLoading, children }: FilterPanelProps) {
+export function FilterPanel({
+    filterCount,
+    resetFilter,
+    onApplyFilter,
+    isLoading,
+    children,
+}: FilterPanelProps) {
     return (
         <div className="panel-cover static">
             <button
                 data-lc-toggle="dropdown"
                 data-popper-placement="bottom-end"
-                className="btn-dark !py-3 relative flex items-center gap-x-1.5 rounded-[5px] px-3.5"
+                className="btn-dark relative flex items-center gap-x-1.5 rounded-[5px] px-3.5 !py-3"
             >
                 <Filter className="size-4 text-white" />
                 <span className="hidden sm:block">Filter</span>
                 {filterCount > 0 && (
-                    <span className="absolute -right-1 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-semibold text-white">
+                    <span className="absolute -top-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-semibold text-white">
                         {filterCount}
                     </span>
                 )}
@@ -55,7 +61,11 @@ export function FilterPanel({ filterCount, resetFilter, onApplyFilter, isLoading
                             >
                                 Reset
                             </button>
-                            <button disabled={isLoading} type="submit" className="btn-dark px-5">
+                            <button
+                                disabled={isLoading}
+                                type="submit"
+                                className="btn-dark px-5"
+                            >
                                 Filter
                             </button>
                         </div>
@@ -66,7 +76,10 @@ export function FilterPanel({ filterCount, resetFilter, onApplyFilter, isLoading
     );
 }
 
-interface FilterInputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface FilterInputProps extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    'onChange'
+> {
     name: string;
     label: string;
     type?: string;
@@ -129,7 +142,13 @@ export function FilterSelect({
     return (
         <div className={wrapClassName}>
             <Label htmlFor={name} text={label} />
-            <ExtendedSelect id={name} className={className} value={value} onChange={(e) => onChange(name, e.target.value)} loading={loading}>
+            <ExtendedSelect
+                id={name}
+                className={className}
+                value={value}
+                onChange={(e) => onChange(name, e.target.value)}
+                loading={loading}
+            >
                 {children}
             </ExtendedSelect>
         </div>
@@ -143,7 +162,12 @@ interface FilterGridProps {
     children: ReactNode;
 }
 
-export function FilterGrid({ name, label, wrapClassName = 'col-span-1', children }: FilterGridProps) {
+export function FilterGrid({
+    name,
+    label,
+    wrapClassName = 'col-span-1',
+    children,
+}: FilterGridProps) {
     return (
         <div className={wrapClassName}>
             <Label htmlFor={name} text={label} />

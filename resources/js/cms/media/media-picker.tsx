@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
 import { ImageOff, Loader2, X } from 'lucide-react';
+import { useState } from 'react';
 import { cn } from '../lib/cn';
 import { MediaLibrary } from './media-library';
-import { MediaApi, MediaItem, MediaKind } from './types';
+import type { MediaApi, MediaItem, MediaKind } from './types';
 
 export interface MediaPickerProps {
     api: MediaApi;

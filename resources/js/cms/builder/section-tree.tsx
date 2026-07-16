@@ -2,7 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Eye, EyeOff, GripVertical, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/cn';
-import { SectionInstance, SectionSchema } from './types';
+import type { SectionInstance, SectionSchema } from './types';
 
 export function SectionTree({
     sections,
@@ -31,6 +31,7 @@ export function SectionTree({
     // Group schemas for the Add menu.
     const groups = schemas.reduce<Record<string, SectionSchema[]>>((acc, s) => {
         (acc[s.group] ??= []).push(s);
+
         return acc;
     }, {});
 
@@ -76,7 +77,9 @@ export function SectionTree({
             <div className="flex-1 overflow-y-auto px-2 pb-2">
                 {sections.length === 0 && (
                     <div className="mt-6 rounded-[6px] border border-dashed border-black/10 px-3 py-8 text-center">
-                        <p className="text-sm text-neutral-400">No blocks yet.</p>
+                        <p className="text-sm text-neutral-400">
+                            No blocks yet.
+                        </p>
                         <p className="mt-0.5 text-xs text-neutral-400">
                             Use “Add block” to start.
                         </p>
@@ -94,12 +97,16 @@ export function SectionTree({
                         }}
                         onDragOver={(e) => {
                             e.preventDefault();
-                            if (overIndex !== index) setOverIndex(index);
+
+                            if (overIndex !== index) {
+                                setOverIndex(index);
+                            }
                         }}
                         onDrop={() => {
                             if (dragIndex !== null && dragIndex !== index) {
                                 onReorder(dragIndex, index);
                             }
+
                             setDragIndex(null);
                             setOverIndex(null);
                         }}

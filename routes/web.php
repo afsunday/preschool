@@ -2,23 +2,71 @@
 
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\PageBuilderController;
+use App\Http\Controllers\PortalClassroomController;
+use App\Http\Controllers\PortalController;
+use App\Http\Controllers\PortalJoinController;
+use App\Http\Controllers\PortalMessageController;
+use App\Http\Controllers\PortalPostController;
+use App\Http\Controllers\PortalReportController;
 use App\Http\Controllers\SitePageController;
 use Illuminate\Support\Facades\Route;
 
-// Public site — the homepage now renders from the CMS (DB-driven).
+// Public site — every page renders from the CMS (DB-driven). The controller
+// renders the Blade view named by the slug, so the URL and the view can differ
+// (/forms-policies -> forms).
 Route::get('/', [SitePageController::class, 'show'])->name('home');
-Route::view('/about', 'about')->name('about');
-Route::view('/admissions', 'admissions')->name('admissions');
-Route::view('/resources', 'resources')->name('resources');
-Route::view('/gallery', 'gallery')->name('gallery');
-Route::view('/forms-policies', 'forms')->name('forms');
-Route::view('/faq', 'faq')->name('faq');
-Route::view('/contact', 'contact')->name('contact');
+Route::get('/about', [SitePageController::class, 'show'])->defaults('slug', 'about')->name('about');
+Route::get('/admissions', [SitePageController::class, 'show'])->defaults('slug', 'admissions')->name('admissions');
+Route::get('/resources', [SitePageController::class, 'show'])->defaults('slug', 'resources')->name('resources');
+Route::get('/gallery', [SitePageController::class, 'show'])->defaults('slug', 'gallery')->name('gallery');
+Route::get('/forms-policies', [SitePageController::class, 'show'])->defaults('slug', 'forms')->name('forms');
+Route::get('/faq', [SitePageController::class, 'show'])->defaults('slug', 'faq')->name('faq');
+Route::get('/contact', [SitePageController::class, 'show'])->defaults('slug', 'contact')->name('contact');
 
 // Admin — Inertia/React.
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    // Parent/teacher-facing portal (distinct chrome from the admin CMS).
+    // Access is per-room via ClassroomPolicy: staff run their room, a parent
+    // reaches a room only through their own child.
+    Route::prefix('portal')->name('portal.')->group(function () {
+        Route::get('/', [PortalController::class, 'home'])->name('home');
+
+        // Linking a parent to a child — redeeming the child's invite code is the
+        // whole relationship system.
+        Route::get('join', [PortalJoinController::class, 'show'])->name('join');
+        Route::post('join', [PortalJoinController::class, 'store'])->name('join.store');
+
+        // Classes are admin-only to create (enforced by ClassroomPolicy).
+        Route::post('classes', [PortalClassroomController::class, 'store'])->name('classes.store');
+        Route::patch('classes/{classroom}', [PortalClassroomController::class, 'update'])
+            ->name('classes.update');
+        Route::delete('classes/{classroom}', [PortalClassroomController::class, 'destroy'])
+            ->name('classes.destroy');
+
+        Route::prefix('classes/{classroom}')->name('classes.')->group(function () {
+            Route::get('/', [PortalController::class, 'feed'])->name('feed');
+            Route::get('children', [PortalController::class, 'children'])->name('children');
+            Route::get('today', [PortalController::class, 'today'])->name('today');
+            Route::get('chats/{conversation?}', [PortalController::class, 'chats'])->name('chats');
+
+            Route::post('posts', [PortalPostController::class, 'store'])->name('posts.store');
+            Route::delete('posts/{post}', [PortalPostController::class, 'destroy'])->name('posts.destroy');
+
+            Route::post('chats/{conversation}/messages', [PortalMessageController::class, 'store'])
+                ->name('messages.store');
+        });
+
+        // Daily reports — staff-only writes (enforced in the controller).
+        Route::prefix('children/{child}/report')->name('report.')->group(function () {
+            Route::patch('/', [PortalReportController::class, 'update'])->name('update');
+            Route::post('entries', [PortalReportController::class, 'addEntry'])->name('entries.store');
+            Route::delete('entries/{entry}', [PortalReportController::class, 'removeEntry'])->name('entries.destroy');
+            Route::post('publish', [PortalReportController::class, 'publish'])->name('publish');
+        });
+    });
 
     // CMS admin — content tools, guarded by the `cms` gate (user_type = admin).
     Route::middleware('can:cms')->group(function () {

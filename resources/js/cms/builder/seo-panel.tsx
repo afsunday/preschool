@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { createHttpMediaApi, MediaItem, MediaPicker } from '@/cms/media';
-import { PageDoc } from './types';
+import type { MediaItem } from '@/cms/media';
+import { createHttpMediaApi, MediaPicker } from '@/cms/media';
+import type { PageDoc } from './types';
 
 const mediaApi = createHttpMediaApi('/admin/media/items');
 
@@ -75,14 +76,17 @@ export function SeoPanel({
                             Header scripts
                         </span>
                         <span className="mb-1 block text-[11px] text-neutral-400">
-                            Injected into &lt;head&gt; — analytics, meta tags, etc.
+                            Injected into &lt;head&gt; — analytics, meta tags,
+                            etc.
                         </span>
                         <textarea
                             className="form-control font-mono text-xs"
                             rows={5}
                             value={doc.headerScripts ?? ''}
                             onChange={(e) =>
-                                onChange({ headerScripts: e.target.value || null })
+                                onChange({
+                                    headerScripts: e.target.value || null,
+                                })
                             }
                             placeholder="<!-- e.g. <script>…</script> -->"
                         />
@@ -93,14 +97,17 @@ export function SeoPanel({
                             Footer scripts
                         </span>
                         <span className="mb-1 block text-[11px] text-neutral-400">
-                            Injected before &lt;/body&gt; — chat widgets, pixels, etc.
+                            Injected before &lt;/body&gt; — chat widgets,
+                            pixels, etc.
                         </span>
                         <textarea
                             className="form-control font-mono text-xs"
                             rows={5}
                             value={doc.footerScripts ?? ''}
                             onChange={(e) =>
-                                onChange({ footerScripts: e.target.value || null })
+                                onChange({
+                                    footerScripts: e.target.value || null,
+                                })
                             }
                             placeholder="<!-- e.g. <script>…</script> -->"
                         />
@@ -121,11 +128,12 @@ function OgImageField({
     const [item, setItem] = useState<MediaItem | null>(null);
 
     useEffect(() => {
-        let active = true;
         if (value == null) {
-            setItem(null);
             return;
         }
+
+        let active = true;
+
         fetch(`/admin/media/items/${value}`, {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',
@@ -133,15 +141,21 @@ function OgImageField({
             .then((r) => (r.ok ? r.json() : null))
             .then((j) => active && setItem(j?.data ?? null))
             .catch(() => {});
+
         return () => {
             active = false;
         };
     }, [value]);
 
+    // Derived, not stored: the fetched item counts only once it matches the
+    // current id. Avoids setState-in-effect, and means a stale item can never be
+    // shown for a new value.
+    const resolved = value != null && item?.id === value ? item : null;
+
     return (
         <MediaPicker
             api={mediaApi}
-            value={item}
+            value={resolved}
             kind="image"
             onChange={(picked) => onChange(picked?.id ?? null)}
         />

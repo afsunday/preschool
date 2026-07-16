@@ -1,5 +1,6 @@
 import { Loader2 } from 'lucide-react';
-import React, { Children, FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import React, { Children } from 'react';
 
 type ModalProps = PropsWithChildren<{
     hidden?: boolean;
@@ -25,8 +26,15 @@ const ActionDialog: FC<ModalProps> = ({
     closeClassName,
     sendClassName,
 }) => {
-    const handleClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if ((event.target as HTMLElement).classList.contains('modal-backdrop') && dismissable) {
+    const handleClose = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ) => {
+        if (
+            (event.target as HTMLElement).classList.contains(
+                'modal-backdrop',
+            ) &&
+            dismissable
+        ) {
             onClose?.();
         }
     };
@@ -37,7 +45,9 @@ const ActionDialog: FC<ModalProps> = ({
         childrenArray.find(
             (child) =>
                 React.isValidElement(child) &&
-                ((child.props as Record<string, unknown>).title === name || (child.props as Record<string, unknown>)['data-slot'] === name),
+                ((child.props as Record<string, unknown>).title === name ||
+                    (child.props as Record<string, unknown>)['data-slot'] ===
+                        name),
         );
 
     const iconSlot = findSlot('icon');
@@ -46,20 +56,28 @@ const ActionDialog: FC<ModalProps> = ({
 
     return (
         <div
-            className={`modal-backdrop fixed inset-0 z-[50] flex h-full translate-y-full items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-[0.25] backdrop-blur-[2px] px-4 transition-transform duration-100 md:translate-x-full md:translate-y-0 ${
+            className={`modal-backdrop bg-opacity-[0.25] fixed inset-0 z-[50] flex h-full translate-y-full items-center justify-center overflow-x-hidden overflow-y-auto bg-black px-4 backdrop-blur-[2px] transition-transform duration-100 md:translate-x-full md:translate-y-0 ${
                 hidden ? '!translate-y-0 md:!translate-x-0' : ''
             }`}
             onClick={handleClose}
         >
             <div
-                className={`relative mr-0 box-content flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-lg border bg-white/80 backdrop-blur-sm xs:h-fit ${sizeClassName}`}
+                className={`xs:h-fit relative mr-0 box-content flex max-h-full w-full max-w-full flex-col overflow-hidden rounded-lg border bg-white/80 backdrop-blur-sm ${sizeClassName}`}
             >
-                <div className="scroll-sm relative h-full overflow-y-auto px-4 pb-8 pt-5 md:px-6">
-                    {iconSlot && <div className="mb-4 flex items-center justify-center">{iconSlot}</div>}
+                <div className="scroll-sm relative h-full overflow-y-auto px-4 pt-5 pb-8 md:px-6">
+                    {iconSlot && (
+                        <div className="mb-4 flex items-center justify-center">
+                            {iconSlot}
+                        </div>
+                    )}
 
-                    <span className="mx-auto mb-2 block max-w-[225px] text-center text-xl font-semibold leading-[1.15]">{titleSlot}</span>
+                    <span className="mx-auto mb-2 block max-w-[225px] text-center text-xl leading-[1.15] font-semibold">
+                        {titleSlot}
+                    </span>
 
-                    <span className="block px-5 text-center text-[13px] font-medium">{subtitleSlot}</span>
+                    <span className="block px-5 text-center text-[13px] font-medium">
+                        {subtitleSlot}
+                    </span>
 
                     <div className="mt-5 flex justify-center gap-x-3">
                         <button
@@ -72,11 +90,13 @@ const ActionDialog: FC<ModalProps> = ({
                         </button>
                         <button
                             type="button"
-                            className={`btn-${btn} flex w-28 items-center justify-center rounded-md gap-x-2 px-5 py-2.5 ${sendClassName}`}
+                            className={`btn-${btn} flex w-28 items-center justify-center gap-x-2 rounded-md px-5 py-2.5 ${sendClassName}`}
                             disabled={loading}
                             onClick={onAccept}
                         >
-                            <Loader2 className={`size-4 animate-spin ${loading ? '' : 'hidden'}`} />
+                            <Loader2
+                                className={`size-4 animate-spin ${loading ? '' : 'hidden'}`}
+                            />
                             <span>Proceed</span>
                         </button>
                     </div>

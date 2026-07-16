@@ -1,0 +1,176 @@
+{
+    "slug": "forms",
+    "title": "Forms & Policies",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "We welcome children from birth to age 12 into our programs. The registration process varies slightly by age group and location."
+    },
+    "sections": [
+        {
+            "type": "forms_hero",
+            "name": "hero",
+            "settings": {
+                "title": "We are here to help every step of the way!",
+                "body": "Serving our community since 1981, RisingOaks has several locations across the Waterloo Region in Ayr, Cambridge, Kitchener and Waterloo. Visit our <a href=\"#\">location finder</a> to find a location near you!",
+                "body_secondary": "We welcome children from birth to age 12 into our programs. The registration process varies slightly by age group and location.",
+                "image_src": "/images/about/hero-collage.jpg",
+                "image_alt": "Children playing at WODI Daycare"
+            }
+        },
+        {
+            "type": "forms_downloads",
+            "name": "downloads",
+            "settings": {
+                "lead_start": "Based on your care needs,",
+                "lead_emphasis": "select your child's age group and/or location type",
+                "lead_end": "below for more registration details:",
+                "forms": [
+                    {
+                        "src": "/images/admissions/class-1.jpg",
+                        "title": "Full-day early learning",
+                        "lines": [
+                            { "text": "Infant, Toddler, Preschool" },
+                            { "text": "Birth to age 5" }
+                        ],
+                        "cta_label": "Download Form",
+                        "cta_url": "#"
+                    },
+                    {
+                        "src": "/images/admissions/class-3.jpg",
+                        "title": "Before/After school",
+                        "lines": [
+                            { "text": "Cathoic school (WCDSB) locations" },
+                            { "text": "JK to age 12" }
+                        ],
+                        "cta_label": "Download Form",
+                        "cta_url": "#"
+                    },
+                    {
+                        "src": "/images/admissions/class-5.jpg",
+                        "title": "Before/After school",
+                        "lines": [
+                            { "text": "Public school(WRDSB) locations" },
+                            { "text": "JK to age 12" }
+                        ],
+                        "cta_label": "Download Form",
+                        "cta_url": "#"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "forms_hero": {
+            "name": "Forms Hero",
+            "group": "Forms & Policies",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "body",
+                    "type": "richtext",
+                    "label": "Body"
+                },
+                {
+                    "id": "body_secondary",
+                    "type": "textarea",
+                    "label": "Second Paragraph"
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Collage Image",
+                    "kind": "image"
+                },
+                {
+                    "id": "image_src",
+                    "type": "url",
+                    "label": "Collage Fallback Path"
+                },
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Collage Alt"
+                }
+            ]
+        },
+        "forms_downloads": {
+            "name": "Registration Forms",
+            "group": "Forms & Policies",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "lead_start",
+                    "type": "text",
+                    "label": "Lead Start"
+                },
+                {
+                    "id": "lead_emphasis",
+                    "type": "text",
+                    "label": "Lead Emphasis"
+                },
+                {
+                    "id": "lead_end",
+                    "type": "text",
+                    "label": "Lead End"
+                },
+                {
+                    "id": "forms",
+                    "type": "repeater",
+                    "label": "Forms",
+                    "fields": [
+                        {
+                            "id": "image",
+                            "type": "media",
+                            "label": "Image",
+                            "kind": "image"
+                        },
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "lines",
+                            "type": "repeater",
+                            "label": "Lines",
+                            "fields": [
+                                {
+                                    "id": "text",
+                                    "type": "text",
+                                    "label": "Text"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "cta_label",
+                            "type": "text",
+                            "label": "CTA Label"
+                        },
+                        {
+                            "id": "cta_url",
+                            "type": "url",
+                            "label": "CTA Url"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

@@ -11,16 +11,28 @@ const BRAND: Record<string, { bg: string; label: string }> = {
  * POS provider logo. Loads /icons/pos/{provider}.svg (drop official logos there),
  * and falls back to a brand-coloured initial badge if the file is missing.
  */
-export default function ProviderLogo({ provider, className = 'h-9 w-9' }: { provider: string; className?: string }) {
+export default function ProviderLogo({
+    provider,
+    className = 'h-9 w-9',
+}: {
+    provider: string;
+    className?: string;
+}) {
     const [failed, setFailed] = useState(false);
-    const brand = BRAND[provider] ?? { bg: '#3f3f46', label: provider.charAt(0).toUpperCase() };
+    const brand = BRAND[provider] ?? {
+        bg: '#3f3f46',
+        label: provider.charAt(0).toUpperCase(),
+    };
 
     // Reset the error state if the provider changes.
     useEffect(() => setFailed(false), [provider]);
 
     if (failed) {
         return (
-            <span className={`grid flex-shrink-0 place-content-center rounded-lg font-bold text-white ${className}`} style={{ backgroundColor: brand.bg }}>
+            <span
+                className={`grid flex-shrink-0 place-content-center rounded-lg font-bold text-white ${className}`}
+                style={{ backgroundColor: brand.bg }}
+            >
                 {brand.label}
             </span>
         );

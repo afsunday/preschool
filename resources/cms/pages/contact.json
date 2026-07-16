@@ -1,0 +1,114 @@
+{
+    "slug": "contact",
+    "title": "Contact Us",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "Have questions or feedback? We're here to help. Send us a message and we'll respond within 24hrs."
+    },
+    "sections": [
+        {
+            "type": "contact_form",
+            "name": "contact",
+            "settings": {
+                "title": "Let's chat, reach out to us",
+                "body": "Have questions or feedback? We're here to help. Send us a message, and we'll respond within 24hrs. For enquires related to partnership, collaboration and investment please reach out to us via email: <a href=\"mailto:info@wodischools.com\">info@wodischools.com</a>",
+                "submit_label": "Send Message",
+                "contacts": [
+                    {
+                        "icon": "mail",
+                        "title": "Email Us",
+                        "items": [
+                            { "label": "email go in here", "url": "mailto:info@wodischools.com" }
+                        ]
+                    },
+                    {
+                        "icon": "phone",
+                        "title": "Call Us",
+                        "items": [
+                            { "label": "0201-280-9919", "url": "tel:02012809919" },
+                            { "label": "0201-280-9919", "url": "tel:02012809919" }
+                        ]
+                    },
+                    {
+                        "icon": "locate",
+                        "title": "Find Us",
+                        "items": [
+                            { "label": "South Africa Address: 372 Oak Avenue, Ferndale, Ranburg, Gauteng, 2194", "url": "#" }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "contact_form": {
+            "name": "Contact Form",
+            "group": "Contact",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                },
+                {
+                    "id": "body",
+                    "type": "richtext",
+                    "label": "Body"
+                },
+                {
+                    "id": "submit_label",
+                    "type": "text",
+                    "label": "Submit Label"
+                },
+                {
+                    "id": "contacts",
+                    "type": "repeater",
+                    "label": "Contacts",
+                    "fields": [
+                        {
+                            "id": "icon",
+                            "type": "select",
+                            "label": "Icon",
+                            "default": "mail",
+                            "options": [
+                                { "value": "mail", "label": "Mail" },
+                                { "value": "phone", "label": "Phone" },
+                                { "value": "locate", "label": "Locate" }
+                            ]
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "items",
+                            "type": "repeater",
+                            "label": "Items",
+                            "fields": [
+                                {
+                                    "id": "label",
+                                    "type": "text",
+                                    "label": "Label"
+                                },
+                                {
+                                    "id": "url",
+                                    "type": "url",
+                                    "label": "Url"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

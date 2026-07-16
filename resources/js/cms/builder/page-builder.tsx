@@ -5,10 +5,11 @@ import { cn } from '../lib/cn';
 import { EditorFooter } from './editor-footer';
 import { EditorTopbar } from './editor-topbar';
 import { FieldPanel } from './field-panel';
-import { Device, PreviewFrame, PreviewMessage } from './preview-frame';
+import type { Device, PreviewMessage } from './preview-frame';
+import { PreviewFrame } from './preview-frame';
 import { SectionTree } from './section-tree';
 import { SeoPanel } from './seo-panel';
-import { BuilderApi, PageDoc, SectionInstance } from './types';
+import type { BuilderApi, PageDoc, SectionInstance } from './types';
 
 type Tab = 'design' | 'seo';
 
@@ -46,12 +47,17 @@ export function PageBuilder({
     const [rendering, setRendering] = useState(false);
 
     useEffect(() => {
-        if (pageQuery.data) setDoc(pageQuery.data);
+        if (pageQuery.data) {
+            setDoc(pageQuery.data);
+        }
     }, [pageQuery.data]);
 
     // Whole-page live preview: debounce-render the current doc → iframe srcdoc.
     useEffect(() => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         setRendering(true);
         const t = setTimeout(async () => {
             try {
@@ -62,6 +68,7 @@ export function PageBuilder({
                 setRendering(false);
             }
         }, 400);
+
         return () => clearTimeout(t);
     }, [doc, api, pageId, onError]);
 
@@ -94,7 +101,10 @@ export function PageBuilder({
     };
 
     const changeField = (key: string, value: unknown) => {
-        if (!doc || selectedId == null) return;
+        if (!doc || selectedId == null) {
+            return;
+        }
+
         setDoc({
             ...doc,
             sections: doc.sections.map((s) =>
@@ -106,11 +116,16 @@ export function PageBuilder({
     };
 
     const addSection = (type: string) => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         const schema = schemaQuery.data?.find((s) => s.key === type);
         const settings: Record<string, unknown> = {};
         schema?.fields.forEach((f) => {
-            if (f.default !== undefined) settings[f.id] = f.default;
+            if (f.default !== undefined) {
+                settings[f.id] = f.default;
+            }
         });
         const section: SectionInstance = {
             id: tempId--,
@@ -124,13 +139,22 @@ export function PageBuilder({
     };
 
     const removeSection = (id: number) => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         setDoc({ ...doc, sections: doc.sections.filter((s) => s.id !== id) });
-        if (selectedId === id) setSelectedId(null);
+
+        if (selectedId === id) {
+            setSelectedId(null);
+        }
     };
 
     const toggleVisible = (id: number) => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         setDoc({
             ...doc,
             sections: doc.sections.map((s) =>
@@ -140,7 +164,10 @@ export function PageBuilder({
     };
 
     const reorder = (from: number, to: number) => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         const sections = [...doc.sections];
         const [moved] = sections.splice(from, 1);
         sections.splice(to, 0, moved);
@@ -148,14 +175,20 @@ export function PageBuilder({
     };
 
     const save = () => {
-        if (!doc) return;
+        if (!doc) {
+            return;
+        }
+
         const sections = doc.sections.map((s, i) => ({ ...s, position: i }));
         saveMutation.mutate({ ...doc, sections });
     };
 
     const onPreviewMessage = useCallback(
         (msg: PreviewMessage) => {
-            if (msg.type === 'select' && msg.id != null) setSelectedId(msg.id);
+            if (msg.type === 'select' && msg.id != null) {
+                setSelectedId(msg.id);
+            }
+
             // Re-assert the current selection each time the frame reloads.
             if (msg.type === 'ready' && selectedId != null) {
                 postToFrame({ type: 'select', id: selectedId });
@@ -204,74 +237,72 @@ export function PageBuilder({
                 />
 
                 <div className="flex shrink-0 border-b border-black/10">
-                        {(
-                            [
-                                ['design', 'Design', Layers],
-                                ['seo', 'SEO', Search],
-                            ] as [Tab, string, typeof Layers][]
-                        ).map(([id, label, Icon]) => (
-                            <button
-                                key={id}
-                                type="button"
-                                onClick={() => setTab(id)}
-                                className={cn(
-                                    'flex flex-1 items-center justify-center gap-1.5 border-b-2 py-2.5 text-sm font-medium transition',
-                                    tab === id
-                                        ? 'border-neutral-900 text-neutral-900'
-                                        : 'border-transparent text-neutral-400 hover:text-neutral-700',
-                                )}
-                            >
-                                <Icon className="size-4" />
-                                {label}
-                            </button>
-                        ))}
-                    </div>
+                    {(
+                        [
+                            ['design', 'Design', Layers],
+                            ['seo', 'SEO', Search],
+                        ] as [Tab, string, typeof Layers][]
+                    ).map(([id, label, Icon]) => (
+                        <button
+                            key={id}
+                            type="button"
+                            onClick={() => setTab(id)}
+                            className={cn(
+                                'flex flex-1 items-center justify-center gap-1.5 border-b-2 py-2.5 text-sm font-medium transition',
+                                tab === id
+                                    ? 'border-neutral-900 text-neutral-900'
+                                    : 'border-transparent text-neutral-400 hover:text-neutral-700',
+                            )}
+                        >
+                            <Icon className="size-4" />
+                            {label}
+                        </button>
+                    ))}
+                </div>
 
-                    <div className="min-h-0 flex-1">
-                        {tab === 'seo' ? (
-                            <SeoPanel
-                                doc={doc}
-                                onChange={(patch) =>
-                                    setDoc({ ...doc, ...patch })
-                                }
-                            />
-                        ) : selectedSection && selectedSchema ? (
-                            <FieldPanel
-                                section={selectedSection}
-                                schema={selectedSchema}
-                                onChange={changeField}
-                                onBack={deselect}
-                            />
-                        ) : (
-                            <SectionTree
-                                sections={doc.sections}
-                                schemas={schemaQuery.data ?? []}
-                                selectedId={selectedId}
-                                onSelect={selectSection}
-                                onAdd={addSection}
-                                onRemove={removeSection}
-                                onToggleVisible={toggleVisible}
-                                onReorder={reorder}
-                            />
-                        )}
-                    </div>
+                <div className="min-h-0 flex-1">
+                    {tab === 'seo' ? (
+                        <SeoPanel
+                            doc={doc}
+                            onChange={(patch) => setDoc({ ...doc, ...patch })}
+                        />
+                    ) : selectedSection && selectedSchema ? (
+                        <FieldPanel
+                            section={selectedSection}
+                            schema={selectedSchema}
+                            onChange={changeField}
+                            onBack={deselect}
+                        />
+                    ) : (
+                        <SectionTree
+                            sections={doc.sections}
+                            schemas={schemaQuery.data ?? []}
+                            selectedId={selectedId}
+                            onSelect={selectSection}
+                            onAdd={addSection}
+                            onRemove={removeSection}
+                            onToggleVisible={toggleVisible}
+                            onReorder={reorder}
+                        />
+                    )}
+                </div>
 
-                    <EditorFooter
-                        status={doc.status}
-                        onToggleStatus={toggleStatus}
-                        onSave={save}
-                        saving={saveMutation.isPending}
-                        pagesHref="/admin/pages"
-                    />
-                </aside>
-
-                <PreviewFrame
-                    html={previewHtml}
-                    device={device}
-                    loading={rendering}
-                    iframeRef={iframeRef}
-                    onMessage={onPreviewMessage}
+                <EditorFooter
+                    status={doc.status}
+                    onToggleStatus={toggleStatus}
+                    onSave={save}
+                    saving={saveMutation.isPending}
+                    pagesHref="/admin/pages"
                 />
+            </aside>
+
+            <PreviewFrame
+                html={previewHtml}
+                device={device}
+                loading={rendering}
+                iframeRef={iframeRef}
+                onMessage={onPreviewMessage}
+            />
         </div>
     );
 }

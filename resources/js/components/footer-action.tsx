@@ -37,8 +37,12 @@ export default function FooterAction({
                 className={`btn-dark flex ${buttonWidthClassName} items-center justify-center gap-x-2 rounded py-2.5 text-center`}
                 disabled={processing || disabled}
             >
-                <Loader2 className={`size-4 animate-spin ${processing ? '' : 'hidden'}`} />
-                <span className="text-center whitespace-nowrap">{submitText}</span>
+                <Loader2
+                    className={`size-4 animate-spin ${processing ? '' : 'hidden'}`}
+                />
+                <span className="text-center whitespace-nowrap">
+                    {submitText}
+                </span>
             </button>
         </div>
     );

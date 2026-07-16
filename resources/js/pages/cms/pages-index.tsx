@@ -40,7 +40,8 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                             className="btn-light inline-flex items-center gap-1.5 whitespace-nowrap"
                             title="Import new pages from the cms/pages blueprints"
                         >
-                            <DownloadCloud className="size-4" /> Pull in new pages
+                            <DownloadCloud className="size-4" /> Pull in new
+                            pages
                         </button>
 
                         <Form
@@ -74,9 +75,15 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                             <tr>
                                 <th className="px-4 py-2 font-medium">Title</th>
                                 <th className="px-4 py-2 font-medium">Slug</th>
-                                <th className="px-4 py-2 font-medium">Status</th>
-                                <th className="px-4 py-2 font-medium">Sections</th>
-                                <th className="px-4 py-2 font-medium">Updated</th>
+                                <th className="px-4 py-2 font-medium">
+                                    Status
+                                </th>
+                                <th className="px-4 py-2 font-medium">
+                                    Sections
+                                </th>
+                                <th className="px-4 py-2 font-medium">
+                                    Updated
+                                </th>
                                 <th className="px-4 py-2"></th>
                             </tr>
                         </thead>
@@ -92,7 +99,10 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                                 </tr>
                             )}
                             {pages.map((page) => (
-                                <tr key={page.id} className="hover:bg-neutral-50">
+                                <tr
+                                    key={page.id}
+                                    className="hover:bg-neutral-50"
+                                >
                                     <td className="px-4 py-2.5 font-medium">
                                         {page.title}
                                     </td>

@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { FieldInput } from './field-input';
-import { SectionInstance, SectionSchema } from './types';
+import type { SectionInstance, SectionSchema } from './types';
 
 export function FieldPanel({
     section,

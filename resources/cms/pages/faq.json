@@ -1,0 +1,126 @@
+{
+    "slug": "faq",
+    "title": "FAQ",
+    "status": "published",
+    "meta": {
+        "title": null,
+        "description": "Frequently asked questions about WODI Daycare."
+    },
+    "sections": [
+        {
+            "type": "faq_hero",
+            "name": "hero",
+            "settings": {
+                "title": "Frequently asked questions"
+            }
+        },
+        {
+            "type": "faq_list",
+            "name": "questions",
+            "settings": {
+                "faqs": [
+                    {
+                        "question": "Potter ipsum wand elf",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Candles ickle 12 charm mellow us hermione. Where bedroom half-moon-glasses parchment spell hollow eyes world portkey chasers. My with wizard last."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment wingardium.",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Palominos dragon-scale niffler them harry. World firs' snitch spectacles wizard giant motorcycle transfiguration pumpkin. Dog it newt mimubulus tears. Snitch."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment wingardium.",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Who winky cupboard come stairs suits impedimenta ickle. Hedwig not bott's i'd centaur now unicorn. Portkey suits headless blood yew godric's captivity armchairs."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. 10 phoenix prince armchairs harpies peg-leg that metamorphimagus blood. Glass witch law out minister. Snargaluff do wars blue doe banana daily."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. With robes horseless them aragog unicorn raw-steak tap-dancing three-headed. Every red quidditch eeylops squid wool grim. Potion blubber willow harry blue."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Side bathrooms schedule forest harpies not pie restricted mudbloods glory. Horcrux should from bright a. Raw-steak ridgeback 10 floor blue. Mistletoe sorting."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Ridgeback hexed pear-tickle socks cloak 50. That tell nearly-headless fantastic fat. Banquet scarlet phoenix witch disciplinary easy firs' phoenix petrified."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Flat metamorphimagus hats seek stone spine time-turner doe. Spine points hoops flying frogs tart potter beaters cottage. Winky levicorpus better plums mewing."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Above lights woes mischief phials seven spew crookshanks biting parchment. Start-of-term oddment padfoot bag map. Horcrux letters bathrooms yer."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Potter smile magic remus expecto mrs gillyweed kedavra essence. Tell umbridge pie gillyweed spew the. Come bathrooms us mischief headless headmaster."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Dementors house better disciplinary forbidden love. Flame chalice brass sinistra bott's are locomotor gringotts fell cleansweep. Gamp's hagrid do I dirigible lupin."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Crookshanks shack hall seeker nose stone filch gillywater petrified bertie. Prophet mr fell out lies chasers. Clean thieves than three-headed phials. Bag feast would."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Bean witch filch newt lived from lights where cupboard. Disciplinary out sight quidditch betrayal essence prophet minerva. Black portrait ickle better bright mrs."
+                    },
+                    {
+                        "question": "Potter ipsum wand elf parchment",
+                        "answer": "Potter ipsum wand elf parchment wingardium. Forest captivity detention on half-moon-glasses your tell locomotor where parchment. Blood tap-dancing now easy them snivellus. Spells hippogriff chalice we."
+                    }
+                ]
+            }
+        },
+        {
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {}
+        }
+    ],
+    "blocks": {
+        "faq_hero": {
+            "name": "FAQ Hero",
+            "group": "FAQ",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "title",
+                    "type": "text",
+                    "label": "Title",
+                    "required": true
+                }
+            ]
+        },
+        "faq_list": {
+            "name": "FAQ List",
+            "group": "FAQ",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "faqs",
+                    "type": "repeater",
+                    "label": "Questions",
+                    "fields": [
+                        {
+                            "id": "question",
+                            "type": "text",
+                            "label": "Question"
+                        },
+                        {
+                            "id": "answer",
+                            "type": "textarea",
+                            "label": "Answer"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
