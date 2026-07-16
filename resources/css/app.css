@@ -1,8 +1,3 @@
-/* ---------------------------------------------------------------
- | ADMIN stylesheet (Inertia + React).
- | Scoped to resources/js + the Inertia root view only, so the public
- | Blade site (resources/css/site.css) is a completely separate build.
- ---------------------------------------------------------------- */
 @import 'tailwindcss' source(none);
 
 @source '../js';
