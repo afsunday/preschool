@@ -2,19 +2,19 @@
 
 namespace App\Console\Commands;
 
-use App\Cms\SectionRegistry;
-use App\Models\PageSection;
+use App\Cms\BlockTypeRegistry;
+use App\Models\PageBlock;
 use Illuminate\Console\Command;
 
-class CheckSectionSchemas extends Command
+class CheckBlockSchemas extends Command
 {
     protected $signature = 'cms:sections:check';
 
     protected $description = 'Report page blocks whose stored schema version is behind the current section version';
 
-    public function handle(SectionRegistry $registry): int
+    public function handle(BlockTypeRegistry $registry): int
     {
-        $stale = PageSection::query()->get()->filter(function (PageSection $s) use ($registry) {
+        $stale = PageBlock::query()->get()->filter(function (PageBlock $s) use ($registry) {
             $definition = $registry->find($s->type);
 
             return $definition && $s->schema_version < $definition->version;

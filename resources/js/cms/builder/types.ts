@@ -26,7 +26,7 @@ export interface FieldSchema {
     source?: string;
 }
 
-export interface SectionSchema {
+export interface BlockType {
     key: string;
     name: string;
     group: string;
@@ -35,15 +35,17 @@ export interface SectionSchema {
     fields: FieldSchema[];
 }
 
-export interface SectionInstance {
+export interface PageBlock {
     id: number;
     type: string;
+    /** Blueprint identity. Null for blocks added here — sync never touches those. */
+    key?: string | null;
     name?: string | null;
     position: number;
     isVisible: boolean;
     schemaVersion?: number;
     settings: Record<string, unknown>;
-    children?: SectionInstance[];
+    children?: PageBlock[];
 }
 
 export interface PageDoc {
@@ -58,11 +60,12 @@ export interface PageDoc {
     };
     headerScripts?: string | null;
     footerScripts?: string | null;
-    sections: SectionInstance[];
+    blocks: PageBlock[];
 }
 
 export interface BuilderApi {
-    schema(): Promise<SectionSchema[]>;
+    /** The block types this page may use: its own + the globals'. */
+    schema(pageId: number): Promise<BlockType[]>;
     getPage(id: number): Promise<PageDoc>;
     savePage(id: number, doc: PageDoc): Promise<PageDoc>;
     /** Render the whole page from the current (unsaved) doc → full HTML. */

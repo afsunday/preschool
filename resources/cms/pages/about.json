@@ -6,18 +6,20 @@
         "title": null,
         "description": "We are not a holding space. We are an active development environment for children aged 0-5."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "about_hero",
             "name": "hero",
             "settings": {
-                "title": "Build credibility and emotional confidence fast.",
-                "subtitle": "We are not a holding space. We are an active development environment for children aged 0-5.",
+                "title": "More than daycare — a place to grow.",
+                "subtitle": "WODI is not a holding space. It is a warm, active learning environment for children aged 0 to 5, where every day is full of play, discovery, and care.",
                 "image_src": "/images/about/hero-collage.jpg",
                 "image_alt": "Teacher playing with children"
             }
         },
         {
+            "key": "founder",
             "type": "about_founder",
             "name": "founder",
             "settings": {
@@ -28,6 +30,7 @@
             }
         },
         {
+            "key": "programs",
             "type": "about_programs",
             "name": "programs",
             "settings": {
@@ -39,54 +42,56 @@
                     {
                         "src": "/images/about/program-art.jpg",
                         "alt": "Children's crayon artwork",
-                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                        "body": "Our Toddler program for 18-month to 2-year-olds blends messy art, sensory play, and gentle routines, so little ones build confidence one happy discovery at a time."
                     },
                     {
                         "src": "/images/about/program-drawing.jpg",
                         "alt": "Child drawing on a wall",
-                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                        "body": "In our Preschool room, three- and four-year-olds explore drawing, early writing, and imaginative play that stretches their curiosity and fine-motor skills."
                     },
                     {
                         "src": "/images/about/program-classroom.jpg",
                         "alt": "Children working at classroom tables",
-                        "body": "Potter ipsum wand elf parchment wingardium. Teacup do feint teacup."
+                        "body": "Our Pre-K class helps five-year-olds get ready for school with hands-on numbers, letters, and group projects that make big ideas feel playful."
                     }
                 ]
             }
         },
         {
+            "key": "nurture",
             "type": "about_nurture",
             "name": "nurture",
             "settings": {
-                "eyebrow": "Lorem ipsum section",
+                "eyebrow": "Our approach",
                 "heading": "Nurturing young hearts dreams",
                 "image_src": "/images/about/nurturing.jpg",
                 "image_alt": "Children drawing at a desk",
                 "items": [
                     {
                         "accent": "pink",
-                        "title": "Potter ipsum wand elf parchment",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "title": "A safe, loving space",
+                        "body": "Every room is warm, secure, and thoughtfully arranged for little explorers. Children settle in quickly because they feel seen, held, and completely at home."
                     },
                     {
                         "accent": "yellow",
-                        "title": "Potter ipsum wand elf parchment",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "title": "Learning through play",
+                        "body": "We follow each child's curiosity, turning everyday moments into rich discovery. Play is how young children make sense of their world, so we make plenty of room for it."
                     },
                     {
                         "accent": "cyan",
-                        "title": "Potter ipsum wand elf parchment",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "title": "Qualified, caring educators",
+                        "body": "Our teachers are trained in early childhood development and lead with patience and heart. They notice the small wins and celebrate every step a child takes."
                     },
                     {
                         "accent": "green",
-                        "title": "Potter ipsum wand elf parchment",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "title": "Growing confident hearts",
+                        "body": "From sharing toys to naming big feelings, we nurture kindness and resilience every day. Children leave WODI curious, capable, and sure of themselves."
                     }
                 ]
             }
         },
         {
+            "key": "activities",
             "type": "about_activities",
             "name": "activities",
             "settings": {
@@ -97,34 +102,35 @@
                         "number": "01",
                         "title": "Art & Craft",
                         "src": "/images/about/activity-1.jpg",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "body": "Painting, gluing, and hands-on projects let children express big ideas while building fine-motor skills and a real love of creating."
                     },
                     {
                         "number": "02",
                         "title": "Storytelling & Reading",
                         "src": "/images/about/activity-2.jpg",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "body": "Daily story circles spark imagination and early language, introducing new words, sounds, and a lifelong love of books."
                     },
                     {
                         "number": "03",
                         "title": "Music & Movement",
                         "src": "/images/about/activity-3.jpg",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "body": "Singing, dancing, and rhythm games get little bodies moving while building coordination, listening skills, and plenty of joy."
                     },
                     {
                         "number": "04",
                         "title": "Big games and puzzle",
                         "src": "/images/about/activity-4.jpg",
-                        "body": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded."
+                        "body": "Puzzles, building blocks, and cooperative games invite children to problem-solve, take turns, and think things through together."
                     }
                 ]
             }
         },
         {
+            "key": "team",
             "type": "about_team",
             "name": "team",
             "settings": {
-                "eyebrow": "Lorem ipsum section",
+                "eyebrow": "Meet our team",
                 "heading": "Caring hearts behind every happy child",
                 "members": [
                     {
@@ -155,40 +161,61 @@
             }
         },
         {
+            "key": "testimonial",
             "type": "about_testimonial",
             "name": "testimonial",
             "settings": {
                 "image_src": "/images/about/testimonial.jpg",
                 "image_alt": "Children in a classroom",
-                "quote": "Potter ipsum wand elf parchment wingardium. Golden for easy you've flying cup die world pear-tickle. Where chance gillyweed armchairs beaded.",
+                "quote": "Choosing WODI was the best decision we made for our daughter. She runs through the doors every morning, comes home full of stories, and has grown so confident in her time here. The teachers treat her like their own, and that peace of mind means everything to us.",
                 "name": "Sarah Finlay"
             }
         },
         {
+            "key": "gallery",
             "type": "about_gallery",
             "name": "gallery",
             "settings": {
-                "eyebrow": "Lorem ipsum section",
+                "eyebrow": "Life at WODI",
                 "heading": "Caring hearts behind every happy child",
                 "photos": [
-                    { "src": "/images/about/gallery-1.jpg", "ratio": "4x5" },
-                    { "src": "/images/about/gallery-2.jpg", "ratio": "4x3" },
-                    { "src": "/images/about/gallery-3.jpg", "ratio": "1x1" },
-                    { "src": "/images/about/gallery-4.jpg", "ratio": "3x4" },
-                    { "src": "/images/about/gallery-5.jpg", "ratio": "4x3" },
-                    { "src": "/images/about/gallery-6.jpg", "ratio": "1x1" },
-                    { "src": "/images/about/gallery-7.jpg", "ratio": "3x4" },
-                    { "src": "/images/about/gallery-8.jpg", "ratio": "4x3" }
+                    {
+                        "src": "/images/about/gallery-1.jpg",
+                        "ratio": "4x5"
+                    },
+                    {
+                        "src": "/images/about/gallery-2.jpg",
+                        "ratio": "4x3"
+                    },
+                    {
+                        "src": "/images/about/gallery-3.jpg",
+                        "ratio": "1x1"
+                    },
+                    {
+                        "src": "/images/about/gallery-4.jpg",
+                        "ratio": "3x4"
+                    },
+                    {
+                        "src": "/images/about/gallery-5.jpg",
+                        "ratio": "4x3"
+                    },
+                    {
+                        "src": "/images/about/gallery-6.jpg",
+                        "ratio": "1x1"
+                    },
+                    {
+                        "src": "/images/about/gallery-7.jpg",
+                        "ratio": "3x4"
+                    },
+                    {
+                        "src": "/images/about/gallery-8.jpg",
+                        "ratio": "4x3"
+                    }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "about_hero": {
             "name": "About Hero",
             "group": "About",
@@ -200,7 +227,11 @@
                     "label": "Title",
                     "required": true
                 },
-                { "id": "subtitle", "type": "textarea", "label": "Subtitle" },
+                {
+                    "id": "subtitle",
+                    "type": "textarea",
+                    "label": "Subtitle"
+                },
                 {
                     "id": "image",
                     "type": "media",
@@ -212,7 +243,11 @@
                     "type": "url",
                     "label": "Collage Fallback Path"
                 },
-                { "id": "image_alt", "type": "text", "label": "Collage Alt" }
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Collage Alt"
+                }
             ]
         },
         "about_founder": {
@@ -231,9 +266,21 @@
                     "type": "url",
                     "label": "Portrait Fallback Path"
                 },
-                { "id": "name", "type": "text", "label": "Name" },
-                { "id": "role", "type": "text", "label": "Role" },
-                { "id": "quote", "type": "richtext", "label": "Quote" }
+                {
+                    "id": "name",
+                    "type": "text",
+                    "label": "Name"
+                },
+                {
+                    "id": "role",
+                    "type": "text",
+                    "label": "Role"
+                },
+                {
+                    "id": "quote",
+                    "type": "richtext",
+                    "label": "Quote"
+                }
             ]
         },
         "about_programs": {
@@ -241,10 +288,26 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "programs",
                     "type": "repeater",
@@ -261,8 +324,16 @@
                             "type": "url",
                             "label": "Fallback Path"
                         },
-                        { "id": "alt", "type": "text", "label": "Alt" },
-                        { "id": "body", "type": "textarea", "label": "Body" }
+                        {
+                            "id": "alt",
+                            "type": "text",
+                            "label": "Alt"
+                        },
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        }
                     ]
                 }
             ]
@@ -272,8 +343,16 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
                 {
                     "id": "image",
                     "type": "media",
@@ -285,7 +364,11 @@
                     "type": "url",
                     "label": "Image Fallback Path"
                 },
-                { "id": "image_alt", "type": "text", "label": "Image Alt" },
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Image Alt"
+                },
                 {
                     "id": "items",
                     "type": "repeater",
@@ -297,14 +380,34 @@
                             "label": "Accent",
                             "default": "pink",
                             "options": [
-                                { "value": "pink", "label": "Pink" },
-                                { "value": "yellow", "label": "Yellow" },
-                                { "value": "cyan", "label": "Cyan" },
-                                { "value": "green", "label": "Green" }
+                                {
+                                    "value": "pink",
+                                    "label": "Pink"
+                                },
+                                {
+                                    "value": "yellow",
+                                    "label": "Yellow"
+                                },
+                                {
+                                    "value": "cyan",
+                                    "label": "Cyan"
+                                },
+                                {
+                                    "value": "green",
+                                    "label": "Green"
+                                }
                             ]
                         },
-                        { "id": "title", "type": "text", "label": "Title" },
-                        { "id": "body", "type": "textarea", "label": "Body" }
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        }
                     ]
                 }
             ]
@@ -314,15 +417,31 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
                 {
                     "id": "activities",
                     "type": "repeater",
                     "label": "Activities",
                     "fields": [
-                        { "id": "number", "type": "text", "label": "Number" },
-                        { "id": "title", "type": "text", "label": "Title" },
+                        {
+                            "id": "number",
+                            "type": "text",
+                            "label": "Number"
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
                         {
                             "id": "image",
                             "type": "media",
@@ -334,7 +453,11 @@
                             "type": "url",
                             "label": "Fallback Path"
                         },
-                        { "id": "body", "type": "textarea", "label": "Body" }
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        }
                     ]
                 }
             ]
@@ -344,25 +467,53 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
                 {
                     "id": "members",
                     "type": "repeater",
                     "label": "Members",
                     "fields": [
-                        { "id": "name", "type": "text", "label": "Name" },
-                        { "id": "role", "type": "text", "label": "Role" },
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "label": "Name"
+                        },
+                        {
+                            "id": "role",
+                            "type": "text",
+                            "label": "Role"
+                        },
                         {
                             "id": "accent",
                             "type": "select",
                             "label": "Accent",
                             "default": "pink",
                             "options": [
-                                { "value": "pink", "label": "Pink" },
-                                { "value": "blue", "label": "Blue" },
-                                { "value": "amber", "label": "Amber" },
-                                { "value": "orange", "label": "Orange" }
+                                {
+                                    "value": "pink",
+                                    "label": "Pink"
+                                },
+                                {
+                                    "value": "blue",
+                                    "label": "Blue"
+                                },
+                                {
+                                    "value": "amber",
+                                    "label": "Amber"
+                                },
+                                {
+                                    "value": "orange",
+                                    "label": "Orange"
+                                }
                             ]
                         },
                         {
@@ -396,9 +547,21 @@
                     "type": "url",
                     "label": "Image Fallback Path"
                 },
-                { "id": "image_alt", "type": "text", "label": "Image Alt" },
-                { "id": "quote", "type": "textarea", "label": "Quote" },
-                { "id": "name", "type": "text", "label": "Name" }
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Image Alt"
+                },
+                {
+                    "id": "quote",
+                    "type": "textarea",
+                    "label": "Quote"
+                },
+                {
+                    "id": "name",
+                    "type": "text",
+                    "label": "Name"
+                }
             ]
         },
         "about_gallery": {
@@ -406,8 +569,16 @@
             "group": "About",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
                 {
                     "id": "photos",
                     "type": "repeater",
@@ -430,10 +601,22 @@
                             "label": "Ratio",
                             "default": "1x1",
                             "options": [
-                                { "value": "4x5", "label": "Tall (4:5)" },
-                                { "value": "3x4", "label": "Taller (3:4)" },
-                                { "value": "4x3", "label": "Wide (4:3)" },
-                                { "value": "1x1", "label": "Square" }
+                                {
+                                    "value": "4x5",
+                                    "label": "Tall (4:5)"
+                                },
+                                {
+                                    "value": "3x4",
+                                    "label": "Taller (3:4)"
+                                },
+                                {
+                                    "value": "4x3",
+                                    "label": "Wide (4:3)"
+                                },
+                                {
+                                    "value": "1x1",
+                                    "label": "Square"
+                                }
                             ]
                         }
                     ]

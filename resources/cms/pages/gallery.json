@@ -6,24 +6,38 @@
         "title": null,
         "description": "From messy art projects to outdoor adventures — see the joy, growth, and magic that happens here every day."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "gallery_hero",
             "name": "hero",
             "settings": {
                 "title": "A peek into the WODI world.",
                 "subtitle": "From messy art projects to outdoor adventures — see the joy, growth, and magic that happens here every day.",
                 "photos": [
-                    { "src": "/images/admissions/kids-tablets.jpg" },
-                    { "src": "/images/admissions/class-1.jpg" },
-                    { "src": "/images/about/gallery-2.jpg" },
-                    { "src": "/images/about/nurturing.jpg" },
-                    { "src": "/images/admissions/class-3.jpg" },
-                    { "src": "/images/admissions/classroom-girl.jpg" }
+                    {
+                        "src": "/images/admissions/kids-tablets.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-1.jpg"
+                    },
+                    {
+                        "src": "/images/about/gallery-2.jpg"
+                    },
+                    {
+                        "src": "/images/about/nurturing.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-3.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/classroom-girl.jpg"
+                    }
                 ]
             }
         },
         {
+            "key": "grid",
             "type": "gallery_grid",
             "name": "grid",
             "settings": {
@@ -60,14 +74,9 @@
                     }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "gallery_hero": {
             "name": "Gallery Hero",
             "group": "Gallery",

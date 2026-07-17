@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Cms\Block;
+use App\Cms\BlockTypeRegistry;
 use App\Cms\Fields\Media as MediaField;
-use App\Cms\SectionRegistry;
+use App\Cms\PageImporter;
 use App\Models\Page;
-use App\Models\PageSection;
+use App\Models\PageBlock;
 use Illuminate\Contracts\View\View as ViewContract;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class PageBuilderController extends Controller
 {
     public function __construct(
-        protected SectionRegistry $registry,
+        protected BlockTypeRegistry $registry,
     ) {}
 
     /**
@@ -27,7 +30,7 @@ class PageBuilderController extends Controller
     public function index(): Response
     {
         $pages = Page::query()
-            ->withCount('allSections as sections_count')
+            ->withCount('allBlocks as blocks_count')
             ->latest('updated_at')
             ->get()
             ->map(fn (Page $p) => [
@@ -45,7 +48,7 @@ class PageBuilderController extends Controller
     /**
      * Create a page and jump straight into the editor.
      */
-    public function store(Request $request): \Illuminate\Http\RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'max:255'],
@@ -60,7 +63,7 @@ class PageBuilderController extends Controller
         return to_route('pages.edit', $page);
     }
 
-    public function destroy(Page $page): \Illuminate\Http\RedirectResponse
+    public function destroy(Page $page): RedirectResponse
     {
         $page->delete();
 
@@ -72,19 +75,59 @@ class PageBuilderController extends Controller
     /**
      * Pull in new pages from the resources/cms/pages blueprints (only ones not
      * already in the DB — the editor owns existing pages).
+     *
+     * Then, for pages that do exist, add any blueprint block the page hasn't
+     * got, matched on `key`. Append-only: existing blocks keep their edits, and
+     * blocks added in the editor have no key so are never touched.
      */
-    public function pull(\App\Cms\PageImporter $importer): \Illuminate\Http\RedirectResponse
+    public function pull(PageImporter $importer): RedirectResponse
     {
         $imported = $importer->syncNew();
 
+        $added = [];
+        $reshaped = [];
+
+        foreach ($importer->available() as $slug) {
+            if (in_array($slug, $imported, true)) {
+                continue; // just imported whole — already on the current schema
+            }
+
+            foreach ($importer->syncBlocks($slug) as $key) {
+                $added[] = "{$slug}/{$key}";
+            }
+
+            // Then reshape existing blocks' settings to the current schema.
+            foreach ($importer->reconcileBlocks($slug) as $id) {
+                $reshaped[] = "{$slug}/{$id}";
+            }
+        }
+
+        $parts = [];
+
+        if ($imported !== []) {
+            $parts[] = __('Imported :count page(s): :slugs.', [
+                'count' => count($imported),
+                'slugs' => implode(', ', $imported),
+            ]);
+        }
+
+        if ($added !== []) {
+            $parts[] = __('Added :count new block(s): :keys.', [
+                'count' => count($added),
+                'keys' => implode(', ', $added),
+            ]);
+        }
+
+        if ($reshaped !== []) {
+            $parts[] = __('Updated :count block(s) to the latest fields: :keys.', [
+                'count' => count($reshaped),
+                'keys' => implode(', ', $reshaped),
+            ]);
+        }
+
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => $imported === []
-                ? __('No new pages to import.')
-                : __('Imported :count page(s): :slugs.', [
-                    'count' => count($imported),
-                    'slugs' => implode(', ', $imported),
-                ]),
+            'message' => $parts === [] ? __('Everything is already in sync.') : implode(' ', $parts),
         ]);
 
         return to_route('pages.index');
@@ -109,7 +152,7 @@ class PageBuilderController extends Controller
 
     protected function uniqueSlug(string $title): string
     {
-        $base = \Illuminate\Support\Str::slug($title) ?: 'page';
+        $base = Str::slug($title) ?: 'page';
         $slug = $base;
         $i = 2;
 
@@ -121,11 +164,16 @@ class PageBuilderController extends Controller
     }
 
     /**
-     * All section schemas — draws the editor's "add section" list + field panel.
+     * The block types this page may use — draws the Add-block menu and the
+     * field panel.
+     *
+     * Scoped, not global: a block's markup lives in the page's own view, so
+     * offering every type on every page would offer blocks that render as
+     * nothing. A page gets its own types plus the globals'.
      */
-    public function schema(): JsonResponse
+    public function schema(Page $page): JsonResponse
     {
-        return response()->json(['data' => $this->registry->schemas()]);
+        return response()->json(['data' => $this->registry->schemas($page->slug)]);
     }
 
     /**
@@ -149,7 +197,7 @@ class PageBuilderController extends Controller
             'meta.ogMediaId' => ['nullable', 'integer', 'exists:media,id'],
             'headerScripts' => ['nullable', 'string'],
             'footerScripts' => ['nullable', 'string'],
-            'sections' => ['array'],
+            'blocks' => ['array'],
         ]);
 
         DB::transaction(function () use ($request, $page, $validated) {
@@ -167,8 +215,8 @@ class PageBuilderController extends Controller
             ]);
 
             // Rebuild the section tree from scratch (editor reloads fresh ids).
-            $page->allSections()->delete();
-            $this->writeSections($page, $request->input('sections', []), null);
+            $page->allBlocks()->delete();
+            $this->writeBlocks($page, $request->input('blocks', []), null);
 
             $page->refresh();
 
@@ -187,10 +235,10 @@ class PageBuilderController extends Controller
      */
     public function preview(Page $page): ViewContract
     {
-        $blocks = $page->allSections()->get()
+        $blocks = $page->allBlocks()->get()
             ->whereNull('parent_id')
             ->sortBy('position')
-            ->map(fn (PageSection $s) => new Block($s->id, $s->type, $s->name, $s->settings ?? []))
+            ->map(fn (PageBlock $s) => new Block($s->id, $s->type, $s->name, $s->settings ?? []))
             ->values();
 
         return view($page->slug, ['page' => $page, 'blocks' => $blocks, 'editor' => true]);
@@ -211,7 +259,7 @@ class PageBuilderController extends Controller
             'footer_scripts' => $request->input('footerScripts'),
         ]);
 
-        $blocks = Collection::make($request->input('sections', []))
+        $blocks = Collection::make($request->input('blocks', []))
             ->map(function (array $s): ?Block {
                 $type = $s['type'] ?? '';
                 $def = $this->registry->find($type);
@@ -246,7 +294,7 @@ class PageBuilderController extends Controller
      *
      * @param  array<int, array<string, mixed>>  $sections
      */
-    protected function writeSections(Page $page, array $sections, ?int $parentId): void
+    protected function writeBlocks(Page $page, array $sections, ?int $parentId): void
     {
         foreach ($sections as $i => $incoming) {
             $type = $incoming['type'] ?? null;
@@ -259,7 +307,7 @@ class PageBuilderController extends Controller
             $settings = $definition->validate((array) ($incoming['settings'] ?? []));
             $name = $incoming['name'] ?? null;
 
-            $section = $page->allSections()->create([
+            $section = $page->allBlocks()->create([
                 'parent_id' => $parentId,
                 'type' => $type,
                 'name' => is_string($name) && $name !== '' ? $name : null,
@@ -272,7 +320,7 @@ class PageBuilderController extends Controller
             $this->mirrorMedia($section, $type, $settings);
 
             if (! empty($incoming['children']) && is_array($incoming['children'])) {
-                $this->writeSections($page, $incoming['children'], $section->id);
+                $this->writeBlocks($page, $incoming['children'], $section->id);
             }
         }
     }
@@ -283,7 +331,7 @@ class PageBuilderController extends Controller
      *
      * @param  array<string, mixed>  $settings
      */
-    protected function mirrorMedia(PageSection $section, string $type, array $settings): void
+    protected function mirrorMedia(PageBlock $section, string $type, array $settings): void
     {
         $mediaIds = Collection::make($this->registry->find($type)?->fields() ?? [])
             ->filter(fn ($f) => $f instanceof MediaField)
@@ -297,7 +345,7 @@ class PageBuilderController extends Controller
             DB::table('mediables')->updateOrInsert(
                 [
                     'media_id' => $mediaId,
-                    'mediable_type' => PageSection::class,
+                    'mediable_type' => PageBlock::class,
                     'mediable_id' => $section->id,
                     'collection' => 'settings',
                 ],
@@ -311,7 +359,7 @@ class PageBuilderController extends Controller
      */
     protected function pageDoc(Page $page): array
     {
-        $all = $page->allSections()->get();
+        $all = $page->allBlocks()->get();
 
         return [
             'id' => $page->id,
@@ -325,20 +373,20 @@ class PageBuilderController extends Controller
             ],
             'headerScripts' => $page->header_scripts,
             'footerScripts' => $page->footer_scripts,
-            'sections' => $this->sectionTree($all, null),
+            'blocks' => $this->blockTree($all, null),
         ];
     }
 
     /**
-     * @param  Collection<int, PageSection>  $all
+     * @param  Collection<int, PageBlock>  $all
      * @return array<int, array<string, mixed>>
      */
-    protected function sectionTree(Collection $all, ?int $parentId): array
+    protected function blockTree(Collection $all, ?int $parentId): array
     {
         return $all
             ->where('parent_id', $parentId)
             ->sortBy('position')
-            ->map(fn (PageSection $s) => [
+            ->map(fn (PageBlock $s) => [
                 'id' => $s->id,
                 'type' => $s->type,
                 'name' => $s->name,
@@ -346,7 +394,7 @@ class PageBuilderController extends Controller
                 'isVisible' => $s->is_visible,
                 'schemaVersion' => $s->schema_version,
                 'settings' => $s->settings ?? (object) [],
-                'children' => $this->sectionTree($all, $s->id),
+                'children' => $this->blockTree($all, $s->id),
             ])
             ->values()
             ->all();

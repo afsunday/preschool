@@ -405,10 +405,6 @@
                     </div>
                 </section>
             @break
-
-            @case('newsletter')
-                @include('partials.newsletter')
-            @break
         @endswitch
 
         @if ($editor ?? false)

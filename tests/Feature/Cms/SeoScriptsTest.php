@@ -13,7 +13,7 @@ test('saving stores seo meta + header/footer scripts', function () {
         'meta' => ['title' => 'Best Daycare', 'description' => 'We care'],
         'headerScripts' => '<meta name="x" content="1">',
         'footerScripts' => '<script>window.chat=1</script>',
-        'sections' => [],
+        'blocks' => [],
     ])->assertOk()
         ->assertJsonPath('data.headerScripts', '<meta name="x" content="1">')
         ->assertJsonPath('data.meta.title', 'Best Daycare');
@@ -28,7 +28,7 @@ test('the public page injects the scripts and meta', function () {
         'header_scripts' => '<meta name="probe" content="head">',
         'footer_scripts' => '<script>window.probe="foot"</script>',
     ]);
-    $page->allSections()->create([
+    $page->allBlocks()->create([
         'type' => 'home_hero',
         'position' => 0,
         'is_visible' => true,

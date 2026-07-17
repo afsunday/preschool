@@ -8,14 +8,16 @@ beforeEach(function () {
     $this->admin = User::factory()->create(['user_type' => 'admin']);
 });
 
-test('a blueprint imports and is validated against the schema + section rules', function () {
+test('a blueprint imports and is validated against the schema + block rules', function () {
     $page = app(PageImporter::class)->importSlug('home');
 
     expect($page->slug)->toBe('home');
-    expect($page->allSections()->count())->toBe(9);
+    // 8, not 9: the newsletter is chrome now — one global block the layout
+    // renders, rather than a copy on every page.
+    expect($page->allBlocks()->count())->toBe(8);
 
-    // Content was enforced through the section schema on import.
-    $hero = $page->allSections()->where('type', 'home_hero')->first();
+    // Content was enforced through the block type's schema on import.
+    $hero = $page->allBlocks()->where('type', 'home_hero')->first();
     expect($hero->name)->toBe('hero');
     expect($hero->schema_version)->toBe(1);
     expect($hero->settings)->toHaveKey('title', 'Where little minds come alive');

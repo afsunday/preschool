@@ -6,8 +6,9 @@
         "title": null,
         "description": "All enrolments are processed through One List, the government's centralised early childhood registration portal."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "admissions_hero",
             "name": "hero",
             "settings": {
@@ -22,14 +23,23 @@
                 "pill_value": "3k+",
                 "pill_label": "Users",
                 "avatars": [
-                    { "src": "/images/admissions/class-1.jpg" },
-                    { "src": "/images/admissions/class-2.jpg" },
-                    { "src": "/images/admissions/class-3.jpg" },
-                    { "src": "/images/admissions/class-4.jpg" }
+                    {
+                        "src": "/images/admissions/class-1.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-2.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-3.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-4.jpg"
+                    }
                 ]
             }
         },
         {
+            "key": "enrol",
             "type": "admissions_enrol",
             "name": "enrol",
             "settings": {
@@ -41,14 +51,23 @@
                 "image_src": "/images/admissions/kids-row.png",
                 "image_alt": "Smiling children",
                 "avatars": [
-                    { "src": "/images/admissions/class-1.jpg" },
-                    { "src": "/images/admissions/class-2.jpg" },
-                    { "src": "/images/admissions/class-3.jpg" },
-                    { "src": "/images/admissions/class-4.jpg" }
+                    {
+                        "src": "/images/admissions/class-1.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-2.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-3.jpg"
+                    },
+                    {
+                        "src": "/images/admissions/class-4.jpg"
+                    }
                 ]
             }
         },
         {
+            "key": "classes",
             "type": "admissions_classes",
             "name": "classes",
             "settings": {
@@ -102,6 +121,7 @@
             }
         },
         {
+            "key": "programs",
             "type": "admissions_programs",
             "name": "programs",
             "settings": {
@@ -137,15 +157,31 @@
                     }
                 ],
                 "activities": [
-                    { "label": "Curious Play", "dot": "yellow" },
-                    { "label": "Creative learning", "dot": "teal" },
-                    { "label": "Nurture", "dot": "teal" },
-                    { "label": "Kids Growth", "dot": "pink" },
-                    { "label": "Creative Play", "dot": "green" }
+                    {
+                        "label": "Curious Play",
+                        "dot": "yellow"
+                    },
+                    {
+                        "label": "Creative learning",
+                        "dot": "teal"
+                    },
+                    {
+                        "label": "Nurture",
+                        "dot": "teal"
+                    },
+                    {
+                        "label": "Kids Growth",
+                        "dot": "pink"
+                    },
+                    {
+                        "label": "Creative Play",
+                        "dot": "green"
+                    }
                 ]
             }
         },
         {
+            "key": "cta",
             "type": "admissions_cta_row",
             "name": "cta",
             "settings": {
@@ -157,14 +193,9 @@
                 "right_src": "/images/admissions/kids-tablets.jpg",
                 "right_alt": "Pupils giving a thumbs up"
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "admissions_hero": {
             "name": "Admissions Hero",
             "group": "Admissions",
@@ -176,11 +207,31 @@
                     "label": "Title",
                     "required": true
                 },
-                { "id": "note_title", "type": "text", "label": "Note Title" },
-                { "id": "note_body", "type": "richtext", "label": "Note Body" },
-                { "id": "lead", "type": "textarea", "label": "Lead" },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "note_title",
+                    "type": "text",
+                    "label": "Note Title"
+                },
+                {
+                    "id": "note_body",
+                    "type": "richtext",
+                    "label": "Note Body"
+                },
+                {
+                    "id": "lead",
+                    "type": "textarea",
+                    "label": "Lead"
+                },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "image",
                     "type": "media",
@@ -192,9 +243,21 @@
                     "type": "url",
                     "label": "Cutout Fallback Path"
                 },
-                { "id": "image_alt", "type": "text", "label": "Cutout Alt" },
-                { "id": "pill_value", "type": "text", "label": "Pill Value" },
-                { "id": "pill_label", "type": "text", "label": "Pill Label" },
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Cutout Alt"
+                },
+                {
+                    "id": "pill_value",
+                    "type": "text",
+                    "label": "Pill Value"
+                },
+                {
+                    "id": "pill_label",
+                    "type": "text",
+                    "label": "Pill Label"
+                },
                 {
                     "id": "avatars",
                     "type": "repeater",
@@ -206,7 +269,11 @@
                             "label": "Image",
                             "kind": "image"
                         },
-                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        }
                     ]
                 }
             ]
@@ -231,8 +298,16 @@
                     "type": "text",
                     "label": "Trusted Label"
                 },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "image",
                     "type": "media",
@@ -244,7 +319,11 @@
                     "type": "url",
                     "label": "Kids Row Fallback Path"
                 },
-                { "id": "image_alt", "type": "text", "label": "Kids Row Alt" },
+                {
+                    "id": "image_alt",
+                    "type": "text",
+                    "label": "Kids Row Alt"
+                },
                 {
                     "id": "avatars",
                     "type": "repeater",
@@ -256,7 +335,11 @@
                             "label": "Image",
                             "kind": "image"
                         },
-                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        }
                     ]
                 }
             ]
@@ -266,20 +349,56 @@
             "group": "Admissions",
             "version": 1,
             "fields": [
-                { "id": "eyebrow", "type": "text", "label": "Eyebrow" },
-                { "id": "heading", "type": "text", "label": "Heading" },
-                { "id": "body", "type": "textarea", "label": "Body" },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "eyebrow",
+                    "type": "text",
+                    "label": "Eyebrow"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "body",
+                    "type": "textarea",
+                    "label": "Body"
+                },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "classes",
                     "type": "repeater",
                     "label": "Classes",
                     "fields": [
-                        { "id": "name", "type": "text", "label": "Name" },
-                        { "id": "time", "type": "text", "label": "Time" },
-                        { "id": "seats", "type": "text", "label": "Seats" },
-                        { "id": "age", "type": "text", "label": "Age" },
+                        {
+                            "id": "name",
+                            "type": "text",
+                            "label": "Name"
+                        },
+                        {
+                            "id": "time",
+                            "type": "text",
+                            "label": "Time"
+                        },
+                        {
+                            "id": "seats",
+                            "type": "text",
+                            "label": "Seats"
+                        },
+                        {
+                            "id": "age",
+                            "type": "text",
+                            "label": "Age"
+                        },
                         {
                             "id": "image",
                             "type": "media",
@@ -305,7 +424,11 @@
             "group": "Admissions",
             "version": 1,
             "fields": [
-                { "id": "heading", "type": "text", "label": "Heading" },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
                 {
                     "id": "subheading",
                     "type": "textarea",
@@ -316,26 +439,59 @@
                     "type": "text",
                     "label": "Activities Title"
                 },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "programs",
                     "type": "repeater",
                     "label": "Programs",
                     "fields": [
-                        { "id": "tab", "type": "text", "label": "Tab" },
-                        { "id": "title", "type": "text", "label": "Title" },
-                        { "id": "age", "type": "text", "label": "Age" },
-                        { "id": "body", "type": "textarea", "label": "Body" },
+                        {
+                            "id": "tab",
+                            "type": "text",
+                            "label": "Tab"
+                        },
+                        {
+                            "id": "title",
+                            "type": "text",
+                            "label": "Title"
+                        },
+                        {
+                            "id": "age",
+                            "type": "text",
+                            "label": "Age"
+                        },
+                        {
+                            "id": "body",
+                            "type": "textarea",
+                            "label": "Body"
+                        },
                         {
                             "id": "tone",
                             "type": "select",
                             "label": "Tone",
                             "default": "pink",
                             "options": [
-                                { "value": "pink", "label": "Pink" },
-                                { "value": "orange", "label": "Orange" },
-                                { "value": "yellow", "label": "Yellow" }
+                                {
+                                    "value": "pink",
+                                    "label": "Pink"
+                                },
+                                {
+                                    "value": "orange",
+                                    "label": "Orange"
+                                },
+                                {
+                                    "value": "yellow",
+                                    "label": "Yellow"
+                                }
                             ]
                         },
                         {
@@ -344,7 +500,11 @@
                             "label": "Image",
                             "kind": "image"
                         },
-                        { "id": "src", "type": "url", "label": "Fallback Path" }
+                        {
+                            "id": "src",
+                            "type": "url",
+                            "label": "Fallback Path"
+                        }
                     ]
                 },
                 {
@@ -352,17 +512,33 @@
                     "type": "repeater",
                     "label": "Key Activities",
                     "fields": [
-                        { "id": "label", "type": "text", "label": "Label" },
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        },
                         {
                             "id": "dot",
                             "type": "select",
                             "label": "Dot",
                             "default": "pink",
                             "options": [
-                                { "value": "yellow", "label": "Yellow" },
-                                { "value": "teal", "label": "Teal" },
-                                { "value": "pink", "label": "Pink" },
-                                { "value": "green", "label": "Green" }
+                                {
+                                    "value": "yellow",
+                                    "label": "Yellow"
+                                },
+                                {
+                                    "value": "teal",
+                                    "label": "Teal"
+                                },
+                                {
+                                    "value": "pink",
+                                    "label": "Pink"
+                                },
+                                {
+                                    "value": "green",
+                                    "label": "Green"
+                                }
                             ]
                         }
                     ]
@@ -385,10 +561,26 @@
                     "type": "url",
                     "label": "Left Fallback Path"
                 },
-                { "id": "left_alt", "type": "text", "label": "Left Alt" },
-                { "id": "heading", "type": "text", "label": "Heading" },
-                { "id": "cta_label", "type": "text", "label": "CTA Label" },
-                { "id": "cta_url", "type": "url", "label": "CTA Url" },
+                {
+                    "id": "left_alt",
+                    "type": "text",
+                    "label": "Left Alt"
+                },
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "cta_label",
+                    "type": "text",
+                    "label": "CTA Label"
+                },
+                {
+                    "id": "cta_url",
+                    "type": "url",
+                    "label": "CTA Url"
+                },
                 {
                     "id": "right",
                     "type": "media",
@@ -400,7 +592,11 @@
                     "type": "url",
                     "label": "Right Fallback Path"
                 },
-                { "id": "right_alt", "type": "text", "label": "Right Alt" }
+                {
+                    "id": "right_alt",
+                    "type": "text",
+                    "label": "Right Alt"
+                }
             ]
         }
     }

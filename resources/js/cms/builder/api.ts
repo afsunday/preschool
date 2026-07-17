@@ -1,4 +1,4 @@
-import type { BuilderApi, PageDoc, SectionSchema } from './types';
+import type { BuilderApi, PageDoc, BlockType } from './types';
 
 /**
  * Default fetch-based adapter (no axios — Inertia 3 dropped it). This is the
@@ -18,8 +18,8 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
     };
 
     return {
-        async schema(): Promise<SectionSchema[]> {
-            const r = await fetch(`${base}/schema`, {
+        async schema(pageId: number): Promise<BlockType[]> {
+            const r = await fetch(`${base}/pages/${pageId}/schema`, {
                 headers: { Accept: 'application/json' },
                 credentials: 'same-origin',
             });
@@ -45,7 +45,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                     title: doc.title,
                     status: doc.status,
                     meta: doc.meta,
-                    sections: doc.sections,
+                    blocks: doc.blocks,
                 }),
             });
 
@@ -63,7 +63,7 @@ export function createHttpBuilderApi(baseUrl: string): BuilderApi {
                     meta: doc.meta,
                     headerScripts: doc.headerScripts,
                     footerScripts: doc.footerScripts,
-                    sections: doc.sections,
+                    blocks: doc.blocks,
                 }),
             });
 

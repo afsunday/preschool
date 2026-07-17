@@ -6,8 +6,9 @@
         "title": null,
         "description": "Have questions or feedback? We're here to help. Send us a message and we'll respond within 24hrs."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "contact",
             "type": "contact_form",
             "name": "contact",
             "settings": {
@@ -51,14 +52,9 @@
                     }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "contact_form": {
             "name": "Contact Form",
             "group": "Contact",
@@ -91,9 +87,18 @@
                             "label": "Icon",
                             "default": "mail",
                             "options": [
-                                { "value": "mail", "label": "Mail" },
-                                { "value": "phone", "label": "Phone" },
-                                { "value": "locate", "label": "Locate" }
+                                {
+                                    "value": "mail",
+                                    "label": "Mail"
+                                },
+                                {
+                                    "value": "phone",
+                                    "label": "Phone"
+                                },
+                                {
+                                    "value": "locate",
+                                    "label": "Locate"
+                                }
                             ]
                         },
                         {

@@ -1,10 +1,10 @@
 <?php
 
-use App\Cms\SectionDefinition;
-use App\Cms\SectionRegistry;
+use App\Cms\BlockType;
+use App\Cms\BlockTypeRegistry;
 
 test('a section blade @schema serialises to the field-schema JSON', function () {
-    $schema = app(SectionRegistry::class)->find('hero')->schema();
+    $schema = app(BlockTypeRegistry::class)->find('hero')->schema();
 
     expect($schema['key'])->toBe('hero');
     expect($schema['name'])->toBe('Hero');
@@ -22,9 +22,9 @@ test('a section blade @schema serialises to the field-schema JSON', function () 
 });
 
 test('the registry discovers blocks by scanning the section templates', function () {
-    $registry = new SectionRegistry;
+    $registry = new BlockTypeRegistry;
 
-    expect($registry->find('hero'))->toBeInstanceOf(SectionDefinition::class);
+    expect($registry->find('hero'))->toBeInstanceOf(BlockType::class);
     expect(collect($registry->schemas())->pluck('key'))
         ->toContain('hero')
         ->toContain('home_hero')

@@ -6,8 +6,9 @@
         "title": null,
         "description": "We welcome children from birth to age 12 into our programs. The registration process varies slightly by age group and location."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "forms_hero",
             "name": "hero",
             "settings": {
@@ -19,6 +20,7 @@
             }
         },
         {
+            "key": "downloads",
             "type": "forms_downloads",
             "name": "downloads",
             "settings": {
@@ -30,8 +32,12 @@
                         "src": "/images/admissions/class-1.jpg",
                         "title": "Full-day early learning",
                         "lines": [
-                            { "text": "Infant, Toddler, Preschool" },
-                            { "text": "Birth to age 5" }
+                            {
+                                "text": "Infant, Toddler, Preschool"
+                            },
+                            {
+                                "text": "Birth to age 5"
+                            }
                         ],
                         "cta_label": "Download Form",
                         "cta_url": "#"
@@ -40,8 +46,12 @@
                         "src": "/images/admissions/class-3.jpg",
                         "title": "Before/After school",
                         "lines": [
-                            { "text": "Cathoic school (WCDSB) locations" },
-                            { "text": "JK to age 12" }
+                            {
+                                "text": "Cathoic school (WCDSB) locations"
+                            },
+                            {
+                                "text": "JK to age 12"
+                            }
                         ],
                         "cta_label": "Download Form",
                         "cta_url": "#"
@@ -50,22 +60,21 @@
                         "src": "/images/admissions/class-5.jpg",
                         "title": "Before/After school",
                         "lines": [
-                            { "text": "Public school(WRDSB) locations" },
-                            { "text": "JK to age 12" }
+                            {
+                                "text": "Public school(WRDSB) locations"
+                            },
+                            {
+                                "text": "JK to age 12"
+                            }
                         ],
                         "cta_label": "Download Form",
                         "cta_url": "#"
                     }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "forms_hero": {
             "name": "Forms Hero",
             "group": "Forms & Policies",

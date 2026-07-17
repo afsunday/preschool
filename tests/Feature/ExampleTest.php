@@ -4,7 +4,7 @@ use App\Models\Page;
 
 test('the homepage renders from the cms', function () {
     $page = Page::factory()->create(['slug' => 'home', 'title' => 'Home']);
-    $page->allSections()->create([
+    $page->allBlocks()->create([
         'type' => 'home_hero',
         'position' => 0,
         'is_visible' => true,

@@ -1,15 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://wodi.cms/page.schema.json",
-    "title": "CMS Page Blueprint",
-    "description": "The global, acceptable shape of a page definition file under resources/cms/pages. Blueprints seed the DB; the editor takes over from there.",
+    "title": "CMS Blueprint",
+    "description": "The acceptable shape of a blueprint under resources/cms — the pages, and globals.json. A blueprint seeds the DB; the editor owns the content from then on. `blocks` is the content (an ordered list); `blockTypes` is editor-only schema describing what fields each block type has.",
     "type": "object",
     "additionalProperties": false,
-    "required": ["slug", "title", "sections"],
+    "required": ["slug", "title", "blocks"],
     "properties": {
         "slug": {
             "type": "string",
-            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            "description": "The page's URL slug. `_globals` is the site chrome — it has blocks but no route.",
+            "pattern": "^_?[a-z0-9]+(?:-[a-z0-9]+)*$"
         },
         "title": { "type": "string", "minLength": 1 },
         "status": { "enum": ["draft", "published"] },
@@ -21,21 +22,22 @@
                 "description": { "type": ["string", "null"] }
             }
         },
-        "sections": {
+        "blocks": {
             "type": "array",
+            "description": "The content: this page's blocks, in order.",
             "items": { "$ref": "#/definitions/block" }
         },
-        "blocks": {
+        "blockTypes": {
             "type": "object",
-            "description": "This page's own block definitions (schema + view), keyed by block type.",
+            "description": "Editor-only. What fields a block of each type has, so the editor knows how to edit its settings. Carries no data and renders nothing. A page may use its own types plus the globals'.",
             "additionalProperties": {
                 "type": "object",
+                "additionalProperties": false,
                 "required": ["fields"],
                 "properties": {
                     "name": { "type": "string" },
                     "group": { "type": "string" },
                     "version": { "type": "integer" },
-                    "view": { "type": "string" },
                     "acceptsChildren": { "type": "boolean" },
                     "fields": { "type": "array" }
                 }
@@ -48,6 +50,11 @@
             "additionalProperties": false,
             "required": ["type"],
             "properties": {
+                "key": {
+                    "type": "string",
+                    "description": "Stable identity, unique within the page. What `pull` matches on to tell an existing block from a new one. Never rename it — rename `name` instead.",
+                    "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                },
                 "type": { "type": "string", "minLength": 1 },
                 "name": { "type": ["string", "null"] },
                 "isVisible": { "type": "boolean" },

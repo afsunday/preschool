@@ -2,14 +2,14 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Layers, Loader2, Search } from 'lucide-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../lib/cn';
+import { BlockTree } from './block-tree';
 import { EditorFooter } from './editor-footer';
 import { EditorTopbar } from './editor-topbar';
 import { FieldPanel } from './field-panel';
 import type { Device, PreviewMessage } from './preview-frame';
 import { PreviewFrame } from './preview-frame';
-import { SectionTree } from './section-tree';
 import { SeoPanel } from './seo-panel';
-import type { BuilderApi, PageDoc, SectionInstance } from './types';
+import type { BuilderApi, PageDoc, PageBlock } from './types';
 
 type Tab = 'design' | 'seo';
 
@@ -30,8 +30,10 @@ export function PageBuilder({
     const iframeRef = useRef<HTMLIFrameElement>(null);
 
     const schemaQuery = useQuery({
-        queryKey: ['cms-schema'],
-        queryFn: () => api.schema(),
+        // Keyed by page: the block types on offer are the page's own plus the
+        // globals', not one shared list.
+        queryKey: ['cms-schema', pageId],
+        queryFn: () => api.schema(pageId),
         staleTime: Infinity,
     });
     const pageQuery = useQuery({
@@ -119,7 +121,7 @@ export function PageBuilder({
     });
 
     // ---- block operations: mutate the doc; the debounced render redraws ----
-    const selectSection = (id: number) => {
+    const selectBlock = (id: number) => {
         setSelectedId(id);
         postToFrame({ type: 'select', id });
     };
@@ -135,7 +137,7 @@ export function PageBuilder({
 
         setDoc({
             ...doc,
-            sections: doc.sections.map((s) =>
+            blocks: doc.blocks.map((s) =>
                 s.id === selectedId
                     ? { ...s, settings: { ...s.settings, [key]: value } }
                     : s,
@@ -143,7 +145,7 @@ export function PageBuilder({
         });
     };
 
-    const addSection = (type: string) => {
+    const addBlock = (type: string) => {
         if (!doc) {
             return;
         }
@@ -155,23 +157,23 @@ export function PageBuilder({
                 settings[f.id] = f.default;
             }
         });
-        const section: SectionInstance = {
+        const block: PageBlock = {
             id: tempId--,
             type,
-            position: doc.sections.length,
+            position: doc.blocks.length,
             isVisible: true,
             settings,
         };
-        setDoc({ ...doc, sections: [...doc.sections, section] });
-        setSelectedId(section.id);
+        setDoc({ ...doc, blocks: [...doc.blocks, block] });
+        setSelectedId(block.id);
     };
 
-    const removeSection = (id: number) => {
+    const removeBlock = (id: number) => {
         if (!doc) {
             return;
         }
 
-        setDoc({ ...doc, sections: doc.sections.filter((s) => s.id !== id) });
+        setDoc({ ...doc, blocks: doc.blocks.filter((s) => s.id !== id) });
 
         if (selectedId === id) {
             setSelectedId(null);
@@ -185,7 +187,7 @@ export function PageBuilder({
 
         setDoc({
             ...doc,
-            sections: doc.sections.map((s) =>
+            blocks: doc.blocks.map((s) =>
                 s.id === id ? { ...s, isVisible: !s.isVisible } : s,
             ),
         });
@@ -196,10 +198,10 @@ export function PageBuilder({
             return;
         }
 
-        const sections = [...doc.sections];
-        const [moved] = sections.splice(from, 1);
-        sections.splice(to, 0, moved);
-        setDoc({ ...doc, sections });
+        const blocks = [...doc.blocks];
+        const [moved] = blocks.splice(from, 1);
+        blocks.splice(to, 0, moved);
+        setDoc({ ...doc, blocks });
     };
 
     const save = () => {
@@ -207,8 +209,8 @@ export function PageBuilder({
             return;
         }
 
-        const sections = doc.sections.map((s, i) => ({ ...s, position: i }));
-        saveMutation.mutate({ ...doc, sections });
+        const blocks = doc.blocks.map((s, i) => ({ ...s, position: i }));
+        saveMutation.mutate({ ...doc, blocks });
     };
 
     const onPreviewMessage = useCallback(
@@ -225,15 +227,15 @@ export function PageBuilder({
         [selectedId, postToFrame],
     );
 
-    const selectedSection = useMemo(
-        () => doc?.sections.find((s) => s.id === selectedId) ?? null,
+    const selectedBlock = useMemo(
+        () => doc?.blocks.find((b) => b.id === selectedId) ?? null,
         [doc, selectedId],
     );
     const selectedSchema = useMemo(
         () =>
-            schemaQuery.data?.find((s) => s.key === selectedSection?.type) ??
+            schemaQuery.data?.find((s) => s.key === selectedBlock?.type) ??
             null,
-        [schemaQuery.data, selectedSection],
+        [schemaQuery.data, selectedBlock],
     );
 
     if (pageQuery.isPending || schemaQuery.isPending || !doc) {
@@ -294,21 +296,21 @@ export function PageBuilder({
                             doc={doc}
                             onChange={(patch) => setDoc({ ...doc, ...patch })}
                         />
-                    ) : selectedSection && selectedSchema ? (
+                    ) : selectedBlock && selectedSchema ? (
                         <FieldPanel
-                            section={selectedSection}
+                            block={selectedBlock}
                             schema={selectedSchema}
                             onChange={changeField}
                             onBack={deselect}
                         />
                     ) : (
-                        <SectionTree
-                            sections={doc.sections}
+                        <BlockTree
+                            blocks={doc.blocks}
                             schemas={schemaQuery.data ?? []}
                             selectedId={selectedId}
-                            onSelect={selectSection}
-                            onAdd={addSection}
-                            onRemove={removeSection}
+                            onSelect={selectBlock}
+                            onAdd={addBlock}
+                            onRemove={removeBlock}
                             onToggleVisible={toggleVisible}
                             onReorder={reorder}
                         />

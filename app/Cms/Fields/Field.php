@@ -54,6 +54,36 @@ abstract class Field implements JsonSerializable
     }
 
     /**
+     * Reconcile this field on pull: decide the value a block should hold given
+     * what it already stores and what the blueprint seeds.
+     *
+     * Value-preserving — an edit always wins:
+     *   - already stored  -> keep it (the builder owns content)
+     *   - only in seed     -> adopt it (a brand-new field, filled from the design)
+     *   - in neither       -> absent (nothing invents a default; the view falls
+     *                         back at render via get($key, …))
+     *
+     * Returns [present, value]; present=false means leave the key out entirely,
+     * so a field the schema dropped is pruned by simply never being asked.
+     *
+     * @param  array<string, mixed>  $stored  the block's current settings
+     * @param  array<string, mixed>  $seed  the blueprint block's settings
+     * @return array{0: bool, 1: mixed}
+     */
+    public function reconcile(array $stored, array $seed): array
+    {
+        if (array_key_exists($this->id, $stored)) {
+            return [true, $this->sanitize($stored[$this->id])];
+        }
+
+        if (array_key_exists($this->id, $seed)) {
+            return [true, $this->sanitize($seed[$this->id])];
+        }
+
+        return [false, null];
+    }
+
+    /**
      * Per-type extra keys (options, source, fields, …). Overridden by subclasses.
      *
      * @return array<string, mixed>

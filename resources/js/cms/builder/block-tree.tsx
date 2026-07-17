@@ -2,10 +2,10 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Eye, EyeOff, GripVertical, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '../lib/cn';
-import type { SectionInstance, SectionSchema } from './types';
+import type { PageBlock, BlockType } from './types';
 
-export function SectionTree({
-    sections,
+export function BlockTree({
+    blocks,
     schemas,
     onSelect,
     onAdd,
@@ -13,8 +13,8 @@ export function SectionTree({
     onToggleVisible,
     onReorder,
 }: {
-    sections: SectionInstance[];
-    schemas: SectionSchema[];
+    blocks: PageBlock[];
+    schemas: BlockType[];
     selectedId: number | null;
     onSelect: (id: number) => void;
     onAdd: (type: string) => void;
@@ -29,7 +29,7 @@ export function SectionTree({
         schemas.find((s) => s.key === type)?.name ?? type;
 
     // Group schemas for the Add menu.
-    const groups = schemas.reduce<Record<string, SectionSchema[]>>((acc, s) => {
+    const groups = schemas.reduce<Record<string, BlockType[]>>((acc, s) => {
         (acc[s.group] ??= []).push(s);
 
         return acc;
@@ -41,7 +41,7 @@ export function SectionTree({
                 <span className="text-[13px] font-semibold text-neutral-800">
                     Blocks
                     <span className="ml-1.5 text-xs font-normal text-neutral-400">
-                        {sections.length}
+                        {blocks.length}
                     </span>
                 </span>
                 <Menu as="div" className="relative">
@@ -75,7 +75,7 @@ export function SectionTree({
             </div>
 
             <div className="flex-1 overflow-y-auto px-2 pb-2">
-                {sections.length === 0 && (
+                {blocks.length === 0 && (
                     <div className="mt-6 rounded-[6px] border border-dashed border-black/10 px-3 py-8 text-center">
                         <p className="text-sm text-neutral-400">
                             No blocks yet.
@@ -86,9 +86,9 @@ export function SectionTree({
                     </div>
                 )}
 
-                {sections.map((section, index) => (
+                {blocks.map((block, index) => (
                     <div
-                        key={section.id}
+                        key={block.id}
                         draggable
                         onDragStart={() => setDragIndex(index)}
                         onDragEnd={() => {
@@ -110,14 +110,14 @@ export function SectionTree({
                             setDragIndex(null);
                             setOverIndex(null);
                         }}
-                        onClick={() => onSelect(section.id)}
+                        onClick={() => onSelect(block.id)}
                         className={cn(
                             'group relative mb-1.5 flex items-center gap-2 rounded-[2px] border bg-white px-2 py-2.5 transition hover:bg-neutral-50',
                             overIndex === index && dragIndex !== index
                                 ? 'border-neutral-900'
                                 : 'border-neutral-300',
                             dragIndex === index && 'opacity-40',
-                            !section.isVisible && 'opacity-50',
+                            !block.isVisible && 'opacity-50',
                         )}
                     >
                         <GripVertical className="size-4 shrink-0 cursor-grab text-neutral-300 group-hover:text-neutral-400" />
@@ -127,7 +127,7 @@ export function SectionTree({
                         </span>
 
                         <span className="min-w-0 flex-1 truncate text-sm font-medium text-neutral-800">
-                            {nameFor(section.type)}
+                            {nameFor(block.type)}
                         </span>
 
                         <div className="flex shrink-0 items-center gap-0.5 opacity-0 transition group-hover:opacity-100">
@@ -135,12 +135,12 @@ export function SectionTree({
                                 type="button"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onToggleVisible(section.id);
+                                    onToggleVisible(block.id);
                                 }}
-                                title={section.isVisible ? 'Hide' : 'Show'}
+                                title={block.isVisible ? 'Hide' : 'Show'}
                                 className="grid size-6 place-items-center rounded-[4px] text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
                             >
-                                {section.isVisible ? (
+                                {block.isVisible ? (
                                     <Eye className="size-4" />
                                 ) : (
                                     <EyeOff className="size-4" />
@@ -150,7 +150,7 @@ export function SectionTree({
                                 type="button"
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    onRemove(section.id);
+                                    onRemove(block.id);
                                 }}
                                 title="Delete"
                                 className="grid size-6 place-items-center rounded-[4px] text-neutral-400 hover:bg-red-50 hover:text-red-500"

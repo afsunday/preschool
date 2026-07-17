@@ -1,0 +1,285 @@
+{
+    "slug": "_globals",
+    "title": "Site globals",
+    "status": "published",
+    "blocks": [
+        {
+            "key": "navbar",
+            "type": "site_navbar",
+            "name": "navbar",
+            "settings": {
+                "links": [
+                    {
+                        "label": "Home",
+                        "url": "/"
+                    },
+                    {
+                        "label": "About us",
+                        "url": "/about"
+                    },
+                    {
+                        "label": "Admissions",
+                        "url": "/admissions"
+                    },
+                    {
+                        "label": "Parents & Kids Resource",
+                        "url": "/resources"
+                    },
+                    {
+                        "label": "Forms & Policies",
+                        "url": "/forms-policies"
+                    },
+                    {
+                        "label": "Gallery",
+                        "url": "/gallery"
+                    },
+                    {
+                        "label": "FAQ",
+                        "url": "/faq"
+                    },
+                    {
+                        "label": "Contact Us",
+                        "url": "/contact"
+                    }
+                ],
+                "primary_label": "Enroll Your Child Today",
+                "primary_url": "#admissions",
+                "secondary_label": "Discover Our Programs",
+                "secondary_url": "#resources"
+            }
+        },
+        {
+            "key": "newsletter",
+            "type": "newsletter",
+            "name": "newsletter",
+            "settings": {
+                "heading": "Better future for kids",
+                "subtext": "Get the latest on what's going on with WODI daycare.",
+                "placeholder": "Your email",
+                "button": "Send"
+            }
+        },
+        {
+            "key": "footer",
+            "type": "site_footer",
+            "name": "footer",
+            "settings": {
+                "watermark": "WODI DAYCARE",
+                "columns": [
+                    {
+                        "heading": "WODI Daycare",
+                        "links": [
+                            {
+                                "label": "Home",
+                                "url": "/"
+                            },
+                            {
+                                "label": "Admissions",
+                                "url": "#admissions"
+                            },
+                            {
+                                "label": "Gallery",
+                                "url": "#"
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "COMPANY",
+                        "links": [
+                            {
+                                "label": "About us",
+                                "url": "#about"
+                            },
+                            {
+                                "label": "Contact",
+                                "url": "#"
+                            },
+                            {
+                                "label": "FAQ",
+                                "url": "#"
+                            }
+                        ]
+                    },
+                    {
+                        "heading": "RESOURCES",
+                        "links": [
+                            {
+                                "label": "Resources for Parents & Kids",
+                                "url": "#resources"
+                            }
+                        ]
+                    }
+                ],
+                "about_text": "WODI Daycare is a place where little ones feel safe, seen, and free to explore. Our early educators nurture curiosity through play, warm relationships, and a curriculum built around how young children really learn. From first steps to first friendships, we partner with families to give every child a joyful, confident start.",
+                "legal_links": [
+                    {
+                        "label": "Terms of Use",
+                        "url": "#"
+                    },
+                    {
+                        "label": "Privacy Policy",
+                        "url": "#"
+                    },
+                    {
+                        "label": "Cookies Policy",
+                        "url": "#"
+                    }
+                ]
+            }
+        }
+    ],
+    "blockTypes": {
+        "newsletter": {
+            "name": "Newsletter",
+            "group": "Globals",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "heading",
+                    "type": "text",
+                    "label": "Heading"
+                },
+                {
+                    "id": "subtext",
+                    "type": "textarea",
+                    "label": "Subtext"
+                },
+                {
+                    "id": "placeholder",
+                    "type": "text",
+                    "label": "Email placeholder"
+                },
+                {
+                    "id": "button",
+                    "type": "text",
+                    "label": "Button label"
+                },
+                {
+                    "id": "image",
+                    "type": "media",
+                    "label": "Photo",
+                    "kind": "image"
+                }
+            ]
+        },
+        "site_navbar": {
+            "name": "Navbar",
+            "group": "Globals",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "logo",
+                    "type": "media",
+                    "label": "Logo",
+                    "kind": "image"
+                },
+                {
+                    "id": "links",
+                    "type": "repeater",
+                    "label": "Menu links",
+                    "fields": [
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        },
+                        {
+                            "id": "url",
+                            "type": "text",
+                            "label": "URL"
+                        }
+                    ]
+                },
+                {
+                    "id": "primary_label",
+                    "type": "text",
+                    "label": "Primary button"
+                },
+                {
+                    "id": "primary_url",
+                    "type": "text",
+                    "label": "Primary button URL"
+                },
+                {
+                    "id": "secondary_label",
+                    "type": "text",
+                    "label": "Secondary button"
+                },
+                {
+                    "id": "secondary_url",
+                    "type": "text",
+                    "label": "Secondary button URL"
+                }
+            ]
+        },
+        "site_footer": {
+            "name": "Footer",
+            "group": "Globals",
+            "version": 1,
+            "fields": [
+                {
+                    "id": "logo",
+                    "type": "media",
+                    "label": "Logo",
+                    "kind": "image"
+                },
+                {
+                    "id": "watermark",
+                    "type": "text",
+                    "label": "Watermark"
+                },
+                {
+                    "id": "columns",
+                    "type": "repeater",
+                    "label": "Link columns",
+                    "fields": [
+                        {
+                            "id": "heading",
+                            "type": "text",
+                            "label": "Heading"
+                        },
+                        {
+                            "id": "links",
+                            "type": "repeater",
+                            "label": "Links",
+                            "fields": [
+                                {
+                                    "id": "label",
+                                    "type": "text",
+                                    "label": "Label"
+                                },
+                                {
+                                    "id": "url",
+                                    "type": "text",
+                                    "label": "URL"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "about_text",
+                    "type": "textarea",
+                    "label": "About text"
+                },
+                {
+                    "id": "legal_links",
+                    "type": "repeater",
+                    "label": "Legal links",
+                    "fields": [
+                        {
+                            "id": "label",
+                            "type": "text",
+                            "label": "Label"
+                        },
+                        {
+                            "id": "url",
+                            "type": "text",
+                            "label": "URL"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

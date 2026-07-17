@@ -1,15 +1,15 @@
 import { ArrowLeft } from 'lucide-react';
 import { FieldInput } from './field-input';
-import type { SectionInstance, SectionSchema } from './types';
+import type { PageBlock, BlockType } from './types';
 
 export function FieldPanel({
-    section,
+    block,
     schema,
     onChange,
     onBack,
 }: {
-    section: SectionInstance;
-    schema: SectionSchema;
+    block: PageBlock;
+    schema: BlockType;
     onChange: (key: string, value: unknown) => void;
     onBack: () => void;
 }) {
@@ -30,7 +30,7 @@ export function FieldPanel({
                     <FieldInput
                         key={field.id}
                         field={field}
-                        value={section.settings[field.id]}
+                        value={block.settings[field.id]}
                         onChange={(v) => onChange(field.id, v)}
                     />
                 ))}

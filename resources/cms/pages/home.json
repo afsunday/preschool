@@ -6,8 +6,9 @@
         "title": null,
         "description": "WODI is your trusted early childhood partner, nurturing curiosity, building confidence, and giving every child the best start in life."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "home_hero",
             "name": "hero",
             "settings": {
@@ -31,6 +32,7 @@
             }
         },
         {
+            "key": "features",
             "type": "feature_bar",
             "name": "features",
             "settings": {
@@ -56,6 +58,7 @@
             }
         },
         {
+            "key": "about",
             "type": "about_intro",
             "name": "about",
             "settings": {
@@ -65,6 +68,7 @@
             }
         },
         {
+            "key": "resources",
             "type": "resource_cards",
             "name": "resources",
             "settings": {
@@ -95,6 +99,7 @@
             }
         },
         {
+            "key": "classroom",
             "type": "classroom_split",
             "name": "classroom",
             "settings": {
@@ -113,31 +118,33 @@
             }
         },
         {
+            "key": "admissions",
             "type": "steps",
             "name": "admissions",
             "settings": {
                 "heading": "Admissions & Enrolment",
-                "subheading": "Reduce drop-off at the redirect. Prepare the user before they leave the site.",
+                "subheading": "Getting your child started at WODI is simple. Here is how enrolment works, from your first application to their very first day.",
                 "steps": [
                     {
                         "icon": "user",
                         "title": "Register on One List",
-                        "body": "Potter ipsum wand elf parchment wingardium. Years mcgonagall bonnet locomotor blood basilisk wheels floating."
+                        "body": "Create your family profile and join our central waitlist. It takes only a few minutes and puts your child in line for a spot."
                     },
                     {
                         "icon": "edit",
                         "title": "Select WODI Daycare",
-                        "body": "Potter ipsum wand elf parchment wingardium. Fire-whisky ginny back stairs crimson. Elder for mr harry suck fairy."
+                        "body": "Choose WODI Daycare as your preferred centre and tell us a little about your child's age and ideal start date."
                     },
                     {
                         "icon": "id",
                         "title": "Get a Spot",
-                        "body": "Potter ipsum wand elf parchment wingardium. Knew crimson his map dress crush owl find. His cannot treats phials got nick."
+                        "body": "When a place opens in the right room, we reach out to confirm enrolment and walk you through everything you need for day one."
                     }
                 ]
             }
         },
         {
+            "key": "banner",
             "type": "banner_split",
             "name": "banner",
             "settings": {
@@ -146,27 +153,22 @@
             }
         },
         {
+            "key": "testimonial",
             "type": "testimonials",
             "name": "testimonial",
             "settings": {
                 "heading": "What <span class=\"text-wodi-pink\">parents</span> say",
-                "quote": "Potter ipsum wand elf parchment wingardium. Potter do seven dervish flat red hiya. 12 us lorem mimbletonia tonight broomstick must shunpike.",
+                "quote": "From day one, the team at WODI treated my daughter like their own. She runs in every morning excited to see her teachers and comes home full of stories. I could not ask for a warmer, safer place for her to grow.",
                 "name": "Loretta Renner",
                 "role": "Anna's Mum"
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "home_hero": {
             "name": "Home Hero",
             "group": "Home",
             "version": 1,
-            "view": "blocks.home-hero",
             "fields": [
                 {
                     "id": "title",
@@ -239,7 +241,6 @@
             "name": "Feature Bar",
             "group": "Home",
             "version": 1,
-            "view": "blocks.feature-bar",
             "fields": [
                 {
                     "id": "lead_title",
@@ -305,7 +306,6 @@
             "name": "About Intro",
             "group": "Home",
             "version": 1,
-            "view": "blocks.about-intro",
             "fields": [
                 {
                     "id": "eyebrow",
@@ -334,7 +334,6 @@
             "name": "Resource Cards",
             "group": "Home",
             "version": 1,
-            "view": "blocks.resource-cards",
             "fields": [
                 {
                     "id": "heading",
@@ -405,7 +404,6 @@
             "name": "Classroom Split",
             "group": "Home",
             "version": 1,
-            "view": "blocks.classroom-split",
             "fields": [
                 {
                     "id": "heading",
@@ -436,7 +434,6 @@
             "name": "Steps / Process",
             "group": "Home",
             "version": 1,
-            "view": "blocks.steps",
             "fields": [
                 {
                     "id": "heading",
@@ -502,7 +499,6 @@
             "name": "Banner Split",
             "group": "Home",
             "version": 1,
-            "view": "blocks.banner-split",
             "fields": [
                 {
                     "id": "image",
@@ -526,7 +522,6 @@
             "name": "Testimonials",
             "group": "Home",
             "version": 1,
-            "view": "blocks.testimonials",
             "fields": [
                 {
                     "id": "heading",
@@ -562,24 +557,10 @@
                 }
             ]
         },
-        "newsletter": {
-            "name": "Newsletter",
-            "group": "Home",
-            "version": 1,
-            "view": "blocks.newsletter",
-            "fields": [
-                {
-                    "id": "heading",
-                    "type": "text",
-                    "label": "Heading"
-                }
-            ]
-        },
         "hero": {
             "name": "Hero",
             "group": "Headers",
             "version": 1,
-            "view": "blocks.hero",
             "fields": [
                 {
                     "id": "eyebrow",

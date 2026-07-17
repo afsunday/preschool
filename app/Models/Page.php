@@ -41,23 +41,23 @@ class Page extends Model
     }
 
     /**
-     * Top-level sections (nesting is via each section's children()).
+     * Top-level blocks (nesting is via each block's children()).
      *
-     * @return HasMany<PageSection, $this>
+     * @return HasMany<PageBlock, $this>
      */
-    public function sections(): HasMany
+    public function blocks(): HasMany
     {
-        return $this->hasMany(PageSection::class)
+        return $this->hasMany(PageBlock::class)
             ->whereNull('parent_id')
             ->orderBy('position');
     }
 
     /**
-     * @return HasMany<PageSection, $this>
+     * @return HasMany<PageBlock, $this>
      */
-    public function allSections(): HasMany
+    public function allBlocks(): HasMany
     {
-        return $this->hasMany(PageSection::class)->orderBy('position');
+        return $this->hasMany(PageBlock::class)->orderBy('position');
     }
 
     /**

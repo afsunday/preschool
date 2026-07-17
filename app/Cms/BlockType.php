@@ -3,12 +3,16 @@
 namespace App\Cms;
 
 use App\Cms\Fields\Field;
+use App\Cms\Fields\Repeater;
 
 /**
- * A block type, built from the `@schema(...)` declared in its Blade template.
- * Replaces the old per-type PHP class — schema and template now live together.
+ * A block type: what fields a block of this kind has.
+ *
+ * Read from the `blockTypes` map in a blueprint. It carries no data and renders
+ * nothing — its whole job is telling the editor how to edit a block's
+ * `settings`, and enforcing that shape on save.
  */
-class SectionDefinition
+class BlockType
 {
     /** @var array<int, Field>|null */
     protected ?array $fieldObjects = null;
@@ -22,7 +26,6 @@ class SectionDefinition
         public readonly string $group,
         public readonly int $version,
         public readonly bool $acceptsChildren,
-        public readonly string $view,
         protected array $fieldSpecs,
     ) {}
 
@@ -67,6 +70,37 @@ class SectionDefinition
         foreach ($this->fields() as $field) {
             if (array_key_exists($field->id, $settings)) {
                 $clean[$field->id] = $field->sanitize($settings[$field->id]);
+            }
+        }
+
+        return $clean;
+    }
+
+    /**
+     * Reconcile stored settings against this schema on pull.
+     *
+     * Structural, not semantic: it makes the *set of keys* current without
+     * touching content you've edited. A field the block already has keeps its
+     * value; a brand-new field is filled from the blueprint seed; a field the
+     * schema dropped is pruned. Repeaters keep their rows and lose only removed
+     * sub-keys — see {@see Repeater::reconcile()}.
+     *
+     * A rename is not inferred (old key gone, new key seeded), so its old value
+     * is lost — reshape those with {@see migrate()} and a version bump instead.
+     *
+     * @param  array<string, mixed>  $stored
+     * @param  array<string, mixed>  $seed
+     * @return array<string, mixed>
+     */
+    public function reconcile(array $stored, array $seed = []): array
+    {
+        $clean = [];
+
+        foreach ($this->fields() as $field) {
+            [$present, $value] = $field->reconcile($stored, $seed);
+
+            if ($present) {
+                $clean[$field->id] = $value;
             }
         }
 

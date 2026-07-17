@@ -16,13 +16,21 @@
         @stack('head')
     </head>
     <body class="min-h-screen overflow-x-hidden bg-wodi-cream font-display text-wodi-ink antialiased">
-        @include('partials.site-header')
+        @isset($globals['site_navbar'])
+            @include('partials.site-header', ['block' => $globals['site_navbar']])
+        @endisset
 
         <main>
             @yield('content')
         </main>
 
-        @include('partials.site-footer')
+        @isset($globals['newsletter'])
+            @include('partials.newsletter', ['block' => $globals['newsletter']])
+        @endisset
+
+        @isset($globals['site_footer'])
+            @include('partials.site-footer', ['block' => $globals['site_footer']])
+        @endisset
 
         @stack('scripts')
     </body>

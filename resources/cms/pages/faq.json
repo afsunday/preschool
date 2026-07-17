@@ -6,8 +6,9 @@
         "title": null,
         "description": "Frequently asked questions about WODI Daycare."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "faq_hero",
             "name": "hero",
             "settings": {
@@ -15,76 +16,72 @@
             }
         },
         {
+            "key": "questions",
             "type": "faq_list",
             "name": "questions",
             "settings": {
                 "faqs": [
                     {
-                        "question": "Potter ipsum wand elf",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Candles ickle 12 charm mellow us hermione. Where bedroom half-moon-glasses parchment spell hollow eyes world portkey chasers. My with wizard last."
+                        "question": "What are your opening hours, and how do drop-off and pick-up work?",
+                        "answer": "WODI Daycare is open Monday to Friday from 7:30am to 6:00pm. You're welcome to drop off any time before 9:30am so your child can settle into the morning routine, and pick-up is any time up to 6:00pm. Please let us know in advance if someone other than a listed guardian will be collecting your child, as we always confirm ID at the door."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment wingardium.",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Palominos dragon-scale niffler them harry. World firs' snitch spectacles wizard giant motorcycle transfiguration pumpkin. Dog it newt mimubulus tears. Snitch."
+                        "question": "What age groups do you care for, and how are the rooms organised?",
+                        "answer": "We welcome children from around 18 months to 5 years, grouped into age-appropriate rooms: a Toddler room for our younger walkers and a Preschool room for the 3-to-5s. Each room is set up with activities, furniture, and routines suited to that stage, and children move up as they're developmentally ready rather than strictly by birthday."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment wingardium.",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Who winky cupboard come stairs suits impedimenta ickle. Hedwig not bott's i'd centaur now unicorn. Portkey suits headless blood yew godric's captivity armchairs."
+                        "question": "What are your educator-to-child ratios, and how qualified are your staff?",
+                        "answer": "We keep small, consistent groups with roughly one educator to every four toddlers and one to eight in the preschool room, which meets or exceeds the recommended standard. All of our educators hold recognised early-childhood qualifications and are trained in paediatric first aid, with ongoing professional development throughout the year."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. 10 phoenix prince armchairs harpies peg-leg that metamorphimagus blood. Glass witch law out minister. Snargaluff do wars blue doe banana daily."
+                        "question": "What meals and snacks do you provide, and how do you handle allergies?",
+                        "answer": "We serve a freshly prepared morning snack, a hot lunch, and an afternoon snack each day, with menus planned around balanced, child-friendly nutrition. Allergies and dietary needs are taken very seriously; we record each child's requirements, keep our kitchen fully informed, and accommodate common allergies and preferences, so please share the details when you enrol."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. With robes horseless them aragog unicorn raw-steak tap-dancing three-headed. Every red quidditch eeylops squid wool grim. Potion blubber willow harry blue."
+                        "question": "Do the children nap or rest during the day?",
+                        "answer": "Yes, we have a calm rest period after lunch where younger children sleep on their own cot or mat and older children can rest or enjoy quiet activities. We follow each family's routine as closely as we can, so just let us know your child's usual nap habits and we'll help them settle."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Side bathrooms schedule forest harpies not pie restricted mudbloods glory. Horcrux should from bright a. Raw-steak ridgeback 10 floor blue. Mistletoe sorting."
+                        "question": "How do you help new children settle in?",
+                        "answer": "We offer a gentle settling-in period with shorter visits to begin with, so your child can get to know their educators and their new space at their own pace. A key educator will be your main point of contact, and we'll share updates and photos through the day so you feel reassured while your little one adjusts."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Ridgeback hexed pear-tickle socks cloak 50. That tell nearly-headless fantastic fat. Banquet scarlet phoenix witch disciplinary easy firs' phoenix petrified."
+                        "question": "What is your policy when a child is sick?",
+                        "answer": "To keep everyone healthy, we ask that children stay home if they have a fever, are contagious, or are too unwell to take part in the day, and we follow standard exclusion periods for illnesses such as tummy bugs. If your child becomes unwell while with us, we'll contact you to arrange collection and keep them comfortable until you arrive."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Flat metamorphimagus hats seek stone spine time-turner doe. Spine points hoops flying frogs tart potter beaters cottage. Winky levicorpus better plums mewing."
+                        "question": "How do you keep the children safe and secure?",
+                        "answer": "Our building is secured with keypad entry, and children are only released to authorised guardians once we have confirmed their identity. We maintain strict sign-in and sign-out records, closely supervised indoor and outdoor areas, and regular safety checks, and our team practises emergency procedures so everyone knows exactly what to do."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Above lights woes mischief phials seven spew crookshanks biting parchment. Start-of-term oddment padfoot bag map. Horcrux letters bathrooms yer."
+                        "question": "What does a typical day look like, and what is your approach to learning?",
+                        "answer": "Our days blend free play, group activities, stories, music, outdoor time, meals, and rest, following a predictable rhythm that helps children feel secure. We follow a play-based curriculum where children learn through hands-on exploration, building early language, social, and problem-solving skills at their own pace."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Potter smile magic remus expecto mrs gillyweed kedavra essence. Tell umbridge pie gillyweed spew the. Come bathrooms us mischief headless headmaster."
+                        "question": "What should I pack for my child each day?",
+                        "answer": "Please pack a couple of spare changes of clothes, a sun hat, and any comfort item your child likes at nap time, all labelled with their name. We provide all meals and snacks, so there's no need to send food; if your child is in nappies, simply keep us stocked with their preferred brand and we'll let you know when supplies are running low."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Dementors house better disciplinary forbidden love. Flame chalice brass sinistra bott's are locomotor gringotts fell cleansweep. Gamp's hagrid do I dirigible lupin."
+                        "question": "How do fees, enrolment, and the waitlist work?",
+                        "answer": "Fees depend on the number of days per week and your child's age group, and we're happy to send a full schedule along with information on any available subsidies. Places can fill quickly, so we recommend joining our waitlist early; once a spot opens we'll invite you in for a visit and guide you through the enrolment paperwork."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Crookshanks shack hall seeker nose stone filch gillywater petrified bertie. Prophet mr fell out lies chasers. Clean thieves than three-headed phials. Bag feast would."
+                        "question": "How will you keep me updated about my child's day?",
+                        "answer": "You'll receive daily updates through our parent portal, including photos and notes on meals, naps, and activities, so you never miss a moment. Our educators are also always happy to chat at drop-off and pick-up, and we schedule regular check-ins to talk through your child's progress."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Bean witch filch newt lived from lights where cupboard. Disciplinary out sight quidditch betrayal essence prophet minerva. Black portrait ickle better bright mrs."
+                        "question": "When are you closed for holidays?",
+                        "answer": "We close on public holidays and for a short break over the end-of-year holiday season, and we share the full closure calendar when you enrol and again ahead of time. We'll always give plenty of notice of any additional closure days so you can arrange alternative care in advance."
                     },
                     {
-                        "question": "Potter ipsum wand elf parchment",
-                        "answer": "Potter ipsum wand elf parchment wingardium. Forest captivity detention on half-moon-glasses your tell locomotor where parchment. Blood tap-dancing now easy them snivellus. Spells hippogriff chalice we."
+                        "question": "Do you support potty training and daily outdoor play?",
+                        "answer": "Absolutely; we work in partnership with families on potty training, following the same gentle, encouraging approach you use at home so your child feels supported in both places. Children also enjoy outdoor play every day in our secure garden, with plenty of room to run, climb, and explore, weather permitting."
                     }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "faq_hero": {
             "name": "FAQ Hero",
             "group": "FAQ",

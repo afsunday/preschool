@@ -13,9 +13,6 @@ use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
 use Illuminate\Support\Facades\Route;
 
-// Public site — every page renders from the CMS (DB-driven). The controller
-// renders the Blade view named by the slug, so the URL and the view can differ
-// (/forms-policies -> forms).
 Route::get('/', [SitePageController::class, 'show'])->name('home');
 Route::get('/about', [SitePageController::class, 'show'])->defaults('slug', 'about')->name('about');
 Route::get('/admissions', [SitePageController::class, 'show'])->defaults('slug', 'admissions')->name('admissions');
@@ -25,23 +22,12 @@ Route::get('/forms-policies', [SitePageController::class, 'show'])->defaults('sl
 Route::get('/faq', [SitePageController::class, 'show'])->defaults('slug', 'faq')->name('faq');
 Route::get('/contact', [SitePageController::class, 'show'])->defaults('slug', 'contact')->name('contact');
 
-// Admin — Inertia/React.
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 
-    // Parent/teacher-facing portal (distinct chrome from the admin CMS).
-    // Access is per-room via ClassroomPolicy: staff run their room, a parent
-    // reaches a room only through their own child.
     Route::prefix('portal')->name('portal.')->group(function () {
         Route::get('/', [PortalController::class, 'home'])->name('home');
-
-        // Ordinary uploads (photos in posts, chats, day logs). Lands in temp/
-        // immediately; the receiving controller promotes it on submit.
         Route::post('uploads', [PortalUploadController::class, 'store'])->name('uploads.store');
-
-        // Linking a parent to a child — redeeming the child's invite code is the
-        // whole relationship system.
         Route::get('join', [PortalJoinController::class, 'show'])->name('join');
         Route::post('join', [PortalJoinController::class, 'store'])->name('join.store');
 
@@ -102,7 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Page builder JSON API (consumed by the React editor).
         Route::prefix('admin/builder')->name('builder.')->group(function () {
-            Route::get('schema', [PageBuilderController::class, 'schema'])->name('schema');
+            Route::get('pages/{page}/schema', [PageBuilderController::class, 'schema'])->name('schema');
             Route::get('options/{source}', [PageBuilderController::class, 'options'])->name('options');
             Route::get('pages/{page}', [PageBuilderController::class, 'show'])->name('show');
             Route::put('pages/{page}', [PageBuilderController::class, 'save'])->name('save');

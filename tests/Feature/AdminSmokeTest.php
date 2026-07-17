@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Page;
 use App\Models\User;
 use Inertia\Testing\AssertableInertia as Assert;
 
@@ -26,7 +27,7 @@ test('login page renders for guests', function () {
 });
 
 test('the page editor screen renders', function () {
-    $page = \App\Models\Page::factory()->create();
+    $page = Page::factory()->create();
 
     $this->actingAs($this->admin)
         ->get("/admin/pages/{$page->id}/edit")
@@ -36,8 +37,8 @@ test('the page editor screen renders', function () {
 
 test('the editor preview renders the page view with selection wrappers', function () {
     // The preview renders view(slug); "home" has resources/views/home.blade.php.
-    $home = \App\Models\Page::factory()->create(['slug' => 'home']);
-    $home->allSections()->create([
+    $home = Page::factory()->create(['slug' => 'home']);
+    $home->allBlocks()->create([
         'type' => 'home_hero', 'position' => 0, 'is_visible' => true,
         'settings' => ['title' => 'Peek preview'], 'schema_version' => 1,
     ]);

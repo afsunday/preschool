@@ -6,13 +6,14 @@
         "title": null,
         "description": "Helping families continue learning at home through activities, videos, reading materials and helpful links."
     },
-    "sections": [
+    "blocks": [
         {
+            "key": "hero",
             "type": "resources_hero",
             "name": "hero",
             "settings": {
                 "title": "Everything You Need, All in One Place.",
-                "subtitle": "Helping families continue learning at home through activities, videos, reading materials and helpful lin",
+                "subtitle": "Helping families continue learning at home through activities, videos, reading materials, and helpful links.",
                 "cards": [
                     {
                         "variant": "cheer",
@@ -33,6 +34,7 @@
             }
         },
         {
+            "key": "programs",
             "type": "resources_programs",
             "name": "programs",
             "settings": {
@@ -41,31 +43,45 @@
                 "search_placeholder": "Search resources... titles, descriptions, tags",
                 "search_label": "Search",
                 "filters": [
-                    { "label": "All" },
-                    { "label": "Parent Tips" },
-                    { "label": "Learning Activities" },
-                    { "label": "Educational Videos" },
-                    { "label": "Health & Wellness" },
-                    { "label": "Arts & Craft" },
-                    { "label": "School Readiness" }
+                    {
+                        "label": "All"
+                    },
+                    {
+                        "label": "Parent Tips"
+                    },
+                    {
+                        "label": "Learning Activities"
+                    },
+                    {
+                        "label": "Educational Videos"
+                    },
+                    {
+                        "label": "Health & Wellness"
+                    },
+                    {
+                        "label": "Arts & Craft"
+                    },
+                    {
+                        "label": "School Readiness"
+                    }
                 ],
                 "cards": [
                     {
                         "src": "/images/about/program-art.jpg",
                         "action": "download",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "At-Home Craft Kit: 12 Simple, Mess-Free Art Activities for Toddlers (Printable PDF)",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/program-drawing.jpg",
                         "action": "video",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Watch: Fun Drawing Games That Build Fine Motor Skills at Home",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/program-classroom.jpg",
                         "action": "download",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Kindergarten Readiness Checklist: What Your 4-5 Year Old Should Know Before Big School (PDF)",
                         "url": "#"
                     },
                     {
@@ -77,43 +93,38 @@
                     {
                         "src": "/images/about/gallery-3.jpg",
                         "action": "read",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "5 Gentle Ways to Ease Separation Anxiety on Drop-Off Mornings",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/gallery-4.jpg",
                         "action": "read",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Turning Tantrums Into Teachable Moments: A Parent's Guide to Big Feelings",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/testimonial.jpg",
                         "action": "read",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Why Play Is Serious Learning for Children Under 5",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/gallery-2.jpg",
                         "action": "read",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Building Healthy Sleep Routines for Toddlers and Preschoolers",
                         "url": "#"
                     },
                     {
                         "src": "/images/about/gallery-6.jpg",
                         "action": "read",
-                        "text": "Potter ipsum wand elf parchment wingam. Teacup do feint teacup.",
+                        "text": "Screen-Free Activities to Keep Little Minds Busy and Growing",
                         "url": "#"
                     }
                 ]
             }
-        },
-        {
-            "type": "newsletter",
-            "name": "newsletter",
-            "settings": {}
         }
     ],
-    "blocks": {
+    "blockTypes": {
         "resources_hero": {
             "name": "Resources Hero",
             "group": "Resources",
@@ -238,8 +249,14 @@
                                     "value": "download",
                                     "label": "Download File"
                                 },
-                                { "value": "video", "label": "Watch Video" },
-                                { "value": "read", "label": "Read" }
+                                {
+                                    "value": "video",
+                                    "label": "Watch Video"
+                                },
+                                {
+                                    "value": "read",
+                                    "label": "Read"
+                                }
                             ]
                         },
                         {

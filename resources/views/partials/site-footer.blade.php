@@ -1,44 +1,34 @@
 @php
-    $footerColumns = [
-        'WODI Daycare' => [
-            ['label' => 'Home', 'url' => route('home')],
-            ['label' => 'Admissions', 'url' => '#admissions'],
-            ['label' => 'Gallery', 'url' => '#'],
-        ],
-        'COMPANY' => [
-            ['label' => 'About us', 'url' => '#about'],
-            ['label' => 'Contact', 'url' => '#'],
-            ['label' => 'FAQ', 'url' => '#'],
-        ],
-        'RESOURCES' => [
-            ['label' => 'Resources for Parents & Kids', 'url' => '#resources'],
-        ],
-    ];
+    $columns = $block->get('columns', []);
+    $legal = $block->get('legal_links', []);
+    $logo = $block->mediaUrl('logo') ?? '/images/brand/logo.png';
 @endphp
 
 <footer class="relative overflow-hidden bg-wodi-cream pt-16">
     {{-- watermark --}}
     <span aria-hidden="true"
           class="pointer-events-none absolute inset-x-0 bottom-0 hidden text-center text-[9rem] leading-none font-extrabold tracking-tight text-white/50 select-none lg:block">
-        WODI DAYCARE
+        {{ $block->get('watermark') }}
     </span>
 
     <div class="relative mx-auto max-w-[1400px] px-5 lg:px-8">
+        {{-- The column count is baked into the grid: the logo plus three link
+             columns is the Figma layout, not something the content decides. --}}
         <div class="grid gap-10 lg:grid-cols-[1fr_repeat(3,minmax(0,1fr))]">
             <a href="{{ route('home') }}" class="shrink-0">
-                <img src="/images/brand/logo.png" alt="{{ config('app.name') }}" class="h-12 w-auto">
+                <img src="{{ $logo }}" alt="{{ config('app.name') }}" class="h-12 w-auto">
             </a>
 
-            @foreach ($footerColumns as $heading => $links)
+            @foreach ($columns as $column)
                 <div>
-                    <h3 class="text-lg font-bold">{{ $heading }}</h3>
+                    <h3 class="text-lg font-bold">{{ data_get($column, 'heading') }}</h3>
 
                     <ul class="mt-5 space-y-3">
-                        @foreach ($links as $link)
+                        @foreach (data_get($column, 'links', []) as $link)
                             <li>
-                                <a href="{{ $link['url'] }}"
+                                <a href="{{ data_get($link, 'url', '#') }}"
                                    class="text-[15px] text-wodi-ink transition-colors hover:text-wodi-pink">
-                                    {{ $link['label'] }}
+                                    {{ data_get($link, 'label') }}
                                 </a>
                             </li>
                         @endforeach
@@ -50,25 +40,26 @@
         <hr class="mt-12 border-wodi-ink/10">
 
         <p class="mt-8 max-w-5xl text-sm leading-relaxed text-wodi-ink/80">
-            Potter ipsum wand elf parchment wingardium. Vanishing flat should twin for order wormtail invisibility
-            blotts viktor. Tell blubber kiss the for blubber wars hagrid. Mimubulus 10 nose dog ollivanders. Locket
-            charm knitted this other twin do fanged azkaban metamorphimagus. Banana you-know-who feint where feint.
-            Nagini tap-dancing diddykins mischief ministry-of-magic squashy avada dobby hand treacle. Floo letters
-            glory us azkaban. Hunt sir cup hearing smile weasley detention pie. Ravenclaw boggarts gamp's holyhead
-            cottage in blue. Gringotts sunshine dress
+            {{ $block->get('about_text') }}
         </p>
 
         <div class="mt-10 flex flex-col gap-3 pb-10 text-sm sm:flex-row sm:items-center sm:justify-between">
+            {{-- The year and app name are computed, not content — nobody should
+                 have to edit the copyright every January. --}}
             <p class="font-medium">
                 &copy; Copyright {{ date('Y') }}. All Rights Reserved By {{ config('app.name') }}
             </p>
 
             <div class="flex items-center gap-2">
-                <a href="#" class="hover:text-wodi-pink">Terms of Use</a>
-                <span class="text-wodi-ink/30">|</span>
-                <a href="#" class="hover:text-wodi-pink">Privacy Policy</a>
-                <span class="text-wodi-ink/30">|</span>
-                <a href="#" class="hover:text-wodi-pink">Cookies Policy</a>
+                @foreach ($legal as $i => $link)
+                    @if ($i > 0)
+                        <span class="text-wodi-ink/30">|</span>
+                    @endif
+
+                    <a href="{{ data_get($link, 'url', '#') }}" class="hover:text-wodi-pink">
+                        {{ data_get($link, 'label') }}
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>
