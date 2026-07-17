@@ -3,17 +3,6 @@
 @section('title', $page->meta_title ?: $page->title . ' — ' . config('app.name'))
 @section('meta_description', $page->meta_description ?? '')
 
-@if ($page->header_scripts)
-    @push('head')
-        {!! $page->header_scripts !!}
-    @endpush
-@endif
-@if ($page->footer_scripts)
-    @push('scripts')
-        {!! $page->footer_scripts !!}
-    @endpush
-@endif
-
 @section('content')
     @foreach ($blocks as $block)
         @if ($editor ?? false)
@@ -53,21 +42,28 @@
 
                             <hr class="mt-6 border-wodi-ink/10">
 
+                            @if (session('contactSuccess'))
+                                <div class="mt-6 rounded-2xl border border-wodi-pink/30 bg-wodi-pink/5 px-5 py-4 text-xs font-medium text-wodi-pink">
+                                    {{ session('contactSuccess') }}
+                                </div>
+                            @endif
+
                             {{-- x-data drives the live 0/300 character counter --}}
-                            <form action="#" method="POST" x-data="{ count: 0, max: 300 }" class="mt-6">
+                            <form action="{{ route('contact.submit') }}" method="POST"
+                                  x-data="{ count: {{ strlen((string) old('message')) }}, max: 300 }" class="mt-6">
                                 @csrf
 
                                 <div class="grid gap-5 sm:grid-cols-2">
                                     <div>
                                         <label for="first_name" class="block text-xs font-medium text-wodi-ink">First Name</label>
-                                        <input id="first_name" name="first_name" type="text"
+                                        <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}"
                                                placeholder="Enter first name"
                                                class="mt-2 w-full rounded-full border border-wodi-ink/15 px-5 py-3 text-xs text-wodi-ink placeholder:text-wodi-muted/60 focus:border-wodi-pink focus:outline-none">
                                     </div>
 
                                     <div>
                                         <label for="last_name" class="block text-xs font-medium text-wodi-ink">Last Name</label>
-                                        <input id="last_name" name="last_name" type="text"
+                                        <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}"
                                                placeholder="Enter last name"
                                                class="mt-2 w-full rounded-full border border-wodi-ink/15 px-5 py-3 text-xs text-wodi-ink placeholder:text-wodi-muted/60 focus:border-wodi-pink focus:outline-none">
                                     </div>
@@ -75,9 +71,12 @@
 
                                 <div class="mt-5">
                                     <label for="email" class="block text-xs font-medium text-wodi-ink">Email*</label>
-                                    <input id="email" name="email" type="email" required
+                                    <input id="email" name="email" type="email" required value="{{ old('email') }}"
                                            placeholder="Enter Email"
                                            class="mt-2 w-full rounded-full border border-wodi-ink/15 px-5 py-3 text-xs text-wodi-ink placeholder:text-wodi-muted/60 focus:border-wodi-pink focus:outline-none">
+                                    @error('email')
+                                        <p class="mt-2 text-[11px] text-red-500">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <div class="mt-5">
@@ -85,14 +84,16 @@
 
                                     <div class="relative mt-2">
                                         <textarea id="message" name="message" rows="6" maxlength="300"
-                                                  x-model="$el.value"
                                                   @input="count = $event.target.value.length"
                                                   placeholder="Type something here..."
-                                                  class="w-full resize-none rounded-2xl border border-wodi-ink/15 px-5 py-4 text-xs text-wodi-ink placeholder:text-wodi-muted/60 focus:border-wodi-pink focus:outline-none"></textarea>
+                                                  class="w-full resize-none rounded-2xl border border-wodi-ink/15 px-5 py-4 text-xs text-wodi-ink placeholder:text-wodi-muted/60 focus:border-wodi-pink focus:outline-none">{{ old('message') }}</textarea>
 
                                         <span class="absolute right-4 bottom-3 text-[10px] text-wodi-muted"
                                               x-text="`${count}/${max}`">0/300</span>
                                     </div>
+                                    @error('message')
+                                        <p class="mt-2 text-[11px] text-red-500">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <button type="submit"
@@ -144,62 +145,3 @@
         @endif
     @endforeach
 @endsection
-
-@if ($editor ?? false)
-    @push('scripts')
-        <style>
-            [data-cms-block] {
-                outline: 2px solid transparent;
-                outline-offset: -2px;
-                transition: outline-color .1s;
-            }
-
-            [data-cms-block]:hover {
-                outline-color: rgba(236, 30, 121, .45);
-                cursor: pointer;
-            }
-
-            [data-cms-block].cms-selected {
-                outline-width: 3px;
-                outline-offset: -3px;
-                outline-color: #ec1e79;
-            }
-        </style>
-        <script>
-            (function() {
-                const post = (m) => parent.postMessage({
-                    source: 'cms-preview',
-                    ...m
-                }, '*');
-                document.querySelectorAll('[data-cms-block]').forEach((el) => {
-                    el.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        post({
-                            type: 'select',
-                            id: Number(el.dataset.cmsBlock)
-                        });
-                    });
-                });
-                window.addEventListener('message', (e) => {
-                    const m = e.data || {};
-                    if (m.source !== 'cms-editor') return;
-                    if (m.type === 'select') {
-                        document.querySelectorAll('.cms-selected').forEach((n) => n.classList.remove(
-                            'cms-selected'));
-                        const el = document.querySelector('[data-cms-block="' + m.id + '"]');
-                        if (el) {
-                            el.classList.add('cms-selected');
-                            el.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    }
-                });
-                post({
-                    type: 'ready'
-                });
-            })();
-        </script>
-    @endpush
-@endif

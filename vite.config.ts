@@ -16,6 +16,9 @@ export default defineConfig({
                 // Public site (Blade + Alpine) — separate build
                 'resources/css/site.css',
                 'resources/js/site.js',
+                // CMS preview (React) — separate build
+                'resources/css/cms-preview.css',
+                'resources/js/cms-preview.js',
             ],
             refresh: true,
             fonts: [

@@ -13,14 +13,15 @@ use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [SitePageController::class, 'show'])->name('home');
-Route::get('/about', [SitePageController::class, 'show'])->defaults('slug', 'about')->name('about');
-Route::get('/admissions', [SitePageController::class, 'show'])->defaults('slug', 'admissions')->name('admissions');
-Route::get('/resources', [SitePageController::class, 'show'])->defaults('slug', 'resources')->name('resources');
-Route::get('/gallery', [SitePageController::class, 'show'])->defaults('slug', 'gallery')->name('gallery');
-Route::get('/forms-policies', [SitePageController::class, 'show'])->defaults('slug', 'forms')->name('forms');
-Route::get('/faq', [SitePageController::class, 'show'])->defaults('slug', 'faq')->name('faq');
-Route::get('/contact', [SitePageController::class, 'show'])->defaults('slug', 'contact')->name('contact');
+Route::get('/', [SitePageController::class, 'home'])->name('home');
+Route::get('/about', [SitePageController::class, 'about'])->name('about');
+Route::get('/admissions', [SitePageController::class, 'admissions'])->name('admissions');
+Route::get('/resources', [SitePageController::class, 'resources'])->name('resources');
+Route::get('/gallery', [SitePageController::class, 'gallery'])->name('gallery');
+Route::get('/forms-policies', [SitePageController::class, 'forms'])->name('forms');
+Route::get('/faq', [SitePageController::class, 'faq'])->name('faq');
+Route::get('/contact', [SitePageController::class, 'contact'])->name('contact');
+Route::post('/contact', [SitePageController::class, 'submitContact'])->name('contact.submit');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

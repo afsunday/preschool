@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // The public site lives in resources/cms/pages/*.json — without this a
         // fresh database serves no pages at all.
         $this->call(CmsPageSeeder::class);
+        $this->call(MaterialSeeder::class);
         $this->call(PortalSeeder::class);
     }
 }

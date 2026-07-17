@@ -14,6 +14,13 @@
         @vite(['resources/css/site.css', 'resources/js/site.js'])
 
         @stack('head')
+
+        {{-- Per-page custom <head> scripts (SEO/analytics), edited on the page
+             in the builder. Lives here so the eight page views don't each repeat
+             the push. --}}
+        @if (! empty($page?->header_scripts))
+            {!! $page->header_scripts !!}
+        @endif
     </head>
     <body class="min-h-screen overflow-x-hidden bg-wodi-cream font-display text-wodi-ink antialiased">
         @isset($globals['site_navbar'])
@@ -33,5 +40,18 @@
         @endisset
 
         @stack('scripts')
+
+        {{-- Per-page custom end-of-body scripts, edited on the page in the
+             builder — the footer counterpart of header_scripts above. --}}
+        @if (! empty($page?->footer_scripts))
+            {!! $page->footer_scripts !!}
+        @endif
+
+        {{-- Editor-only: the preview bridge that lets a page in the builder's
+             iframe talk to the editor. Gated on $editor so a visitor never
+             loads it. --}}
+        @if ($editor ?? false)
+            @vite(['resources/css/cms-preview.css', 'resources/js/cms-preview.js'])
+        @endif
     </body>
 </html>

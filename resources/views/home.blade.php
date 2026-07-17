@@ -3,17 +3,6 @@
 @section('title', $page->meta_title ?: $page->title . ' — ' . config('app.name'))
 @section('meta_description', $page->meta_description ?? '')
 
-@if ($page->header_scripts)
-    @push('head')
-        {!! $page->header_scripts !!}
-    @endpush
-@endif
-@if ($page->footer_scripts)
-    @push('scripts')
-        {!! $page->footer_scripts !!}
-    @endpush
-@endif
-
 @section('content')
     @foreach ($blocks as $block)
         @if ($editor ?? false)
@@ -194,17 +183,9 @@
 
             @case('resource_cards')
                 @php
-                    $cards = $block->get('cards', []);
-                    $accent = fn($k) => match ($k) {
-                        'teal' => 'bg-wodi-teal',
-                        'yellow' => 'bg-wodi-yellow',
-                        'orange' => 'bg-wodi-orange',
-                        'purple' => 'bg-wodi-purple',
-                        'green' => 'bg-wodi-green',
-                        'blue' => 'bg-wodi-blue',
-                        'pink' => 'bg-wodi-pink',
-                        default => 'bg-wodi-teal',
-                    };
+                    // Materials carry no colour; the teaser cycles the palette.
+                    $accents = ['bg-wodi-teal', 'bg-wodi-yellow', 'bg-wodi-orange', 'bg-wodi-purple', 'bg-wodi-green'];
+                    $featured = $featuredMaterials ?? collect();
                 @endphp
 
                 <section class="mx-auto max-w-[1400px] px-5 pb-20 lg:px-8">
@@ -213,36 +194,29 @@
                             <h2 class="text-2xl font-bold lg:text-[28px]">{{ $block->get('heading') }}</h2>
                             <p class="mt-1 text-sm text-wodi-muted">{{ $block->get('subheading') }}</p>
                         </div>
-                        <div class="flex shrink-0 gap-2">
-                            <button type="button" aria-label="Previous"
-                                class="grid size-9 place-items-center rounded-full bg-wodi-pink text-white hover:bg-wodi-pink-dark">
-                                <x-lucide-arrow-left class="size-4" />
-                            </button>
-                            <button type="button" aria-label="Next"
-                                class="grid size-9 place-items-center rounded-full bg-wodi-pink text-white hover:bg-wodi-pink-dark">
-                                <x-lucide-arrow-right class="size-4" />
-                            </button>
-                        </div>
+                        <a href="{{ route('resources') }}"
+                            class="shrink-0 rounded-full bg-wodi-pink px-5 py-2.5 text-xs font-medium text-white transition-colors hover:bg-wodi-pink-dark">
+                            View all
+                        </a>
                     </div>
 
                     <div class="no-scrollbar mt-6 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2">
-                        @foreach ($cards as $card)
+                        @foreach ($featured as $material)
                             <article
-                                class="{{ $accent(data_get($card, 'accent')) }} flex w-[260px] shrink-0 snap-start flex-col gap-4 rounded-[26px] p-3">
-                                @php
-                                    $img = data_get($card, 'image');
-                                    $url = $img ? \App\Models\Media::find($img)?->url() : null;
-                                @endphp
+                                class="{{ $accents[$loop->index % count($accents)] }} flex w-[260px] shrink-0 snap-start flex-col gap-4 rounded-[26px] p-3">
                                 <div class="h-[190px] overflow-hidden rounded-[20px] bg-white">
-                                    @if ($url)
-                                        <img src="{{ $url }}" alt="" class="h-full w-full object-cover">
+                                    @if ($material->image_path)
+                                        <img src="{{ $material->image_path }}" alt="{{ $material->title }}"
+                                             loading="lazy" class="h-full w-full object-cover">
                                     @endif
                                 </div>
-                                <button type="button"
-                                    class="mx-auto inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-[11px] font-medium text-wodi-ink shadow-sm">
-                                    {{ data_get($card, 'label', 'download') }}
-                                    <x-lucide-download class="size-3.5" />
-                                </button>
+                                <a href="{{ $material->url ?? '#' }}"
+                                    class="mx-auto inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-1.5 text-[11px] font-medium text-wodi-ink shadow-sm transition hover:shadow">
+                                    {{ $material->ctaLabel() }}
+                                    @if ($material->ctaIcon())
+                                        <x-dynamic-component :component="$material->ctaIcon()" class="size-3.5" />
+                                    @endif
+                                </a>
                             </article>
                         @endforeach
                     </div>
@@ -412,62 +386,3 @@
         @endif
     @endforeach
 @endsection
-
-@if ($editor ?? false)
-    @push('scripts')
-        <style>
-            [data-cms-block] {
-                outline: 2px solid transparent;
-                outline-offset: -2px;
-                transition: outline-color .1s;
-            }
-
-            [data-cms-block]:hover {
-                outline-color: rgba(236, 30, 121, .45);
-                cursor: pointer;
-            }
-
-            [data-cms-block].cms-selected {
-                outline-width: 3px;
-                outline-offset: -3px;
-                outline-color: #ec1e79;
-            }
-        </style>
-        <script>
-            (function() {
-                const post = (m) => parent.postMessage({
-                    source: 'cms-preview',
-                    ...m
-                }, '*');
-                document.querySelectorAll('[data-cms-block]').forEach((el) => {
-                    el.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        post({
-                            type: 'select',
-                            id: Number(el.dataset.cmsBlock)
-                        });
-                    });
-                });
-                window.addEventListener('message', (e) => {
-                    const m = e.data || {};
-                    if (m.source !== 'cms-editor') return;
-                    if (m.type === 'select') {
-                        document.querySelectorAll('.cms-selected').forEach((n) => n.classList.remove(
-                            'cms-selected'));
-                        const el = document.querySelector('[data-cms-block="' + m.id + '"]');
-                        if (el) {
-                            el.classList.add('cms-selected');
-                            el.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    }
-                });
-                post({
-                    type: 'ready'
-                });
-            })();
-        </script>
-    @endpush
-@endif

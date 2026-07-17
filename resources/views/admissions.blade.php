@@ -3,17 +3,6 @@
 @section('title', $page->meta_title ?: $page->title . ' — ' . config('app.name'))
 @section('meta_description', $page->meta_description ?? '')
 
-@if ($page->header_scripts)
-    @push('head')
-        {!! $page->header_scripts !!}
-    @endpush
-@endif
-@if ($page->footer_scripts)
-    @push('scripts')
-        {!! $page->footer_scripts !!}
-    @endpush
-@endif
-
 @section('content')
     @php
         // Editor-picked media wins; otherwise the shipped asset path.
@@ -382,62 +371,3 @@
         @endif
     @endforeach
 @endsection
-
-@if ($editor ?? false)
-    @push('scripts')
-        <style>
-            [data-cms-block] {
-                outline: 2px solid transparent;
-                outline-offset: -2px;
-                transition: outline-color .1s;
-            }
-
-            [data-cms-block]:hover {
-                outline-color: rgba(236, 30, 121, .45);
-                cursor: pointer;
-            }
-
-            [data-cms-block].cms-selected {
-                outline-width: 3px;
-                outline-offset: -3px;
-                outline-color: #ec1e79;
-            }
-        </style>
-        <script>
-            (function() {
-                const post = (m) => parent.postMessage({
-                    source: 'cms-preview',
-                    ...m
-                }, '*');
-                document.querySelectorAll('[data-cms-block]').forEach((el) => {
-                    el.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        post({
-                            type: 'select',
-                            id: Number(el.dataset.cmsBlock)
-                        });
-                    });
-                });
-                window.addEventListener('message', (e) => {
-                    const m = e.data || {};
-                    if (m.source !== 'cms-editor') return;
-                    if (m.type === 'select') {
-                        document.querySelectorAll('.cms-selected').forEach((n) => n.classList.remove(
-                            'cms-selected'));
-                        const el = document.querySelector('[data-cms-block="' + m.id + '"]');
-                        if (el) {
-                            el.classList.add('cms-selected');
-                            el.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    }
-                });
-                post({
-                    type: 'ready'
-                });
-            })();
-        </script>
-    @endpush
-@endif

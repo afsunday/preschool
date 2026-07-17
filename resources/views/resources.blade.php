@@ -3,17 +3,6 @@
 @section('title', $page->meta_title ?: $page->title . ' — ' . config('app.name'))
 @section('meta_description', $page->meta_description ?? '')
 
-@if ($page->header_scripts)
-    @push('head')
-        {!! $page->header_scripts !!}
-    @endpush
-@endif
-@if ($page->footer_scripts)
-    @push('scripts')
-        {!! $page->footer_scripts !!}
-    @endpush
-@endif
-
 @section('content')
     @foreach ($blocks as $block)
         @if ($editor ?? false)
@@ -83,30 +72,17 @@
                 </section>
             @break
 
-            {{-- search + filters + cards --}}
+            {{-- searchable, filterable, paginated materials library --}}
             @case('resources_programs')
                 @php
-                    $src = function ($row, string $key, string $fallback): ?string {
-                        $id = data_get($row, $key);
-
-                        return ($id ? \App\Models\Media::find($id)?->url() : null) ?? data_get($row, $fallback);
-                    };
-
-                    $label = fn($k) => match ($k) {
-                        'download' => 'Download File',
-                        'video' => 'Watch Video',
-                        'read' => 'Read',
-                        default => 'Read',
-                    };
-
-                    $icon = fn($k) => match ($k) {
-                        'download' => 'lucide-download',
-                        'video' => 'lucide-play',
-                        default => null,
-                    };
+                    // Absent in the editor preview (only the public route loads them).
+                    $materials = $materials ?? collect();
+                    $categories = $categories ?? collect();
+                    $activeCategory = $activeCategory ?? '';
+                    $q = $q ?? '';
                 @endphp
 
-                <section id="programs" x-data="{ filter: 'All' }" class="bg-wodi-blush pb-20">
+                <section id="programs" class="bg-wodi-blush pb-20">
                     <div class="mx-auto max-w-[1400px] px-4 lg:px-8">
                         <h2 class="text-center text-3xl font-bold lg:text-[38px]">{{ $block->get('heading') }}</h2>
 
@@ -114,12 +90,16 @@
                             {{ $block->get('subheading') }}
                         </p>
 
-                        {{-- search --}}
-                        <form action="#" method="GET" class="mx-auto mt-8 max-w-2xl">
+                        {{-- search: a real GET to this page --}}
+                        <form action="{{ route('resources') }}" method="GET" class="mx-auto mt-8 max-w-2xl">
+                            @if ($activeCategory !== '')
+                                <input type="hidden" name="category" value="{{ $activeCategory }}">
+                            @endif
+
                             <div class="flex items-center gap-2 rounded-full bg-white p-1.5 pl-6 shadow-sm">
                                 <label for="resource-search" class="sr-only">Search resources</label>
 
-                                <input id="resource-search" name="q" type="search"
+                                <input id="resource-search" name="q" type="search" value="{{ $q }}"
                                        placeholder="{{ $block->get('search_placeholder') }}"
                                        class="min-w-0 flex-1 bg-transparent py-2.5 text-sm text-wodi-ink placeholder:text-wodi-muted/70 focus:outline-none">
 
@@ -130,48 +110,76 @@
                             </div>
                         </form>
 
-                        {{-- filter tabs — labels are editable, so they go through Js::from
-                           | rather than being interpolated raw into the Alpine expression. --}}
+                        {{-- category tabs: real server-side filter links, keeping the search term --}}
                         <div class="no-scrollbar mx-auto mt-6 flex max-w-4xl justify-start gap-2 overflow-x-auto pb-1 sm:justify-center">
-                            @foreach ($block->get('filters', []) as $filter)
-                                @php $f = data_get($filter, 'label'); @endphp
+                            <a href="{{ route('resources', array_filter(['q' => $q])) }}" @class([
+                                'shrink-0 rounded-full px-4 py-1.5 text-[11px] font-medium whitespace-nowrap transition-colors',
+                                'bg-wodi-pink text-white' => $activeCategory === '',
+                                'bg-transparent text-wodi-ink hover:bg-white' => $activeCategory !== '',
+                            ])>
+                                All
+                            </a>
 
-                                <button type="button"
-                                        @click="filter = {{ Js::from($f) }}"
-                                        :class="filter === {{ Js::from($f) }}
-                                            ? 'bg-wodi-pink text-white'
-                                            : 'bg-transparent text-wodi-ink hover:bg-white'"
-                                        class="shrink-0 rounded-full px-4 py-1.5 text-[11px] font-medium whitespace-nowrap transition-colors">
-                                    {{ $f }}
-                                </button>
+                            @foreach ($categories as $cat)
+                                <a href="{{ route('resources', array_filter(['category' => $cat->slug, 'q' => $q])) }}" @class([
+                                    'shrink-0 rounded-full px-4 py-1.5 text-[11px] font-medium whitespace-nowrap transition-colors',
+                                    'bg-wodi-pink text-white' => $activeCategory === $cat->slug,
+                                    'bg-transparent text-wodi-ink hover:bg-white' => $activeCategory !== $cat->slug,
+                                ])>
+                                    {{ $cat->name }}
+                                </a>
                             @endforeach
                         </div>
 
                         {{-- cards --}}
                         <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                            @foreach ($block->get('cards', []) as $card)
-                                @php $action = data_get($card, 'action'); @endphp
-
+                            @forelse ($materials as $material)
                                 <article class="flex flex-col rounded-2xl bg-white p-3 shadow-sm">
-                                    <img src="{{ $src($card, 'image', 'src') }}" alt=""
-                                         loading="lazy"
-                                         class="aspect-[4/3] w-full rounded-xl object-cover">
+                                    @if ($material->image_path)
+                                        <img src="{{ $material->image_path }}" alt="{{ $material->title }}"
+                                             loading="lazy"
+                                             class="aspect-[4/3] w-full rounded-xl object-cover">
+                                    @endif
 
                                     <p class="flex-1 px-2 py-4 text-center text-xs leading-relaxed text-wodi-ink">
-                                        {{ data_get($card, 'text') }}
+                                        {{ $material->title }}
                                     </p>
 
-                                    <a href="{{ data_get($card, 'url', '#') }}"
+                                    <a href="{{ $material->url ?? '#' }}"
                                        class="mx-auto mb-1 inline-flex items-center gap-1.5 rounded-full border border-wodi-pink px-6 py-2 text-[11px] font-medium text-wodi-pink transition-colors hover:bg-wodi-pink hover:text-white">
-                                        {{ $label($action) }}
+                                        {{ $material->ctaLabel() }}
 
-                                        @if ($icon($action))
-                                            <x-dynamic-component :component="$icon($action)" class="size-3.5" />
+                                        @if ($material->ctaIcon())
+                                            <x-dynamic-component :component="$material->ctaIcon()" class="size-3.5" />
                                         @endif
                                     </a>
                                 </article>
-                            @endforeach
+                            @empty
+                                <p class="col-span-full py-16 text-center text-sm text-wodi-muted">
+                                    No resources found. Try a different search or category.
+                                </p>
+                            @endforelse
                         </div>
+
+                        @if ($materials instanceof \Illuminate\Contracts\Pagination\LengthAwarePaginator && $materials->hasPages())
+                            <div class="mt-10 flex items-center justify-center gap-3 text-sm">
+                                @if ($materials->onFirstPage())
+                                    <span class="rounded-full px-4 py-2 text-wodi-muted/50">Previous</span>
+                                @else
+                                    <a href="{{ $materials->previousPageUrl() }}"
+                                       class="rounded-full border border-wodi-pink px-4 py-2 text-wodi-pink transition-colors hover:bg-wodi-pink hover:text-white">Previous</a>
+                                @endif
+
+                                <span class="text-wodi-muted">Page {{ $materials->currentPage() }} of {{ $materials->lastPage() }}</span>
+
+                                @if ($materials->hasMorePages())
+                                    <a href="{{ $materials->nextPageUrl() }}"
+                                       class="rounded-full border border-wodi-pink px-4 py-2 text-wodi-pink transition-colors hover:bg-wodi-pink hover:text-white">Next</a>
+                                @else
+                                    <span class="rounded-full px-4 py-2 text-wodi-muted/50">Next</span>
+                                @endif
+                            </div>
+                        @endif
                     </div>
                 </section>
             @break
@@ -182,62 +190,3 @@
         @endif
     @endforeach
 @endsection
-
-@if ($editor ?? false)
-    @push('scripts')
-        <style>
-            [data-cms-block] {
-                outline: 2px solid transparent;
-                outline-offset: -2px;
-                transition: outline-color .1s;
-            }
-
-            [data-cms-block]:hover {
-                outline-color: rgba(236, 30, 121, .45);
-                cursor: pointer;
-            }
-
-            [data-cms-block].cms-selected {
-                outline-width: 3px;
-                outline-offset: -3px;
-                outline-color: #ec1e79;
-            }
-        </style>
-        <script>
-            (function() {
-                const post = (m) => parent.postMessage({
-                    source: 'cms-preview',
-                    ...m
-                }, '*');
-                document.querySelectorAll('[data-cms-block]').forEach((el) => {
-                    el.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        post({
-                            type: 'select',
-                            id: Number(el.dataset.cmsBlock)
-                        });
-                    });
-                });
-                window.addEventListener('message', (e) => {
-                    const m = e.data || {};
-                    if (m.source !== 'cms-editor') return;
-                    if (m.type === 'select') {
-                        document.querySelectorAll('.cms-selected').forEach((n) => n.classList.remove(
-                            'cms-selected'));
-                        const el = document.querySelector('[data-cms-block="' + m.id + '"]');
-                        if (el) {
-                            el.classList.add('cms-selected');
-                            el.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'center'
-                            });
-                        }
-                    }
-                });
-                post({
-                    type: 'ready'
-                });
-            })();
-        </script>
-    @endpush
-@endif
