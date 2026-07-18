@@ -163,7 +163,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                         <IconButton
                             label="Settings"
                             icon={Settings}
-                            href="/settings/profile"
+                            href="/portal/settings"
                         />
                     </div>
                 </div>

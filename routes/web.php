@@ -15,6 +15,7 @@ use App\Http\Controllers\PortalMessageController;
 use App\Http\Controllers\PortalPostController;
 use App\Http\Controllers\PortalReportCardController;
 use App\Http\Controllers\PortalReportController;
+use App\Http\Controllers\PortalSettingsController;
 use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
 use App\Http\Controllers\TeamController;
@@ -41,6 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('uploads', [PortalUploadController::class, 'store'])->name('uploads.store');
         Route::get('join', [PortalJoinController::class, 'show'])->name('join');
         Route::post('join', [PortalJoinController::class, 'store'])->name('join.store');
+
+        // The portal's own profile screen (posts to the shared settings routes).
+        Route::get('settings', [PortalSettingsController::class, 'edit'])->name('settings');
 
         // Classes are admin-only to create (enforced by ClassroomPolicy).
         Route::post('classes', [PortalClassroomController::class, 'store'])->name('classes.store');
