@@ -121,9 +121,9 @@
         @apply cursor-pointer rounded-[4px] bg-red-600 px-4 py-2.5 text-sm font-medium text-white transition duration-150 ease-in-out hover:bg-red-700 focus:outline-none disabled:cursor-not-allowed disabled:opacity-75;
     }
 
-    /* Full-width, flat purple button for the auth screens. */
+    /* Full-width, flat pink button for the auth screens (homepage brand). */
     .btn-brand {
-        @apply inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[4px] bg-[#6c4cf1] px-6 py-3 text-sm font-semibold text-white transition duration-150 ease-in-out hover:bg-[#5b3df0] focus:outline-none disabled:cursor-not-allowed disabled:opacity-70;
+        @apply inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[4px] bg-[#ec1e79] px-6 py-3 text-sm font-semibold text-white transition duration-150 ease-in-out hover:bg-[#d1195f] focus:outline-none disabled:cursor-not-allowed disabled:opacity-70;
     }
 
     .form-control {

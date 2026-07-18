@@ -1,0 +1,26 @@
+name: Main
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: "8.1"
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/Ftp-Deploy-Action@4.3.3
+        with:
+          server: "business145.web-hosting.com"
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          timeout: 1200000
