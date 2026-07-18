@@ -14,4 +14,6 @@ export type User = {
 
 export type Auth = {
     user: User;
+    /** Permission names the current user has (a super user's is the full set). */
+    permissions: string[];
 };

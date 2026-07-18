@@ -1,5 +1,5 @@
-import { Form, Head, Link, router } from '@inertiajs/react';
-import { DownloadCloud, Pencil, Plus, Trash2 } from 'lucide-react';
+import { Head, Link, router } from '@inertiajs/react';
+import { DownloadCloud, Pencil, Trash2 } from 'lucide-react';
 import PageBuilderController from '@/actions/App/Http/Controllers/PageBuilderController';
 
 type PageRow = {
@@ -44,6 +44,12 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                             pages
                         </button>
 
+                        {/*
+                          Page creation is disabled until the dynamic block/widget
+                          concept exists — a blank page has no blocks to add, so it
+                          would be un-editable. Pages come from the cms/pages
+                          blueprints via "Pull in new pages" for now.
+
                         <Form
                             {...PageBuilderController.store.form()}
                             className="flex items-center gap-2"
@@ -66,6 +72,7 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                                 </>
                             )}
                         </Form>
+                        */}
                     </div>
                 </div>
 

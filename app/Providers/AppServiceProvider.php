@@ -53,6 +53,9 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function configureAuthorization(): void
     {
+        // A super user passes every gate.
+        Gate::before(fn (User $user) => $user->isSuper() ? true : null);
+
         Gate::define('cms', fn (User $user): bool => $user->isAdmin());
 
         // Portal roles. Classes and children are admin-only to create; teachers

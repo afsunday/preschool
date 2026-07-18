@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\ContactSubmissionController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MaterialCategoryController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageBuilderController;
 use App\Http\Controllers\PortalClassroomController;
 use App\Http\Controllers\PortalController;
@@ -11,6 +16,7 @@ use App\Http\Controllers\PortalReportCardController;
 use App\Http\Controllers\PortalReportController;
 use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SitePageController::class, 'home'])->name('home');
@@ -22,9 +28,12 @@ Route::get('/forms-policies', [SitePageController::class, 'forms'])->name('forms
 Route::get('/faq', [SitePageController::class, 'faq'])->name('faq');
 Route::get('/contact', [SitePageController::class, 'contact'])->name('contact');
 Route::post('/contact', [SitePageController::class, 'submitContact'])->name('contact.submit');
+Route::post('/newsletter', [SitePageController::class, 'subscribeNewsletter'])->name('newsletter.subscribe');
+Route::get('/newsletter/unsubscribe/{subscriber}', [NewsletterController::class, 'unsubscribe'])
+    ->middleware('signed')->name('newsletter.unsubscribe');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('portal')->name('portal.')->group(function () {
         Route::get('/', [PortalController::class, 'home'])->name('home');
@@ -73,36 +82,74 @@ Route::middleware(['auth', 'verified'])->group(function () {
         });
     });
 
-    // CMS admin — content tools, guarded by the `cms` gate (user_type = admin).
+    // CMS admin — `can:cms` is the door (staff only); each area is then gated by
+    // a specific permission. A super user passes every check (Gate::before).
     Route::middleware('can:cms')->group(function () {
-        Route::inertia('admin/media', 'media/index')->name('media.index');
+        Route::middleware('permission:content.media')->group(function () {
+            Route::inertia('admin/media', 'media/index')->name('media.index');
 
-        // JSON media API (the picker opens in a dialog, so these must not be
-        // Inertia responses). Kept off /admin/media to avoid the GET collision.
-        Route::prefix('admin/media/items')->name('media.items.')->group(function () {
-            Route::get('/', [MediaController::class, 'index'])->name('index');
-            Route::post('/', [MediaController::class, 'store'])->name('store');
-            Route::get('/{medium}', [MediaController::class, 'show'])->name('show');
-            Route::patch('/{medium}', [MediaController::class, 'update'])->name('update');
-            Route::delete('/{medium}', [MediaController::class, 'destroy'])->name('destroy');
+            // JSON media API (the picker opens in a dialog, so these must not be
+            // Inertia responses). Kept off /admin/media to avoid the GET collision.
+            Route::prefix('admin/media/items')->name('media.items.')->group(function () {
+                Route::get('/', [MediaController::class, 'index'])->name('index');
+                Route::post('/', [MediaController::class, 'store'])->name('store');
+                Route::get('/{medium}', [MediaController::class, 'show'])->name('show');
+                Route::patch('/{medium}', [MediaController::class, 'update'])->name('update');
+                Route::delete('/{medium}', [MediaController::class, 'destroy'])->name('destroy');
+            });
         });
 
-        // Page builder JSON API (consumed by the React editor).
-        Route::prefix('admin/builder')->name('builder.')->group(function () {
-            Route::get('pages/{page}/schema', [PageBuilderController::class, 'schema'])->name('schema');
-            Route::get('options/{source}', [PageBuilderController::class, 'options'])->name('options');
-            Route::get('pages/{page}', [PageBuilderController::class, 'show'])->name('show');
-            Route::put('pages/{page}', [PageBuilderController::class, 'save'])->name('save');
-            Route::get('pages/{page}/preview', [PageBuilderController::class, 'preview'])->name('preview');
-            Route::post('pages/{page}/render', [PageBuilderController::class, 'renderPage'])->name('render');
+        Route::middleware('permission:content.pages')->group(function () {
+            // Page builder JSON API (consumed by the React editor).
+            Route::prefix('admin/builder')->name('builder.')->group(function () {
+                Route::get('pages/{page}/schema', [PageBuilderController::class, 'schema'])->name('schema');
+                Route::get('options/{source}', [PageBuilderController::class, 'options'])->name('options');
+                Route::get('pages/{page}', [PageBuilderController::class, 'show'])->name('show');
+                Route::put('pages/{page}', [PageBuilderController::class, 'save'])->name('save');
+                Route::get('pages/{page}/preview', [PageBuilderController::class, 'preview'])->name('preview');
+                Route::post('pages/{page}/render', [PageBuilderController::class, 'renderPage'])->name('render');
+            });
+
+            Route::get('admin/pages', [PageBuilderController::class, 'index'])->name('pages.index');
+            Route::post('admin/pages', [PageBuilderController::class, 'store'])->name('pages.store');
+            Route::post('admin/pages/pull', [PageBuilderController::class, 'pull'])->name('pages.pull');
+            Route::get('admin/pages/{page}/edit', [PageBuilderController::class, 'edit'])->name('pages.edit');
+            Route::delete('admin/pages/{page}', [PageBuilderController::class, 'destroy'])->name('pages.destroy');
         });
 
-        // Pages list + editor (Inertia).
-        Route::get('admin/pages', [PageBuilderController::class, 'index'])->name('pages.index');
-        Route::post('admin/pages', [PageBuilderController::class, 'store'])->name('pages.store');
-        Route::post('admin/pages/pull', [PageBuilderController::class, 'pull'])->name('pages.pull');
-        Route::get('admin/pages/{page}/edit', [PageBuilderController::class, 'edit'])->name('pages.edit');
-        Route::delete('admin/pages/{page}', [PageBuilderController::class, 'destroy'])->name('pages.destroy');
+        // Resources library — the materials shown on the home teaser + resources page.
+        Route::middleware('permission:content.resources')->group(function () {
+            Route::get('admin/materials', [MaterialController::class, 'index'])->name('materials.index');
+            Route::post('admin/materials', [MaterialController::class, 'store'])->name('materials.store');
+            Route::put('admin/materials/{material}', [MaterialController::class, 'update'])->name('materials.update');
+            Route::delete('admin/materials/{material}', [MaterialController::class, 'destroy'])->name('materials.destroy');
+
+            Route::post('admin/material-categories', [MaterialCategoryController::class, 'store'])->name('material-categories.store');
+            Route::put('admin/material-categories/{materialCategory}', [MaterialCategoryController::class, 'update'])->name('material-categories.update');
+            Route::delete('admin/material-categories/{materialCategory}', [MaterialCategoryController::class, 'destroy'])->name('material-categories.destroy');
+        });
+
+        // Contact form inbox.
+        Route::middleware('permission:comms.messages')->group(function () {
+            Route::get('admin/messages', [ContactSubmissionController::class, 'index'])->name('messages.index');
+            Route::patch('admin/messages/{submission}', [ContactSubmissionController::class, 'update'])->name('messages.update');
+            Route::delete('admin/messages/{submission}', [ContactSubmissionController::class, 'destroy'])->name('messages.destroy');
+        });
+
+        // Newsletter: subscribers + compose/send.
+        Route::middleware('permission:comms.newsletter')->group(function () {
+            Route::get('admin/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
+            Route::post('admin/newsletter/send', [NewsletterController::class, 'send'])->name('newsletter.send');
+            Route::delete('admin/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroySubscriber'])->name('newsletter.subscribers.destroy');
+        });
+
+        // Staff + their permissions.
+        Route::middleware('permission:team.staff')->group(function () {
+            Route::get('admin/staff', [StaffController::class, 'index'])->name('staff.index');
+            Route::post('admin/staff', [StaffController::class, 'store'])->name('staff.store');
+            Route::put('admin/staff/{user}', [StaffController::class, 'update'])->name('staff.update');
+            Route::delete('admin/staff/{user}', [StaffController::class, 'destroy'])->name('staff.destroy');
+        });
     });
 });
 

@@ -5,8 +5,12 @@ import {
     FileText,
     Image,
     LayoutDashboard,
+    Library,
     LogOut,
+    Mail,
+    Send,
     Settings,
+    Users,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Avatar } from '@/components/avatar';
@@ -18,10 +22,46 @@ import { dashboard, logout } from '@/routes';
 import { edit } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
-const navItems: NavItem[] = [
+type AdminNavItem = NavItem & { permission?: string };
+
+const navItems: AdminNavItem[] = [
     { title: 'Dashboard', href: dashboard(), icon: LayoutDashboard },
-    { title: 'Pages', href: '/admin/pages', icon: FileText },
-    { title: 'Media', href: '/admin/media', icon: Image },
+    {
+        title: 'Pages',
+        href: '/admin/pages',
+        icon: FileText,
+        permission: 'content.pages',
+    },
+    {
+        title: 'Resources',
+        href: '/admin/materials',
+        icon: Library,
+        permission: 'content.resources',
+    },
+    {
+        title: 'Media',
+        href: '/admin/media',
+        icon: Image,
+        permission: 'content.media',
+    },
+    {
+        title: 'Messages',
+        href: '/admin/messages',
+        icon: Mail,
+        permission: 'comms.messages',
+    },
+    {
+        title: 'Newsletter',
+        href: '/admin/newsletter',
+        icon: Send,
+        permission: 'comms.newsletter',
+    },
+    {
+        title: 'Staff',
+        href: '/admin/staff',
+        icon: Users,
+        permission: 'team.staff',
+    },
 ];
 
 function TopBar() {
@@ -94,6 +134,13 @@ function TopBar() {
 
 function PrimaryNav() {
     const { isCurrentUrl } = useCurrentUrl();
+    const { auth } = usePage().props;
+    const granted = auth.permissions ?? [];
+
+    // Show an item if it needs no permission, or the user has it.
+    const visible = navItems.filter(
+        (item) => !item.permission || granted.includes(item.permission),
+    );
 
     return (
         <div className="border-b border-border/70">
@@ -102,7 +149,7 @@ function PrimaryNav() {
                     aria-label="Primary navigation"
                     className="-mb-px flex [scrollbar-width:none] items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
                 >
-                    {navItems.map((item) => {
+                    {visible.map((item) => {
                         const Icon = item.icon;
                         const active = isCurrentUrl(item.href);
 

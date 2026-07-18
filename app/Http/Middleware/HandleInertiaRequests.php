@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Permission;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,12 +37,33 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
         return [
             ...parent::share($request),
             'name' => config('app.name'),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
+                // The permission names this user actually has — a super user's
+                // is the whole catalogue. Drives nav + UI gating.
+                'permissions' => $user ? $this->grantedPermissions($user) : [],
             ],
         ];
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    protected function grantedPermissions(User $user): array
+    {
+        if (! $user->isAdmin()) {
+            return [];
+        }
+
+        if ($user->isSuper()) {
+            return Permission::query()->pluck('name')->all();
+        }
+
+        return $user->permissions ?? [];
     }
 }

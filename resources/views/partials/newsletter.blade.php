@@ -22,7 +22,7 @@
                 </p>
             @endif
 
-            <form action="#" method="POST" class="mt-6 max-w-md">
+            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="mt-6 max-w-md">
                 @csrf
 
                 <div class="flex items-center gap-2 rounded-full bg-white p-1.5 pl-5">
@@ -37,6 +37,14 @@
                         {{ $block->get('button', 'Send') }}
                     </button>
                 </div>
+
+                @error('email', 'newsletter')
+                    <p class="mt-2 text-sm font-medium text-wodi-ink">{{ $message }}</p>
+                @enderror
+
+                @if (session('newsletterSuccess'))
+                    <p class="mt-2 text-sm font-medium text-wodi-ink">{{ session('newsletterSuccess') }}</p>
+                @endif
             </form>
         </div>
     </div>

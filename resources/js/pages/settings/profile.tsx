@@ -4,7 +4,6 @@ import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
 import { send } from '@/routes/verification';
 import type { Auth } from '@/types';
-import DeleteUser from './partials/delete-user';
 import SettingsLayout from './partials/settings-layout';
 
 type PageProps = {
@@ -154,8 +153,6 @@ export default function Profile({
                     )}
                 </Form>
             </div>
-
-            <DeleteUser />
         </SettingsLayout>
     );
 }

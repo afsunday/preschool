@@ -19,6 +19,8 @@ use Illuminate\Support\Carbon;
  * @property string $first_name
  * @property string $last_name
  * @property string $user_type
+ * @property bool $is_super
+ * @property array<int, string>|null $permissions
  * @property-read string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
@@ -27,7 +29,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['first_name', 'last_name', 'user_type', 'email', 'password'])]
+#[Fillable(['first_name', 'last_name', 'user_type', 'email', 'password', 'permissions'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -44,6 +46,8 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_super' => 'boolean',
+            'permissions' => 'array',
         ];
     }
 
@@ -91,6 +95,19 @@ class User extends Authenticatable
     public function isStaff(): bool
     {
         return $this->isAdmin() || $this->isTeacher();
+    }
+
+    // ---- back-office permissions ------------------------------------------
+    // Assigned directly to the user as a JSON array; `is_super` grants all.
+
+    public function isSuper(): bool
+    {
+        return (bool) $this->is_super;
+    }
+
+    public function hasPermission(string $name): bool
+    {
+        return $this->isSuper() || in_array($name, $this->permissions ?? [], true);
     }
 
     // ---- portal relationships ---------------------------------------------

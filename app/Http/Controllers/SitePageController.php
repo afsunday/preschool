@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Cms\Block;
 use App\Http\Requests\StoreContactSubmissionRequest;
+use App\Http\Requests\StoreNewsletterSubscriberRequest;
 use App\Models\ContactSubmission;
 use App\Models\Material;
 use App\Models\MaterialCategory;
+use App\Models\NewsletterSubscriber;
 use App\Models\Page;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -74,6 +76,14 @@ class SitePageController extends Controller
         ContactSubmission::create($request->validated());
 
         return back()->with('contactSuccess', __('Thanks! Your message has been sent.'));
+    }
+
+    public function subscribeNewsletter(StoreNewsletterSubscriberRequest $request): RedirectResponse
+    {
+        // Idempotent: subscribing twice is fine, not an error.
+        NewsletterSubscriber::firstOrCreate(['email' => $request->validated()['email']]);
+
+        return back()->with('newsletterSuccess', __('Thanks for subscribing!'));
     }
 
     /**
