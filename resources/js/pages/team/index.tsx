@@ -118,8 +118,8 @@ export default function TeamIndex({
                             Team
                         </h1>
                         <p className="text-sm text-muted-foreground">
-                            Teachers who run your rooms and back-office access, in
-                            one place.
+                            Teachers who run your rooms and back-office access,
+                            in one place.
                         </p>
                     </div>
                     <button
@@ -138,7 +138,9 @@ export default function TeamIndex({
                                 <th className="px-4 py-2 font-medium">Name</th>
                                 <th className="px-4 py-2 font-medium">Email</th>
                                 <th className="px-4 py-2 font-medium">Role</th>
-                                <th className="px-4 py-2 font-medium">Classes</th>
+                                <th className="px-4 py-2 font-medium">
+                                    Classes
+                                </th>
                                 <th className="px-4 py-2"></th>
                             </tr>
                         </thead>
@@ -169,12 +171,15 @@ export default function TeamIndex({
                                                 onClick={() => openEdit(m)}
                                                 className="inline-flex items-center gap-1 rounded-[4px] px-2 py-1 text-neutral-600 hover:bg-neutral-100"
                                             >
-                                                <Pencil className="size-4" /> Edit
+                                                <Pencil className="size-4" />{' '}
+                                                Edit
                                             </button>
                                             {!m.isSelf && (
                                                 <button
                                                     type="button"
-                                                    onClick={() => setPending(m)}
+                                                    onClick={() =>
+                                                        setPending(m)
+                                                    }
                                                     className="rounded-[4px] p-1 text-neutral-500 hover:bg-red-50 hover:text-red-500"
                                                 >
                                                     <Trash2 className="size-4" />
@@ -198,7 +203,7 @@ export default function TeamIndex({
                     {editing ? 'Edit team member' : 'New team member'}
                 </span>
 
-                <div title="body" data-slot="body" className="p-4">
+                <div title="body" data-slot="body" className="p-0">
                     <form onSubmit={submit} className="space-y-4">
                         <div className="grid grid-cols-2 gap-3">
                             <Field
@@ -209,7 +214,10 @@ export default function TeamIndex({
                                     className="form-control"
                                     value={form.data.first_name}
                                     onChange={(e) =>
-                                        form.setData('first_name', e.target.value)
+                                        form.setData(
+                                            'first_name',
+                                            e.target.value,
+                                        )
                                     }
                                 />
                             </Field>
@@ -218,7 +226,10 @@ export default function TeamIndex({
                                     className="form-control"
                                     value={form.data.last_name}
                                     onChange={(e) =>
-                                        form.setData('last_name', e.target.value)
+                                        form.setData(
+                                            'last_name',
+                                            e.target.value,
+                                        )
                                     }
                                 />
                             </Field>
@@ -308,26 +319,28 @@ export default function TeamIndex({
                                                         {g.name}
                                                     </div>
                                                     <div className="mt-1 space-y-1">
-                                                        {g.permissions.map((p) => (
-                                                            <label
-                                                                key={p.name}
-                                                                className="flex cursor-pointer items-center gap-2 text-sm"
-                                                            >
-                                                                <input
-                                                                    type="checkbox"
-                                                                    className="checkbox"
-                                                                    checked={form.data.permissions.includes(
-                                                                        p.name,
-                                                                    )}
-                                                                    onChange={() =>
-                                                                        togglePermission(
+                                                        {g.permissions.map(
+                                                            (p) => (
+                                                                <label
+                                                                    key={p.name}
+                                                                    className="flex cursor-pointer items-center gap-2 text-sm"
+                                                                >
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="checkbox"
+                                                                        checked={form.data.permissions.includes(
                                                                             p.name,
-                                                                        )
-                                                                    }
-                                                                />
-                                                                {p.label}
-                                                            </label>
-                                                        ))}
+                                                                        )}
+                                                                        onChange={() =>
+                                                                            togglePermission(
+                                                                                p.name,
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                    {p.label}
+                                                                </label>
+                                                            ),
+                                                        )}
                                                     </div>
                                                 </div>
                                             ))}

@@ -73,29 +73,7 @@
             "name": "resources",
             "settings": {
                 "heading": "Our resources",
-                "subheading": "We develop their confidence to make them sharper",
-                "cards": [
-                    {
-                        "accent": "teal",
-                        "label": "download"
-                    },
-                    {
-                        "accent": "yellow",
-                        "label": "download"
-                    },
-                    {
-                        "accent": "orange",
-                        "label": "download"
-                    },
-                    {
-                        "accent": "purple",
-                        "label": "download"
-                    },
-                    {
-                        "accent": "green",
-                        "label": "download"
-                    }
-                ]
+                "subheading": "We develop their confidence to make them sharper"
             }
         },
         {
@@ -344,59 +322,6 @@
                     "id": "subheading",
                     "type": "text",
                     "label": "Subheading"
-                },
-                {
-                    "id": "cards",
-                    "type": "repeater",
-                    "label": "Cards",
-                    "fields": [
-                        {
-                            "id": "accent",
-                            "type": "select",
-                            "label": "Accent",
-                            "options": [
-                                {
-                                    "value": "teal",
-                                    "label": "Teal"
-                                },
-                                {
-                                    "value": "yellow",
-                                    "label": "Yellow"
-                                },
-                                {
-                                    "value": "orange",
-                                    "label": "Orange"
-                                },
-                                {
-                                    "value": "purple",
-                                    "label": "Purple"
-                                },
-                                {
-                                    "value": "green",
-                                    "label": "Green"
-                                },
-                                {
-                                    "value": "blue",
-                                    "label": "Blue"
-                                },
-                                {
-                                    "value": "pink",
-                                    "label": "Pink"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "image",
-                            "type": "media",
-                            "label": "Image",
-                            "kind": "image"
-                        },
-                        {
-                            "id": "label",
-                            "type": "text",
-                            "label": "Label"
-                        }
-                    ]
                 }
             ]
         },

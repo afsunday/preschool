@@ -6,7 +6,6 @@ import {
     ClipboardList,
     GraduationCap,
     House,
-    LifeBuoy,
     MessageSquare,
     Newspaper,
     Settings,
@@ -162,15 +161,9 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                             Switch to admin
                         </Link>
                         <IconButton
-                            label="Help"
-                            icon={LifeBuoy}
-                            href="/portal/help"
-                            dot
-                        />
-                        <IconButton
                             label="Settings"
                             icon={Settings}
-                            href="/portal/settings"
+                            href="/settings/profile"
                         />
                     </div>
                 </div>

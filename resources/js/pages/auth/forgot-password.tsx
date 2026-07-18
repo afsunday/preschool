@@ -43,7 +43,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                             <div className="my-6 flex items-center justify-start">
                                 <button
                                     type="submit"
-                                    className="btn-black w-full"
+                                    className="btn-brand"
                                     disabled={processing}
                                     data-test="email-password-reset-link-button"
                                 >
@@ -64,6 +64,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 }
 
 ForgotPassword.layout = {
-    title: 'Forgot password',
-    description: 'Enter your email to receive a password reset link',
+    eyebrow: 'Reset',
+    title: 'Forgot your password?',
+    description: 'Enter your email and we’ll send you a reset link.',
 };

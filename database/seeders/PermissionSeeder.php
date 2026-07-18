@@ -26,6 +26,9 @@ class PermissionSeeder extends Seeder
         'Team' => [
             'team.staff' => 'Manage team & permissions',
         ],
+        'Parents' => [
+            'parents.view' => 'View parents & families',
+        ],
     ];
 
     public function run(): void

@@ -7,6 +7,7 @@ use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageBuilderController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\PortalClassroomController;
 use App\Http\Controllers\PortalController;
 use App\Http\Controllers\PortalJoinController;
@@ -150,6 +151,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('admin/team', [TeamController::class, 'store'])->name('team.store');
             Route::put('admin/team/{user}', [TeamController::class, 'update'])->name('team.update');
             Route::delete('admin/team/{user}', [TeamController::class, 'destroy'])->name('team.destroy');
+        });
+
+        // Families directory — read-only list of parents and their children.
+        Route::middleware('permission:parents.view')->group(function () {
+            Route::get('admin/parents', [ParentController::class, 'index'])->name('parents.index');
         });
     });
 });

@@ -71,10 +71,8 @@ class User extends Authenticatable
     }
 
     // ---- roles -------------------------------------------------------------
-    // An account is a family (`parent`) or an employee (`staff`); the two flags
-    // layer on top. `has_admin_access` opens the back office (and portal admin
-    // powers); parent-ness is simply having a linked child, so a staff member
-    // with a kid is both. One account holds any combination.
+    // A `parent` (family) or `staff` (employee); `has_admin_access` opens the
+    // back office; parent-ness is having a linked child. Any combination holds.
 
     public const PARENT = 'parent';
 

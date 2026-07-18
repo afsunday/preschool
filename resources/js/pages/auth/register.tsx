@@ -1,8 +1,6 @@
 import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
-import TextLink from '@/components/text-link';
-import { login } from '@/routes';
 import { store } from '@/routes/register';
 
 type Props = {
@@ -131,19 +129,12 @@ export default function Register({ passwordRules }: Props) {
 
                             <button
                                 type="submit"
-                                className="btn-black mt-2 w-full"
+                                className="btn-brand mt-2"
                                 tabIndex={6}
                                 data-test="register-user-button"
                             >
                                 Create account
                             </button>
-                        </div>
-
-                        <div className="text-center text-sm text-muted-foreground">
-                            Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={7}>
-                                Log in
-                            </TextLink>
                         </div>
                     </>
                 )}
@@ -153,6 +144,11 @@ export default function Register({ passwordRules }: Props) {
 }
 
 Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
+    eyebrow: 'Welcome',
+    title: 'Sign up to WODI',
+    description:
+        'Follow your child’s day, message teachers, and stay in the loop.',
+    altPrompt: 'Already a member?',
+    altLabel: 'Sign in',
+    altHref: '/login',
 };

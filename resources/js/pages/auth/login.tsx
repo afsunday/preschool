@@ -2,7 +2,6 @@ import { Form, Head } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
-import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 
@@ -80,7 +79,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     type="checkbox"
                                     name="remember"
                                     tabIndex={3}
-                                    className="size-4 rounded-[4px] border-black/20"
+                                    className="checkbox size-4 rounded-[4px] border-black/20"
                                 />
                                 <label
                                     htmlFor="remember"
@@ -92,27 +91,20 @@ export default function Login({ status, canResetPassword }: Props) {
 
                             <button
                                 type="submit"
-                                className="btn-black mt-4 w-full"
+                                className="btn-brand mt-2"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
                             >
-                                Log in
+                                Sign in
                             </button>
-                        </div>
-
-                        <div className="text-center text-sm text-muted-foreground">
-                            Don't have an account?{' '}
-                            <TextLink href={register()} tabIndex={5}>
-                                Sign up
-                            </TextLink>
                         </div>
                     </>
                 )}
             </Form>
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                <div className="mt-4 text-center text-sm font-medium text-green-600">
                     {status}
                 </div>
             )}
@@ -121,6 +113,10 @@ export default function Login({ status, canResetPassword }: Props) {
 }
 
 Login.layout = {
-    title: 'Log in to your account',
-    description: 'Enter your email and password below to log in',
+    eyebrow: 'Welcome back',
+    title: 'Sign in to WODI',
+    description: 'Keep up with your child’s day, wherever you are.',
+    altPrompt: 'New to WODI?',
+    altLabel: 'Create an account',
+    altHref: '/register',
 };

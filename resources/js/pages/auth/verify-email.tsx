@@ -21,7 +21,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     <>
                         <button
                             type="submit"
-                            className="btn-light"
+                            className="btn-brand"
                             disabled={processing}
                         >
                             Resend verification email
@@ -41,7 +41,8 @@ export default function VerifyEmail({ status }: { status?: string }) {
 }
 
 VerifyEmail.layout = {
-    title: 'Email verification',
+    eyebrow: 'Almost there',
+    title: 'Verify your email',
     description:
-        'Please verify your email address by clicking on the link we just emailed to you.',
+        'We just emailed you a verification link — click it to finish setting up your account.',
 };

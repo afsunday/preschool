@@ -2,6 +2,7 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Link, router, usePage } from '@inertiajs/react';
 import {
     ArrowLeftRight,
+    Baby,
     FileText,
     Image,
     LayoutDashboard,
@@ -61,6 +62,12 @@ const navItems: AdminNavItem[] = [
         href: '/admin/team',
         icon: Users,
         permission: 'team.staff',
+    },
+    {
+        title: 'Parents',
+        href: '/admin/parents',
+        icon: Baby,
+        permission: 'parents.view',
     },
 ];
 
