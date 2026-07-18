@@ -38,6 +38,8 @@ class ProfileController extends Controller
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Profile updated.')]);
 
-        return to_route('profile.edit');
+        // back() so the profile form works from both the admin settings screen
+        // and the portal's own profile page.
+        return back();
     }
 }
