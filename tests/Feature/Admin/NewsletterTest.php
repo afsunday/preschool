@@ -34,7 +34,8 @@ test('sending queues the email to active subscribers only', function () {
     $this->actingAs($this->admin)
         ->post('/admin/newsletter/send', [
             'subject' => 'Autumn term news',
-            'body' => "Hello!\n\nHere's what's happening.",
+            'body' => '<p>Hello! Here is what is happening.</p>',
+            'audience' => 'all',
         ])
         ->assertRedirect();
 
@@ -49,14 +50,62 @@ test('sending records a campaign with the recipient count', function () {
 
     $this->actingAs($this->admin)->post('/admin/newsletter/send', [
         'subject' => 'Hello',
-        'body' => 'World',
+        'body' => '<p>World</p>',
+        'audience' => 'all',
     ]);
 
     $campaign = NewsletterCampaign::sole();
 
     expect($campaign->subject)->toBe('Hello')
         ->and($campaign->recipients_count)->toBe(2)
+        ->and($campaign->audience)->toBe('all')
         ->and($campaign->sent_at)->not->toBeNull();
+});
+
+test('sending to a selected list only mails those subscribers', function () {
+    Notification::fake();
+
+    $chosen = NewsletterSubscriber::factory()->count(2)->create();
+    $other = NewsletterSubscriber::factory()->create();
+
+    $this->actingAs($this->admin)->post('/admin/newsletter/send', [
+        'subject' => 'Just for you',
+        'body' => '<p>Hi</p>',
+        'audience' => 'selected',
+        'recipients' => $chosen->pluck('id')->all(),
+    ])->assertRedirect();
+
+    Notification::assertSentTo($chosen, NewsletterNotification::class);
+    Notification::assertNotSentTo($other, NewsletterNotification::class);
+    expect(NewsletterCampaign::sole()->recipients_count)->toBe(2);
+});
+
+test('selecting recipients requires at least one', function () {
+    Notification::fake();
+
+    $this->actingAs($this->admin)->post('/admin/newsletter/send', [
+        'subject' => 'x',
+        'body' => '<p>y</p>',
+        'audience' => 'selected',
+    ])->assertSessionHasErrors('recipients');
+
+    Notification::assertNothingSent();
+});
+
+test('an admin can preview a sent campaign', function () {
+    $campaign = NewsletterCampaign::create([
+        'subject' => 'Archived news',
+        'body' => '<p>The body</p>',
+        'audience' => 'all',
+        'recipients_count' => 3,
+        'sent_at' => now(),
+    ]);
+
+    $this->actingAs($this->admin)
+        ->get("/admin/newsletter/campaigns/{$campaign->id}/preview")
+        ->assertOk()
+        ->assertSee('Archived news')
+        ->assertSee('The body', false);
 });
 
 test('the newsletter notification is queued', function () {

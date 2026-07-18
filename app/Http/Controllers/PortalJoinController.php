@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -49,10 +48,9 @@ class PortalJoinController extends Controller
             ]);
         }
 
-        // Redeeming a code is what makes someone a parent. Staff keep their role.
-        if (! $user->isStaff() && ! $user->isParent()) {
-            $user->forceFill(['user_type' => User::PARENT])->save();
-        }
+        // Linking the child is what makes this person a parent — there is no
+        // separate flag to set. A staff member who redeems their own child's
+        // code simply becomes a parent too.
 
         return $child->classroom_id === null
             ? redirect()->route('portal.home')

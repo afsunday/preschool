@@ -24,11 +24,15 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
+        // Public registration is the family signup — a new account is a parent.
+        // Staff and teachers are created from the admin, never here. Redeeming a
+        // child's invite code (portal join) is what links them to a child.
         return User::create([
             'first_name' => $input['first_name'],
             'last_name' => $input['last_name'],
             'email' => $input['email'],
             'password' => $input['password'],
+            'user_type' => User::PARENT,
         ]);
     }
 }

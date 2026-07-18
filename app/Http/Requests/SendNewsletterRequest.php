@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SendNewsletterRequest extends FormRequest
 {
@@ -18,7 +19,11 @@ class SendNewsletterRequest extends FormRequest
     {
         return [
             'subject' => ['required', 'string', 'max:255'],
-            'body' => ['required', 'string', 'max:20000'],
+            'body' => ['required', 'string', 'max:100000'],
+            'audience' => ['required', Rule::in(['all', 'selected'])],
+            // Required only when hand-picking recipients.
+            'recipients' => ['array', 'required_if:audience,selected'],
+            'recipients.*' => ['integer', Rule::exists('newsletter_subscribers', 'id')],
         ];
     }
 }

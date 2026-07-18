@@ -28,3 +28,19 @@ test('a valid email is required', function () {
 
     expect(NewsletterSubscriber::count())->toBe(0);
 });
+
+test('an AJAX subscribe returns a JSON message and creates the subscriber', function () {
+    $this->postJson(route('newsletter.subscribe'), ['email' => 'ada@example.com'])
+        ->assertOk()
+        ->assertJsonStructure(['message']);
+
+    expect(NewsletterSubscriber::pluck('email')->all())->toBe(['ada@example.com']);
+});
+
+test('an AJAX subscribe with an invalid email returns 422 JSON', function () {
+    $this->postJson(route('newsletter.subscribe'), ['email' => 'nope'])
+        ->assertStatus(422)
+        ->assertJsonValidationErrors('email');
+
+    expect(NewsletterSubscriber::count())->toBe(0);
+});

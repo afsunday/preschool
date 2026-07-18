@@ -458,14 +458,23 @@ export default function PortalHome({
                             {children ? 'Their classes' : 'My classes'}
                         </h2>
                         {canManage && (
-                            <button
-                                type="button"
-                                onClick={() => setDialog('new')}
-                                className="inline-flex items-center gap-1.5 rounded-[4px] bg-portal-accent px-4 py-2 text-sm font-bold text-white transition hover:brightness-95"
-                            >
-                                <Plus className="size-4" />
-                                New class
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href="/admin/team"
+                                    className="inline-flex items-center gap-1.5 rounded-[4px] border border-portal-line px-4 py-2 text-sm font-bold text-portal-ink transition hover:bg-neutral-50"
+                                >
+                                    <GraduationCap className="size-4" />
+                                    Team
+                                </Link>
+                                <button
+                                    type="button"
+                                    onClick={() => setDialog('new')}
+                                    className="inline-flex items-center gap-1.5 rounded-[4px] bg-portal-accent px-4 py-2 text-sm font-bold text-white transition hover:brightness-95"
+                                >
+                                    <Plus className="size-4" />
+                                    New class
+                                </button>
+                            </div>
                         )}
                     </div>
 

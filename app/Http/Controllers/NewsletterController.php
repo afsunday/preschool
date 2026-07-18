@@ -29,6 +29,7 @@ class NewsletterController extends Controller
                 ->map(fn (NewsletterCampaign $c) => [
                     'id' => $c->id,
                     'subject' => $c->subject,
+                    'audience' => $c->audience,
                     'recipients' => $c->recipients_count,
                     'sentAt' => $c->sent_at?->diffForHumans(),
                 ]),
@@ -37,11 +38,20 @@ class NewsletterController extends Controller
 
     public function send(SendNewsletterRequest $request): RedirectResponse
     {
-        $recipients = NewsletterSubscriber::query()->active()->get();
+        $data = $request->validated();
+
+        $recipients = NewsletterSubscriber::query()
+            ->active()
+            ->when(
+                $data['audience'] === 'selected',
+                fn ($q) => $q->whereIn('id', $data['recipients'] ?? []),
+            )
+            ->get();
 
         $campaign = NewsletterCampaign::create([
-            'subject' => $request->validated()['subject'],
-            'body' => $request->validated()['body'],
+            'subject' => $data['subject'],
+            'body' => $data['body'],
+            'audience' => $data['audience'],
             'recipients_count' => $recipients->count(),
             'sent_at' => now(),
         ]);
@@ -53,6 +63,17 @@ class NewsletterController extends Controller
         return back()->with('success', __(':count subscriber(s) queued.', [
             'count' => $recipients->count(),
         ]));
+    }
+
+    /**
+     * The exact email that was sent, for the archive's preview pane.
+     */
+    public function preview(NewsletterCampaign $campaign): View
+    {
+        return view('emails.newsletter', [
+            'campaign' => $campaign,
+            'unsubscribeUrl' => '#',
+        ]);
     }
 
     public function destroySubscriber(NewsletterSubscriber $subscriber): RedirectResponse

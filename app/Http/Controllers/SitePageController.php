@@ -11,6 +11,7 @@ use App\Models\MaterialCategory;
 use App\Models\NewsletterSubscriber;
 use App\Models\Page;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -78,12 +79,20 @@ class SitePageController extends Controller
         return back()->with('contactSuccess', __('Thanks! Your message has been sent.'));
     }
 
-    public function subscribeNewsletter(StoreNewsletterSubscriberRequest $request): RedirectResponse
+    public function subscribeNewsletter(StoreNewsletterSubscriberRequest $request): RedirectResponse|JsonResponse
     {
         // Idempotent: subscribing twice is fine, not an error.
         NewsletterSubscriber::firstOrCreate(['email' => $request->validated()['email']]);
 
-        return back()->with('newsletterSuccess', __('Thanks for subscribing!'));
+        $message = __('Thanks for subscribing!');
+
+        // AJAX submits from the newsletter band want JSON so the page never
+        // reloads; a plain (JS-off) POST still gets the flash + redirect below.
+        if ($request->expectsJson()) {
+            return response()->json(['message' => $message]);
+        }
+
+        return back()->with('newsletterSuccess', $message);
     }
 
     /**

@@ -56,7 +56,7 @@ const ActionDialog: FC<ModalProps> = ({
 
     return (
         <div
-            className={`modal-backdrop bg-opacity-[0.25] fixed inset-0 z-[50] flex h-full translate-y-full items-center justify-center overflow-x-hidden overflow-y-auto bg-black px-4 backdrop-blur-[2px] transition-transform duration-100 md:translate-x-full md:translate-y-0 ${
+            className={`modal-backdrop fixed inset-0 z-[50] flex h-full translate-y-full items-center justify-center overflow-x-hidden overflow-y-auto bg-black/20 px-4 backdrop-blur-[2px] transition-transform duration-100 md:translate-x-full md:translate-y-0 ${
                 hidden ? '!translate-y-0 md:!translate-x-0' : ''
             }`}
             onClick={handleClose}

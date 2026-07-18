@@ -498,7 +498,7 @@ function Toggle({
                 type="checkbox"
                 checked={checked}
                 onChange={(e) => onChange(e.target.checked)}
-                className="size-4 rounded border-black/20"
+                className="checkbox"
             />
             {label}
         </label>

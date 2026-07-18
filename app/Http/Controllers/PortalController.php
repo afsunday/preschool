@@ -40,10 +40,11 @@ class PortalController extends Controller
                 : null,
             'isStaff' => $user->isStaff(),
             'canManage' => $user->can('create', Classroom::class),
-            // Only an admin ever opens the create-class form.
+            // Only an admin ever opens the create-class form. Any staff member
+            // can be assigned to run a room.
             'teachers' => $user->isAdmin()
                 ? User::query()
-                    ->whereIn('user_type', [User::TEACHER, User::ADMIN])
+                    ->where('user_type', User::STAFF)
                     ->orderBy('first_name')
                     ->get()
                     ->map(fn (User $t) => ['id' => $t->id, 'name' => $t->name])
@@ -249,7 +250,7 @@ class PortalController extends Controller
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    protected function classList(User $user)
+    public static function classList(User $user)
     {
         return Classroom::query()
             ->visibleTo($user)

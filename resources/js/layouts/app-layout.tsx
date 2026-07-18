@@ -57,8 +57,8 @@ const navItems: AdminNavItem[] = [
         permission: 'comms.newsletter',
     },
     {
-        title: 'Staff',
-        href: '/admin/staff',
+        title: 'Team',
+        href: '/admin/team',
         icon: Users,
         permission: 'team.staff',
     },

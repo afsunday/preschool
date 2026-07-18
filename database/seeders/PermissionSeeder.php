@@ -24,7 +24,7 @@ class PermissionSeeder extends Seeder
             'comms.newsletter' => 'Manage newsletter',
         ],
         'Team' => [
-            'team.staff' => 'Manage staff & permissions',
+            'team.staff' => 'Manage team & permissions',
         ],
     ];
 
@@ -46,7 +46,7 @@ class PermissionSeeder extends Seeder
             }
         }
 
-        // Existing admins keep full access as super users.
-        User::query()->where('user_type', User::ADMIN)->update(['is_super' => true]);
+        // Everyone with back-office access keeps full access as a super user.
+        User::query()->where('has_admin_access', true)->update(['is_super' => true]);
     }
 }

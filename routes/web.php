@@ -16,7 +16,7 @@ use App\Http\Controllers\PortalReportCardController;
 use App\Http\Controllers\PortalReportController;
 use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
-use App\Http\Controllers\StaffController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [SitePageController::class, 'home'])->name('home');
@@ -140,15 +140,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware('permission:comms.newsletter')->group(function () {
             Route::get('admin/newsletter', [NewsletterController::class, 'index'])->name('newsletter.index');
             Route::post('admin/newsletter/send', [NewsletterController::class, 'send'])->name('newsletter.send');
+            Route::get('admin/newsletter/campaigns/{campaign}/preview', [NewsletterController::class, 'preview'])->name('newsletter.preview');
             Route::delete('admin/newsletter/subscribers/{subscriber}', [NewsletterController::class, 'destroySubscriber'])->name('newsletter.subscribers.destroy');
         });
 
-        // Staff + their permissions.
+        // Team — teachers and back-office access in one place.
         Route::middleware('permission:team.staff')->group(function () {
-            Route::get('admin/staff', [StaffController::class, 'index'])->name('staff.index');
-            Route::post('admin/staff', [StaffController::class, 'store'])->name('staff.store');
-            Route::put('admin/staff/{user}', [StaffController::class, 'update'])->name('staff.update');
-            Route::delete('admin/staff/{user}', [StaffController::class, 'destroy'])->name('staff.destroy');
+            Route::get('admin/team', [TeamController::class, 'index'])->name('team.index');
+            Route::post('admin/team', [TeamController::class, 'store'])->name('team.store');
+            Route::put('admin/team/{user}', [TeamController::class, 'update'])->name('team.update');
+            Route::delete('admin/team/{user}', [TeamController::class, 'destroy'])->name('team.destroy');
         });
     });
 });

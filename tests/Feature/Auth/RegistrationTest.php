@@ -22,5 +22,6 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    $response->assertRedirect(route('dashboard', absolute: false));
+    // A new registrant is a parent, so they land in the portal.
+    $response->assertRedirect(route('portal.home', absolute: false));
 });

@@ -15,7 +15,7 @@ class NewsletterCampaign extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['subject', 'body', 'recipients_count', 'sent_at'];
+    protected $fillable = ['subject', 'body', 'audience', 'recipients_count', 'sent_at'];
 
     /**
      * The attributes that should be cast to native types.

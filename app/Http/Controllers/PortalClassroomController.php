@@ -66,7 +66,7 @@ class PortalClassroomController extends Controller
             'teacher_id' => [
                 'nullable',
                 Rule::exists('users', 'id')->where(
-                    fn ($q) => $q->whereIn('user_type', [User::TEACHER, User::ADMIN]),
+                    fn ($q) => $q->where('user_type', User::STAFF),
                 ),
             ],
         ]);

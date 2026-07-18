@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,29 +11,33 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Carbon;
 
-/**
- * @property int $id
- * @property string $first_name
- * @property string $last_name
- * @property string $user_type
- * @property bool $is_super
- * @property array<int, string>|null $permissions
- * @property-read string $name
- * @property string $email
- * @property Carbon|null $email_verified_at
- * @property string $password
- * @property string|null $remember_token
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- */
-#[Fillable(['first_name', 'last_name', 'user_type', 'email', 'password', 'permissions'])]
-#[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'user_type',
+        'email',
+        'password',
+        'permissions',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
     /**
      * Get the attributes that should be cast.
@@ -46,6 +49,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'has_admin_access' => 'boolean',
             'is_super' => 'boolean',
             'permissions' => 'array',
         ];
@@ -67,34 +71,33 @@ class User extends Authenticatable
     }
 
     // ---- roles -------------------------------------------------------------
-    // The portal has exactly three kinds of person. Children are not among them:
-    // they have records, not accounts.
-
-    public const ADMIN = 'admin';
-
-    public const TEACHER = 'teacher';
+    // An account is a family (`parent`) or an employee (`staff`); the two flags
+    // layer on top. `has_admin_access` opens the back office (and portal admin
+    // powers); parent-ness is simply having a linked child, so a staff member
+    // with a kid is both. One account holds any combination.
 
     public const PARENT = 'parent';
 
-    public function isAdmin(): bool
+    public const STAFF = 'staff';
+
+    public function isStaff(): bool
     {
-        return $this->user_type === self::ADMIN;
+        return $this->user_type === self::STAFF;
     }
 
-    public function isTeacher(): bool
+    public function isAdmin(): bool
     {
-        return $this->user_type === self::TEACHER;
+        return (bool) $this->has_admin_access;
     }
 
     public function isParent(): bool
     {
-        return $this->user_type === self::PARENT;
+        return $this->children()->exists();
     }
 
-    /** Staff run rooms; admins can do anything a teacher can. */
-    public function isStaff(): bool
+    public function homePath(): string
     {
-        return $this->isAdmin() || $this->isTeacher();
+        return $this->isAdmin() ? '/dashboard' : '/portal';
     }
 
     // ---- back-office permissions ------------------------------------------

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreStaffRequest extends FormRequest
+class UpdateTeamRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,11 +17,15 @@ class StoreStaffRequest extends FormRequest
      */
     public function rules(): array
     {
+        $member = $this->route('user');
+
         return [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($member)],
+            'password' => ['nullable', 'string', 'min:8'],
+            'has_admin_access' => ['boolean'],
+            'is_super' => ['boolean'],
             'permissions' => ['array'],
             'permissions.*' => [Rule::exists('permissions', 'name')],
         ];

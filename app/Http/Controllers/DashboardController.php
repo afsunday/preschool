@@ -8,14 +8,22 @@ use App\Models\Material;
 use App\Models\Media;
 use App\Models\NewsletterSubscriber;
 use App\Models\Page;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class DashboardController extends Controller
 {
-    public function index(): Response
+    public function index(Request $request): Response|RedirectResponse
     {
+        // The dashboard is the back office. Teachers and parents belong in the
+        // portal — bounce them there rather than showing admin figures.
+        if (! $request->user()->isAdmin()) {
+            return redirect('/portal');
+        }
+
         return Inertia::render('dashboard', [
             'stats' => [
                 'pages' => Page::query()->where('slug', '!=', Site::GLOBALS)->count(),
