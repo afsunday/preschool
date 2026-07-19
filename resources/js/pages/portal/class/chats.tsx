@@ -85,7 +85,7 @@ export default function ClassChats({
             router.reload({ only: ['active', 'threads'] });
         };
 
-        const id = window.setInterval(poll, 5000);
+        const id = window.setInterval(poll, 3000);
         document.addEventListener('visibilitychange', poll);
 
         return () => {
