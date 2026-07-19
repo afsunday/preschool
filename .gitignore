@@ -27,3 +27,8 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# cPanel / server artifacts
+error_log
+stderr.log
+.ftpquota

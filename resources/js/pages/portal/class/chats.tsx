@@ -1,4 +1,4 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { Loader2, MessageSquare, Send } from 'lucide-react';
 import type { FormEvent } from 'react';
 import { useEffect, useRef } from 'react';
@@ -70,10 +70,36 @@ export default function ClassChats({
     isStaff: boolean;
 }) {
     const endRef = useRef<HTMLDivElement>(null);
+    const atBottomRef = useRef(true);
 
-    // Land on the newest message, like every chat app.
+    // Poll so new messages appear without a refresh — no WebSockets needed. Only
+    // the `active` + `threads` props are re-fetched; it pauses while the tab is
+    // hidden and catches up the moment it's focused again.
     useEffect(() => {
-        endRef.current?.scrollIntoView({ block: 'end' });
+        const poll = () => {
+            if (document.visibilityState !== 'visible') {
+                return;
+            }
+
+            // reload() already forces preserveScroll + preserveState.
+            router.reload({ only: ['active', 'threads'] });
+        };
+
+        const id = window.setInterval(poll, 5000);
+        document.addEventListener('visibilitychange', poll);
+
+        return () => {
+            window.clearInterval(id);
+            document.removeEventListener('visibilitychange', poll);
+        };
+    }, []);
+
+    // Follow new messages down — but only when the reader is already at the
+    // bottom, so a poll never yanks them away from history they're reading.
+    useEffect(() => {
+        if (atBottomRef.current) {
+            endRef.current?.scrollIntoView({ block: 'end' });
+        }
     }, [active?.messages.length]);
 
     return (
@@ -149,7 +175,17 @@ export default function ClassChats({
                                 </p>
                             </div>
 
-                            <div className="flex-1 space-y-2 overflow-y-auto p-4">
+                            <div
+                                onScroll={(e) => {
+                                    const el = e.currentTarget;
+                                    atBottomRef.current =
+                                        el.scrollHeight -
+                                            el.scrollTop -
+                                            el.clientHeight <
+                                        80;
+                                }}
+                                className="flex-1 space-y-2 overflow-y-auto p-4"
+                            >
                                 {active.messages.length === 0 && (
                                     <p className="py-8 text-center text-xs text-neutral-400">
                                         No messages yet — say hello.
