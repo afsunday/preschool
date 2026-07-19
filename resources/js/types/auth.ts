@@ -4,6 +4,7 @@ export type User = {
     last_name: string;
     name: string;
     user_type: string;
+    has_admin_access?: boolean;
     email: string;
     avatar?: string;
     email_verified_at: string | null;

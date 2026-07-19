@@ -14,7 +14,7 @@
                         "url": "/"
                     },
                     {
-                        "label": "About us",
+                        "label": "About Us",
                         "url": "/about"
                     },
                     {
@@ -22,7 +22,7 @@
                         "url": "/admissions"
                     },
                     {
-                        "label": "Parents & Kids Resource",
+                        "label": "Families & Kids Resources",
                         "url": "/resources"
                     },
                     {
@@ -43,7 +43,7 @@
                     }
                 ],
                 "primary_label": "Enroll Your Child Today",
-                "primary_url": "#admissions",
+                "primary_url": "https://regionofwaterloo.onehsn.com/ux_2_0",
                 "secondary_label": "Discover Our Programs",
                 "secondary_url": "#resources"
             }
@@ -53,10 +53,10 @@
             "type": "newsletter",
             "name": "newsletter",
             "settings": {
-                "heading": "Better future for kids",
-                "subtext": "Get the latest on what's going on with WODI daycare.",
-                "placeholder": "Your email",
-                "button": "Send"
+                "heading": "A brighter start for every child",
+                "subtext": "Get WODI Childcare updates, family resources, program news, and helpful reminders.",
+                "placeholder": "Enter your email address",
+                "button": "Subscribe"
             }
         },
         {
@@ -64,10 +64,10 @@
             "type": "site_footer",
             "name": "footer",
             "settings": {
-                "watermark": "WODI DAYCARE",
+                "watermark": "WODI CHILDCARE",
                 "columns": [
                     {
-                        "heading": "WODI Daycare",
+                        "heading": "WODI Childcare",
                         "links": [
                             {
                                 "label": "Home",
@@ -75,11 +75,11 @@
                             },
                             {
                                 "label": "Admissions",
-                                "url": "#admissions"
+                                "url": "/admissions"
                             },
                             {
                                 "label": "Gallery",
-                                "url": "#"
+                                "url": "/gallery"
                             }
                         ]
                     },
@@ -87,16 +87,16 @@
                         "heading": "COMPANY",
                         "links": [
                             {
-                                "label": "About us",
-                                "url": "#about"
+                                "label": "About Us",
+                                "url": "/about"
                             },
                             {
-                                "label": "Contact",
-                                "url": "#"
+                                "label": "Contact Us",
+                                "url": "/contact"
                             },
                             {
                                 "label": "FAQ",
-                                "url": "#"
+                                "url": "/faq"
                             }
                         ]
                     },
@@ -104,13 +104,13 @@
                         "heading": "RESOURCES",
                         "links": [
                             {
-                                "label": "Resources for Parents & Kids",
-                                "url": "#resources"
+                                "label": "Families & Kids Resources",
+                                "url": "/resources"
                             }
                         ]
                     }
                 ],
-                "about_text": "WODI Daycare is a place where little ones feel safe, seen, and free to explore. Our early educators nurture curiosity through play, warm relationships, and a curriculum built around how young children really learn. From first steps to first friendships, we partner with families to give every child a joyful, confident start.",
+                "about_text": "WODI Childcare provides a caring, play-based early learning environment where children are supported to grow with confidence, curiosity, and joy.",
                 "legal_links": [
                     {
                         "label": "Terms of Use",
@@ -121,7 +121,7 @@
                         "url": "#"
                     },
                     {
-                        "label": "Cookies Policy",
+                        "label": "Cookie Policy",
                         "url": "#"
                     }
                 ]

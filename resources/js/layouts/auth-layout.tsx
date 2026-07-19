@@ -37,7 +37,7 @@ export default function AuthLayout({
                 </div>
 
                 <h2 className="relative mt-10 hidden max-w-[16ch] text-[2.6rem] leading-[1.08] font-extrabold tracking-tight lg:block">
-                    Every day at daycare, followed from home.
+                    Every day at childcare, followed from home.
                 </h2>
                 <p className="relative mt-4 hidden max-w-[34ch] text-white/75 lg:block">
                     Photos, daily reports and messages from your child’s room —
@@ -84,7 +84,7 @@ export default function AuthLayout({
                 </div>
 
                 <footer className="mx-auto w-full max-w-md pt-6 text-center text-xs text-neutral-400">
-                    © {new Date().getFullYear()} WODI Daycare · Made with care
+                    © {new Date().getFullYear()} WODI Childcare · Made with care
                 </footer>
             </main>
         </div>

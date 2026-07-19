@@ -57,8 +57,14 @@ class PortalController extends Controller
     {
         $this->authorize('view', $classroom);
 
+        $user = $request->user();
+
         $posts = $classroom->posts()
-            ->with('author')
+            ->with(['author', 'comments' => fn ($q) => $q->with('author')->oldest()])
+            ->withCount([
+                'likers',
+                'likers as liked_by_me' => fn ($q) => $q->whereKey($user->id),
+            ])
             ->latest()
             ->limit(30)
             ->get()
@@ -68,6 +74,26 @@ class PortalController extends Controller
                 'author' => $post->author->name,
                 'createdAt' => $post->created_at?->diffForHumans(),
                 'photos' => $post->photoUrls(),
+                'type' => $post->type,
+                'event' => $post->type === 'event' && $post->event_at ? [
+                    'title' => $post->event_title,
+                    'month' => $post->event_at->format('M'),
+                    'day' => $post->event_at->format('j'),
+                    'dateLabel' => $post->event_at->format('D j M'),
+                    'timeLabel' => $post->event_ends_at
+                        ? $post->event_at->format('g:i A').' – '.$post->event_ends_at->format('g:i A')
+                        : $post->event_at->format('g:i A'),
+                    'location' => $post->event_location,
+                ] : null,
+                'likesCount' => $post->likers_count,
+                'likedByMe' => (bool) $post->liked_by_me,
+                'comments' => $post->comments->map(fn ($c) => [
+                    'id' => $c->id,
+                    'author' => $c->author->name,
+                    'body' => $c->body,
+                    'at' => $c->created_at?->diffForHumans(),
+                    'mine' => $c->user_id === $user->id,
+                ])->values(),
             ]);
 
         return Inertia::render('portal/class/feed', [
@@ -159,7 +185,8 @@ class PortalController extends Controller
     }
 
     /**
-     * Chat. Staff see every thread in the room; a guardian sees only their own.
+     * Chat. Staff see every family in the room and can start any thread; a
+     * guardian only ever sees and posts to their own.
      */
     public function chats(Request $request, Classroom $classroom, ?Conversation $conversation = null): Response
     {
@@ -168,19 +195,20 @@ class PortalController extends Controller
         $user = $request->user();
         $isStaff = $user->can('staff', $classroom);
 
-        $threads = $classroom->conversations()
-            ->when(! $isStaff, fn ($q) => $q->where('guardian_id', $user->id))
-            ->with('guardian')
-            ->orderByDesc('last_message_at')
-            ->get();
+        // Staff picking a family (?guardian=) start the thread on demand — this is
+        // what lets a teacher reach out to a family that hasn't messaged first.
+        if ($isStaff && $conversation === null && $request->filled('guardian')) {
+            $guardianId = (int) $request->query('guardian');
+            abort_unless(
+                $classroom->children()->whereHas('guardians', fn ($q) => $q->whereKey($guardianId))->exists(),
+                404,
+            );
+            $conversation = $classroom->conversations()->firstOrCreate(['guardian_id' => $guardianId]);
+        }
 
-        // A guardian opening chat should land in their own thread, creating it on
-        // demand — no "start a conversation" step.
+        // A guardian lands in their own thread, created on demand.
         if ($conversation === null && ! $isStaff) {
-            $conversation = $threads->first() ?? $classroom->conversations()->create([
-                'guardian_id' => $user->id,
-            ]);
-            $threads = collect([$conversation->load('guardian')]);
+            $conversation = $classroom->conversations()->firstOrCreate(['guardian_id' => $user->id]);
         }
 
         if ($conversation !== null) {
@@ -191,12 +219,9 @@ class PortalController extends Controller
 
         return Inertia::render('portal/class/chats', [
             ...$this->classProps($request, $classroom),
-            'threads' => $threads->map(fn (Conversation $c) => [
-                'id' => $c->id,
-                'guardian' => $c->guardian->name,
-                'lastMessageAt' => $c->last_message_at?->diffForHumans(),
-                'unread' => $c->isUnreadFor($user),
-            ])->values(),
+            // Staff see every family in the room, even ones without a thread; a
+            // parent needs no list.
+            'families' => $isStaff ? $this->roomFamilies($classroom, $user) : [],
             'active' => $conversation === null ? null : [
                 'id' => $conversation->id,
                 'guardian' => $conversation->guardian->name,
@@ -216,6 +241,29 @@ class PortalController extends Controller
             ],
             'isStaff' => $isStaff,
         ]);
+    }
+
+    /**
+     * Every family in a room — each guardian with their thread, if one exists.
+     * Families who've never messaged still appear (with a null conversation), so
+     * staff can start a chat with anyone.
+     *
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function roomFamilies(Classroom $classroom, User $user): Collection
+    {
+        $byGuardian = $classroom->conversations()->get()->keyBy('guardian_id');
+
+        return $classroom->guardians()
+            ->sortBy('first_name')
+            ->map(fn (User $g) => [
+                'guardianId' => $g->id,
+                'name' => $g->name,
+                'conversationId' => $byGuardian->get($g->id)?->id,
+                'lastMessageAt' => $byGuardian->get($g->id)?->last_message_at?->diffForHumans(),
+                'unread' => $byGuardian->get($g->id)?->isUnreadFor($user) ?? false,
+            ])
+            ->values();
     }
 
     // ---- shared serialisation ---------------------------------------------

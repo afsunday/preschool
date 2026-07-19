@@ -11,6 +11,11 @@
 
             return ($id ? \App\Models\Media::find($id)?->url() : null) ?? data_get($row, $fallback);
         };
+
+        // External enrolment links (OneList) open in a new tab; on-page #anchors don't.
+        $ext = fn (?string $url): string => \Illuminate\Support\Str::startsWith((string) $url, ['http://', 'https://'])
+            ? 'target="_blank" rel="noopener noreferrer"'
+            : '';
     @endphp
 
     @foreach ($blocks as $block)
@@ -70,7 +75,7 @@
                                         {{ $block->get('lead') }}
                                     </p>
 
-                                    <a href="{{ $block->get('cta_url', '#enrol') }}"
+                                    <a href="{{ $block->get('cta_url', '#enrol') }}" {!! $ext($block->get('cta_url')) !!}
                                        class="mt-1 block w-36 rounded-full bg-wodi-pink py-2.5 text-center text-[11px] font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                                         {{ $block->get('cta_label') }}
                                     </a>
@@ -150,7 +155,7 @@
                                     </div>
 
                                     <p class="text-[11px] leading-tight font-bold text-wodi-pink">
-                                        {!! nl2br(e($block->get('trusted_label', "Trusted by\nParents and ward alike"))) !!}
+                                        {!! nl2br(e($block->get('trusted_label', "Trusted by\nFamilies and ward alike"))) !!}
                                     </p>
                                 </div>
 
@@ -233,7 +238,7 @@
                         </div>
 
                         <div class="mt-10 text-center">
-                            <a href="{{ $block->get('cta_url', '#enrol') }}"
+                            <a href="{{ $block->get('cta_url', '#enrol') }}" {!! $ext($block->get('cta_url')) !!}
                                class="inline-block rounded-full bg-wodi-pink px-7 py-3 text-sm font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                                 {{ $block->get('cta_label') }}
                             </a>
@@ -327,7 +332,7 @@
                                         @endforeach
                                     </ul>
 
-                                    <a href="{{ $block->get('cta_url', '#enrol') }}"
+                                    <a href="{{ $block->get('cta_url', '#enrol') }}" {!! $ext($block->get('cta_url')) !!}
                                        class="mt-6 inline-block rounded-full bg-wodi-pink px-7 py-2.5 text-xs font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                                         {{ $block->get('cta_label') }}
                                     </a>
@@ -350,7 +355,7 @@
                                 {{ $block->get('heading') }}
                             </h3>
 
-                            <a href="{{ $block->get('cta_url', '#enrol') }}"
+                            <a href="{{ $block->get('cta_url', '#enrol') }}" {!! $ext($block->get('cta_url')) !!}
                                class="relative z-10 mt-3 self-start rounded-full bg-wodi-pink px-5 py-2 text-[11px] font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                                 {{ $block->get('cta_label') }}
                             </a>

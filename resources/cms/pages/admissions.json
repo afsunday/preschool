@@ -12,10 +12,10 @@
             "type": "admissions_hero",
             "name": "hero",
             "settings": {
-                "title": "Ready to get Started? Enrolment is easy.",
+                "title": "Admissions & Enrolment",
                 "note_title": "Hello There!",
                 "note_body": "Have questions about the process? <a href=\"#\">Contact us</a> — we're happy to help you navigate enrolment.",
-                "lead": "Securing your child's spot at WODI Daycare begins with the government's official placement system — OneList Waterloo Region.",
+                "lead": "Securing your child's spot at WODI Childcare begins with the government's official placement system — OneList Waterloo Region.",
                 "cta_label": "Get Started",
                 "cta_url": "#enrol",
                 "image_src": "/images/admissions/hero-girl-books.png",
@@ -45,9 +45,9 @@
             "settings": {
                 "lead_strong": "All enrolments are processed through One list, the government's centralised early childhood registration portal.",
                 "lead_muted": "Click below to begin your child's enrolment journey. Our team is here to guide you every step of the way.",
-                "trusted_label": "Trusted by\nParents and ward alike",
-                "cta_label": "Enroll Now",
-                "cta_url": "#",
+                "trusted_label": "Trusted by\nFamilies and ward alike",
+                "cta_label": "Start Your OneList Registration",
+                "cta_url": "https://regionofwaterloo.onehsn.com/ux_2_0",
                 "image_src": "/images/admissions/kids-row.png",
                 "image_alt": "Smiling children",
                 "avatars": [
@@ -75,7 +75,7 @@
                 "heading": "Age-appropriate classes designed for every stage",
                 "body": "Our programs are carefully structured to support children's growth, learning ability, and confidence based on their developmental stage.",
                 "cta_label": "Enroll Your Child Today",
-                "cta_url": "#enrol",
+                "cta_url": "https://regionofwaterloo.onehsn.com/ux_2_0",
                 "classes": [
                     {
                         "name": "Sunshine Tots",
@@ -189,7 +189,7 @@
                 "left_alt": "Pupil in a classroom",
                 "heading": "Ready to give your child the best start?",
                 "cta_label": "Enrol Now!",
-                "cta_url": "#enrol",
+                "cta_url": "https://regionofwaterloo.onehsn.com/ux_2_0",
                 "right_src": "/images/admissions/kids-tablets.jpg",
                 "right_alt": "Pupils giving a thumbs up"
             }

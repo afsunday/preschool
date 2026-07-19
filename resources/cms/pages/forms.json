@@ -12,11 +12,11 @@
             "type": "forms_hero",
             "name": "hero",
             "settings": {
-                "title": "We are here to help every step of the way!",
-                "body": "Serving our community since 1981, RisingOaks has several locations across the Waterloo Region in Ayr, Cambridge, Kitchener and Waterloo. Visit our <a href=\"#\">location finder</a> to find a location near you!",
+                "title": "Forms & Policies",
+                "body": "Access important childcare forms, family documents, policies, and helpful information in one place. Families can download, review, and complete the documents required for registration and ongoing care.",
                 "body_secondary": "We welcome children from birth to age 12 into our programs. The registration process varies slightly by age group and location.",
                 "image_src": "/images/about/hero-collage.jpg",
-                "image_alt": "Children playing at WODI Daycare"
+                "image_alt": "Children playing at WODI Childcare"
             }
         },
         {
@@ -39,7 +39,7 @@
                                 "text": "Birth to age 5"
                             }
                         ],
-                        "cta_label": "Download Form",
+                        "cta_label": "Download File",
                         "cta_url": "#"
                     },
                     {
@@ -53,7 +53,7 @@
                                 "text": "JK to age 12"
                             }
                         ],
-                        "cta_label": "Download Form",
+                        "cta_label": "Download File",
                         "cta_url": "#"
                     },
                     {
@@ -67,7 +67,7 @@
                                 "text": "JK to age 12"
                             }
                         ],
-                        "cta_label": "Download Form",
+                        "cta_label": "Download File",
                         "cta_url": "#"
                     }
                 ]

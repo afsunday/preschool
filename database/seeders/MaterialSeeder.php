@@ -12,7 +12,7 @@ class MaterialSeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            'Parent Tips',
+            'Family Tips',
             'Learning Activities',
             'Educational Videos',
             'Health & Wellness',
@@ -37,12 +37,12 @@ class MaterialSeeder extends Seeder
                 'Watch: Fun Drawing Games That Build Fine Motor Skills at Home'],
             ['School Readiness', 'download', true, '/images/about/program-classroom.jpg',
                 'Kindergarten Readiness Checklist: What Your 4-5 Year Old Should Know Before Big School (PDF)'],
-            ['Parent Tips', 'article', false, '/images/about/gallery-8.jpg',
+            ['Family Tips', 'article', false, '/images/about/gallery-8.jpg',
                 'The rise of artificial intelligence in the educational sector'],
-            ['Parent Tips', 'article', true, '/images/about/gallery-3.jpg',
+            ['Family Tips', 'article', true, '/images/about/gallery-3.jpg',
                 '5 Gentle Ways to Ease Separation Anxiety on Drop-Off Mornings'],
-            ['Parent Tips', 'article', true, '/images/about/gallery-4.jpg',
-                "Turning Tantrums Into Teachable Moments: A Parent's Guide to Big Feelings"],
+            ['Family Tips', 'article', true, '/images/about/gallery-4.jpg',
+                "Turning Tantrums Into Teachable Moments: A Family's Guide to Big Feelings"],
             ['Learning Activities', 'article', false, '/images/about/testimonial.jpg',
                 'Why Play Is Serious Learning for Children Under 5'],
             ['Health & Wellness', 'article', false, '/images/about/gallery-2.jpg',

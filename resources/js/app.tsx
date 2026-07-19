@@ -17,6 +17,11 @@ const queryClient = new QueryClient({
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
+        // Error pages are full-screen with no app chrome.
+        if (name.startsWith('errors/')) {
+            return undefined;
+        }
+
         if (name.startsWith('auth/')) {
             return AuthLayout;
         }
@@ -45,6 +50,7 @@ createInertiaApp({
         );
     },
     progress: {
-        color: '#111111',
+        color: '#ec1e79',
+        showSpinner: true,
     },
 });

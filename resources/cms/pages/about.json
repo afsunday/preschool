@@ -12,8 +12,8 @@
             "type": "about_hero",
             "name": "hero",
             "settings": {
-                "title": "More than daycare — a place to grow.",
-                "subtitle": "WODI is not a holding space. It is a warm, active learning environment for children aged 0 to 5, where every day is full of play, discovery, and care.",
+                "title": "A caring place where children grow with confidence",
+                "subtitle": "Learn more about WODI Childcare, our founder's vision, our programs, and the values that guide how we care for every child.",
                 "image_src": "/images/about/hero-collage.jpg",
                 "image_alt": "Teacher playing with children"
             }
@@ -24,9 +24,9 @@
             "name": "founder",
             "settings": {
                 "image_src": "/images/about/founder.jpg",
-                "name": "Dr. Mery Osayi, OMN",
-                "role": "Founder & Director, WODI",
-                "quote": "When I started WODI, I had one vision: to create the kind of early childhood centre I wished had existed for my own children. A place that sees every child <span>fully</span> — not just what they can do, but who they are becoming. Today, I'm incredibly proud of the team we've built and the families who trust us with their most precious people. WODI isn't just a centre. It's a family."
+                "name": "Dr. Mercy Itohan Osayi (h.c), MSc. BA Mass Communication, HRM, CSW, Immigration Assistant · Canadian Licensed Child Care Operator",
+                "role": "Founder & CEO | Women of Dignity International (WODI)",
+                "quote": "When I started WODI, I had one vision: to create the kind of early childhood centre I would want for every child. A place where children are seen <span>fully</span>, not only for what they can do, but for who they are becoming. I am proud of the team we have built and grateful for the families who trust us with their most precious people. WODI is more than a centre. It is a family."
             }
         },
         {
@@ -34,25 +34,25 @@
             "type": "about_programs",
             "name": "programs",
             "settings": {
-                "eyebrow": "Programs and Classes",
+                "eyebrow": "Programs & Classes",
                 "heading": "Playful programs for growing minds",
-                "cta_label": "Enroll Your Child Today",
+                "cta_label": "Discover Our Programs",
                 "cta_url": "/#admissions",
                 "programs": [
                     {
                         "src": "/images/about/program-art.jpg",
                         "alt": "Children's crayon artwork",
-                        "body": "Our Toddler program for 18-month to 2-year-olds blends messy art, sensory play, and gentle routines, so little ones build confidence one happy discovery at a time."
+                        "body": "Hands-on art, sensory play, and discovery activities that encourage children to express themselves, try new ideas, and build confidence."
                     },
                     {
                         "src": "/images/about/program-drawing.jpg",
                         "alt": "Child drawing on a wall",
-                        "body": "In our Preschool room, three- and four-year-olds explore drawing, early writing, and imaginative play that stretches their curiosity and fine-motor skills."
+                        "body": "Age-appropriate activities that support language, early math, social skills, routines, and school readiness through play."
                     },
                     {
                         "src": "/images/about/program-classroom.jpg",
                         "alt": "Children working at classroom tables",
-                        "body": "Our Pre-K class helps five-year-olds get ready for school with hands-on numbers, letters, and group projects that make big ideas feel playful."
+                        "body": "Music, movement, stories, puzzles, and group games that help children build coordination, focus, problem-solving, and friendships."
                     }
                 ]
             }
@@ -63,29 +63,29 @@
             "name": "nurture",
             "settings": {
                 "eyebrow": "Our approach",
-                "heading": "Nurturing young hearts dreams",
+                "heading": "Nurturing young hearts and dreams",
                 "image_src": "/images/about/nurturing.jpg",
                 "image_alt": "Children drawing at a desk",
                 "items": [
                     {
                         "accent": "pink",
-                        "title": "A safe, loving space",
-                        "body": "Every room is warm, secure, and thoughtfully arranged for little explorers. Children settle in quickly because they feel seen, held, and completely at home."
+                        "title": "Safe Belonging",
+                        "body": "Every child deserves to feel welcomed, respected, and secure in their learning environment."
                     },
                     {
                         "accent": "yellow",
-                        "title": "Learning through play",
-                        "body": "We follow each child's curiosity, turning everyday moments into rich discovery. Play is how young children make sense of their world, so we make plenty of room for it."
+                        "title": "Joyful Learning",
+                        "body": "We use play, stories, music, art, and exploration to make learning meaningful and fun."
                     },
                     {
                         "accent": "cyan",
-                        "title": "Qualified, caring educators",
-                        "body": "Our teachers are trained in early childhood development and lead with patience and heart. They notice the small wins and celebrate every step a child takes."
+                        "title": "Growing Confidence",
+                        "body": "Children are encouraged to try, ask questions, solve problems, and celebrate progress."
                     },
                     {
                         "accent": "green",
-                        "title": "Growing confident hearts",
-                        "body": "From sharing toys to naming big feelings, we nurture kindness and resilience every day. Children leave WODI curious, capable, and sure of themselves."
+                        "title": "Family Partnership",
+                        "body": "We work with families and caregivers so each child is supported at home and at childcare."
                     }
                 ]
             }
@@ -95,32 +95,32 @@
             "type": "about_activities",
             "name": "activities",
             "settings": {
-                "eyebrow": "Learning activities",
+                "eyebrow": "Learning Activities",
                 "heading": "Fun activities that inspire young minds",
                 "activities": [
                     {
                         "number": "01",
                         "title": "Art & Craft",
                         "src": "/images/about/activity-1.jpg",
-                        "body": "Painting, gluing, and hands-on projects let children express big ideas while building fine-motor skills and a real love of creating."
+                        "body": "Encourages imagination, fine motor skills, and creative expression."
                     },
                     {
                         "number": "02",
                         "title": "Storytelling & Reading",
                         "src": "/images/about/activity-2.jpg",
-                        "body": "Daily story circles spark imagination and early language, introducing new words, sounds, and a lifelong love of books."
+                        "body": "Builds vocabulary, listening skills, and a love for books."
                     },
                     {
                         "number": "03",
                         "title": "Music & Movement",
                         "src": "/images/about/activity-3.jpg",
-                        "body": "Singing, dancing, and rhythm games get little bodies moving while building coordination, listening skills, and plenty of joy."
+                        "body": "Supports coordination, rhythm, confidence, and joyful participation."
                     },
                     {
                         "number": "04",
-                        "title": "Big games and puzzle",
+                        "title": "Group Games & Puzzles",
                         "src": "/images/about/activity-4.jpg",
-                        "body": "Puzzles, building blocks, and cooperative games invite children to problem-solve, take turns, and think things through together."
+                        "body": "Develops teamwork, problem-solving, patience, and focus."
                     }
                 ]
             }
@@ -167,8 +167,8 @@
             "settings": {
                 "image_src": "/images/about/testimonial.jpg",
                 "image_alt": "Children in a classroom",
-                "quote": "Choosing WODI was the best decision we made for our daughter. She runs through the doors every morning, comes home full of stories, and has grown so confident in her time here. The teachers treat her like their own, and that peace of mind means everything to us.",
-                "name": "Sarah Finlay"
+                "quote": "The team at WODI cares with patience, warmth, and purpose. We feel confident knowing our child is learning in a safe and loving environment.",
+                "name": "WODI Family"
             }
         },
         {
@@ -177,7 +177,7 @@
             "name": "gallery",
             "settings": {
                 "eyebrow": "Life at WODI",
-                "heading": "Caring hearts behind every happy child",
+                "heading": "Moments at WODI",
                 "photos": [
                     {
                         "src": "/images/about/gallery-1.jpg",

@@ -7,6 +7,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -26,4 +28,20 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        // In production, show a branded Inertia page for these instead of the
+        // bare Symfony error screen. Local/testing keep the real error (Ignition,
+        // stack traces, and the exact status in tests).
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            if (
+                app()->isProduction()
+                && in_array($response->getStatusCode(), [403, 404, 419, 500, 503], true)
+            ) {
+                return Inertia::render('errors/error', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            }
+
+            return $response;
+        });
     })->create();

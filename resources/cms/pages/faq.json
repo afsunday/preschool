@@ -4,7 +4,7 @@
     "status": "published",
     "meta": {
         "title": null,
-        "description": "Frequently asked questions about WODI Daycare."
+        "description": "Frequently asked questions about WODI Childcare."
     },
     "blocks": [
         {
@@ -23,7 +23,7 @@
                 "faqs": [
                     {
                         "question": "What are your opening hours, and how do drop-off and pick-up work?",
-                        "answer": "WODI Daycare is open Monday to Friday from 7:30am to 6:00pm. You're welcome to drop off any time before 9:30am so your child can settle into the morning routine, and pick-up is any time up to 6:00pm. Please let us know in advance if someone other than a listed guardian will be collecting your child, as we always confirm ID at the door."
+                        "answer": "WODI Childcare is open Monday to Friday from 7:30am to 6:00pm. You're welcome to drop off any time before 9:30am so your child can settle into the morning routine, and pick-up is any time up to 6:00pm. Please let us know in advance if someone other than a listed guardian will be collecting your child, as we always confirm ID at the door."
                     },
                     {
                         "question": "What age groups do you care for, and how are the rooms organised?",
@@ -67,7 +67,7 @@
                     },
                     {
                         "question": "How will you keep me updated about my child's day?",
-                        "answer": "You'll receive daily updates through our parent portal, including photos and notes on meals, naps, and activities, so you never miss a moment. Our educators are also always happy to chat at drop-off and pick-up, and we schedule regular check-ins to talk through your child's progress."
+                        "answer": "You'll receive daily updates through our family portal, including photos and notes on meals, naps, and activities, so you never miss a moment. Our educators are also always happy to chat at drop-off and pick-up, and we schedule regular check-ins to talk through your child's progress."
                     },
                     {
                         "question": "When are you closed for holidays?",
@@ -76,6 +76,22 @@
                     {
                         "question": "Do you support potty training and daily outdoor play?",
                         "answer": "Absolutely; we work in partnership with families on potty training, following the same gentle, encouraging approach you use at home so your child feels supported in both places. Children also enjoy outdoor play every day in our secure garden, with plenty of room to run, climb, and explore, weather permitting."
+                    },
+                    {
+                        "question": "How do I register my child for WODI Childcare?",
+                        "answer": "Families can begin by registering through OneList and selecting WODI Childcare as their preferred childcare provider. Once your application is submitted, our team will follow up when a space becomes available."
+                    },
+                    {
+                        "question": "What documents are required before my child starts?",
+                        "answer": "Families may be asked to provide registration forms, emergency contacts, medical information, immunization details, consent forms, and any required family agreements."
+                    },
+                    {
+                        "question": "Can WODI support medication or special care needs?",
+                        "answer": "Families should speak with us before enrolment if a child needs medication, allergy support, or specific care accommodations. Written instructions and forms may be required."
+                    },
+                    {
+                        "question": "Who should I contact if I have questions?",
+                        "answer": "Contact WODI Childcare directly for questions about registration, programs, forms, fees, schedules, or your child's care."
                     }
                 ]
             }

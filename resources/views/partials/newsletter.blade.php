@@ -83,7 +83,7 @@
                         <x-lucide-check class="size-4" stroke-width="3" />
                     </span>
                     <p class="text-sm font-medium text-wodi-ink">
-                        🎉 You're on the list! Thanks for subscribing to the WODI Daycare newsletter — look out for news, tips and happenings in your inbox.
+                        🎉 You're on the list! Thanks for subscribing to the WODI Childcare newsletter — look out for news, tips and happenings in your inbox.
                     </p>
                 </div>
 

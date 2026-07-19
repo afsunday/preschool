@@ -2,6 +2,11 @@
     $links = $block->get('links', []);
     $logo = $block->mediaUrl('logo') ?? '/images/brand/logo.png';
 
+    // The primary CTA (enrolment) points to OneList, an external site. Open it in
+    // a new tab so families don't lose the WODI page they came from.
+    $primaryUrl = $block->get('primary_url', '#');
+    $primaryExternal = \Illuminate\Support\Str::startsWith($primaryUrl, ['http://', 'https://']);
+
     // Active state used to key off route names. A CMS stores a URL, not a route
     // name — a name is an implementation detail that would break the menu the
     // day someone renames a route. Match on the path instead; anchors (#…) and
@@ -57,7 +62,7 @@
 
                 {{-- Desktop CTAs --}}
                 <div class="ml-auto hidden shrink-0 items-center gap-3 lg:flex">
-                    <a href="{{ $block->get('primary_url', '#') }}"
+                    <a href="{{ $primaryUrl }}" @if ($primaryExternal) target="_blank" rel="noopener noreferrer" @endif
                         class="rounded-full bg-wodi-pink px-4 py-2.5 text-[11px] font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                         {{ $block->get('primary_label') }}
                     </a>
@@ -90,7 +95,7 @@
             @endforeach
 
             <div class="mt-3 flex flex-col gap-2">
-                <a href="{{ $block->get('primary_url', '#') }}" @click="open = false"
+                <a href="{{ $primaryUrl }}" @if ($primaryExternal) target="_blank" rel="noopener noreferrer" @endif @click="open = false"
                    class="rounded-full bg-wodi-pink px-6 py-3 text-center text-sm font-medium text-white">
                     {{ $block->get('primary_label') }}
                 </a>

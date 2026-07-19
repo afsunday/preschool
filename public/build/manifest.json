@@ -805,7 +805,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-ZmtOHbnL.css",
+    "file": "assets/app-D6f72NvS.css",
     "name": "app",
     "names": [
       "app.css"
@@ -832,7 +832,7 @@
     "isEntry": true
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-fbwlGx2-.js",
+    "file": "assets/app-ClpRsiaq.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -868,6 +868,7 @@
       "resources/js/pages/cms/page-editor.tsx",
       "resources/js/pages/cms/pages-index.tsx",
       "resources/js/pages/dashboard.tsx",
+      "resources/js/pages/errors/error.tsx",
       "resources/js/pages/materials/index.tsx",
       "resources/js/pages/media/index.tsx",
       "resources/js/pages/messages/index.tsx",
@@ -1028,6 +1029,17 @@
       "_users-C021aQZT.js"
     ]
   },
+  "resources/js/pages/errors/error.tsx": {
+    "file": "assets/error-Cr33R-KQ.js",
+    "name": "error",
+    "src": "resources/js/pages/errors/error.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_jsx-runtime-n5LQ9ujS.js",
+      "_dist-BBqgiDeu.js",
+      "_compiler-runtime-DPgO1Zvt.js"
+    ]
+  },
   "resources/js/pages/materials/index.tsx": {
     "file": "assets/materials-Dajo5JRW.js",
     "name": "materials",
@@ -1118,7 +1130,7 @@
     ]
   },
   "resources/js/pages/portal/class/chats.tsx": {
-    "file": "assets/chats-DvFxBk6l.js",
+    "file": "assets/chats-DcuDYzD2.js",
     "name": "chats",
     "src": "resources/js/pages/portal/class/chats.tsx",
     "isDynamicEntry": true,
@@ -1133,7 +1145,7 @@
     ]
   },
   "resources/js/pages/portal/class/feed.tsx": {
-    "file": "assets/feed-BPOTboZN.js",
+    "file": "assets/feed-CUw66BRf.js",
     "name": "feed",
     "src": "resources/js/pages/portal/class/feed.tsx",
     "isDynamicEntry": true,
@@ -1142,13 +1154,11 @@
       "_dist-BBqgiDeu.js",
       "_compiler-runtime-DPgO1Zvt.js",
       "_utils-tWMFBwCl.js",
-      "_dialog-B_WdzLnl.js",
       "_menu-DO-jobDB.js",
       "_createLucideIcon-Bh2tFqRi.js",
       "_image-4u-vA3yr.js",
       "_loader-circle-CAcNUpli.js",
       "_newspaper-CnyJhQ3e.js",
-      "_x-BBAWIkOJ.js",
       "_photo-upload-B_Jcy2iL.js"
     ]
   },

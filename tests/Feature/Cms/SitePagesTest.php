@@ -48,7 +48,7 @@ test('a page renders the copy held in its blocks, not hardcoded markup', functio
     $this->get(route('about'))
         ->assertOk()
         ->assertSee('Edited in the editor')
-        ->assertDontSee('More than daycare'); // the blueprint's copy is gone
+        ->assertDontSee('A caring place where children grow with confidence'); // the blueprint's copy is gone
 });
 
 test('globals are returned keyed by block type, not as an ordered list', function () {
@@ -61,7 +61,7 @@ test('globals are returned keyed by block type, not as an ordered list', functio
     expect($globals->keys()->all())
         ->toEqualCanonicalizing(['site_navbar', 'newsletter', 'site_footer']);
     expect($globals['site_navbar']->type)->toBe('site_navbar');
-    expect($globals['site_footer']->get('watermark'))->toBe('WODI DAYCARE');
+    expect($globals['site_footer']->get('watermark'))->toBe('WODI CHILDCARE');
 });
 
 test('globals resolve to an empty collection before the page is seeded', function () {
@@ -75,7 +75,7 @@ test('a public page renders the global navbar and footer from the blueprint', fu
     $this->get(route('home'))
         ->assertOk()
         ->assertSee('Enroll Your Child Today') // navbar CTA
-        ->assertSee('WODI DAYCARE');           // footer watermark
+        ->assertSee('WODI CHILDCARE');           // footer watermark
 });
 
 test('a page outputs its social-share image as an absolute og:image', function () {
@@ -98,7 +98,7 @@ test('the globals page is previewable in the editor', function () {
         ->get(route('builder.preview', $page))
         ->assertOk()
         ->assertSee('Enroll Your Child Today') // navbar CTA
-        ->assertSee('WODI DAYCARE');           // footer watermark
+        ->assertSee('WODI CHILDCARE');           // footer watermark
 
     // Header, newsletter and footer are each wrapped so the editor can select them.
     expect(substr_count($response->getContent(), '<div data-cms-block="'))->toBe(3);

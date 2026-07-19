@@ -40,12 +40,34 @@ export interface PortalChild {
     reportCards: PortalReportCard[];
 }
 
+export interface PortalComment {
+    id: number;
+    author: string;
+    body: string;
+    at: string | null;
+    mine: boolean;
+}
+
+export interface PortalEvent {
+    title: string;
+    month: string;
+    day: string;
+    dateLabel: string;
+    timeLabel: string;
+    location: string | null;
+}
+
 export interface PortalPost {
     id: number;
     body: string;
     author: string;
     createdAt: string | null;
     photos: string[];
+    type: 'update' | 'event';
+    event: PortalEvent | null;
+    likesCount: number;
+    likedByMe: boolean;
+    comments: PortalComment[];
 }
 
 export type ReportEntryType =
@@ -76,9 +98,10 @@ export interface PortalReportChild {
     report: PortalReport | null;
 }
 
-export interface PortalThread {
-    id: number;
-    guardian: string;
+export interface PortalFamily {
+    guardianId: number;
+    name: string;
+    conversationId: number | null;
     lastMessageAt: string | null;
     unread: boolean;
 }

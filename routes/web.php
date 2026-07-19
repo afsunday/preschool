@@ -61,6 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             Route::post('posts', [PortalPostController::class, 'store'])->name('posts.store');
             Route::delete('posts/{post}', [PortalPostController::class, 'destroy'])->name('posts.destroy');
+            Route::post('posts/{post}/like', [PortalPostController::class, 'toggleLike'])->name('posts.like');
+            Route::post('posts/{post}/comments', [PortalPostController::class, 'comment'])->name('posts.comments.store');
+            Route::delete('posts/{post}/comments/{comment}', [PortalPostController::class, 'destroyComment'])->name('posts.comments.destroy');
 
             Route::post('chats/{conversation}/messages', [PortalMessageController::class, 'store'])
                 ->name('messages.store');

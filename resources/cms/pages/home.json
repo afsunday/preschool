@@ -13,20 +13,20 @@
             "name": "hero",
             "settings": {
                 "title": "Where little minds come alive",
-                "subtitle": "Let the children be the director, and the actor in their own play",
-                "lead": "WODI is your trusted early childhood partner, nurturing curiosity, building confidence, and giving every child the best start in life.",
+                "subtitle": "Children learn best when they feel safe, seen, and free to explore.",
+                "lead": "WODI Childcare provides a warm, play-based early learning environment that nurtures curiosity, builds confidence, and supports each child's social, emotional, physical, and cognitive growth.",
                 "primary_label": "Enroll Your Child Today",
-                "primary_url": "#admissions",
+                "primary_url": "https://regionofwaterloo.onehsn.com/ux_2_0",
                 "secondary_label": "Discover Our Programs",
                 "secondary_url": "#resources",
                 "stats": [
                     {
-                        "value": "7.5K+",
-                        "label": "Total active students taking gifted courses"
+                        "value": "",
+                        "label": "Safe, caring environment"
                     },
                     {
-                        "value": "50+",
-                        "label": "Available field programs and increasing"
+                        "value": "",
+                        "label": "Play-based learning"
                     }
                 ]
             }
@@ -37,22 +37,22 @@
             "name": "features",
             "settings": {
                 "lead_title": "Safe & Regulated",
-                "lead_body": "Fully compliant with all government standards for early childhood care",
+                "lead_body": "Care routines, supervision, and daily practices are designed with child safety, well-being, and applicable childcare standards in mind.",
                 "features": [
                     {
                         "icon": "boxes",
-                        "title": "Built to Develop",
-                        "body": "Play-based curriculum aligned to developmental milestones"
+                        "title": "Built for Development",
+                        "body": "Play-based learning experiences support language, social skills, creativity, problem-solving, and school readiness."
                     },
                     {
                         "icon": "users",
-                        "title": "Partner to Parents",
-                        "body": "Regular updates and real involvement in your child's journey"
+                        "title": "Partnering with Families",
+                        "body": "We keep families informed, involved, and connected to their child's daily progress and milestones."
                     },
                     {
                         "icon": "megaphone",
-                        "title": "Government Approved",
-                        "body": "Recognised and licensed by the relevant authorities"
+                        "title": "Licensed Child Care",
+                        "body": "Learn more about our licensing, policies, and family resources."
                     }
                 ]
             }
@@ -63,8 +63,8 @@
             "name": "about",
             "settings": {
                 "eyebrow": "About us",
-                "body": "<p>At WODI's daycare, we believe childhood should be joyful, meaningful, and full of wonder. Our caring and experienced teachers nurture creativity, confidence, and curiosity every single day. Through play based learning and guided exploration we help.</p>",
-                "trusted_label": "Trusted by\nthousands of users"
+                "body": "<p>At WODI Childcare, childhood is joyful, meaningful, and full of discovery. Our educators nurture creativity, confidence, kindness, and curiosity through play-based learning, guided exploration, and caring relationships.</p>",
+                "trusted_label": "Trusted by\nWODI families"
             }
         },
         {
@@ -72,8 +72,8 @@
             "type": "resource_cards",
             "name": "resources",
             "settings": {
-                "heading": "Our resources",
-                "subheading": "We develop their confidence to make them sharper"
+                "heading": "Families & Kids Resources",
+                "subheading": "Helpful activities, tips, videos, and downloadable materials to support learning at home."
             }
         },
         {
@@ -81,16 +81,16 @@
             "type": "classroom_split",
             "name": "classroom",
             "settings": {
-                "heading": "Traditional in-person classroom encouraging students",
+                "heading": "Learning through play, care, and guided discovery",
                 "points": [
                     {
-                        "text": "Focus for longer periods of time"
+                        "text": "Builds focus and confidence"
                     },
                     {
-                        "text": "Engage with their peers"
+                        "text": "Encourages positive peer interaction"
                     },
                     {
-                        "text": "Understanding of complicated concepts"
+                        "text": "Supports early problem-solving and concept development"
                     }
                 ]
             }
@@ -101,21 +101,21 @@
             "name": "admissions",
             "settings": {
                 "heading": "Admissions & Enrolment",
-                "subheading": "Getting your child started at WODI is simple. Here is how enrolment works, from your first application to their very first day.",
+                "subheading": "Applying to WODI Childcare is simple. Start through OneList, choose WODI Childcare, and our team will guide you through the next steps when space becomes available.",
                 "steps": [
                     {
                         "icon": "user",
-                        "title": "Register on One List",
+                        "title": "Register on OneList",
                         "body": "Create your family profile and join our central waitlist. It takes only a few minutes and puts your child in line for a spot."
                     },
                     {
                         "icon": "edit",
-                        "title": "Select WODI Daycare",
-                        "body": "Choose WODI Daycare as your preferred centre and tell us a little about your child's age and ideal start date."
+                        "title": "Select WODI Childcare",
+                        "body": "Choose WODI Childcare as your preferred centre and tell us a little about your child's age and ideal start date."
                     },
                     {
                         "icon": "id",
-                        "title": "Get a Spot",
+                        "title": "Wait for Confirmation",
                         "body": "When a place opens in the right room, we reach out to confirm enrolment and walk you through everything you need for day one."
                     }
                 ]
@@ -126,8 +126,8 @@
             "type": "banner_split",
             "name": "banner",
             "settings": {
-                "heading": "Growing minds, active brains. Children will enjoy a fun-filled games and online activities",
-                "body": "Children will be tested with their knowledge skills via trivia games for kids activities like never before"
+                "heading": "Growing minds, active bodies",
+                "body": "Children enjoy creative activities, movement, games, stories, and guided learning experiences that make each day engaging and fun."
             }
         },
         {
@@ -135,7 +135,7 @@
             "type": "testimonials",
             "name": "testimonial",
             "settings": {
-                "heading": "What <span class=\"text-wodi-pink\">parents</span> say",
+                "heading": "What <span class=\"text-wodi-pink\">families</span> say",
                 "quote": "From day one, the team at WODI treated my daughter like their own. She runs in every morning excited to see her teachers and comes home full of stories. I could not ask for a warmer, safer place for her to grow.",
                 "name": "Loretta Renner",
                 "role": "Anna's Mum"

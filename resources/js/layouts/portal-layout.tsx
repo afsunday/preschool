@@ -15,6 +15,7 @@ import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn } from '@/lib/utils';
+import type { Auth } from '@/types/auth';
 import type { PortalClass } from '@/types/portal';
 
 type TabDef = { title: string; path: string; icon: LucideIcon };
@@ -123,6 +124,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
     const page = usePage<{
         classes?: PortalClass[];
         classroom?: PortalClass;
+        auth: Auth;
     }>();
     const { isCurrentUrl } = useCurrentUrl();
 
@@ -130,6 +132,8 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
     const classroom = page.props.classroom ?? null;
     const base = classroom ? `/portal/classes/${classroom.id}` : null;
     const atHome = isCurrentUrl('/portal');
+    // Only back-office users can actually use the dashboard.
+    const canSwitchToAdmin = Boolean(page.props.auth?.user?.has_admin_access);
 
     // Mobile tabs: Home plus the current class's tabs (nothing to show without one).
     const mobileTabs: { title: string; href: string; icon: LucideIcon }[] = [
@@ -153,13 +157,15 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                     <ClassSwitcher classes={classes} current={classroom} />
 
                     <div className="ml-auto flex items-center gap-2">
-                        <Link
-                            href="/dashboard"
-                            className="mr-1 hidden items-center gap-1.5 rounded-[4px] px-3 py-2 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
-                        >
-                            <ArrowLeftRight className="size-3.5" />
-                            Switch to admin
-                        </Link>
+                        {canSwitchToAdmin && (
+                            <Link
+                                href="/dashboard"
+                                className="mr-1 hidden items-center gap-1.5 rounded-[4px] px-3 py-2 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
+                            >
+                                <ArrowLeftRight className="size-3.5" />
+                                Switch to admin
+                            </Link>
+                        )}
                         <IconButton
                             label="Settings"
                             icon={Settings}

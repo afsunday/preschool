@@ -50,7 +50,7 @@ test('a parent opening chat lands in their own thread, created on demand', funct
     $this->actingAs($this->parent)
         ->get(route('portal.classes.chats', $this->classroom))
         ->assertOk()
-        ->assertInertia(fn ($p) => $p->has('active')->has('threads', 1));
+        ->assertInertia(fn ($p) => $p->has('active'));
 
     expect(Conversation::where('guardian_id', $this->parent->id)->count())->toBe(1);
 });
@@ -88,13 +88,38 @@ test('a parent cannot read another parent\'s thread', function () {
         ->assertForbidden();
 });
 
-test('staff see every thread in the room', function () {
-    Conversation::factory()->count(2)->create(['classroom_id' => $this->classroom->id]);
+test('staff see every family in the room, even without a thread', function () {
+    // beforeEach already added one family (the parent) with no thread yet.
+    $other = User::factory()->parent()->create();
+    Child::factory()->create(['classroom_id' => $this->classroom->id])
+        ->guardians()->attach($other->id, ['relationship' => 'dad']);
 
     $this->actingAs($this->teacher)
         ->get(route('portal.classes.chats', $this->classroom))
         ->assertOk()
-        ->assertInertia(fn ($p) => $p->has('threads', 2));
+        ->assertInertia(fn ($p) => $p->has('families', 2));
+});
+
+test('a teacher can start a conversation with a family that has not messaged', function () {
+    expect(Conversation::where('guardian_id', $this->parent->id)->count())->toBe(0);
+
+    $this->actingAs($this->teacher)
+        ->get(route('portal.classes.chats', ['classroom' => $this->classroom, 'guardian' => $this->parent->id]))
+        ->assertOk()
+        ->assertInertia(fn ($p) => $p->has('active'));
+
+    expect(Conversation::where([
+        'classroom_id' => $this->classroom->id,
+        'guardian_id' => $this->parent->id,
+    ])->count())->toBe(1);
+});
+
+test('a teacher cannot start a chat with someone who is not a family in the room', function () {
+    $outsider = User::factory()->parent()->create();
+
+    $this->actingAs($this->teacher)
+        ->get(route('portal.classes.chats', ['classroom' => $this->classroom, 'guardian' => $outsider->id]))
+        ->assertNotFound();
 });
 
 // ---- daily report ----------------------------------------------------------

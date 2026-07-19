@@ -4,6 +4,16 @@
 @source '../views/app.blade.php';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
+/* Thicker Inertia (NProgress) loading bar; colour + spinner set in app.tsx. */
+#nprogress .bar {
+    height: 4px !important;
+}
+#nprogress .peg {
+    box-shadow:
+        0 0 10px #ec1e79,
+        0 0 5px #ec1e79 !important;
+}
+
 @theme {
     --font-sans:
         'Figtree', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',

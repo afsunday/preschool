@@ -12,8 +12,8 @@
             "type": "contact_form",
             "name": "contact",
             "settings": {
-                "title": "Let's chat, reach out to us",
-                "body": "Have questions or feedback? We're here to help. Send us a message, and we'll respond within 24hrs. For enquires related to partnership, collaboration and investment please reach out to us via email: <a href=\"mailto:info@wodischools.com\">info@wodischools.com</a>",
+                "title": "Contact WODI Childcare",
+                "body": "Have questions about enrolment, programs, forms, or availability? We would be happy to hear from you.",
                 "submit_label": "Send Message",
                 "contacts": [
                     {

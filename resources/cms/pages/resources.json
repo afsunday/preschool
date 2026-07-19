@@ -1,6 +1,6 @@
 {
     "slug": "resources",
-    "title": "Parents & Kids Resource",
+    "title": "Families & Kids Resources",
     "status": "published",
     "meta": {
         "title": null,
@@ -12,8 +12,8 @@
             "type": "resources_hero",
             "name": "hero",
             "settings": {
-                "title": "Everything You Need, All in One Place.",
-                "subtitle": "Helping families continue learning at home through activities, videos, reading materials, and helpful links.",
+                "title": "Families & Kids Resources in One Place",
+                "subtitle": "Find helpful family tips, learning activities, videos, reading materials, and wellness resources to support your child at home and beyond the classroom.",
                 "cards": [
                     {
                         "variant": "cheer",
@@ -38,9 +38,9 @@
             "type": "resources_programs",
             "name": "programs",
             "settings": {
-                "heading": "Our Amazing Programs",
-                "subheading": "Our caring approach and thoughtful designed programs set us apart, with small class sizes that ensure personal attention for every child",
-                "search_placeholder": "Search resources... titles, descriptions, tags",
+                "heading": "Families & Kids Resources",
+                "subheading": "Explore practical tools and child-friendly resources created to help families extend learning, build routines, and support healthy development.",
+                "search_placeholder": "Search resources by title, topic, category, or keyword",
                 "search_label": "Search"
             }
         }

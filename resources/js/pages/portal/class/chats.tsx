@@ -3,7 +3,7 @@ import { Loader2, MessageSquare, Send } from 'lucide-react';
 import type { FormEvent } from 'react';
 import { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import type { PortalClass, PortalMessage, PortalThread } from '@/types/portal';
+import type { PortalClass, PortalFamily, PortalMessage } from '@/types/portal';
 
 interface ActiveThread {
     id: number;
@@ -60,12 +60,12 @@ function Composer({
 
 export default function ClassChats({
     classroom,
-    threads,
+    families,
     active,
     isStaff,
 }: {
     classroom: PortalClass;
-    threads: PortalThread[];
+    families: PortalFamily[];
     active: ActiveThread | null;
     isStaff: boolean;
 }) {
@@ -82,7 +82,7 @@ export default function ClassChats({
             }
 
             // reload() already forces preserveScroll + preserveState.
-            router.reload({ only: ['active', 'threads'] });
+            router.reload({ only: ['active', 'families'] });
         };
 
         const id = window.setInterval(poll, 3000);
@@ -107,41 +107,48 @@ export default function ClassChats({
             <Head title={`${classroom.name} · Chats`} />
             <div className="py-5">
                 <div className="grid h-[calc(100vh-14rem)] grid-cols-1 overflow-hidden rounded-[4px] border border-portal-line bg-white md:grid-cols-[280px_1fr]">
-                    {/* Thread list — staff see every parent; a parent sees only their own. */}
+                    {/* Family list — staff see every family in the room (even ones
+                        who've never messaged); a parent sees only their own. */}
                     {isStaff && (
                         <div className="hidden flex-col border-r border-portal-line md:flex">
                             <p className="border-b border-portal-line px-3 py-3 text-xs font-bold tracking-wide text-neutral-400 uppercase">
-                                Parents
+                                Families
                             </p>
                             <div className="flex-1 overflow-y-auto">
-                                {threads.length === 0 && (
+                                {families.length === 0 && (
                                     <p className="p-3 text-xs text-neutral-400">
-                                        No conversations yet.
+                                        No families in this room yet.
                                     </p>
                                 )}
-                                {threads.map((thread) => (
+                                {families.map((family) => (
                                     <Link
-                                        key={thread.id}
-                                        href={`/portal/classes/${classroom.id}/chats/${thread.id}`}
+                                        key={family.guardianId}
+                                        href={
+                                            family.conversationId
+                                                ? `/portal/classes/${classroom.id}/chats/${family.conversationId}`
+                                                : `/portal/classes/${classroom.id}/chats?guardian=${family.guardianId}`
+                                        }
                                         className={cn(
                                             'flex items-center gap-2.5 border-b border-portal-line px-3 py-3 transition hover:bg-neutral-50',
-                                            thread.id === active?.id &&
+                                            family.conversationId != null &&
+                                                family.conversationId ===
+                                                    active?.id &&
                                                 'bg-neutral-100',
                                         )}
                                     >
                                         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-portal-accent/10 text-xs font-bold text-portal-accent">
-                                            {thread.guardian.charAt(0)}
+                                            {family.name.charAt(0)}
                                         </span>
                                         <span className="min-w-0 flex-1">
                                             <span className="block truncate text-sm font-medium text-portal-ink">
-                                                {thread.guardian}
+                                                {family.name}
                                             </span>
                                             <span className="block truncate text-[11px] text-neutral-400">
-                                                {thread.lastMessageAt ??
+                                                {family.lastMessageAt ??
                                                     'No messages'}
                                             </span>
                                         </span>
-                                        {thread.unread && (
+                                        {family.unread && (
                                             <span className="size-2 shrink-0 rounded-full bg-portal-accent" />
                                         )}
                                     </Link>

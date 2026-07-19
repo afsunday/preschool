@@ -47,7 +47,7 @@
             {{-- The year and app name are computed, not content — nobody should
                  have to edit the copyright every January. --}}
             <p class="font-medium">
-                &copy; Copyright {{ date('Y') }}. All Rights Reserved By {{ config('app.name') }}
+                &copy; Copyright {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
             </p>
 
             <div class="flex items-center gap-2">
