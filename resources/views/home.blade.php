@@ -4,6 +4,12 @@
 @section('meta_description', $page->meta_description ?? '')
 
 @section('content')
+    @php
+        // External enrolment links (OneList) open in a new tab; on-page #anchors don't.
+        $ext = fn (?string $url): string => \Illuminate\Support\Str::startsWith((string) $url, ['http://', 'https://'])
+            ? 'target="_blank" rel="noopener noreferrer"'
+            : '';
+    @endphp
     @foreach ($blocks as $block)
         @if ($editor ?? false)
             <div data-cms-block="{{ $block->id }}">
@@ -48,7 +54,7 @@
 
                                 <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
                                     @if ($block->get('primary_label'))
-                                        <a href="{{ $block->get('primary_url', '#') }}"
+                                        <a href="{{ $block->get('primary_url', '#') }}" {!! $ext($block->get('primary_url')) !!}
                                             class="rounded-full bg-wodi-pink px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-wodi-pink-dark">
                                             {{ $block->get('primary_label') }}
                                         </a>
