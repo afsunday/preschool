@@ -569,7 +569,7 @@ export default function ClassFeed({
     return (
         <>
             <Head title={`${classroom.name} · Feed`} />
-            <div className="mx-auto grid max-w-4xl gap-5 py-5 lg:grid-cols-[1fr_300px]">
+            <div className="mx-auto grid max-w-5xl gap-5 py-5 lg:grid-cols-[1fr_300px]">
                 <div className="space-y-4">
                     {canPost && (
                         <Composer classroom={classroom} author={author} />

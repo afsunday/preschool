@@ -33,7 +33,7 @@ function Brand() {
     return (
         <Link
             href="/portal"
-            className="inline-flex items-center rounded-[4px] bg-portal-brand px-2.5 py-1 text-lg font-extrabold tracking-tight text-white"
+            className="inline-flex items-center rounded-[4px] bg-portal-brand px-2 py-0.5 text-base font-extrabold tracking-tight text-white sm:px-2.5 sm:py-1 sm:text-lg"
         >
             WODI
         </Link>
@@ -54,7 +54,7 @@ function ClassSwitcher({
 
     return (
         <Menu as="div" className="relative">
-            <MenuButton className="flex max-w-[18rem] items-center gap-2 rounded-[4px] bg-portal-soft px-4 py-2.5 text-[15px] font-bold text-portal-accent transition outline-none hover:brightness-97">
+            <MenuButton className="flex max-w-[42vw] items-center gap-2 rounded-[4px] bg-portal-soft px-4 py-2.5 text-[15px] font-bold text-portal-accent transition outline-none hover:brightness-97 sm:max-w-[18rem]">
                 <GraduationCap className="size-4.5 shrink-0" />
                 <span className="min-w-0 flex-1 truncate text-left">
                     {current?.label ?? 'Select a class'}
@@ -63,7 +63,7 @@ function ClassSwitcher({
             </MenuButton>
             <MenuItems
                 anchor="bottom start"
-                className="z-50 mt-1 w-72 rounded-[4px] border border-portal-line bg-white py-1.5 shadow-s3 focus:outline-none"
+                className="z-50 mt-1 w-[calc(100vw-5rem)] rounded-[4px] border border-portal-line bg-white py-1.5 shadow-s3 focus:outline-none sm:w-72"
             >
                 {classes.map((c) => (
                     <MenuItem key={c.id}>
@@ -99,18 +99,23 @@ function IconButton({
     icon: Icon,
     dot,
     href,
+    className,
 }: {
     label: string;
     icon: LucideIcon;
     dot?: boolean;
     href: string;
+    className?: string;
 }) {
     return (
         <Link
             href={href}
             title={label}
             aria-label={label}
-            className="relative grid size-10 place-items-center rounded-[4px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200"
+            className={cn(
+                'relative grid size-10 place-items-center rounded-[4px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200',
+                className,
+            )}
         >
             <Icon className="size-5" strokeWidth={1.75} />
             {dot && (
@@ -165,6 +170,16 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                                 <ArrowLeftRight className="size-3.5" />
                                 Switch to admin
                             </Link>
+                        )}
+                        {/* Same action, compact, for phones/tablets where the
+                            labelled link is hidden. */}
+                        {canSwitchToAdmin && (
+                            <IconButton
+                                label="Switch to admin"
+                                icon={ArrowLeftRight}
+                                href="/dashboard"
+                                className="lg:hidden"
+                            />
                         )}
                         <IconButton
                             label="Settings"

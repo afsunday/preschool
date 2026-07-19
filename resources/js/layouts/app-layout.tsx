@@ -72,14 +72,18 @@ const navItems: AdminNavItem[] = [
 ];
 
 function TopBar() {
-    const { auth, name } = usePage().props;
+    const { auth } = usePage().props;
     const cleanup = useMobileNavigation();
 
     return (
         <div className="bg-[#24292e] text-white">
             <div className="mx-auto flex h-14 items-center px-4 md:max-w-7xl">
-                <Link href={dashboard()} prefetch className="flex items-center">
-                    <span className="text-sm font-semibold">{name}</span>
+                <Link
+                    href={dashboard()}
+                    prefetch
+                    className="inline-flex items-center rounded-[4px] bg-portal-brand px-2.5 py-1 text-lg font-extrabold tracking-tight text-white"
+                >
+                    WODI
                 </Link>
 
                 <div className="ml-auto flex items-center gap-2">
@@ -89,6 +93,16 @@ function TopBar() {
                     >
                         <ArrowLeftRight className="size-3.5" />
                         Switch to portal
+                    </Link>
+
+                    {/* Compact version for phones, where the labelled link is hidden. */}
+                    <Link
+                        href="/portal"
+                        title="Switch to portal"
+                        aria-label="Switch to portal"
+                        className="grid size-9 place-items-center rounded-[4px] border border-white/15 bg-white/10 text-white/90 transition hover:bg-white/20 sm:hidden"
+                    >
+                        <ArrowLeftRight className="size-4" />
                     </Link>
 
                     {auth.user && (

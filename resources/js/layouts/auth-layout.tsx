@@ -22,7 +22,7 @@ export default function AuthLayout({
     children,
 }: AuthLayoutProps) {
     return (
-        <div className="flex min-h-svh flex-col bg-white lg:flex-row lg:p-3">
+        <div className="flex min-h-svh flex-col overflow-x-clip bg-white lg:flex-row lg:p-3">
             {/* Brand panel — a full side on desktop, a compact header band on
                 mobile. On mobile it sits above the form (z-10) and lets the
                 snapshots spill past its bottom edge (overflow-visible). */}
