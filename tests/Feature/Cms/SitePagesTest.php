@@ -78,6 +78,18 @@ test('a public page renders the global navbar and footer from the blueprint', fu
         ->assertSee('WODI DAYCARE');           // footer watermark
 });
 
+test('a page outputs its social-share image as an absolute og:image', function () {
+    app(PageImporter::class)->importSlug('about');
+    Page::where('slug', 'about')->firstOrFail()
+        ->update(['og_image' => 'storage/media/share.png', 'meta_description' => 'About WODI']);
+
+    $this->get(route('about'))
+        ->assertOk()
+        ->assertSee('og:image', false)
+        ->assertSee(url('storage/media/share.png'), false)
+        ->assertSee('og:description', false);
+});
+
 test('the globals page is previewable in the editor', function () {
     app(PageImporter::class)->syncNew();
     $page = Page::where('slug', SitePageController::GLOBALS)->firstOrFail();

@@ -7,6 +7,22 @@
         <title>@yield('title', config('app.name'))</title>
         <meta name="description" content="@yield('meta_description', '')">
 
+        {{-- Open Graph / Twitter — the social-share preview. --}}
+        @php($ogTitle = $page?->meta_title ?: $page?->title)
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="{{ config('app.name') }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        @if ($ogTitle)
+            <meta property="og:title" content="{{ $ogTitle }}">
+        @endif
+        @if (! empty($page?->meta_description))
+            <meta property="og:description" content="{{ $page->meta_description }}">
+        @endif
+        @if ($page?->ogImageUrl())
+            <meta property="og:image" content="{{ $page->ogImageUrl() }}">
+            <meta name="twitter:card" content="summary_large_image">
+        @endif
+
         <link rel="icon" href="/images/brand/logo.png" type="image/png">
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 

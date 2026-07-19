@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -38,6 +39,20 @@ class Page extends Model
     protected function casts(): array
     {
         return ['published_at' => 'datetime', 'is_system' => 'boolean'];
+    }
+
+    /**
+     * The social-share image as an absolute URL — og:image needs one.
+     */
+    public function ogImageUrl(): ?string
+    {
+        if (blank($this->og_image)) {
+            return null;
+        }
+
+        return Str::startsWith($this->og_image, ['http://', 'https://'])
+            ? $this->og_image
+            : url($this->og_image);
     }
 
     /**
