@@ -20,9 +20,7 @@ jobs:
         uses: SamKirkland/Ftp-Deploy-Action@4.3.3
         with:
           server: "ftp.wodicommunity.org"
-          # username: ${{ secrets.FTP_USERNAME }}
-          # password: ${{ secrets.FTP_PASSWORD }}
-          username: daycare@wodicommunity.org
-          password: day2026care456
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftp
           timeout: 1200000
