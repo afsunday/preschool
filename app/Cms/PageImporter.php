@@ -217,6 +217,8 @@ class PageImporter
             [
                 'title' => $blueprint['title'],
                 'status' => $blueprint['status'] ?? 'draft',
+                // Blueprint-backed: a route + Blade view exist, so it can't be deleted.
+                'is_system' => true,
                 'published_at' => ($blueprint['status'] ?? null) === 'published' ? now() : null,
                 'meta_title' => data_get($blueprint, 'meta.title'),
                 'meta_description' => data_get($blueprint, 'meta.description'),

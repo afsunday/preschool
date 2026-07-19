@@ -42,7 +42,12 @@ class AppServiceProvider extends ServiceProvider
     protected function configureSiteGlobals(): void
     {
         View::composer('layouts.site', function ($view) {
-            $view->with('globals', SitePageController::globals());
+            // The globals editor feeds the layout its own (edited) blocks as
+            // `globals` so the preview reflects unsaved changes — don't clobber
+            // those. Every other page gets the saved chrome from the database.
+            if (! $view->offsetExists('globals')) {
+                $view->with('globals', SitePageController::globals());
+            }
         });
     }
 

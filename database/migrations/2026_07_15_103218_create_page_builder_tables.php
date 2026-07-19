@@ -12,36 +12,29 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->string('status', 16)->default('draft'); // draft | published
+            $table->string('status', 16)->default('draft');
             $table->timestamp('published_at')->nullable();
-
-            // SEO
+            $table->boolean('is_system')->default(false);
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
-            $table->foreignId('og_media_id')->nullable()->constrained('media')->nullOnDelete();
+            $table->string('og_image')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
         });
 
-        // A page's content: an ordered list of blocks. Each names a block type
-        // (see the `blockTypes` map in the blueprints) and carries that type's
-        // field values in `settings`.
         Schema::create('page_blocks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('page_id')->constrained('pages')->cascadeOnDelete();
             $table->foreignId('parent_id')->nullable()->constrained('page_blocks')->cascadeOnDelete();
-            $table->string('type'); // block type key, e.g. "home_hero"
+            $table->string('type');
 
-            // Stable identity from the blueprint, so `pull` can tell an existing
-            // block from a new one without guessing by type. Null for blocks
-            // added in the editor — sync must never touch those.
             $table->string('key')->nullable();
 
-            $table->string('name')->nullable();   // human label in the editor
+            $table->string('name')->nullable();
             $table->unsignedInteger('position')->default(0);
             $table->boolean('is_visible')->default(true);
-            $table->json('settings')->nullable(); // this block's field values
+            $table->json('settings')->nullable();
             $table->unsignedInteger('schema_version')->default(1);
             $table->timestamps();
 
@@ -54,7 +47,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('page_id')->constrained('pages')->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->json('snapshot'); // full page + blocks at save time
+            $table->json('snapshot');
             $table->timestamps();
 
             $table->index(['page_id', 'created_at']);

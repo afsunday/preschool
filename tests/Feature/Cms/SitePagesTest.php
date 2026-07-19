@@ -78,6 +78,40 @@ test('a public page renders the global navbar and footer from the blueprint', fu
         ->assertSee('WODI DAYCARE');           // footer watermark
 });
 
+test('the globals page is previewable in the editor', function () {
+    app(PageImporter::class)->syncNew();
+    $page = Page::where('slug', SitePageController::GLOBALS)->firstOrFail();
+
+    $response = $this->actingAs(User::factory()->create(['user_type' => 'admin']))
+        ->get(route('builder.preview', $page))
+        ->assertOk()
+        ->assertSee('Enroll Your Child Today') // navbar CTA
+        ->assertSee('WODI DAYCARE');           // footer watermark
+
+    // Header, newsletter and footer are each wrapped so the editor can select them.
+    expect(substr_count($response->getContent(), '<div data-cms-block="'))->toBe(3);
+});
+
+test('the globals preview reflects unsaved edits to a block', function () {
+    app(PageImporter::class)->syncNew();
+    $page = Page::where('slug', SitePageController::GLOBALS)->firstOrFail();
+    $footer = $page->allBlocks()->where('type', 'site_footer')->firstOrFail();
+
+    $response = $this->actingAs(User::factory()->create(['user_type' => 'admin']))
+        ->postJson(route('builder.render', $page), [
+            'title' => $page->title,
+            'status' => $page->status,
+            'blocks' => [[
+                'id' => $footer->id,
+                'type' => 'site_footer',
+                'settings' => array_merge($footer->settings ?? [], ['watermark' => 'EDITED MARK']),
+            ]],
+        ])
+        ->assertOk();
+
+    expect($response->json('html'))->toContain('EDITED MARK');
+});
+
 test('block type keys are unique across the blueprints', function () {
     // all() is first-wins, so a collision would silently shadow a type.
     $seen = [];

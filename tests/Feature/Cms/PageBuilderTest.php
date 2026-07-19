@@ -38,7 +38,7 @@ test('saving a page persists sections, mirrors media, and snapshots', function (
     $doc = [
         'title' => 'Home Page',
         'status' => 'published',
-        'meta' => ['title' => 'Welcome', 'description' => 'Hi', 'ogMediaId' => $image->id],
+        'meta' => ['title' => 'Welcome', 'description' => 'Hi', 'ogImage' => 'media/og-share.png'],
         'blocks' => [
             [
                 'type' => 'hero',
@@ -64,6 +64,7 @@ test('saving a page persists sections, mirrors media, and snapshots', function (
     $page->refresh();
     expect($page->status)->toBe('published');
     expect($page->published_at)->not->toBeNull();
+    expect($page->og_image)->toBe('media/og-share.png'); // stored as a path, not a media id
 
     $section = PageBlock::where('page_id', $page->id)->firstOrFail();
 

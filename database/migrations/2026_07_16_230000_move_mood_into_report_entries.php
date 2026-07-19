@@ -14,8 +14,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Carry anything already recorded over as a morning mood entry rather
-        // than dropping it on the floor.
         foreach (DB::table('daily_reports')->whereNotNull('mood')->get() as $report) {
             DB::table('report_entries')->insert([
                 'daily_report_id' => $report->id,

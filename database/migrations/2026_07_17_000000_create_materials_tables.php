@@ -18,8 +18,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // The filter tabs on the resources page. Admin-managed so a new topic
-        // ("Toddlers", "Parenting") doesn't need a code change.
         Schema::create('material_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -34,14 +32,11 @@ return new class extends Migration
                 ->constrained('material_categories')->nullOnDelete();
             $table->string('title');
             $table->text('description')->nullable();
-            // download | video | article — drives the CTA label/icon and whether
-            // the card points at a file or a link.
             $table->string('type')->default('article');
             $table->string('url')->nullable();
             $table->string('image_path')->nullable();
             $table->boolean('is_featured')->default(false)->index();
             $table->unsignedInteger('position')->default(0);
-            // Visibility gate, like pages: null = draft, hidden from the site.
             $table->timestamp('published_at')->nullable()->index();
             $table->timestamps();
         });

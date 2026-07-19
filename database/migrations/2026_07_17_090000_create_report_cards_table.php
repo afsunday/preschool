@@ -26,13 +26,11 @@ return new class extends Migration
             $table->date('issued_on')->nullable();
             $table->text('note')->nullable();
 
-            // The document itself.
             $table->string('path');
             $table->string('original_name');
             $table->string('mime_type')->nullable();
             $table->unsignedBigInteger('size')->default(0);
 
-            // Uploaded is not shared: staff choose when the parent can see it.
             $table->timestamp('published_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();

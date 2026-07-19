@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('media', function (Blueprint $table) {
             $table->id();
 
-            // Where the file physically lives.
             $table->string('disk')->default('public');
             $table->string('path');
             $table->string('filename');
@@ -19,16 +18,13 @@ return new class extends Migration
             $table->string('extension', 32)->nullable();
             $table->string('mime_type')->nullable();
 
-            // High-level bucket, drives the filter chips.
             $table->string('kind', 16)->default('other')->index();
 
             $table->unsignedBigInteger('size')->default(0);
 
-            // Images only; used for the card aspect ratio (native getimagesize()).
             $table->unsignedInteger('width')->nullable();
             $table->unsignedInteger('height')->nullable();
 
-            // Editable, searchable metadata.
             $table->string('title')->nullable();
             $table->string('alt')->nullable();
             $table->text('description')->nullable();
@@ -41,8 +37,6 @@ return new class extends Migration
             $table->index(['title', 'alt', 'original_name']);
         });
 
-        // Polymorphic pivot: which model/field a media item is attached to.
-        // Lets us answer "where is this used?" and block deleting in-use files.
         Schema::create('mediables', function (Blueprint $table) {
             $table->id();
             $table->foreignId('media_id')->constrained('media')->cascadeOnDelete();

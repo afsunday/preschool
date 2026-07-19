@@ -56,7 +56,7 @@ export interface PageDoc {
     meta: {
         title?: string | null;
         description?: string | null;
-        ogMediaId?: number | null;
+        ogImage?: string | null;
     };
     headerScripts?: string | null;
     footerScripts?: string | null;

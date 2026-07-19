@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { DownloadCloud, Pencil, Trash2 } from 'lucide-react';
+import { DownloadCloud, Lock, Pencil, Trash2 } from 'lucide-react';
 import PageBuilderController from '@/actions/App/Http/Controllers/PageBuilderController';
 
 type PageRow = {
@@ -7,6 +7,7 @@ type PageRow = {
     title: string;
     slug: string;
     status: 'draft' | 'published';
+    isSystem: boolean;
     sectionsCount: number;
     updatedAt: string | null;
 };
@@ -142,23 +143,32 @@ export default function PagesIndex({ pages }: { pages: PageRow[] }) {
                                                 <Pencil className="size-4" />
                                                 Edit
                                             </Link>
-                                            <button
-                                                type="button"
-                                                onClick={() => {
-                                                    if (
-                                                        confirm(
-                                                            `Delete “${page.title}”?`,
-                                                        )
-                                                    ) {
-                                                        router.delete(
-                                                            `/admin/pages/${page.id}`,
-                                                        );
-                                                    }
-                                                }}
-                                                className="rounded-[4px] p-1 text-neutral-500 hover:bg-red-50 hover:text-red-500"
-                                            >
-                                                <Trash2 className="size-4" />
-                                            </button>
+                                            {page.isSystem ? (
+                                                <span
+                                                    title="Default page — can't be deleted"
+                                                    className="inline-flex items-center rounded-[4px] p-1 text-neutral-300"
+                                                >
+                                                    <Lock className="size-4" />
+                                                </span>
+                                            ) : (
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        if (
+                                                            confirm(
+                                                                `Delete “${page.title}”?`,
+                                                            )
+                                                        ) {
+                                                            router.delete(
+                                                                `/admin/pages/${page.id}`,
+                                                            );
+                                                        }
+                                                    }}
+                                                    className="rounded-[4px] p-1 text-neutral-500 hover:bg-red-50 hover:text-red-500"
+                                                >
+                                                    <Trash2 className="size-4" />
+                                                </button>
+                                            )}
                                         </div>
                                     </td>
                                 </tr>

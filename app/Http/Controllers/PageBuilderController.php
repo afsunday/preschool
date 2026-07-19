@@ -38,6 +38,7 @@ class PageBuilderController extends Controller
                 'title' => $p->title,
                 'slug' => $p->slug,
                 'status' => $p->status,
+                'isSystem' => $p->is_system,
                 'sectionsCount' => $p->sections_count,
                 'updatedAt' => $p->updated_at?->diffForHumans(),
             ]);
@@ -65,6 +66,14 @@ class PageBuilderController extends Controller
 
     public function destroy(Page $page): RedirectResponse
     {
+        // Blueprint-backed pages have a route + Blade view; deleting one would
+        // leave a dead link, so they're protected.
+        if ($page->is_system) {
+            Inertia::flash('toast', ['type' => 'error', 'message' => __('Default pages can’t be deleted.')]);
+
+            return to_route('pages.index');
+        }
+
         $page->delete();
 
         Inertia::flash('toast', ['type' => 'success', 'message' => __('Page deleted.')]);
@@ -194,7 +203,7 @@ class PageBuilderController extends Controller
             'status' => ['required', 'in:draft,published'],
             'meta.title' => ['nullable', 'string', 'max:255'],
             'meta.description' => ['nullable', 'string'],
-            'meta.ogMediaId' => ['nullable', 'integer', 'exists:media,id'],
+            'meta.ogImage' => ['nullable', 'string', 'max:2048'],
             'headerScripts' => ['nullable', 'string'],
             'footerScripts' => ['nullable', 'string'],
             'blocks' => ['array'],
@@ -209,7 +218,7 @@ class PageBuilderController extends Controller
                     : null,
                 'meta_title' => data_get($validated, 'meta.title'),
                 'meta_description' => data_get($validated, 'meta.description'),
-                'og_media_id' => data_get($validated, 'meta.ogMediaId'),
+                'og_image' => data_get($validated, 'meta.ogImage'),
                 'header_scripts' => $validated['headerScripts'] ?? null,
                 'footer_scripts' => $validated['footerScripts'] ?? null,
             ]);
@@ -241,7 +250,7 @@ class PageBuilderController extends Controller
             ->map(fn (PageBlock $s) => new Block($s->id, $s->type, $s->name, $s->settings ?? []))
             ->values();
 
-        return view($page->slug, ['page' => $page, 'blocks' => $blocks, 'editor' => true]);
+        return view($page->slug, $this->previewData($page, $blocks));
     }
 
     /**
@@ -273,9 +282,29 @@ class PageBuilderController extends Controller
             ->filter()
             ->values();
 
-        $html = view($page->slug, ['page' => $page, 'blocks' => $blocks, 'editor' => true])->render();
+        $html = view($page->slug, $this->previewData($page, $blocks))->render();
 
         return response()->json(['html' => $html]);
+    }
+
+    /**
+     * View data for an editor preview. The globals page has no body of its own —
+     * its blocks ARE the header, newsletter and footer — so feed them to the
+     * layout as `$globals` (so unsaved edits show) and flag them selectable.
+     *
+     * @param  Collection<int, Block>  $blocks
+     * @return array<string, mixed>
+     */
+    protected function previewData(Page $page, Collection $blocks): array
+    {
+        $data = ['page' => $page, 'blocks' => $blocks, 'editor' => true];
+
+        if ($page->slug === SitePageController::GLOBALS) {
+            $data['globals'] = $blocks->keyBy('type');
+            $data['previewGlobals'] = true;
+        }
+
+        return $data;
     }
 
     /**
@@ -369,7 +398,7 @@ class PageBuilderController extends Controller
             'meta' => [
                 'title' => $page->meta_title,
                 'description' => $page->meta_description,
-                'ogMediaId' => $page->og_media_id,
+                'ogImage' => $page->og_image,
             ],
             'headerScripts' => $page->header_scripts,
             'footerScripts' => $page->footer_scripts,

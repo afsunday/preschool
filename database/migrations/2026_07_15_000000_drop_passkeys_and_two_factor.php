@@ -21,6 +21,5 @@ return new class extends Migration
 
     public function down(): void
     {
-        // Passkeys and two-factor were removed from the app; no rollback.
     }
 };

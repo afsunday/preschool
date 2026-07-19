@@ -20,8 +20,6 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // "Mr James · Grade 1 · 2026/2027". `year` is a plain string — deliberately
-        // not a terms/sessions system.
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -35,8 +33,6 @@ return new class extends Migration
             $table->index(['is_archived', 'year']);
         });
 
-        // The roster. No login, no password — `invite_code` is how a parent links
-        // themselves to this child, which is the whole relationship system.
         Schema::create('children', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_id')->nullable()->constrained('classrooms')->nullOnDelete();
@@ -52,20 +48,16 @@ return new class extends Migration
             $table->index('classroom_id');
         });
 
-        // Many-to-many: a parent can have several children, a child can have
-        // several guardians. Three columns is the entire "relation system".
         Schema::create('child_guardian', function (Blueprint $table) {
             $table->id();
             $table->foreignId('child_id')->constrained('children')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('relationship')->default('guardian'); // mum | dad | guardian
+            $table->string('relationship')->default('guardian');
             $table->timestamps();
 
             $table->unique(['child_id', 'user_id']);
         });
 
-        // The class feed (ClassDojo's "Class Story"): broadcast to every guardian
-        // of every child in the room.
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_id')->constrained('classrooms')->cascadeOnDelete();
@@ -77,14 +69,11 @@ return new class extends Migration
             $table->index(['classroom_id', 'created_at']);
         });
 
-        // One thread per room ↔ guardian. Scoped to the *classroom*, not the
-        // teacher, so co-teachers can be added later with no schema change.
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_id')->constrained('classrooms')->cascadeOnDelete();
             $table->foreignId('guardian_id')->constrained('users')->cascadeOnDelete();
             $table->timestamp('last_message_at')->nullable();
-            // Two sides, so unread needs no participants table.
             $table->timestamp('teacher_read_at')->nullable();
             $table->timestamp('guardian_read_at')->nullable();
             $table->timestamps();
@@ -104,12 +93,11 @@ return new class extends Migration
             $table->index(['conversation_id', 'created_at']);
         });
 
-        // One report per child per day. Stays private until `published_at` is set.
         Schema::create('daily_reports', function (Blueprint $table) {
             $table->id();
             $table->foreignId('child_id')->constrained('children')->cascadeOnDelete();
             $table->date('date');
-            $table->string('mood')->nullable(); // happy | ok | sad | tired
+            $table->string('mood')->nullable();
             $table->text('summary')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
@@ -119,15 +107,13 @@ return new class extends Migration
             $table->index('date');
         });
 
-        // A flat timeline of events. One table with a `type` beats a table per
-        // kind of event — naps/meals/nappies differ only in which fields they use.
         Schema::create('report_entries', function (Blueprint $table) {
             $table->id();
             $table->foreignId('daily_report_id')->constrained('daily_reports')->cascadeOnDelete();
-            $table->string('type'); // nap | meal | nappy | note | photo
+            $table->string('type');
             $table->timestamp('occurred_at')->nullable();
-            $table->timestamp('ended_at')->nullable(); // naps are a range
-            $table->string('detail')->nullable();      // "Ate all", "Wet", …
+            $table->timestamp('ended_at')->nullable();
+            $table->string('detail')->nullable();
             $table->text('note')->nullable();
             $table->json('photos')->nullable();
             $table->timestamps();

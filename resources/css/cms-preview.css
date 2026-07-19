@@ -1,8 +1,3 @@
-/*
- * Page-builder preview chrome. Loaded only into the builder's iframe (a page
- * rendered with $editor), never on the public site — see layouts/site.blade.php.
- * Outlines the hovered/selected block so the editor selection is visible.
- */
 [data-cms-block] {
     outline: 2px solid transparent;
     outline-offset: -2px;

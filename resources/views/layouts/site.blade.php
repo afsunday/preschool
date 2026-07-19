@@ -23,8 +23,14 @@
         @endif
     </head>
     <body class="min-h-screen overflow-x-hidden bg-wodi-cream font-display text-wodi-ink antialiased">
+        {{-- In the globals editor the chrome IS the content, so each block is
+             wrapped for selection. Every other preview leaves it plain. --}}
+        @php($wrapGlobals = ($editor ?? false) && ($previewGlobals ?? false))
+
         @isset($globals['site_navbar'])
-            @include('partials.site-header', ['block' => $globals['site_navbar']])
+            @if ($wrapGlobals) <div data-cms-block="{{ $globals['site_navbar']->id }}"> @endif
+                @include('partials.site-header', ['block' => $globals['site_navbar']])
+            @if ($wrapGlobals) </div> @endif
         @endisset
 
         <main>
@@ -32,11 +38,15 @@
         </main>
 
         @isset($globals['newsletter'])
-            @include('partials.newsletter', ['block' => $globals['newsletter']])
+            @if ($wrapGlobals) <div data-cms-block="{{ $globals['newsletter']->id }}"> @endif
+                @include('partials.newsletter', ['block' => $globals['newsletter']])
+            @if ($wrapGlobals) </div> @endif
         @endisset
 
         @isset($globals['site_footer'])
-            @include('partials.site-footer', ['block' => $globals['site_footer']])
+            @if ($wrapGlobals) <div data-cms-block="{{ $globals['site_footer']->id }}"> @endif
+                @include('partials.site-footer', ['block' => $globals['site_footer']])
+            @if ($wrapGlobals) </div> @endif
         @endisset
 
         @stack('scripts')

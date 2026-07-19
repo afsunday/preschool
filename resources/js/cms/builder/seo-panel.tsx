@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import type { MediaItem } from '@/cms/media';
 import { createHttpMediaApi, MediaPicker } from '@/cms/media';
 import type { PageDoc } from './types';
@@ -60,8 +59,8 @@ export function SeoPanel({
                             Social share image
                         </span>
                         <OgImageField
-                            value={doc.meta.ogMediaId ?? null}
-                            onChange={(id) => setMeta({ ogMediaId: id })}
+                            value={doc.meta.ogImage ?? null}
+                            onChange={(path) => setMeta({ ogImage: path })}
                         />
                     </div>
                 </section>
@@ -118,52 +117,41 @@ export function SeoPanel({
     );
 }
 
+// A path is all we store; wrap it so the picker can show a thumbnail.
+function pathAsItem(path: string | null): MediaItem | null {
+    if (!path) {
+        return null;
+    }
+
+    return {
+        id: 0,
+        url: path,
+        kind: 'image',
+        mimeType: null,
+        originalName: path,
+        title: null,
+        alt: null,
+        description: null,
+        size: 0,
+        width: null,
+        height: null,
+        createdAt: null,
+    };
+}
+
 function OgImageField({
     value,
     onChange,
 }: {
-    value: number | null;
-    onChange: (id: number | null) => void;
+    value: string | null;
+    onChange: (path: string | null) => void;
 }) {
-    const [item, setItem] = useState<MediaItem | null>(null);
-
-    useEffect(() => {
-        if (value == null) {
-            return;
-        }
-
-        let active = true;
-
-        fetch(`/admin/media/items/${value}`, {
-            headers: { Accept: 'application/json' },
-            credentials: 'same-origin',
-        })
-            .then((r) => (r.ok ? r.json() : null))
-            .then((j) => active && setItem(j?.data ?? null))
-            .catch(() => {});
-
-        return () => {
-            active = false;
-        };
-    }, [value]);
-
-    // Derived, not stored: the fetched item counts only once it matches the
-    // current id. Avoids setState-in-effect, and means a stale item can never be
-    // shown for a new value.
-    const resolved = value != null && item?.id === value ? item : null;
-
     return (
         <MediaPicker
             api={mediaApi}
-            value={resolved}
-            // An id that hasn't resolved yet still means "there is an image", so
-            // the picker stays filled and shows a spinner. Without these, a set
-            // image flashes the empty state on load and reads as removed — only
-            // the X should ever clear it.
-            hasValue={value != null}
-            loading={value != null && resolved === null}
             kind="image"
-            onChange={(picked) => onChange(picked?.id ?? null)}
+            value={pathAsItem(value)}
+            onChange={(item) => onChange(item?.url ?? null)}
         />
     );
 }

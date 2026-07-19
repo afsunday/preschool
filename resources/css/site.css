@@ -1,14 +1,4 @@
-/* ---------------------------------------------------------------
- | PUBLIC SITE stylesheet (WODI — Blade).
- | Completely independent of the admin build (resources/css/app.css):
- | its own tokens, its own content sources. Nothing is shared.
- ---------------------------------------------------------------- */
 @import 'tailwindcss' source(none);
-
-/* Only scan the public Blade views (not the React admin). */
-/* Scan the whole Blade tree, not individual files — new pages are then picked
-   up automatically. (Naming files one-by-one meant a newly created page was
-   invisible to the dev server's watcher until it was restarted.) */
 @source '../views';
 
 @theme {
@@ -41,13 +31,11 @@
     display: none !important;
 }
 
-/* Kill the elastic overscroll / rubber-band bounce. */
 html,
 body {
     overscroll-behavior: none;
 }
 
-/* Hide scrollbars on horizontal scroll rails */
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
