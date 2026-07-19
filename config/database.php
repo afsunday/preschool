@@ -58,7 +58,7 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            'engine' => 'InnoDB',
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
@@ -78,7 +78,9 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
             'strict' => true,
-            'engine' => null,
+            // Force InnoDB — some shared hosts default to MyISAM, whose 1000-byte
+            // index limit can't hold a utf8mb4 varchar(255) key.
+            'engine' => env('DB_ENGINE', 'InnoDB'),
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 Mysql::ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
