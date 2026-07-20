@@ -91,9 +91,27 @@ test('a class can only be assigned to staff', function () {
             'name' => 'Mr James',
             'year' => '2026/2027',
             'banner' => 'dots-grape',
-            'teacher_id' => $parent->id,
+            'teacher_ids' => [$parent->id],
         ])
-        ->assertSessionHasErrors('teacher_id');
+        ->assertSessionHasErrors('teacher_ids.0');
+});
+
+test('a class can have more than one teacher', function () {
+    $one = User::factory()->teacher()->create();
+    $two = User::factory()->teacher()->create();
+
+    $this->actingAs($this->admin)
+        ->post(route('portal.classes.store'), [
+            'name' => 'Toddlers',
+            'year' => '2026/2027',
+            'teacher_ids' => [$one->id, $two->id],
+        ])
+        ->assertRedirect()
+        ->assertSessionHasNoErrors();
+
+    $classroom = Classroom::where('name', 'Toddlers')->firstOrFail();
+    expect($classroom->teachers()->pluck('users.id')->all())
+        ->toEqualCanonicalizing([$one->id, $two->id]);
 });
 
 test('deleting a class archives it rather than destroying the year', function () {
@@ -179,11 +197,36 @@ test('a teacher cannot edit or archive their own room', function () {
     expect($classroom->fresh()->is_archived)->toBeFalse();
 });
 
-test('home sends the teacher id so the edit form can preselect it', function () {
+test('home sends the room teachers so the edit form can preselect them', function () {
     $teacher = User::factory()->teacher()->create();
     Classroom::factory()->create(['teacher_id' => $teacher->id]);
 
     $this->actingAs($this->admin)
         ->get(route('portal.home'))
-        ->assertInertia(fn ($p) => $p->where('classes.0.teacherId', $teacher->id));
+        ->assertInertia(fn ($p) => $p->where('classes.0.teachers.0.id', $teacher->id));
+});
+
+test('an admin can see archived classes separately and restore them', function () {
+    $classroom = Classroom::factory()->archived()->create();
+
+    $this->actingAs($this->admin)
+        ->get(route('portal.home'))
+        ->assertInertia(fn ($p) => $p
+            ->where('archivedClasses.0.id', $classroom->id)
+            ->count('classes', 0)
+            ->etc());
+
+    $this->actingAs($this->admin)
+        ->patch(route('portal.classes.restore', $classroom))
+        ->assertRedirect();
+
+    expect($classroom->fresh()->is_archived)->toBeFalse();
+});
+
+test('a teacher does not receive the archived class list', function () {
+    Classroom::factory()->archived()->create();
+
+    $this->actingAs(User::factory()->teacher()->create())
+        ->get(route('portal.home'))
+        ->assertInertia(fn ($p) => $p->count('archivedClasses', 0)->etc());
 });

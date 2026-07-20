@@ -16,6 +16,7 @@ use App\Http\Controllers\PortalPostController;
 use App\Http\Controllers\PortalReportCardController;
 use App\Http\Controllers\PortalReportController;
 use App\Http\Controllers\PortalSettingsController;
+use App\Http\Controllers\PortalStudentController;
 use App\Http\Controllers\PortalUploadController;
 use App\Http\Controllers\SitePageController;
 use App\Http\Controllers\TeamController;
@@ -52,6 +53,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('classes.update');
         Route::delete('classes/{classroom}', [PortalClassroomController::class, 'destroy'])
             ->name('classes.destroy');
+        Route::patch('classes/{classroom}/restore', [PortalClassroomController::class, 'restore'])
+            ->name('classes.restore');
+
+        // The global students directory — staff-only (enforced in the controller).
+        Route::get('students', [PortalStudentController::class, 'index'])->name('students.index');
+        Route::post('students', [PortalStudentController::class, 'store'])->name('students.store');
+        Route::patch('students/{child}', [PortalStudentController::class, 'update'])->name('students.update');
+        Route::post('students/{child}/enroll', [PortalStudentController::class, 'enroll'])->name('students.enroll');
+        Route::delete('students/{child}/enroll', [PortalStudentController::class, 'unenroll'])->name('students.unenroll');
 
         Route::prefix('classes/{classroom}')->name('classes.')->group(function () {
             Route::get('/', [PortalController::class, 'feed'])->name('feed');

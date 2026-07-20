@@ -8,8 +8,7 @@ export interface PortalClass {
     year: string;
     color: string | null;
     banner: string | null;
-    teacher: string | null;
-    teacherId: number | null;
+    teachers: { id: number; name: string }[];
     childCount: number;
 }
 
@@ -120,4 +119,57 @@ export interface PortalMessage {
 export interface ReportOptions {
     details: Record<string, string[]>;
     labels: Record<string, string[]>;
+}
+
+/** A class a student can be enrolled into, from the directory picker. */
+export interface DirectoryClass {
+    id: number;
+    name: string;
+    grade: string | null;
+    year: string;
+}
+
+/** One row of a student's class history (null endedOn = current room). */
+export interface EnrollmentRow {
+    id: number;
+    classroom: string | null;
+    year: string | null;
+    startedOn: string | null;
+    endedOn: string | null;
+    current: boolean;
+}
+
+/** A family member linked to a student. */
+export interface DirectoryGuardian {
+    id: number;
+    name: string;
+    email: string;
+    relationship: string | null;
+}
+
+/** A report card shown on a student's detail. */
+export interface DirectoryReportCard {
+    id: number;
+    title: string;
+    issuedOn: string | null;
+    published: boolean;
+    file: { url: string; name: string };
+}
+
+/** A student in the global directory — persists across classes and years. */
+export interface DirectoryStudent {
+    id: number;
+    name: string;
+    firstName: string;
+    lastName: string;
+    dob: string | null;
+    age: number | null;
+    photo: string | null;
+    notes: string | null;
+    inviteCode: string | null;
+    guardianCount: number;
+    guardians: DirectoryGuardian[];
+    reportCards: DirectoryReportCard[];
+    currentClass: { id: number; name: string; year: string } | null;
+    history: EnrollmentRow[];
 }

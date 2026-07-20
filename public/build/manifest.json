@@ -832,7 +832,7 @@
     "isEntry": true
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-1GKYPFN0.js",
+    "file": "assets/app-Cfwy2JMg.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -1130,7 +1130,7 @@
     ]
   },
   "resources/js/pages/portal/class/chats.tsx": {
-    "file": "assets/chats-DcuDYzD2.js",
+    "file": "assets/chats-CSDtYFzp.js",
     "name": "chats",
     "src": "resources/js/pages/portal/class/chats.tsx",
     "isDynamicEntry": true,

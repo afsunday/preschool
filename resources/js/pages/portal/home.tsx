@@ -11,6 +11,8 @@ import {
 import { Head, Link, router, useForm } from '@inertiajs/react';
 import {
     Archive,
+    ArchiveRestore,
+    ChevronDown,
     ChevronRight,
     GraduationCap,
     Loader2,
@@ -41,16 +43,22 @@ interface Teacher {
 function ClassCard({
     item,
     canManage,
+    archived,
     onEdit,
     onArchive,
+    onRestore,
 }: {
     item: PortalClass;
     canManage: boolean;
+    archived?: boolean;
     onEdit: (item: PortalClass) => void;
     onArchive: (item: PortalClass) => void;
+    onRestore?: (item: PortalClass) => void;
 }) {
     return (
-        <div className="group relative overflow-hidden rounded-[5px] border border-neutral-300 bg-white transition hover:-translate-y-0.5 hover:shadow-s3">
+        <div
+            className={`group relative overflow-hidden rounded-[5px] border border-neutral-300 bg-white transition hover:-translate-y-0.5 hover:shadow-s3 ${archived ? 'opacity-70' : ''}`}
+        >
             <Link href={`/portal/classes/${item.id}`} className="block">
                 <div style={bannerStyle(item.banner)} className="relative h-34">
                     {/* Scrim keeps the title legible over any banner. */}
@@ -70,7 +78,9 @@ function ClassCard({
 
                 <div className="flex items-center justify-between gap-2 px-4 py-2.5">
                     <span className="truncate text-sm text-neutral-500">
-                        {item.teacher ?? 'Unassigned'}
+                        {item.teachers.length > 0
+                            ? item.teachers.map((t) => t.name).join(', ')
+                            : 'Unassigned'}
                     </span>
                     <span className="shrink-0 text-sm font-bold text-neutral-500">
                         {item.childCount}{' '}
@@ -102,14 +112,25 @@ function ClassCard({
                             </button>
                         </MenuItem>
                         <MenuItem>
-                            <button
-                                type="button"
-                                onClick={() => onArchive(item)}
-                                className="flex w-full items-center gap-2 px-3 py-2 text-left font-medium text-red-500 data-focus:bg-red-50"
-                            >
-                                <Archive className="size-4" />
-                                Archive class
-                            </button>
+                            {archived ? (
+                                <button
+                                    type="button"
+                                    onClick={() => onRestore?.(item)}
+                                    className="flex w-full items-center gap-2 px-3 py-2 text-left font-medium text-portal-ink data-focus:bg-portal-field"
+                                >
+                                    <ArchiveRestore className="size-4 text-neutral-400" />
+                                    Restore class
+                                </button>
+                            ) : (
+                                <button
+                                    type="button"
+                                    onClick={() => onArchive(item)}
+                                    className="flex w-full items-center gap-2 px-3 py-2 text-left font-medium text-red-500 data-focus:bg-red-50"
+                                >
+                                    <Archive className="size-4" />
+                                    Archive class
+                                </button>
+                            )}
                         </MenuItem>
                     </MenuItems>
                 </Menu>
@@ -139,8 +160,16 @@ function ClassDialog({
         grade: editing?.grade ?? '',
         year: editing?.year ?? '2026/2027',
         banner: editing?.banner ?? DEFAULT_BANNER,
-        teacher_id: editing?.teacherId ? String(editing.teacherId) : '',
+        teacher_ids: editing?.teachers.map((t) => t.id) ?? [],
     });
+
+    const toggleTeacher = (id: number) =>
+        form.setData(
+            'teacher_ids',
+            form.data.teacher_ids.includes(id)
+                ? form.data.teacher_ids.filter((t) => t !== id)
+                : [...form.data.teacher_ids, id],
+        );
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
@@ -280,30 +309,48 @@ function ClassDialog({
                                 </div>
 
                                 <div>
-                                    <label
-                                        htmlFor="teacher"
-                                        className="mb-1 block text-sm font-bold text-portal-ink"
-                                    >
-                                        Teacher
-                                    </label>
-                                    <select
-                                        id="teacher"
-                                        value={form.data.teacher_id}
-                                        onChange={(e) =>
-                                            form.setData(
-                                                'teacher_id',
-                                                e.target.value,
-                                            )
-                                        }
-                                        className="w-full rounded-[4px] border border-portal-line px-3 py-2.5 text-[15px] outline-none focus:border-portal-accent"
-                                    >
-                                        <option value="">— Unassigned —</option>
-                                        {teachers.map((t) => (
-                                            <option key={t.id} value={t.id}>
-                                                {t.name}
-                                            </option>
-                                        ))}
-                                    </select>
+                                    <span className="mb-1 block text-sm font-bold text-portal-ink">
+                                        Teachers
+                                    </span>
+                                    {teachers.length === 0 ? (
+                                        <p className="rounded-[4px] border border-portal-line px-3 py-2.5 text-sm text-neutral-400">
+                                            No staff yet — add team members
+                                            first.
+                                        </p>
+                                    ) : (
+                                        <div className="max-h-40 space-y-0.5 overflow-y-auto rounded-[4px] border border-portal-line p-1">
+                                            {teachers.map((t) => {
+                                                const on =
+                                                    form.data.teacher_ids.includes(
+                                                        t.id,
+                                                    );
+
+                                                return (
+                                                    <label
+                                                        key={t.id}
+                                                        className="flex cursor-pointer items-center gap-2.5 rounded-[4px] px-2.5 py-2 text-[15px] hover:bg-portal-field"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={on}
+                                                            onChange={() =>
+                                                                toggleTeacher(
+                                                                    t.id,
+                                                                )
+                                                            }
+                                                            className="size-4 accent-portal-accent"
+                                                        />
+                                                        <span className="text-portal-ink">
+                                                            {t.name}
+                                                        </span>
+                                                    </label>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
+                                    <p className="mt-1 text-xs text-neutral-400">
+                                        A room can have more than one teacher.
+                                    </p>
                                 </div>
 
                                 {/* The banner is chosen from the preview's own
@@ -415,11 +462,13 @@ function MyChildren({ children }: { children: PortalChild[] }) {
 
 export default function PortalHome({
     classes,
+    archivedClasses,
     children,
     canManage,
     teachers,
 }: {
     classes: PortalClass[];
+    archivedClasses: PortalClass[];
     children: PortalChild[] | null;
     canManage: boolean;
     teachers: Teacher[];
@@ -431,6 +480,7 @@ export default function PortalHome({
     // One confirm dialog for the whole grid — a card each would mount dozens.
     const [archiving, setArchiving] = useState<PortalClass | null>(null);
     const [archivingBusy, setArchivingBusy] = useState(false);
+    const [showArchived, setShowArchived] = useState(false);
 
     const archive = () => {
         if (!archiving) {
@@ -444,6 +494,14 @@ export default function PortalHome({
                 setArchiving(null);
             },
         });
+    };
+
+    const restore = (item: PortalClass) => {
+        router.patch(
+            `/portal/classes/${item.id}/restore`,
+            {},
+            { preserveScroll: true },
+        );
     };
 
     return (
@@ -504,6 +562,38 @@ export default function PortalHome({
                         </div>
                     )}
                 </section>
+
+                {canManage && archivedClasses.length > 0 && (
+                    <section>
+                        <button
+                            type="button"
+                            onClick={() => setShowArchived((v) => !v)}
+                            className="flex items-center gap-2 pb-3 text-sm font-bold text-neutral-500 transition hover:text-portal-ink"
+                        >
+                            <Archive className="size-4" />
+                            Archived classes ({archivedClasses.length})
+                            <ChevronDown
+                                className={`size-4 transition-transform ${showArchived ? 'rotate-180' : ''}`}
+                            />
+                        </button>
+
+                        {showArchived && (
+                            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                                {archivedClasses.map((item) => (
+                                    <ClassCard
+                                        key={item.id}
+                                        item={item}
+                                        canManage={canManage}
+                                        archived
+                                        onEdit={setDialog}
+                                        onArchive={setArchiving}
+                                        onRestore={restore}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                    </section>
+                )}
             </div>
 
             {canManage && (

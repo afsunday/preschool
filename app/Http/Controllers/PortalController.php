@@ -33,6 +33,10 @@ class PortalController extends Controller
 
         return Inertia::render('portal/home', [
             'classes' => $this->classList($user),
+            // Admins can dig out and restore rooms they archived.
+            'archivedClasses' => $user->can('create', Classroom::class)
+                ? $this->classList($user, archived: true)
+                : [],
             'children' => $user->isParent()
                 ? $user->children()->with('classroom')->get()
                     ->map(fn (Child $c) => $this->childSummary($c, $user))
@@ -287,8 +291,9 @@ class PortalController extends Controller
                 'year' => $classroom->year,
                 'color' => $classroom->color,
                 'banner' => $classroom->banner,
-                'teacher' => $classroom->teacher?->name,
-                'teacherId' => $classroom->teacher_id,
+                'teachers' => $classroom->teachers
+                    ->map(fn ($t) => ['id' => $t->id, 'name' => $t->name])
+                    ->values(),
                 'childCount' => $classroom->children()->count(),
             ],
             'canPost' => $user->can('staff', $classroom),
@@ -298,13 +303,13 @@ class PortalController extends Controller
     /**
      * @return Collection<int, array<string, mixed>>
      */
-    public static function classList(User $user)
+    public static function classList(User $user, bool $archived = false)
     {
         return Classroom::query()
             ->visibleTo($user)
-            ->active()
+            ->where('is_archived', $archived)
             ->withCount('children')
-            ->with('teacher')
+            ->with('teachers')
             ->orderBy('name')
             ->get()
             ->map(fn (Classroom $c) => [
@@ -315,8 +320,9 @@ class PortalController extends Controller
                 'year' => $c->year,
                 'color' => $c->color,
                 'banner' => $c->banner,
-                'teacher' => $c->teacher?->name,
-                'teacherId' => $c->teacher_id,
+                'teachers' => $c->teachers
+                    ->map(fn ($t) => ['id' => $t->id, 'name' => $t->name])
+                    ->values(),
                 'childCount' => $c->children_count,
             ]);
     }

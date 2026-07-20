@@ -1,11 +1,12 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import {
     ArrowLeftRight,
     ChevronsUpDown,
     ClipboardList,
     GraduationCap,
     House,
+    LogOut,
     MessageSquare,
     Newspaper,
     Settings,
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { Avatar } from '@/components/avatar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn } from '@/lib/utils';
 import type { Auth } from '@/types/auth';
@@ -137,12 +139,18 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
     const classroom = page.props.classroom ?? null;
     const base = classroom ? `/portal/classes/${classroom.id}` : null;
     const atHome = isCurrentUrl('/portal');
+    const user = page.props.auth?.user;
+    // Staff (teachers + admins) get the global students directory; parents don't.
+    const isStaff = user?.user_type === 'staff';
     // Only back-office users can actually use the dashboard.
-    const canSwitchToAdmin = Boolean(page.props.auth?.user?.has_admin_access);
+    const canSwitchToAdmin = Boolean(user?.has_admin_access);
 
-    // Mobile tabs: Home plus the current class's tabs (nothing to show without one).
+    // Mobile tabs: Home, the staff directory, plus the current class's tabs.
     const mobileTabs: { title: string; href: string; icon: LucideIcon }[] = [
         { title: 'Home', href: '/portal', icon: House },
+        ...(isStaff
+            ? [{ title: 'Students', href: '/portal/students', icon: Users }]
+            : []),
         ...(base
             ? classTabs.map((t) => ({
                   title: t.title,
@@ -181,11 +189,56 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                                 className="lg:hidden"
                             />
                         )}
-                        <IconButton
-                            label="Settings"
-                            icon={Settings}
-                            href="/portal/settings"
-                        />
+                        {user && (
+                            <Menu as="div" className="relative">
+                                <MenuButton
+                                    aria-label="Account menu"
+                                    className="rounded-full transition outline-none hover:opacity-90"
+                                >
+                                    <Avatar
+                                        name={user.name}
+                                        src={user.avatar}
+                                        className="bg-portal-soft text-portal-accent"
+                                    />
+                                </MenuButton>
+                                <MenuItems
+                                    anchor="bottom end"
+                                    className="z-50 mt-1 w-56 rounded-[4px] border border-portal-line bg-white py-1 text-sm shadow-s3 focus:outline-none"
+                                >
+                                    <div className="px-3 py-2">
+                                        <p className="truncate font-semibold text-portal-ink">
+                                            {user.name}
+                                        </p>
+                                        <p className="truncate text-xs text-neutral-400">
+                                            {user.email}
+                                        </p>
+                                    </div>
+                                    <div className="my-1 h-px bg-portal-line" />
+                                    <MenuItem>
+                                        <Link
+                                            href="/portal/settings"
+                                            className="flex items-center gap-2 px-3 py-2 data-focus:bg-portal-field"
+                                        >
+                                            <Settings className="size-4" />
+                                            Settings
+                                        </Link>
+                                    </MenuItem>
+                                    <div className="my-1 h-px bg-portal-line" />
+                                    <MenuItem>
+                                        <Link
+                                            href="/logout"
+                                            method="post"
+                                            as="button"
+                                            onClick={() => router.flushAll()}
+                                            className="flex w-full items-center gap-2 px-3 py-2 text-left text-red-600 data-focus:bg-portal-field"
+                                        >
+                                            <LogOut className="size-4" />
+                                            Log out
+                                        </Link>
+                                    </MenuItem>
+                                </MenuItems>
+                            </Menu>
+                        )}
                     </div>
                 </div>
 
@@ -204,6 +257,21 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                             <House className="size-4" />
                             Home
                         </Link>
+
+                        {isStaff && (
+                            <Link
+                                href="/portal/students"
+                                className={cn(
+                                    'my-2 flex items-center gap-2 rounded-[4px] px-4 py-2 text-[15px] font-bold transition',
+                                    isCurrentUrl('/portal/students')
+                                        ? 'bg-portal-soft text-portal-accent'
+                                        : 'text-neutral-500 hover:bg-neutral-50 hover:text-portal-ink',
+                                )}
+                            >
+                                <Users className="size-4" />
+                                Students
+                            </Link>
+                        )}
 
                         {base &&
                             classTabs.map(({ title, path, icon: Icon }) => {

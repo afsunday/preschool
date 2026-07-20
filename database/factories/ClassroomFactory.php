@@ -31,4 +31,14 @@ class ClassroomFactory extends Factory
     {
         return $this->state(fn (array $attributes) => ['is_archived' => true]);
     }
+
+    public function configure(): static
+    {
+        // Mirror the real controller: a room's teacher also lives in the pivot.
+        return $this->afterCreating(function (Classroom $classroom) {
+            if ($classroom->teacher_id) {
+                $classroom->teachers()->syncWithoutDetaching([$classroom->teacher_id]);
+            }
+        });
+    }
 }

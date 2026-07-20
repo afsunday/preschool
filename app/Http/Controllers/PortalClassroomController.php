@@ -19,9 +19,10 @@ class PortalClassroomController extends Controller
     {
         $this->authorize('create', Classroom::class);
 
-        $data = $this->validated($request);
+        [$data, $teacherIds] = $this->validated($request);
 
         $classroom = Classroom::create($data);
+        $classroom->teachers()->sync($teacherIds);
 
         return redirect()->route('portal.classes.feed', $classroom);
     }
@@ -30,7 +31,10 @@ class PortalClassroomController extends Controller
     {
         $this->authorize('update', $classroom);
 
-        $classroom->update($this->validated($request));
+        [$data, $teacherIds] = $this->validated($request);
+
+        $classroom->update($data);
+        $classroom->teachers()->sync($teacherIds);
 
         return back();
     }
@@ -46,12 +50,24 @@ class PortalClassroomController extends Controller
         return redirect()->route('portal.home');
     }
 
+    public function restore(Request $request, Classroom $classroom): RedirectResponse
+    {
+        $this->authorize('update', $classroom);
+
+        $classroom->update(['is_archived' => false]);
+
+        return back();
+    }
+
     /**
-     * @return array<string, mixed>
+     * Returns the classroom attributes and the list of teacher ids separately —
+     * the ids go to the pivot, not the classrooms table.
+     *
+     * @return array{0: array<string, mixed>, 1: list<int>}
      */
     protected function validated(Request $request): array
     {
-        return $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:120'],
             'grade' => ['nullable', 'string', 'max:60'],
             'year' => ['required', 'string', 'max:20'],
@@ -63,12 +79,21 @@ class PortalClassroomController extends Controller
                     $fail('That banner is not one we offer.');
                 }
             }],
-            'teacher_id' => [
-                'nullable',
+            'teacher_ids' => ['nullable', 'array'],
+            'teacher_ids.*' => [
                 Rule::exists('users', 'id')->where(
                     fn ($q) => $q->where('user_type', User::STAFF),
                 ),
             ],
         ]);
+
+        $teacherIds = array_map('intval', $data['teacher_ids'] ?? []);
+        unset($data['teacher_ids']);
+
+        // Keep the legacy single column pointed at the first teacher for anything
+        // that still reads it; the pivot holds the full set.
+        $data['teacher_id'] = $teacherIds[0] ?? null;
+
+        return [$data, $teacherIds];
     }
 }

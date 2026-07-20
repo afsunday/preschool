@@ -3,43 +3,40 @@
 namespace App\Models;
 
 use Database\Factories\ClassroomFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
-/**
- * A class/room — "Mr James · Grade 1 · 2026/2027".
- *
- * The cover is a key into the generated banner library (see ClassroomBanner),
- * never a colour or a CSS class — Tailwind cannot scan the database.
- *
- * @property int $id
- * @property string $name
- * @property string|null $grade
- * @property string $year
- * @property int|null $teacher_id
- * @property string|null $color
- * @property string $banner
- * @property bool $is_archived
- * @property-read string $label
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- */
-#[Fillable(['name', 'grade', 'year', 'teacher_id', 'color', 'banner', 'is_archived'])]
 class Classroom extends Model
 {
     /** @use HasFactory<ClassroomFactory> */
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'grade',
+        'year',
+        'teacher_id',
+        'color',
+        'banner',
+        'is_archived',
+    ];
+
     protected function casts(): array
     {
-        return ['is_archived' => 'boolean'];
+        return [
+            'is_archived' => 'boolean',
+        ];
     }
 
     protected $appends = ['label'];
@@ -58,6 +55,17 @@ class Classroom extends Model
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'teacher_id');
+    }
+
+    /**
+     * Every teacher who runs this room. A room can have more than one; the pivot
+     * is the source of truth, with `teacher_id` kept as a legacy fallback.
+     *
+     * @return BelongsToMany<User, $this>
+     */
+    public function teachers(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'classroom_teacher');
     }
 
     /** @return HasMany<Child, $this> */
@@ -121,6 +129,7 @@ class Classroom extends Model
 
         $query->where(function (Builder $q) use ($user): void {
             $q->where('teacher_id', $user->id)
+                ->orWhereHas('teachers', fn (Builder $t) => $t->whereKey($user->id))
                 ->orWhereHas('children.guardians', fn (Builder $g) => $g->whereKey($user->id));
         });
     }

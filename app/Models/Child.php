@@ -90,6 +90,53 @@ class Child extends Model
         return $this->hasMany(ReportCard::class)->latest('issued_on');
     }
 
+    /** @return HasMany<Enrollment, $this> */
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class)->latest('started_on');
+    }
+
+    /**
+     * Place the child in a room. Any open enrollment is closed first, so a child
+     * is only ever "currently in" one class — while the history of every room
+     * they've passed through is kept. classroom_id stays as the denormalised
+     * current room so the rest of the portal (feed, chats, reports) is unchanged.
+     */
+    public function enrollInto(Classroom $classroom): Enrollment
+    {
+        $open = $this->enrollments()->whereNull('ended_on')->get();
+
+        if ($open->count() === 1 && $open->first()->classroom_id === $classroom->id) {
+            return $open->first();
+        }
+
+        // A child placed before the enrolment log existed has a current room but
+        // no open row — record that stay before moving on, so history stays whole.
+        if ($open->isEmpty() && $this->classroom_id !== null && $this->classroom_id !== $classroom->id) {
+            $this->enrollments()->create([
+                'classroom_id' => $this->classroom_id,
+                'started_on' => $this->created_at?->toDateString(),
+                'ended_on' => now(),
+            ]);
+        }
+
+        $this->enrollments()->whereNull('ended_on')->update(['ended_on' => now()]);
+        $enrollment = $this->enrollments()->create([
+            'classroom_id' => $classroom->id,
+            'started_on' => now(),
+        ]);
+        $this->update(['classroom_id' => $classroom->id]);
+
+        return $enrollment;
+    }
+
+    /** Take the child out of their current room, keeping the history intact. */
+    public function removeFromClass(): void
+    {
+        $this->enrollments()->whereNull('ended_on')->update(['ended_on' => now()]);
+        $this->update(['classroom_id' => null]);
+    }
+
     /**
      * Mint the code a parent redeems to link themselves to this child. The same
      * code works for both parents — that is the whole invitation system.

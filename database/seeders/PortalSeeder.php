@@ -53,6 +53,10 @@ class PortalSeeder extends Seeder
             'banner' => 'art-table',
         ]);
 
+        // Rooms carry their teachers via the pivot now (a room may have several).
+        $grade1->teachers()->attach($james->id);
+        $toddlers->teachers()->attach($ada->id);
+
         // The parent who proves the model: one account, two kids, two rooms.
         $bisi = User::factory()->parent()->create([
             'first_name' => 'Bisi',

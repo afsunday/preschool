@@ -607,9 +607,11 @@ export default function ClassFeed({
                         </h3>
                         <dl className="mt-4 space-y-3 text-[15px]">
                             <div className="flex justify-between">
-                                <dt className="text-neutral-500">Teacher</dt>
+                                <dt className="text-neutral-500">Teachers</dt>
                                 <dd className="font-bold text-portal-ink">
-                                    {classroom.teacher ?? '—'}
+                                    {classroom.teachers
+                                        .map((t) => t.name)
+                                        .join(', ') || '—'}
                                 </dd>
                             </div>
                             <div className="flex justify-between">

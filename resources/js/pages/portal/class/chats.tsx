@@ -71,9 +71,31 @@ export default function ClassChats({
 }) {
     const endRef = useRef<HTMLDivElement>(null);
     const atBottomRef = useRef(true);
+    const pollingRef = useRef(false);
+
+    // A background poll must never interrupt the reader with Inertia's full-screen
+    // error modal. If a poll hits an HTTP error (a transient 404, an expired
+    // session, a stale route cache), swallow it — the next tick retries.
+    useEffect(() => {
+        const stopHttp = router.on('httpException', (event) => {
+            if (pollingRef.current) {
+                event.preventDefault();
+            }
+        });
+        const stopNet = router.on('networkError', (event) => {
+            if (pollingRef.current) {
+                event.preventDefault();
+            }
+        });
+
+        return () => {
+            stopHttp();
+            stopNet();
+        };
+    }, []);
 
     // Poll so new messages appear without a refresh — no WebSockets needed. Only
-    // the `active` + `threads` props are re-fetched; it pauses while the tab is
+    // the `active` + `families` props are re-fetched; it pauses while the tab is
     // hidden and catches up the moment it's focused again.
     useEffect(() => {
         const poll = () => {
@@ -81,8 +103,14 @@ export default function ClassChats({
                 return;
             }
 
+            pollingRef.current = true;
             // reload() already forces preserveScroll + preserveState.
-            router.reload({ only: ['active', 'families'] });
+            router.reload({
+                only: ['active', 'families'],
+                onFinish: () => {
+                    pollingRef.current = false;
+                },
+            });
         };
 
         const id = window.setInterval(poll, 3000);
@@ -178,7 +206,9 @@ export default function ClassChats({
                                 <p className="text-xs text-neutral-400">
                                     {isStaff
                                         ? classroom.label
-                                        : (classroom.teacher ?? '')}
+                                        : classroom.teachers
+                                              .map((t) => t.name)
+                                              .join(', ')}
                                 </p>
                             </div>
 

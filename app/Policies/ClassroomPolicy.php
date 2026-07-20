@@ -22,14 +22,22 @@ class ClassroomPolicy
     public function view(User $user, Classroom $classroom): bool
     {
         return $user->isAdmin()
-            || $classroom->teacher_id === $user->id
+            || $this->teaches($user, $classroom)
             || $classroom->hasGuardian($user);
     }
 
     /** Only staff post to the feed, chat as the room, or fill in reports. */
     public function staff(User $user, Classroom $classroom): bool
     {
-        return $user->isAdmin() || $classroom->teacher_id === $user->id;
+        return $user->isAdmin() || $this->teaches($user, $classroom);
+    }
+
+    /** A room may have several teachers; the pivot is authoritative, with the
+     *  legacy `teacher_id` kept as a fallback. */
+    protected function teaches(User $user, Classroom $classroom): bool
+    {
+        return $classroom->teacher_id === $user->id
+            || $classroom->teachers()->whereKey($user->id)->exists();
     }
 
     public function create(User $user): bool
