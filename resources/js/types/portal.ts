@@ -102,7 +102,7 @@ export interface PortalFamily {
     name: string;
     conversationId: number | null;
     lastMessageAt: string | null;
-    unread: boolean;
+    isAnnouncement: boolean;
 }
 
 export interface PortalMessage {

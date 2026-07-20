@@ -24,6 +24,7 @@ import {
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import ActionDialog from '@/components/action-dialog';
+import { avatarColor } from '@/lib/avatar-color';
 import { bannerStyle, DEFAULT_BANNER } from '@/lib/class-banners';
 import type { PortalChild, PortalClass } from '@/types/portal';
 import { BannerGallery } from './partials/banner-gallery';
@@ -440,7 +441,9 @@ function MyChildren({ children }: { children: PortalChild[] }) {
                                 className="size-11 shrink-0 rounded-full object-cover"
                             />
                         ) : (
-                            <span className="grid size-11 shrink-0 place-items-center rounded-full bg-portal-soft text-base font-bold text-portal-accent">
+                            <span
+                                className={`grid size-11 shrink-0 place-items-center rounded-full text-base font-bold ${avatarColor(child.name)}`}
+                            >
                                 {child.name.charAt(0)}
                             </span>
                         )}
@@ -507,7 +510,7 @@ export default function PortalHome({
     return (
         <>
             <Head title="Portal" />
-            <div className="space-y-8 py-6">
+            <div className="mb-10 space-y-8 py-3">
                 {children && <MyChildren children={children} />}
 
                 <section>

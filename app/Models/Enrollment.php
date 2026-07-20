@@ -4,17 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Support\Carbon;
 
-/**
- * @property int $id
- * @property int $child_id
- * @property int $classroom_id
- * @property Carbon|null $started_on
- * @property Carbon|null $ended_on
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- */
 class Enrollment extends Model
 {
     protected $fillable = [

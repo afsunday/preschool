@@ -16,6 +16,7 @@ import type { LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { Avatar } from '@/components/avatar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
+import { avatarColor } from '@/lib/avatar-color';
 import { cn } from '@/lib/utils';
 import type { Auth } from '@/types/auth';
 import type { PortalClass } from '@/types/portal';
@@ -26,7 +27,9 @@ type TabDef = { title: string; path: string; icon: LucideIcon };
 // nothing in a daycare is addressed to a child directly.
 const classTabs: TabDef[] = [
     { title: 'Feed', path: '', icon: Newspaper },
-    { title: 'Students', path: '/students', icon: Users },
+    // "Roster" = this room's children. The app-level "Students" nav is the
+    // cross-class directory; naming them apart stops the two reading as one.
+    { title: 'Roster', path: '/students', icon: Users },
     { title: 'Today', path: '/today', icon: ClipboardList },
     { title: 'Chats', path: '/chats', icon: MessageSquare },
 ];
@@ -56,8 +59,8 @@ function ClassSwitcher({
 
     return (
         <Menu as="div" className="relative">
-            <MenuButton className="flex max-w-[42vw] items-center gap-2 rounded-[4px] bg-portal-soft px-4 py-2.5 text-[15px] font-bold text-portal-accent transition outline-none hover:brightness-97 sm:max-w-[18rem]">
-                <GraduationCap className="size-4.5 shrink-0" />
+            <MenuButton className="flex max-w-[42vw] items-center gap-2 rounded-[4px] bg-portal-soft px-4 py-2 text-sm font-bold text-portal-accent transition outline-none hover:brightness-97 sm:max-w-[18rem]">
+                <GraduationCap className="size-4 shrink-0" />
                 <span className="min-w-0 flex-1 truncate text-left">
                     {current?.label ?? 'Select a class'}
                 </span>
@@ -115,7 +118,7 @@ function IconButton({
             title={label}
             aria-label={label}
             className={cn(
-                'relative grid size-10 place-items-center rounded-[4px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200',
+                'relative grid size-8 place-items-center rounded-[4px] bg-neutral-100 text-portal-ink transition hover:bg-neutral-200',
                 className,
             )}
         >
@@ -127,7 +130,19 @@ function IconButton({
     );
 }
 
-export default function PortalLayout({ children }: { children: ReactNode }) {
+export default function PortalLayout({
+    children,
+    mainClassName,
+    hideBottomNav,
+}: {
+    children: ReactNode;
+    // A page can override the <main> padding via `Page.layout = { mainClassName }`
+    // (Inertia merges it in) — e.g. the chat wants to fill edge-to-edge.
+    mainClassName?: string;
+    // A page can hide the mobile tab bar via `setLayoutProps({ hideBottomNav })`
+    // — an open chat fills the whole screen, so the nav gets in the way.
+    hideBottomNav?: boolean;
+}) {
     const page = usePage<{
         classes?: PortalClass[];
         classroom?: PortalClass;
@@ -145,6 +160,12 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
     // Only back-office users can actually use the dashboard.
     const canSwitchToAdmin = Boolean(user?.has_admin_access);
 
+    // Parents don't need the in-class roster (it's other families' children) —
+    // only staff see the "Roster" tab inside a class.
+    const visibleClassTabs = isStaff
+        ? classTabs
+        : classTabs.filter((t) => t.title !== 'Roster');
+
     // Mobile tabs: Home, the staff directory, plus the current class's tabs.
     const mobileTabs: { title: string; href: string; icon: LucideIcon }[] = [
         { title: 'Home', href: '/portal', icon: House },
@@ -152,7 +173,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
             ? [{ title: 'Students', href: '/portal/students', icon: Users }]
             : []),
         ...(base
-            ? classTabs.map((t) => ({
+            ? visibleClassTabs.map((t) => ({
                   title: t.title,
                   href: `${base}${t.path}`,
                   icon: t.icon,
@@ -173,7 +194,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                         {canSwitchToAdmin && (
                             <Link
                                 href="/dashboard"
-                                className="mr-1 hidden items-center gap-1.5 rounded-[4px] px-3 py-2 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
+                                className="mr-1 hidden items-center gap-1.5 rounded-[4px] px-3 py-1 text-xs font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-portal-ink lg:flex"
                             >
                                 <ArrowLeftRight className="size-3.5" />
                                 Switch to admin
@@ -198,7 +219,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                                     <Avatar
                                         name={user.name}
                                         src={user.avatar}
-                                        className="bg-portal-soft text-portal-accent"
+                                        className={avatarColor(user.name)}
                                     />
                                 </MenuButton>
                                 <MenuItems
@@ -243,7 +264,7 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                 </div>
 
                 {/* Desktop: Home pill + the class tabs */}
-                <div className="hidden border-t border-portal-line md:block">
+                <div className="hidden border-t border-b border-portal-line md:block">
                     <div className="mx-auto flex max-w-7xl items-center gap-6 px-6">
                         <Link
                             href="/portal"
@@ -274,54 +295,64 @@ export default function PortalLayout({ children }: { children: ReactNode }) {
                         )}
 
                         {base &&
-                            classTabs.map(({ title, path, icon: Icon }) => {
-                                const href = `${base}${path}`;
-                                // "Feed" is the class root, so it must match exactly
-                                // or every tab would light up.
-                                const active =
-                                    path === ''
-                                        ? isCurrentUrl(href)
-                                        : isCurrentUrl(href) ||
-                                          page.url.startsWith(href);
+                            visibleClassTabs.map(
+                                ({ title, path, icon: Icon }) => {
+                                    const href = `${base}${path}`;
+                                    // "Feed" is the class root, so it must match exactly
+                                    // or every tab would light up.
+                                    const active =
+                                        path === ''
+                                            ? isCurrentUrl(href)
+                                            : isCurrentUrl(href) ||
+                                              page.url.startsWith(href);
 
-                                return (
-                                    <Link
-                                        key={title}
-                                        href={href}
-                                        aria-current={
-                                            active ? 'page' : undefined
-                                        }
-                                        className={cn(
-                                            'flex items-center gap-2 border-b-2 py-3.5 text-[15px] font-bold transition-colors',
-                                            active
-                                                ? 'border-portal-accent text-portal-ink'
-                                                : 'border-transparent text-neutral-500 hover:text-portal-ink',
-                                        )}
-                                    >
-                                        <Icon
+                                    return (
+                                        <Link
+                                            key={title}
+                                            href={href}
+                                            aria-current={
+                                                active ? 'page' : undefined
+                                            }
                                             className={cn(
-                                                'size-4.5',
+                                                'flex items-center gap-2 border-b-2 py-3.5 text-[15px] font-bold transition-colors',
                                                 active
-                                                    ? 'text-portal-accent'
-                                                    : 'text-neutral-400',
+                                                    ? 'border-portal-accent text-portal-ink'
+                                                    : 'border-transparent text-neutral-500 hover:text-portal-ink',
                                             )}
-                                        />
-                                        {title}
-                                    </Link>
-                                );
-                            })}
+                                        >
+                                            <Icon
+                                                className={cn(
+                                                    'size-4.5',
+                                                    active
+                                                        ? 'text-portal-accent'
+                                                        : 'text-neutral-400',
+                                                )}
+                                            />
+                                            {title}
+                                        </Link>
+                                    );
+                                },
+                            )}
                     </div>
                 </div>
             </header>
 
-            <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-24 md:px-6 md:pb-10">
+            <main
+                className={cn(
+                    'mx-auto flex w-full max-w-7xl flex-1 flex-col',
+                    mainClassName ?? 'px-4 py-3 md:px-6',
+                )}
+            >
                 {children}
             </main>
 
-            {/* Mobile: fixed bottom tab bar */}
+            {/* Mobile: fixed bottom tab bar (hidden when a page fills the screen) */}
             <nav
                 aria-label="Portal"
-                className="fixed inset-x-0 bottom-0 z-40 border-t border-portal-line bg-white pb-[env(safe-area-inset-bottom)] md:hidden"
+                className={cn(
+                    'fixed inset-x-0 bottom-0 z-40 border-t border-portal-line bg-white pb-[env(safe-area-inset-bottom)] md:hidden',
+                    hideBottomNav && 'hidden',
+                )}
             >
                 <div className="mx-auto flex max-w-md items-stretch">
                     {mobileTabs.map(({ title, href, icon: Icon }) => {

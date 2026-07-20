@@ -3,11 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
-/**
- * @property Carbon|null $sent_at
- */
 class NewsletterCampaign extends Model
 {
     /**
@@ -15,7 +11,13 @@ class NewsletterCampaign extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['subject', 'body', 'audience', 'recipients_count', 'sent_at'];
+    protected $fillable = [
+        'subject',
+        'body',
+        'audience',
+        'recipients_count',
+        'sent_at',
+    ];
 
     /**
      * The attributes that should be cast to native types.

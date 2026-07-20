@@ -2,6 +2,7 @@
 
 use App\Models\Child;
 use App\Models\Classroom;
+use App\Models\Conversation;
 use App\Models\DailyReport;
 use App\Models\Post;
 use App\Models\User;
@@ -136,7 +137,7 @@ test('a day-log entry keeps its photos too', function () {
 });
 
 test('a parent can attach a photo to a chat message', function () {
-    $thread = $this->classroom->conversations()->create(['guardian_id' => $this->parent->id]);
+    $thread = Conversation::factory()->forGuardian($this->parent)->create(['classroom_id' => $this->classroom->id]);
 
     $path = $this->actingAs($this->parent)
         ->postJson(route('portal.uploads.store'), ['file' => tempPhoto()])

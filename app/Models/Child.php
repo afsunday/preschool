@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Support\Upload;
 use Database\Factories\ChildFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,13 +33,14 @@ use Illuminate\Support\Str;
  * @property Carbon|null $updated_at
  * @property Carbon|null $deleted_at
  */
-#[Fillable(['classroom_id', 'first_name', 'last_name', 'dob', 'photo_path', 'notes', 'invite_code'])]
 class Child extends Model
 {
     /** @use HasFactory<ChildFactory> */
     use HasFactory, SoftDeletes;
 
     protected $table = 'children';
+
+    protected $fillable = ['classroom_id', 'first_name', 'last_name', 'dob', 'photo_path', 'notes', 'invite_code'];
 
     protected function casts(): array
     {

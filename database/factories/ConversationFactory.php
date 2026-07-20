@@ -19,10 +19,22 @@ class ConversationFactory extends Factory
     {
         return [
             'classroom_id' => Classroom::factory(),
-            'guardian_id' => User::factory()->parent(),
+            'type' => Conversation::TYPE_DIRECT,
             'last_message_at' => null,
-            'teacher_read_at' => null,
-            'guardian_read_at' => null,
         ];
+    }
+
+    /** A direct thread whose sole participant is the given guardian. */
+    public function forGuardian(User $guardian): static
+    {
+        return $this->afterCreating(
+            fn (Conversation $conversation) => $conversation->participants()->attach($guardian->id),
+        );
+    }
+
+    /** The class-wide announcement thread. */
+    public function announcement(): static
+    {
+        return $this->state(['type' => Conversation::TYPE_ANNOUNCEMENT]);
     }
 }

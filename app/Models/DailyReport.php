@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\DailyReportFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -26,11 +25,12 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['child_id', 'date', 'summary', 'published_at', 'created_by'])]
 class DailyReport extends Model
 {
     /** @use HasFactory<DailyReportFactory> */
     use HasFactory;
+
+    protected $fillable = ['child_id', 'date', 'summary', 'published_at', 'created_by'];
 
     protected function casts(): array
     {

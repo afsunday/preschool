@@ -3,42 +3,46 @@
 namespace App\Models;
 
 use Database\Factories\ConversationFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
-/**
- * A thread between a classroom and one guardian.
- *
- * Scoped to the *room*, not the teacher: when co-teachers arrive, any staff on
- * the room can reply with no schema change. A thread has exactly two sides, so
- * unread is two timestamps rather than a participants table.
- *
- * @property int $id
- * @property int $classroom_id
- * @property int $guardian_id
- * @property Carbon|null $last_message_at
- * @property Carbon|null $teacher_read_at
- * @property Carbon|null $guardian_read_at
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- */
-#[Fillable(['classroom_id', 'guardian_id', 'last_message_at', 'teacher_read_at', 'guardian_read_at'])]
 class Conversation extends Model
 {
     /** @use HasFactory<ConversationFactory> */
     use HasFactory;
 
+    public const TYPE_DIRECT = 'direct';
+
+    public const TYPE_ANNOUNCEMENT = 'announcement';
+
+    protected $fillable = [
+        'classroom_id',
+        'type',
+        'last_message_at',
+    ];
+
     protected function casts(): array
     {
         return [
             'last_message_at' => 'datetime',
-            'teacher_read_at' => 'datetime',
-            'guardian_read_at' => 'datetime',
         ];
+    }
+
+    /** A class-wide thread every family can read but only staff can post to. */
+    public function isAnnouncement(): bool
+    {
+        return $this->type === self::TYPE_ANNOUNCEMENT;
+    }
+
+    /** True if $user is a named member — the guardian side of a direct thread, or
+     *  either side of a staff↔staff one. Staff reach a room's threads via the room,
+     *  not membership, so they aren't participants of a family's thread. */
+    public function hasParticipant(User $user): bool
+    {
+        return $this->participants->contains($user->id);
     }
 
     /** @return BelongsTo<Classroom, $this> */
@@ -47,38 +51,17 @@ class Conversation extends Model
         return $this->belongsTo(Classroom::class);
     }
 
-    /** @return BelongsTo<User, $this> */
-    public function guardian(): BelongsTo
+    /** @return BelongsToMany<User, $this> */
+    public function participants(): BelongsToMany
     {
-        return $this->belongsTo(User::class, 'guardian_id');
+        return $this->belongsToMany(User::class, 'conversation_participants')
+            ->withPivot('last_read_at')
+            ->withTimestamps();
     }
 
     /** @return HasMany<Message, $this> */
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
-    }
-
-    /**
-     * Unread from the given user's side of the thread.
-     */
-    public function isUnreadFor(User $user): bool
-    {
-        if ($this->last_message_at === null) {
-            return false;
-        }
-
-        $readAt = $user->id === $this->guardian_id
-            ? $this->guardian_read_at
-            : $this->teacher_read_at;
-
-        return $readAt === null || $readAt->lt($this->last_message_at);
-    }
-
-    public function markReadFor(User $user): void
-    {
-        $side = $user->id === $this->guardian_id ? 'guardian_read_at' : 'teacher_read_at';
-
-        $this->forceFill([$side => now()])->save();
     }
 }

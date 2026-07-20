@@ -12,7 +12,11 @@ class Permission extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['permission_group_id', 'name', 'display_name'];
+    protected $fillable = [
+        'permission_group_id',
+        'name',
+        'display_name',
+    ];
 
     /**
      * @return BelongsTo<PermissionGroup, $this>

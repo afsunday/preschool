@@ -1,4 +1,4 @@
-import { createInertiaApp } from '@inertiajs/react';
+import { createInertiaApp, router } from '@inertiajs/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { NotificationProvider } from '@/hooks/notificationContext';
@@ -7,6 +7,21 @@ import AuthLayout from '@/layouts/auth-layout';
 import PortalLayout from '@/layouts/portal-layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+// Never surface Inertia's raw HTML/error modal. In production, real errors render
+// the branded error page (see bootstrap/app.php); this cancels the fallback modal
+// for any stray non-Inertia response. The response is logged in dev so debugging
+// isn't blind.
+router.on('httpException', (event) => {
+    event.preventDefault();
+
+    if (import.meta.env.DEV) {
+        console.error(
+            '[inertia] suppressed non-Inertia response',
+            event.detail,
+        );
+    }
+});
 
 const queryClient = new QueryClient({
     defaultOptions: {

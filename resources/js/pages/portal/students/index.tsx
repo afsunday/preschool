@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
+import { avatarColor } from '@/lib/avatar-color';
 import { cn } from '@/lib/utils';
 import type { DirectoryClass, DirectoryStudent } from '@/types/portal';
 
@@ -38,7 +39,12 @@ function Avatar({ name, src }: { name: string; src?: string | null }) {
             className="size-11 shrink-0 rounded-full object-cover"
         />
     ) : (
-        <span className="grid size-11 shrink-0 place-items-center rounded-full bg-portal-soft text-base font-bold text-portal-accent">
+        <span
+            className={cn(
+                'grid size-11 shrink-0 place-items-center rounded-full text-base font-bold',
+                avatarColor(name),
+            )}
+        >
             {name.charAt(0)}
         </span>
     );
@@ -632,7 +638,12 @@ function StudentDetail({
                                             key={g.id}
                                             className="flex items-center gap-3 rounded-[4px] border border-portal-line px-3 py-2"
                                         >
-                                            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-portal-soft text-sm font-bold text-portal-accent">
+                                            <span
+                                                className={cn(
+                                                    'grid size-9 shrink-0 place-items-center rounded-full text-sm font-bold',
+                                                    avatarColor(g.name),
+                                                )}
+                                            >
                                                 {g.name.charAt(0)}
                                             </span>
                                             <span className="min-w-0 flex-1">

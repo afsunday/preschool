@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\Support\Upload;
 use Database\Factories\ReportEntryFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,11 +25,12 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable(['daily_report_id', 'type', 'label', 'occurred_at', 'ended_at', 'detail', 'note', 'photos'])]
 class ReportEntry extends Model
 {
     /** @use HasFactory<ReportEntryFactory> */
     use HasFactory;
+
+    protected $fillable = ['daily_report_id', 'type', 'label', 'occurred_at', 'ended_at', 'detail', 'note', 'photos'];
 
     /** The kinds of event a day is made of. */
     public const TYPES = ['nap', 'meal', 'nappy', 'mood', 'note', 'photo'];

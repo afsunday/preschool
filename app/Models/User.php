@@ -137,13 +137,15 @@ class User extends Authenticatable
     }
 
     /**
-     * Chat threads where this user is the parent side.
+     * Chat threads this user is a named member of.
      *
-     * @return HasMany<Conversation, $this>
+     * @return BelongsToMany<Conversation, $this>
      */
-    public function conversations(): HasMany
+    public function conversations(): BelongsToMany
     {
-        return $this->hasMany(Conversation::class, 'guardian_id');
+        return $this->belongsToMany(Conversation::class, 'conversation_participants')
+            ->withPivot('last_read_at')
+            ->withTimestamps();
     }
 
     /**

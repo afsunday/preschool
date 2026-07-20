@@ -84,6 +84,43 @@ test('one parent with two children sees both rooms', function () {
             ->has('children', 2));
 });
 
+test('a brand-new parent sees the children section before linking a child', function () {
+    // No invite code redeemed yet — but they still need the "Add a child" button,
+    // so `children` must be an empty array, not null.
+    $newParent = User::factory()->parent()->create();
+
+    $this->actingAs($newParent)
+        ->get(route('portal.home'))
+        ->assertOk()
+        ->assertInertia(fn (Assert $p) => $p->has('children', 0)->etc());
+});
+
+test('staff get no children section on the home', function () {
+    $this->actingAs($this->teacher)
+        ->get(route('portal.home'))
+        ->assertInertia(fn (Assert $p) => $p->where('children', null)->etc());
+});
+
+test('a parent keeps seeing their room after it is archived', function () {
+    // Archiving hides a room from staff's grid, but families keep their access.
+    $this->classroom->update(['is_archived' => true]);
+
+    $this->actingAs($this->parent)
+        ->get(route('portal.home'))
+        ->assertInertia(fn (Assert $p) => $p
+            ->has('classes', 1)
+            ->where('classes.0.id', $this->classroom->id)
+            ->etc());
+});
+
+test('staff do not see an archived room in their active list', function () {
+    $this->classroom->update(['is_archived' => true]);
+
+    $this->actingAs($this->teacher)
+        ->get(route('portal.home'))
+        ->assertInertia(fn (Assert $p) => $p->has('classes', 0)->etc());
+});
+
 test('guests are redirected to login', function () {
     $this->get(route('portal.home'))->assertRedirect(route('login'));
 });

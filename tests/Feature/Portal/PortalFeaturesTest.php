@@ -52,13 +52,12 @@ test('a parent opening chat lands in their own thread, created on demand', funct
         ->assertOk()
         ->assertInertia(fn ($p) => $p->has('active'));
 
-    expect(Conversation::where('guardian_id', $this->parent->id)->count())->toBe(1);
+    expect($this->parent->conversations()->count())->toBe(1);
 });
 
-test('sending a message stamps the thread and leaves the other side unread', function () {
-    $thread = Conversation::factory()->create([
+test('sending a message stamps the thread and records the message', function () {
+    $thread = Conversation::factory()->forGuardian($this->parent)->create([
         'classroom_id' => $this->classroom->id,
-        'guardian_id' => $this->parent->id,
     ]);
 
     $this->actingAs($this->parent)
@@ -68,8 +67,23 @@ test('sending a message stamps the thread and leaves the other side unread', fun
     $thread->refresh();
 
     expect($thread->last_message_at)->not->toBeNull()
-        ->and($thread->isUnreadFor($this->teacher))->toBeTrue()
-        ->and($thread->isUnreadFor($this->parent))->toBeFalse();
+        ->and($thread->messages()->where('body', 'Hello')->exists())->toBeTrue();
+});
+
+test('the class announcement thread is staff-only to post but visible to families', function () {
+    $announcement = $this->classroom->conversations()->create(['type' => Conversation::TYPE_ANNOUNCEMENT]);
+
+    // A parent can see it but cannot post.
+    $this->actingAs($this->parent)
+        ->post(route('portal.classes.messages.store', [$this->classroom, $announcement]), ['body' => 'Hi'])
+        ->assertForbidden();
+
+    // Staff can post.
+    $this->actingAs($this->teacher)
+        ->post(route('portal.classes.messages.store', [$this->classroom, $announcement]), ['body' => 'Trip on Friday'])
+        ->assertRedirect();
+
+    expect($announcement->messages()->count())->toBe(1);
 });
 
 test('a parent cannot read another parent\'s thread', function () {
@@ -78,9 +92,8 @@ test('a parent cannot read another parent\'s thread', function () {
         ->create(['classroom_id' => $this->classroom->id])
         ->guardians()->attach($stranger->id, ['relationship' => 'mum']);
 
-    $theirs = Conversation::factory()->create([
+    $theirs = Conversation::factory()->forGuardian($stranger)->create([
         'classroom_id' => $this->classroom->id,
-        'guardian_id' => $stranger->id,
     ]);
 
     $this->actingAs($this->parent)
@@ -97,21 +110,22 @@ test('staff see every family in the room, even without a thread', function () {
     $this->actingAs($this->teacher)
         ->get(route('portal.classes.chats', $this->classroom))
         ->assertOk()
-        ->assertInertia(fn ($p) => $p->has('families', 2));
+        // The announcement thread is first, then the two families.
+        ->assertInertia(fn ($p) => $p
+            ->has('families', 3)
+            ->where('families.0.isAnnouncement', true)
+            ->etc());
 });
 
 test('a teacher can start a conversation with a family that has not messaged', function () {
-    expect(Conversation::where('guardian_id', $this->parent->id)->count())->toBe(0);
+    expect($this->parent->conversations()->count())->toBe(0);
 
     $this->actingAs($this->teacher)
         ->get(route('portal.classes.chats', ['classroom' => $this->classroom, 'guardian' => $this->parent->id]))
         ->assertOk()
         ->assertInertia(fn ($p) => $p->has('active'));
 
-    expect(Conversation::where([
-        'classroom_id' => $this->classroom->id,
-        'guardian_id' => $this->parent->id,
-    ])->count())->toBe(1);
+    expect($this->parent->conversations()->where('classroom_id', $this->classroom->id)->count())->toBe(1);
 });
 
 test('a teacher cannot start a chat with someone who is not a family in the room', function () {

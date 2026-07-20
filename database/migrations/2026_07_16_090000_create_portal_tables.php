@@ -72,14 +72,28 @@ return new class extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('classroom_id')->constrained('classrooms')->cascadeOnDelete();
-            $table->foreignId('guardian_id')->constrained('users')->cascadeOnDelete();
+            // 'direct' = a family's thread with the room's staff; 'announcement' =
+            // the class-wide thread. Who takes part lives in the pivot below, so a
+            // thread can be staff↔guardian, staff↔staff, or class-wide with no
+            // role baked into this row.
+            $table->string('type')->default('direct');
             $table->timestamp('last_message_at')->nullable();
-            $table->timestamp('teacher_read_at')->nullable();
-            $table->timestamp('guardian_read_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['classroom_id', 'guardian_id']);
+            $table->index(['classroom_id', 'type']);
             $table->index('last_message_at');
+        });
+
+        Schema::create('conversation_participants', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            // Per-participant read cursor — the correct home for "unread" across any
+            // number of members, unlike the old per-side read stamps.
+            $table->timestamp('last_read_at')->nullable();
+            $table->timestamps();
+
+            $table->unique(['conversation_id', 'user_id']);
         });
 
         Schema::create('messages', function (Blueprint $table) {
@@ -127,6 +141,7 @@ return new class extends Migration
         Schema::dropIfExists('report_entries');
         Schema::dropIfExists('daily_reports');
         Schema::dropIfExists('messages');
+        Schema::dropIfExists('conversation_participants');
         Schema::dropIfExists('conversations');
         Schema::dropIfExists('posts');
         Schema::dropIfExists('child_guardian');

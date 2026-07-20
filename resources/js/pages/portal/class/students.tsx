@@ -143,11 +143,11 @@ export default function ClassStudents({
 
     return (
         <>
-            <Head title={`${classroom.name} · Students`} />
+            <Head title={`${classroom.name} · Roster`} />
             <div className="py-5">
                 <div className="flex items-center justify-between pb-3">
                     <h2 className="text-lg font-bold text-portal-ink">
-                        Students
+                        Roster
                         <span className="ml-2 text-sm font-normal text-neutral-400">
                             {children.length}
                         </span>

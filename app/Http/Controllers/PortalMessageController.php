@@ -24,8 +24,8 @@ class PortalMessageController extends Controller
         $user = $request->user();
         $isStaff = $user->can('staff', $classroom);
 
-        // Either you're staff on this room, or it's your own thread.
-        abort_unless($isStaff || $conversation->guardian_id === $user->id, 403);
+        // Either you're staff on this room, or you're a member of the thread.
+        abort_unless($isStaff || $conversation->hasParticipant($user), 403);
 
         $data = $request->validate([
             'body' => ['required', 'string', 'max:5000'],
@@ -39,12 +39,7 @@ class PortalMessageController extends Controller
             'photos' => Upload::keepAll($data['photos'] ?? [], "chats/{$classroom->id}"),
         ]);
 
-        // Stamp the thread and mark it read for the sender — the other side stays
-        // unread, which is the whole of our unread logic.
-        $conversation->forceFill([
-            'last_message_at' => $message->created_at,
-            $isStaff ? 'teacher_read_at' : 'guardian_read_at' => $message->created_at,
-        ])->save();
+        $conversation->forceFill(['last_message_at' => $message->created_at])->save();
 
         return back();
     }

@@ -2,18 +2,19 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Head, Link, router, useForm, usePage } from '@inertiajs/react';
 import {
     CalendarDays,
+    ChevronLeft,
+    ChevronRight,
     Heart,
-    ImageIcon,
     Loader2,
     MapPin,
     MessageCircle,
     MoreHorizontal,
     Newspaper,
-    Paperclip,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { FormEvent, ReactNode } from 'react';
 import VeeModal from '@/components/vee-modal';
+import { avatarColor } from '@/lib/avatar-color';
 import { cn } from '@/lib/utils';
 import type { PortalClass, PortalPost } from '@/types/portal';
 import { PhotoUpload } from '../partials/photo-upload';
@@ -22,8 +23,9 @@ function Avatar({ name, className }: { name: string; className?: string }) {
     return (
         <span
             className={cn(
-                'grid shrink-0 place-items-center rounded-full bg-portal-soft font-bold text-portal-accent',
-                className ?? 'size-10 text-sm',
+                'grid shrink-0 place-items-center rounded-lg font-bold',
+                avatarColor(name),
+                className ?? 'size-8 text-sm',
             )}
         >
             {name.charAt(0)}
@@ -77,6 +79,10 @@ function NewPostDialog({
         event_location: '',
     });
 
+    // The modal stays mounted (it slides, never unmounts), so a fresh post needs
+    // the photo picker's own preview state remounted — bump this to key it.
+    const [uploadKey, setUploadKey] = useState(0);
+
     const isEvent = form.data.type === 'event';
 
     const submit = (e: FormEvent) => {
@@ -85,6 +91,7 @@ function NewPostDialog({
             preserveScroll: true,
             onSuccess: () => {
                 form.reset();
+                setUploadKey((k) => k + 1);
                 onClose();
             },
         });
@@ -229,6 +236,7 @@ function NewPostDialog({
                             {/* Uploads as they're chosen, so posting is
                                     instant once the teacher stops typing. */}
                             <PhotoUpload
+                                key={uploadKey}
                                 value={form.data.photos}
                                 onChange={(paths) =>
                                     form.setData('photos', paths)
@@ -259,12 +267,6 @@ function NewPostDialog({
     );
 }
 
-/**
- * The feed's quiet trigger: it looks like a field, but clicking anywhere on it
- * opens the New post dialog.
- *
- * Only staff broadcast — a post reaches every guardian of every child in the room.
- */
 function Composer({
     classroom,
     author,
@@ -287,38 +289,6 @@ function Composer({
                         What's happening at {classroom.name}'s class?
                     </button>
                 </div>
-
-                {/* Three equal-width pills filling the row, as in Class Story. */}
-                <div className="mt-4 flex items-center gap-3 border-t border-portal-line pt-4">
-                    {(
-                        [
-                            [
-                                'Photo/Video',
-                                ImageIcon,
-                                'bg-[#eef4ff] text-[#3b6fd4]',
-                            ],
-                            [
-                                'Event',
-                                CalendarDays,
-                                'bg-[#eafaf1] text-[#2e9e63]',
-                            ],
-                            ['File', Paperclip, 'bg-[#eaf7fd] text-[#3a97c9]'],
-                        ] as const
-                    ).map(([label, Icon, tone]) => (
-                        <button
-                            key={label}
-                            type="button"
-                            onClick={() => setOpen(true)}
-                            className={cn(
-                                'inline-flex flex-1 items-center justify-center gap-2 rounded-[4px] py-3 text-sm font-bold transition hover:brightness-97',
-                                tone,
-                            )}
-                        >
-                            <Icon className="size-4.5" />
-                            {label}
-                        </button>
-                    ))}
-                </div>
             </div>
 
             <NewPostDialog
@@ -328,6 +298,101 @@ function Composer({
                 onClose={() => setOpen(false)}
             />
         </>
+    );
+}
+
+/**
+ * Post media, full-bleed to the card edges. A lone photo fills the width; two or
+ * more become a swipeable slider so the card height stays contained.
+ */
+function PostImages({ photos }: { photos: string[] }) {
+    if (photos.length === 1) {
+        return (
+            <div className="-mx-5 mt-4 border-y border-portal-line bg-black">
+                <img
+                    src={photos[0]}
+                    alt=""
+                    className="max-h-[560px] w-full object-cover"
+                />
+            </div>
+        );
+    }
+
+    return <PostSlider photos={photos} />;
+}
+
+function PostSlider({ photos }: { photos: string[] }) {
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [index, setIndex] = useState(0);
+
+    const go = (to: number) => {
+        const el = trackRef.current;
+
+        if (!el) {
+            return;
+        }
+
+        const next = Math.max(0, Math.min(photos.length - 1, to));
+        el.scrollTo({ left: next * el.clientWidth, behavior: 'smooth' });
+    };
+
+    return (
+        <div className="group/slider relative -mx-5 mt-4 border-y border-portal-line bg-black">
+            <div
+                ref={trackRef}
+                onScroll={(e) => {
+                    const el = e.currentTarget;
+                    setIndex(Math.round(el.scrollLeft / el.clientWidth));
+                }}
+                className="flex snap-x snap-mandatory [scrollbar-width:none] overflow-x-auto [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
+                {photos.map((url) => (
+                    <img
+                        key={url}
+                        src={url}
+                        alt=""
+                        className="h-[300px] w-full shrink-0 snap-center object-cover sm:h-[460px]"
+                    />
+                ))}
+            </div>
+
+            {index > 0 && (
+                <button
+                    type="button"
+                    aria-label="Previous photo"
+                    onClick={() => go(index - 1)}
+                    className="absolute top-1/2 left-2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/50 text-white transition hover:bg-black/70 md:opacity-0 md:group-hover/slider:opacity-100"
+                >
+                    <ChevronLeft className="size-5" />
+                </button>
+            )}
+            {index < photos.length - 1 && (
+                <button
+                    type="button"
+                    aria-label="Next photo"
+                    onClick={() => go(index + 1)}
+                    className="absolute top-1/2 right-2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-black/50 text-white transition hover:bg-black/70 md:opacity-0 md:group-hover/slider:opacity-100"
+                >
+                    <ChevronRight className="size-5" />
+                </button>
+            )}
+
+            <div className="absolute top-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold text-white">
+                {index + 1} / {photos.length}
+            </div>
+
+            <div className="pointer-events-none absolute inset-x-0 bottom-2.5 flex justify-center gap-1.5">
+                {photos.map((url, i) => (
+                    <span
+                        key={url}
+                        className={cn(
+                            'size-1.5 rounded-full transition',
+                            i === index ? 'bg-white' : 'bg-white/50',
+                        )}
+                    />
+                ))}
+            </div>
+        </div>
     );
 }
 
@@ -356,13 +421,13 @@ function PostCard({
     };
 
     return (
-        <article className="overflow-hidden rounded-[4px] border border-portal-line bg-white">
-            <div className="p-5">
+        <article className="overflow-hidden border border-portal-line bg-white md:rounded-[4px]">
+            <div className="p-3">
                 {/* Author over class, date pinned right — the Class Story header. */}
                 <div className="flex items-start gap-3">
-                    <Avatar name={post.author} className="size-11 text-base" />
+                    <Avatar name={post.author} className="size-9 text-base" />
                     <div className="min-w-0 flex-1 leading-tight">
-                        <p className="truncate text-[15px] font-semibold text-portal-ink">
+                        <p className="truncate text-sm font-bold text-portal-ink">
                             {post.author}
                         </p>
                         <p className="mt-0.5 truncate text-[13px] font-medium text-neutral-400">
@@ -403,39 +468,28 @@ function PostCard({
                 )}
 
                 {post.body && (
-                    <p className="mt-4 text-[15px] leading-relaxed whitespace-pre-wrap text-portal-ink">
+                    <p className="mt-4 text-sm leading-relaxed whitespace-pre-wrap text-portal-ink">
                         {post.body}
                     </p>
                 )}
 
-                {post.photos.length > 0 && (
-                    <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
-                        {post.photos.map((url) => (
-                            <img
-                                key={url}
-                                src={url}
-                                alt=""
-                                className="aspect-4/3 w-full rounded-[4px] object-cover"
-                            />
-                        ))}
-                    </div>
-                )}
+                {post.photos.length > 0 && <PostImages photos={post.photos} />}
             </div>
 
-            <div className="flex items-center gap-3 border-t border-portal-line px-5 py-4">
+            <div className="flex items-center gap-1 border-t border-portal-line px-2.5 py-1.5">
                 <button
                     type="button"
                     onClick={toggleLike}
                     className={cn(
-                        'inline-flex items-center gap-2 rounded-[4px] border px-5 py-2.5 text-[15px] font-bold transition',
+                        'inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold transition',
                         post.likedByMe
-                            ? 'border-red-200 bg-red-50 text-red-500'
-                            : 'border-portal-line text-portal-ink hover:bg-portal-field',
+                            ? 'text-red-500 hover:bg-red-50'
+                            : 'text-neutral-600 hover:bg-portal-field',
                     )}
                 >
                     <Heart
                         className={cn(
-                            'size-4.5',
+                            'size-[18px]',
                             post.likedByMe && 'fill-current',
                         )}
                     />
@@ -444,9 +498,9 @@ function PostCard({
                 <button
                     type="button"
                     onClick={() => setShowComments((v) => !v)}
-                    className="inline-flex items-center gap-2 rounded-[4px] border border-portal-line px-5 py-2.5 text-[15px] font-bold text-portal-ink transition hover:bg-portal-field"
+                    className="inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold text-neutral-600 transition hover:bg-portal-field"
                 >
-                    <MessageCircle className="size-4.5" />
+                    <MessageCircle className="size-[18px]" />
                     {post.comments.length > 0
                         ? post.comments.length
                         : 'Comment'}
@@ -454,7 +508,7 @@ function PostCard({
 
                 {canPost && (
                     <Menu as="div" className="relative ml-auto">
-                        <MenuButton className="grid size-9 place-items-center rounded-[4px] text-neutral-400 transition hover:bg-portal-field hover:text-portal-ink">
+                        <MenuButton className="grid size-9 place-items-center rounded-full text-neutral-400 transition hover:bg-portal-field hover:text-portal-ink">
                             <MoreHorizontal className="size-5" />
                         </MenuButton>
                         <MenuItems
@@ -569,8 +623,8 @@ export default function ClassFeed({
     return (
         <>
             <Head title={`${classroom.name} · Feed`} />
-            <div className="mx-auto grid max-w-5xl gap-5 py-5 lg:grid-cols-[1fr_300px]">
-                <div className="space-y-4">
+            <div className="mx-auto grid w-full max-w-[800px] gap-5 lg:grid-cols-[1fr_300px]">
+                <div className="mb-16 space-y-2 sm:space-y-4">
                     {canPost && (
                         <Composer classroom={classroom} author={author} />
                     )}
@@ -639,7 +693,7 @@ export default function ClassFeed({
                         </span>
                         <p className="mt-4 text-[15px] leading-relaxed text-neutral-600">
                             Parents get their child's invite code from the
-                            Students tab, then link themselves.
+                            Roster tab, then link themselves.
                         </p>
                         <Link
                             href={`/portal/classes/${classroom.id}/students`}
@@ -653,3 +707,5 @@ export default function ClassFeed({
         </>
     );
 }
+
+ClassFeed.layout = { mainClassName: 'px-0 md:px-6' };

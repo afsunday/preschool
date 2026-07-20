@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -25,9 +24,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array<string, mixed>|null $settings
  * @property int $schema_version
  */
-#[Fillable(['page_id', 'parent_id', 'type', 'key', 'name', 'position', 'is_visible', 'settings', 'schema_version'])]
 class PageBlock extends Model
 {
+    protected $fillable = ['page_id', 'parent_id', 'type', 'key', 'name', 'position', 'is_visible', 'settings', 'schema_version'];
+
     protected function casts(): array
     {
         return [

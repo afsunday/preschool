@@ -33,19 +33,16 @@ class PortalController extends Controller
 
         return Inertia::render('portal/home', [
             'classes' => $this->classList($user),
-            // Admins can dig out and restore rooms they archived.
             'archivedClasses' => $user->can('create', Classroom::class)
                 ? $this->classList($user, archived: true)
                 : [],
-            'children' => $user->isParent()
+            'children' => ($user->user_type === User::PARENT || $user->isParent())
                 ? $user->children()->with('classroom')->get()
                     ->map(fn (Child $c) => $this->childSummary($c, $user))
                     ->values()
                 : null,
             'isStaff' => $user->isStaff(),
             'canManage' => $user->can('create', Classroom::class),
-            // Only an admin ever opens the create-class form. Any staff member
-            // can be assigned to run a room.
             'teachers' => $user->isAdmin()
                 ? User::query()
                     ->where('user_type', User::STAFF)
@@ -118,8 +115,6 @@ class PortalController extends Controller
             ->with(['guardians', 'reportCards'])
             ->orderBy('first_name')
             ->get()
-            // A parent sees the roster, but only their own child's guardians and
-            // invite code — never another family's.
             ->map(fn (Child $c) => $this->childSummary($c, $user, $canSeeAll));
 
         return Inertia::render('portal/class/students', [
@@ -199,6 +194,9 @@ class PortalController extends Controller
         $user = $request->user();
         $isStaff = $user->can('staff', $classroom);
 
+        // The class-wide announcement thread always exists.
+        $announcement = $classroom->conversations()->firstOrCreate(['type' => Conversation::TYPE_ANNOUNCEMENT]);
+
         // Staff picking a family (?guardian=) start the thread on demand — this is
         // what lets a teacher reach out to a family that hasn't messaged first.
         if ($isStaff && $conversation === null && $request->filled('guardian')) {
@@ -207,28 +205,36 @@ class PortalController extends Controller
                 $classroom->children()->whereHas('guardians', fn ($q) => $q->whereKey($guardianId))->exists(),
                 404,
             );
-            $conversation = $classroom->conversations()->firstOrCreate(['guardian_id' => $guardianId]);
+            $conversation = $this->directThreadFor($classroom, $guardianId);
         }
 
         // A guardian lands in their own thread, created on demand.
         if ($conversation === null && ! $isStaff) {
-            $conversation = $classroom->conversations()->firstOrCreate(['guardian_id' => $user->id]);
+            $conversation = $this->directThreadFor($classroom, $user->id);
         }
 
         if ($conversation !== null) {
             abort_unless($conversation->classroom_id === $classroom->id, 404);
-            abort_unless($isStaff || $conversation->guardian_id === $user->id, 403);
-            $conversation->markReadFor($user);
+            // Staff reach every thread in their room; a guardian sees only their own
+            // thread and the announcement.
+            abort_unless(
+                $isStaff
+                    || $conversation->hasParticipant($user)
+                    || ($conversation->isAnnouncement() && $classroom->hasGuardian($user)),
+                403,
+            );
         }
 
         return Inertia::render('portal/class/chats', [
             ...$this->classProps($request, $classroom),
-            // Staff see every family in the room, even ones without a thread; a
-            // parent needs no list.
-            'families' => $isStaff ? $this->roomFamilies($classroom, $user) : [],
+            'families' => $this->threadList($classroom, $user, $isStaff, $announcement),
             'active' => $conversation === null ? null : [
                 'id' => $conversation->id,
-                'guardian' => $conversation->guardian->name,
+                'guardian' => $conversation->isAnnouncement()
+                    ? 'Class announcements'
+                    : $conversation->participants->firstWhere('id', '!=', $user->id)?->name
+                        ?? $conversation->participants->first()?->name,
+                'announcement' => $conversation->isAnnouncement(),
                 'messages' => $conversation->messages()
                     ->with('author')
                     ->orderBy('created_at')
@@ -248,26 +254,89 @@ class PortalController extends Controller
     }
 
     /**
+     * A family's direct thread with the room's staff, created on demand. The
+     * guardian is the thread's only named participant; any staff on the room may
+     * reply, which keeps one thread per family even with several co-teachers.
+     */
+    protected function directThreadFor(Classroom $classroom, int $guardianId): Conversation
+    {
+        $conversation = $classroom->conversations()
+            ->where('type', Conversation::TYPE_DIRECT)
+            ->whereHas('participants', fn ($q) => $q->whereKey($guardianId))
+            ->first();
+
+        if ($conversation === null) {
+            $conversation = $classroom->conversations()->create(['type' => Conversation::TYPE_DIRECT]);
+            $conversation->participants()->attach($guardianId);
+        }
+
+        return $conversation;
+    }
+
+    /**
      * Every family in a room — each guardian with their thread, if one exists.
      * Families who've never messaged still appear (with a null conversation), so
      * staff can start a chat with anyone.
      *
      * @return Collection<int, array<string, mixed>>
      */
-    protected function roomFamilies(Classroom $classroom, User $user): Collection
+    protected function roomFamilies(Classroom $classroom): Collection
     {
-        $byGuardian = $classroom->conversations()->get()->keyBy('guardian_id');
+        // Direct threads keyed by their guardian participant.
+        $threads = $classroom->conversations()
+            ->where('type', Conversation::TYPE_DIRECT)
+            ->with('participants:id')
+            ->get()
+            ->keyBy(fn (Conversation $c) => $c->participants->first()?->id);
 
         return $classroom->guardians()
             ->sortBy('first_name')
             ->map(fn (User $g) => [
                 'guardianId' => $g->id,
                 'name' => $g->name,
-                'conversationId' => $byGuardian->get($g->id)?->id,
-                'lastMessageAt' => $byGuardian->get($g->id)?->last_message_at?->diffForHumans(),
-                'unread' => $byGuardian->get($g->id)?->isUnreadFor($user) ?? false,
+                'conversationId' => $threads->get($g->id)?->id,
+                'lastMessageAt' => $threads->get($g->id)?->last_message_at?->diffForHumans(),
+                'isAnnouncement' => false,
             ])
             ->values();
+    }
+
+    /**
+     * The chat sidebar: the class announcement first, then the direct threads —
+     * every family for staff, or just the guardian's own for a parent.
+     *
+     * @return Collection<int, array<string, mixed>>
+     */
+    protected function threadList(Classroom $classroom, User $user, bool $isStaff, Conversation $announcement): Collection
+    {
+        $items = collect([[
+            'guardianId' => 0,
+            'name' => 'Class announcements',
+            'conversationId' => $announcement->id,
+            'lastMessageAt' => $announcement->last_message_at?->diffForHumans(),
+            'isAnnouncement' => true,
+        ]]);
+
+        if ($isStaff) {
+            return $items->concat($this->roomFamilies($classroom))->values();
+        }
+
+        $own = $classroom->conversations()
+            ->where('type', Conversation::TYPE_DIRECT)
+            ->whereHas('participants', fn ($q) => $q->whereKey($user->id))
+            ->first();
+
+        if ($own !== null) {
+            $items->push([
+                'guardianId' => $user->id,
+                'name' => "{$classroom->name}'s room",
+                'conversationId' => $own->id,
+                'lastMessageAt' => $own->last_message_at?->diffForHumans(),
+                'isAnnouncement' => false,
+            ]);
+        }
+
+        return $items->values();
     }
 
     // ---- shared serialisation ---------------------------------------------
@@ -307,7 +376,9 @@ class PortalController extends Controller
     {
         return Classroom::query()
             ->visibleTo($user)
-            ->where('is_archived', $archived)
+            // Staff split their rooms into active vs archived; a family always
+            // sees every room their child is in, even after it's archived.
+            ->when($user->isStaff(), fn ($q) => $q->where('is_archived', $archived))
             ->withCount('children')
             ->with('teachers')
             ->orderBy('name')

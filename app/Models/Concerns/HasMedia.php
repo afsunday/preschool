@@ -3,12 +3,14 @@
 namespace App\Models\Concerns;
 
 use App\Models\Media;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Attach media to any model through the `mediables` pivot.
  *
- * @phpstan-require-extends \Illuminate\Database\Eloquent\Model
+ * @phpstan-require-extends Model
  */
 trait HasMedia
 {
@@ -39,7 +41,7 @@ trait HasMedia
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Collection<int, Media>
+     * @return Collection<int, Media>
      */
     public function getMedia(string $collection = 'default')
     {

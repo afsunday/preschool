@@ -54,8 +54,10 @@ class PortalSeeder extends Seeder
         ]);
 
         // Rooms carry their teachers via the pivot now (a room may have several).
-        $grade1->teachers()->attach($james->id);
-        $toddlers->teachers()->attach($ada->id);
+        // The factory already mirrors teacher_id into the pivot, so sync — don't
+        // re-attach — to stay idempotent.
+        $grade1->teachers()->syncWithoutDetaching([$james->id]);
+        $toddlers->teachers()->syncWithoutDetaching([$ada->id]);
 
         // The parent who proves the model: one account, two kids, two rooms.
         $bisi = User::factory()->parent()->create([
@@ -118,12 +120,9 @@ class PortalSeeder extends Seeder
             'body' => 'Reminder: swimming on Thursday. Pack a towel and a change of clothes.',
         ]);
 
-        // A chat thread with unread on the teacher's side.
-        $thread = Conversation::factory()->create([
+        $thread = Conversation::factory()->forGuardian($bisi)->create([
             'classroom_id' => $grade1->id,
-            'guardian_id' => $bisi->id,
             'last_message_at' => now(),
-            'guardian_read_at' => now(),
         ]);
         Message::factory()->create([
             'conversation_id' => $thread->id,

@@ -58,9 +58,22 @@ test('users can logout', function () {
 
     $response = $this->actingAs($user)->post(route('logout'));
 
-    $response->assertRedirect(route('home'));
+    $response->assertRedirect(route('login'));
 
     $this->assertGuest();
+});
+
+test('logging out from an Inertia page redirects to login', function () {
+    // Login is an Inertia page, so a plain redirect is enough — no bounce
+    // through the Blade homepage that would land in Inertia's modal.
+    $user = User::factory()->create();
+
+    $response = $this->actingAs($user)
+        ->withHeader('X-Inertia', 'true')
+        ->post(route('logout'));
+
+    $this->assertGuest();
+    $response->assertRedirect(route('login'));
 });
 
 test('users are rate limited', function () {

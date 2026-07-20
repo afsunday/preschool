@@ -3,46 +3,36 @@
 namespace App\Models;
 
 use Database\Factories\MediaFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
-/**
- * @property int $id
- * @property string $disk
- * @property string $path
- * @property string $filename
- * @property string $original_name
- * @property string|null $extension
- * @property string|null $mime_type
- * @property string $kind
- * @property int $size
- * @property int|null $width
- * @property int|null $height
- * @property string|null $title
- * @property string|null $alt
- * @property string|null $description
- * @property int|null $uploaded_by
- * @property-read string $url
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Carbon|null $deleted_at
- */
-#[Fillable([
-    'disk', 'path', 'filename', 'original_name', 'extension', 'mime_type',
-    'kind', 'size', 'width', 'height', 'title', 'alt', 'description', 'uploaded_by',
-])]
 class Media extends Model
 {
     /** @use HasFactory<MediaFactory> */
     use HasFactory, SoftDeletes;
 
     protected $table = 'media';
+
+    protected $fillable = [
+        'disk',
+        'path',
+        'filename',
+        'original_name',
+        'extension',
+        'mime_type',
+        'kind',
+        'size',
+        'width',
+        'height',
+        'title',
+        'alt',
+        'description',
+        'uploaded_by',
+    ];
 
     /**
      * Public URL to the stored file.

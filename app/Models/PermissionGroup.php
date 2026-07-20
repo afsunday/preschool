@@ -13,7 +13,10 @@ class PermissionGroup extends Model
      *
      * @var list<string>
      */
-    protected $fillable = ['name', 'position'];
+    protected $fillable = [
+        'name',
+        'position',
+    ];
 
     /**
      * @return HasMany<Permission, $this>

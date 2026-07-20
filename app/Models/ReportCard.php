@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Database\Factories\ReportCardFactory;
-use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,15 +34,16 @@ use Illuminate\Support\Facades\Storage;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
-#[Fillable([
-    'child_id', 'title', 'issued_on', 'note',
-    'path', 'original_name', 'mime_type', 'size',
-    'published_at', 'created_by',
-])]
 class ReportCard extends Model
 {
     /** @use HasFactory<ReportCardFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'child_id', 'title', 'issued_on', 'note',
+        'path', 'original_name', 'mime_type', 'size',
+        'published_at', 'created_by',
+    ];
 
     /** Private, not `public` — a report card is never world-readable. */
     public const DISK = 'local';

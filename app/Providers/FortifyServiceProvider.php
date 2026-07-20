@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Http\Responses\LoginResponse;
+use App\Http\Responses\LogoutResponse;
 use App\Http\Responses\RegisterResponse;
 use App\Http\Responses\VerifyEmailResponse;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -33,6 +34,11 @@ class FortifyServiceProvider extends ServiceProvider
         $this->app->singleton(
             \Laravel\Fortify\Contracts\RegisterResponse::class,
             RegisterResponse::class,
+        );
+        // Log out returns to the login page (not Fortify's default homepage).
+        $this->app->singleton(
+            \Laravel\Fortify\Contracts\LogoutResponse::class,
+            LogoutResponse::class,
         );
         $this->app->singleton(
             \Laravel\Fortify\Contracts\VerifyEmailResponse::class,

@@ -19,7 +19,9 @@ use Illuminate\Validation\Rule;
  */
 class PortalReportController extends Controller
 {
-    /** Set the day's closing summary, creating the report on demand. */
+    /**
+     * Set the day's closing summary, creating the report on demand.
+     */
     public function update(Request $request, Child $child): RedirectResponse
     {
         $report = $this->reportFor($request, $child);
@@ -33,7 +35,9 @@ class PortalReportController extends Controller
         return back();
     }
 
-    /** Add one event (a nap, a meal, a nappy, a note, a photo) to the day. */
+    /**
+     * Add one event (a nap, a meal, a nappy, a note, a photo) to the day.
+     */
     public function addEntry(Request $request, Child $child): RedirectResponse
     {
         $report = $this->reportFor($request, $child);
@@ -43,10 +47,7 @@ class PortalReportController extends Controller
             'type' => ['required', Rule::in(ReportEntry::TYPES)],
             'label' => ['nullable', 'string', 'max:120'],
             'occurred_at' => ['nullable', 'date'],
-            // A nap is the only entry with a span, and it cannot end before it
-            // started.
             'ended_at' => ['nullable', 'date', 'after_or_equal:occurred_at'],
-            // Meals and nappies choose from a fixed set; a note is free text.
             'detail' => array_key_exists($type, ReportEntry::DETAILS)
                 ? ['required', Rule::in(ReportEntry::DETAILS[$type])]
                 : ['nullable', 'string', 'max:255'],
@@ -112,10 +113,6 @@ class PortalReportController extends Controller
 
         $date = $request->date('date') ?? Carbon::today();
 
-        // Deliberately not firstOrCreate: the `date` cast writes a full
-        // timestamp, so matching on the bare 'Y-m-d' misses the row it just
-        // wrote and the second entry of the day hits the unique index. whereDate
-        // compares the date part, which is what the key actually means.
         $report = DailyReport::query()
             ->where('child_id', $child->id)
             ->whereDate('date', $date)
